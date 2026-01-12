@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight, Video, Clock, ShieldCheck } from "lucide-react";
 
 /**
- * CONFIGURATION
+ * CONFIGURATION & DEFAULTS
  */
 const CTA_CONTENT = {
   heading: "A 30-minute architecture & feasibility discussion",
@@ -52,16 +52,10 @@ function SchedulerWidget() {
   const availableTimes = ["10:00 AM", "11:30 AM", "02:00 PM", "03:30 PM", "04:45 PM"];
 
   return (
-    // MAIN CONTAINER: 
-    // - max-w-[700px] (Compact)
-    // - No Shadow
-    // - Border only
     <div className="w-full max-w-[700px] mx-auto flex flex-col md:flex-row bg-white rounded-2xl border border-gray-200 overflow-hidden">
       
       {/* LEFT PANEL: Context */}
       <div className="md:w-[42%] bg-gray-50/40 p-6 flex flex-col border-b md:border-b-0 md:border-r border-gray-100 relative">
-         
-         {/* Top Accent - Blue Line */}
          <div className="absolute top-0 left-0 w-full h-[3px] bg-[#2563EB]" />
 
          <div className="flex-1 pt-2">
@@ -97,7 +91,6 @@ function SchedulerWidget() {
       </div>
 
       {/* RIGHT PANEL: Calendar */}
-      {/* No gradients, solid white background */}
       <div className="md:w-[58%] p-6 bg-white relative flex flex-col">
          
          {/* Header */}
@@ -184,9 +177,27 @@ function SchedulerWidget() {
 }
 
 // ----------------------------------------------------------------------
+// PROPS INTERFACE (Added for TypeScript support)
+// ----------------------------------------------------------------------
+interface CTAProps {
+  heading?: string;
+  subheading?: string;
+  assurance?: string;
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+// ----------------------------------------------------------------------
 // MAIN COMPONENT
 // ----------------------------------------------------------------------
-export function CTA() {
+export function CTA({
+  heading = CTA_CONTENT.heading,
+  subheading = CTA_CONTENT.subheading,
+  assurance = CTA_CONTENT.assurance,
+  buttonText = CTA_CONTENT.buttonText,
+  buttonLink = CTA_CONTENT.buttonLink,
+}: CTAProps = {}) {
+  
   return (
     <section 
       className="relative py-24 lg:py-32 bg-[#F5F5F0] overflow-hidden"
@@ -202,7 +213,7 @@ export function CTA() {
               className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#1a1a1a] tracking-tight leading-[1.1] mb-6"
               itemProp="headline"
             >
-              {CTA_CONTENT.heading}
+              {heading}
             </h2>
             
             <div className="space-y-4 mb-8 max-w-lg">
@@ -210,21 +221,21 @@ export function CTA() {
                  className="text-[17px] text-gray-800 leading-relaxed font-medium"
                  itemProp="description"
                >
-                 {CTA_CONTENT.subheading}
+                 {subheading}
                </p>
                <p className="text-[14px] text-gray-500 font-medium">
-                 {CTA_CONTENT.assurance}
+                 {assurance}
                </p>
             </div>
 
             <div className="flex flex-col gap-6 w-full sm:w-auto">
                <Link
-                 href={CTA_CONTENT.buttonLink}
+                 href={buttonLink}
                  className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-[#2563EB] text-white rounded-[12px] text-[15px] font-bold transition-all hover:bg-[#1d4ed8] hover:-translate-y-0.5 active:translate-y-0 outline-none focus:ring-4 focus:ring-blue-100 shadow-lg shadow-blue-500/20"
                  itemProp="mainEntity" 
                  itemType="https://schema.org/Action"
                >
-                 <span>{CTA_CONTENT.buttonText}</span>
+                 <span>{buttonText}</span>
                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                </Link>
 
@@ -235,7 +246,7 @@ export function CTA() {
             </div>
           </div>
 
-          {/* RIGHT: Compact Premium Widget (No Shadows/Gradients) */}
+          {/* RIGHT: Compact Premium Widget */}
           <div className="lg:col-span-7 w-full flex justify-center lg:justify-end">
              <SchedulerWidget />
           </div>

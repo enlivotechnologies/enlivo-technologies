@@ -116,7 +116,7 @@ export default function AIAutomationPage() {
       </Container>
 
       {/* CTA Section */}
-      <CTA heading={headings.sections.cta} />
+      <CTA />
     </>
   );
 }

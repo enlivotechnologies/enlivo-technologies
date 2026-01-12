@@ -117,7 +117,7 @@ export default function CloudPlatformsPage() {
       </Container>
 
       {/* CTA Section */}
-      <CTA heading={headings.sections.cta} />
+      <CTA />
     </>
   );
 }

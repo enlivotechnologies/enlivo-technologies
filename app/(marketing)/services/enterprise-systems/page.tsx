@@ -119,7 +119,7 @@ export default function EnterpriseSystemsPage() {
       </Container>
 
       {/* CTA Section */}
-      <CTA heading={headings.sections.cta} />
+      <CTA />
     </>
   );
 }

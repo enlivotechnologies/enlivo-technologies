@@ -118,7 +118,7 @@ export default function CybersecurityPage() {
       </Container>
 
       {/* CTA Section */}
-      <CTA heading={headings.sections.cta} />
+      <CTA />
     </>
   );
 }

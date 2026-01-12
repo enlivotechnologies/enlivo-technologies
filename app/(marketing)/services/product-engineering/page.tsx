@@ -117,7 +117,7 @@ export default function ProductEngineeringPage() {
       </Container>
 
       {/* CTA Section */}
-      <CTA heading={headings.sections.cta} />
+      <CTA />
     </>
   );
 }
