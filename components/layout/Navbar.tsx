@@ -139,7 +139,7 @@ export function Navbar() {
           >
             <div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
               <Image
-                src="/images/navbar/EnlivoLogo.png"
+                src="/images/navbar/EnlivoLogo-overlay.png"
                 width={36}
                 height={36}
                 className="w-full h-full object-contain"

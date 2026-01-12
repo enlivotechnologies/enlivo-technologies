@@ -27,8 +27,8 @@ import { ServicesOverview } from "@/components/sections/ServicesOverview";
 import { OurProcess } from "@/components/sections/OurProcess";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { OurVision } from "@/components/sections/OurVision";
-import { Stats } from "@/components/sections/Stats";
-import { CaseStudiesPreview } from "@/components/sections/CaseStudiesPreview";
+// import { Stats } from "@/components/sections/Stats";
+// import { CaseStudiesPreview } from "@/components/sections/CaseStudiesPreview";
 import { CTA } from "@/components/sections/CTA";
 
 /**
@@ -78,20 +78,20 @@ export default function HomePage() {
       <OurVision />
 
       {/* Stats Section - Social Proof */}
-      <section aria-labelledby="stats-heading">
+      {/* <section aria-labelledby="stats-heading">
         <h2 id="stats-heading" className="sr-only">
           {HOME_HEADINGS.sections.stats}
         </h2>
         <Stats />
-      </section>
+      </section> */}
 
       {/* Case Studies Preview - More Social Proof + Internal Links */}
-      <section aria-labelledby="case-studies-heading">
+      {/* <section aria-labelledby="case-studies-heading">
         <h2 id="case-studies-heading" className="sr-only">
           {HOME_HEADINGS.sections.caseStudies}
         </h2>
         <CaseStudiesPreview />
-      </section>
+      </section> */}
 
       {/* Call to Action */}
       <CTA
