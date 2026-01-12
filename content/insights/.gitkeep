@@ -1,0 +1,22 @@
+# content/insights/.gitkeep
+
+# Insights/Articles Content Directory
+#
+# PURPOSE: Store blog/insight MDX files
+#
+# File naming convention: {slug}.mdx
+# Example: future-of-enterprise-ai.mdx
+#
+# Frontmatter structure:
+# ---
+# title: Article Title
+# description: Brief description for SEO
+# category: Category Name
+# tags: [tag1, tag2]
+# image: /images/insights/filename.jpg
+# author:
+#   name: Author Name
+#   role: Author Role
+# publishedAt: 2024-01-15
+# updatedAt: 2024-01-20 (optional)
+# ---

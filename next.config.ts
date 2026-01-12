@@ -1,8 +1,62 @@
+/**
+ * next.config.ts
+ *
+ * PURPOSE: Next.js configuration file.
+ * WHY: Configures build optimizations, images, and other settings.
+ */
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Enable React Compiler (Next.js 15+)
   reactCompiler: true,
+
+  // Image optimization configuration
+  images: {
+    // Add domains for external images (CMS, etc.)
+    remotePatterns: [
+      // TODO: Add CMS image domains when integrated
+      // {
+      //   protocol: 'https',
+      //   hostname: 'cdn.sanity.io',
+      // },
+    ],
+    // Optimize image formats
+    formats: ["image/avif", "image/webp"],
+  },
+
+  // Experimental features
+  experimental: {
+    // Enable optimized package imports
+    optimizePackageImports: ["@radix-ui/react-slot"],
+  },
+
+  // Headers configuration (additional security headers)
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+        ],
+      },
+    ];
+  },
+
+  // Redirects (for SEO - old URLs to new)
+  async redirects() {
+    return [
+      // TODO: Add redirects for old URL structure
+      // {
+      //   source: '/old-page',
+      //   destination: '/new-page',
+      //   permanent: true, // 308 status code
+      // },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,0 +1,19 @@
+# content/case-studies/.gitkeep
+
+# Case Studies Content Directory
+#
+# PURPOSE: Store case study MDX files
+#
+# File naming convention: {slug}.mdx
+# Example: enterprise-digital-transformation.mdx
+#
+# Frontmatter structure:
+# ---
+# title: Case Study Title
+# description: Brief description for SEO
+# client: Client Name
+# industry: Industry Name
+# services: [service-slug-1, service-slug-2]
+# image: /images/case-studies/filename.jpg
+# publishedAt: 2024-01-15
+# ---
