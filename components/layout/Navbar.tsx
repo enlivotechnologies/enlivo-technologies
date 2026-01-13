@@ -3,13 +3,6 @@
  *
  * PURPOSE: Global navigation header.
  * WHY: Consistent navigation across all pages.
- *
- * SEO NOTES:
- * - Semantic <header> and <nav> elements for proper document structure
- * - Schema.org SiteNavigationElement for rich snippets
- * - Proper aria-labels for accessibility
- * - Descriptive link titles for better crawlability
- * - Internal linking structure helps distribute page authority
  */
 
 "use client";
@@ -18,7 +11,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,64 +24,31 @@ import { cn } from "@/lib/utils";
 interface NavItem {
   id: string;
   label: string;
-  desc: string;
   href: string;
 }
 
-// DATA: What We Do (Services) - Internal linking for service pages
-const whatWeDoItems: NavItem[] = [
-  {
-    id: "digital",
-    label: "Digital Platforms",
-    desc: "Design and engineering of scalable web and mobile products",
-    href: "/services/product-engineering",
-  },
-  {
-    id: "enterprise",
-    label: "Enterprise Systems",
-    desc: "Internal platforms, integrations, and mission-critical systems",
-    href: "/services/enterprise-systems",
-  },
-  {
-    id: "ai",
-    label: "AI & Automation",
-    desc: "Intelligent workflows, data platforms, and operational efficiency",
-    href: "/services/ai-automation",
-  },
-];
-
-// DATA: Company (Internal Info) - Internal linking for company pages
+// DATA: Company (Internal Info) - Removed IT Launchpad
 const companyItems: NavItem[] = [
   {
     id: "aboutus",
     label: "About Enlivo",
-    desc: "Our mission, vision, and core values",
     href: "/company/about",
   },
   {
     id: "careers",
     label: "Careers",
-    desc: "Join our growing team of innovators",
     href: "/company/careers",
   },
   {
     id: "internship",
     label: "Internships",
-    desc: "Start your professional journey with us",
     href: "/company/internships",
-  },
-  {
-    id: "launchpad",
-    label: "IT Launchpad",
-    desc: "Our exclusive tech acceleration program",
-    href: "/company/launchpad",
   },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [mobileWhatWeDoOpen, setMobileWhatWeDoOpen] = useState(false);
   const [mobileCompanyOpen, setMobileCompanyOpen] = useState(false);
   const pathname = usePathname();
 
@@ -107,7 +67,6 @@ export function Navbar() {
   }, [pathname]);
 
   // Check if current page is in a section
-  const isServicesActive = pathname?.startsWith("/services");
   const isCompanyActive = pathname?.startsWith("/company");
 
   return (
@@ -115,8 +74,8 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 w-full z-[100] transition-all duration-300",
         isScrolled
-          ? "bg-[#F4F5F3]/98 backdrop-blur-md border-b border-[#1a1a1a]/10"
-          : "bg-[#F4F5F3] border-b border-transparent"
+          ? "bg-[#F9FAF8]/98 backdrop-blur-md border-b border-[#1a1a1a]/10"
+          : "bg-[#F9FAF8] border-b border-transparent"
       )}
       itemScope
       itemType="https://schema.org/WPHeader"
@@ -137,11 +96,11 @@ export function Navbar() {
             title="Enlivo Technologies - Enterprise Software Solutions"
             itemProp="url"
           >
-            <div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
+            <div className="w-7 h-7 rounded-full flex items-center justify-center overflow-hidden">
               <Image
                 src="/images/navbar/EnlivoLogo.png"
-                width={36}
-                height={36}
+                width={28}
+                height={28}
                 className="w-full h-full object-contain"
                 alt="Enlivo Technologies Logo - Digital Product Engineering Company"
                 unoptimized
@@ -149,7 +108,7 @@ export function Navbar() {
               />
             </div>
             <span
-              className="text-xl font-medium text-[#1a1a1a] tracking-tight"
+              className="text-base font-medium text-[#1a1a1a] tracking-tight"
               itemProp="name"
             >
               Enlivo Technologies
@@ -158,90 +117,34 @@ export function Navbar() {
 
           {/* --- Desktop Navigation --- */}
           <div className="hidden lg:flex items-center space-x-1" role="menubar">
-            {/* 1. What We Do Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button
-                  className={cn(
-                    "px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 flex items-center gap-1.5 outline-none ring-0 focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none group",
-                    isServicesActive
-                      ? "text-[#2563EB] bg-[#2563EB]/10"
-                      : "text-[#1a1a1a] hover:bg-black/5"
-                  )}
-                  aria-label="Services menu - View our digital product engineering services"
-                  aria-haspopup="true"
-                  role="menuitem"
-                >
-                  What We Do
-                  <ChevronDown
-                    size={14}
-                    className="group-data-[state=open]:rotate-180 transition-transform duration-300"
-                    aria-hidden="true"
-                  />
-                </button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent
-                className="w-[340px] p-2 bg-[#F5F5F0] rounded-xl border border-[#1a1a1a]/10 shadow-xl shadow-[#1a1a1a]/5 mt-2 z-[110]"
-                align="start"
-                sideOffset={8}
-                role="menu"
-              >
-                {whatWeDoItems.map((item, index) => (
-                  <div key={item.id}>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href={item.href}
-                        className="group flex flex-col items-start gap-1 p-3 rounded-lg cursor-pointer focus:bg-white hover:bg-white outline-none transition-all duration-200 shadow-sm hover:shadow-sm border border-transparent hover:border-[#1a1a1a]/5"
-                        title={`${item.label} - ${item.desc}`}
-                        itemProp="url"
-                        role="menuitem"
-                      >
-                        <div className="flex items-center justify-between w-full">
-                          <span
-                            className="font-medium text-[#1a1a1a] text-sm transition-colors"
-                            itemProp="name"
-                          >
-                            {item.label}
-                          </span>
-                          <ArrowRight
-                            size={14}
-                            className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#1a1a1a]"
-                            aria-hidden="true"
-                          />
-                        </div>
-                        <span
-                          className="text-xs text-[#4a4a4a] font-normal leading-relaxed"
-                          itemProp="description"
-                        >
-                          {item.desc}
-                        </span>
-                      </Link>
-                    </DropdownMenuItem>
-
-                    {/* Separator Line */}
-                    {index < whatWeDoItems.length - 1 && (
-                      <div
-                        className="h-[1px] bg-gradient-to-r from-transparent via-[#1a1a1a]/10 to-transparent mx-4 my-1"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </div>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* 2. Standard Links */}
+            {/* 1. Services */}
             <a
               href="/#services-overview"
-              className={cn(
-                "px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:bg-black/5 cursor-pointer",
-                pathname === "/" ? "text-[#2563EB]" : "text-[#1a1a1a]"
-              )}
+              className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:text-[#2563EB] hover:bg-black/5 cursor-pointer text-[#1a1a1a]"
+              title="Our Services - Digital Product Engineering & Enterprise Systems"
+              itemProp="url"
+              role="menuitem"
+              onClick={(e) => {
+                if (pathname === "/") {
+                  e.preventDefault();
+                  const el = document.getElementById("services-overview");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+            >
+              <span itemProp="name">Services</span>
+            </a>
+
+            {/* 2. How We Work */}
+            <a
+              href="/#services-overview"
+              className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:text-[#2563EB] hover:bg-black/5 cursor-pointer text-[#1a1a1a]"
               title="How We Work - Our development process and methodology"
               itemProp="url"
               role="menuitem"
-              onClick={e => {
+              onClick={(e) => {
                 if (pathname === "/") {
                   e.preventDefault();
                   const el = document.getElementById("services-overview");
@@ -253,14 +156,11 @@ export function Navbar() {
             >
               <span itemProp="name">How We Work</span>
             </a>
+
+            {/* 3. Case Studies */}
             <Link
               href="/case-studies"
-              className={cn(
-                "px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:bg-black/5",
-                pathname?.startsWith("/case-studies")
-                  ? "text-[#2563EB]"
-                  : "text-[#1a1a1a]"
-              )}
+              className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:text-[#2563EB] hover:bg-black/5 text-[#1a1a1a]"
               title="Case Studies - See our successful digital transformation projects"
               itemProp="url"
               role="menuitem"
@@ -268,7 +168,7 @@ export function Navbar() {
               <span itemProp="name">Case Studies</span>
             </Link>
 
-            {/* 3. Company Dropdown */}
+            {/* 4. Company Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
@@ -278,7 +178,7 @@ export function Navbar() {
                       ? "text-[#2563EB] bg-[#2563EB]/10"
                       : "text-[#1a1a1a] hover:bg-black/5"
                   )}
-                  aria-label="Company information menu - About us, careers, and more"
+                  aria-label="Company information menu"
                   aria-haspopup="true"
                   role="menuitem"
                 >
@@ -292,56 +192,35 @@ export function Navbar() {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent
-                className="w-[280px] p-2 bg-[#F5F5F0] rounded-xl border border-[#1a1a1a]/10 shadow-xl shadow-[#1a1a1a]/5 mt-2 z-[110]"
+                className="w-[220px] p-2 bg-white rounded-2xl border border-gray-100 shadow-xl shadow-black/5 mt-2 z-[110]"
                 align="end"
                 sideOffset={10}
                 role="menu"
               >
-                {companyItems.map((item, index) => (
-                  <div key={item.id}>
-                    <DropdownMenuItem asChild>
+                <div className="flex flex-col gap-1">
+                  {companyItems.map((item) => (
+                    <DropdownMenuItem key={item.id} asChild>
                       <Link
                         href={item.href}
-                        className="group flex flex-col items-start gap-1 p-3 rounded-lg cursor-pointer focus:bg-white hover:bg-white outline-none transition-all duration-200 shadow-sm hover:shadow-sm border border-transparent hover:border-[#1a1a1a]/5"
-                        title={`${item.label} - ${item.desc}`}
+                        className="block px-4 py-3 rounded-xl hover:bg-gray-50 text-[#1a1a1a] transition-colors cursor-pointer outline-none"
+                        title={item.label}
                         itemProp="url"
                         role="menuitem"
                       >
-                        <div className="flex items-center justify-between w-full">
-                          <span
-                            className="font-medium text-[#1a1a1a] text-sm transition-colors"
-                            itemProp="name"
-                          >
-                            {item.label}
-                          </span>
-                          <ArrowRight
-                            size={14}
-                            className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#1a1a1a]"
-                            aria-hidden="true"
-                          />
-                        </div>
                         <span
-                          className="text-xs text-[#4a4a4a] font-normal leading-relaxed"
-                          itemProp="description"
+                          className="text-[15px] font-medium"
+                          itemProp="name"
                         >
-                          {item.desc}
+                          {item.label}
                         </span>
                       </Link>
                     </DropdownMenuItem>
-
-                    {/* Separator Line */}
-                    {index < companyItems.length - 1 && (
-                      <div
-                        className="h-[1px] bg-gradient-to-r from-transparent via-[#1a1a1a]/10 to-transparent mx-4 my-1"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </div>
-                ))}
+                  ))}
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* 4. CTA Button */}
+            {/* 5. CTA Button */}
             <div className="pl-4">
               <Link
                 href="/contact"
@@ -378,7 +257,7 @@ export function Navbar() {
       <div
         id="mobile-menu"
         className={cn(
-          "fixed inset-0 z-40 bg-[#F5F5F0] pt-24 px-6 overflow-y-auto transition-all duration-300 lg:hidden",
+          "fixed inset-0 z-40 bg-[#F9FAF8] pt-24 px-6 overflow-y-auto transition-all duration-300 lg:hidden",
           isMobileMenuOpen
             ? "opacity-100 visible"
             : "opacity-0 invisible pointer-events-none"
@@ -387,60 +266,18 @@ export function Navbar() {
         aria-label="Mobile navigation menu"
       >
         <div className="flex flex-col space-y-6 text-lg font-medium text-[#1a1a1a] max-w-sm mx-auto">
-          {/* Mobile Accordions */}
+          {/* Mobile Links */}
           <div className="space-y-4">
-            {/* Mobile: What We Do */}
-            <div className="border-b border-black/5 pb-4">
-              <button
-                onClick={() => setMobileWhatWeDoOpen(!mobileWhatWeDoOpen)}
-                className="w-full flex items-center justify-between group"
-                aria-expanded={mobileWhatWeDoOpen}
-                aria-controls="mobile-services-menu"
-              >
-                <span className={mobileWhatWeDoOpen ? "text-[#2563EB]" : ""}>
-                  What We Do
-                </span>
-                <ChevronDown
-                  size={20}
-                  className={`transition-transform duration-300 ${
-                    mobileWhatWeDoOpen
-                      ? "rotate-180 text-[#2563EB]"
-                      : "text-gray-400"
-                  }`}
-                  aria-hidden="true"
-                />
-              </button>
-
-              <div
-                id="mobile-services-menu"
-                className={cn(
-                  "grid transition-all duration-300 ease-in-out",
-                  mobileWhatWeDoOpen
-                    ? "grid-rows-[1fr] mt-4"
-                    : "grid-rows-[0fr]"
-                )}
-              >
-                <div className="overflow-hidden space-y-3">
-                  {whatWeDoItems.map((item) => (
-                    <Link
-                      key={item.id}
-                      href={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full text-left p-3 rounded-xl bg-white/50 hover:bg-white transition-colors"
-                      title={`${item.label} - ${item.desc}`}
-                      role="menuitem"
-                    >
-                      <div className="font-semibold text-base text-[#1a1a1a]">
-                        {item.label}
-                      </div>
-                      <div className="text-xs text-gray-500 mt-0.5">
-                        {item.desc}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
+            {/* Mobile: Services */}
+            <Link
+              href="/services"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block w-full text-left py-2 hover:opacity-70 transition-opacity"
+              title="Services"
+              role="menuitem"
+            >
+              Services
+            </Link>
 
             {/* Mobile: Standard Links */}
             <Link
@@ -462,7 +299,7 @@ export function Navbar() {
               Case Studies
             </Link>
 
-            {/* Mobile: Company */}
+            {/* Mobile: Company Dropdown */}
             <div className="border-t border-black/5 pt-4">
               <button
                 onClick={() => setMobileCompanyOpen(!mobileCompanyOpen)}
@@ -494,7 +331,7 @@ export function Navbar() {
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="block w-full text-left p-2 rounded-lg hover:bg-white/50 transition-colors"
-                      title={`${item.label} - ${item.desc}`}
+                      title={item.label}
                       role="menuitem"
                     >
                       <div className="font-medium text-base text-gray-800 hover:opacity-70 transition-opacity">

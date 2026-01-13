@@ -103,15 +103,13 @@ export function ServicesOverview() {
           <div className="lg:col-span-10">
             <h2
               id="process-heading"
-              className="text-3xl md:text-4xl lg:text-[3.25rem] font-medium leading-[1.15] tracking-tight text-[#1a1a1a] lg:text-left mb-6"
+              className="text-2xl md:text-4xl lg:text-5xl font-medium text-[#1a1a1a] leading-[1.15] mb-6 tracking-tight w-full"
               itemProp="name"
             >
-              What We Build for Modern <br className="hidden lg:block" />
-              Enterprises at Scale.
+             What We Build for Growing Businesses That Need Reliable Technology
             </h2>
-            <p className="text-lg md:text-xl text-[#555555] leading-relaxed max-w-3xl font-medium">
-              End-to-end digital, AI, and security-first systems designed for
-              reliability, growth, and real-world enterprise operations.
+            <p className="text-base md:text-lg text-[#5a5a5a] leading-relaxed max-w-3xl font-medium">
+              Secure software, enterprise platforms, and AI systems built to support growth and reliable day to day operations.
             </p>
           </div>
         </header>
