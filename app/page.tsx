@@ -61,7 +61,7 @@ export default function HomePage() {
       <TrustStatement />
 
       {/* Services Overview - Critical for internal linking */}
-      <section aria-labelledby="services-heading">
+      <section id="services-overview" aria-labelledby="services-heading">
         <h2 id="services-heading" className="sr-only">
           {HOME_HEADINGS.sections.services}
         </h2>

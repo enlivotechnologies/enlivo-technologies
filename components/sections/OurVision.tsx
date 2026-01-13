@@ -49,15 +49,15 @@ interface Stat {
 // Company statistics - update these with real data
 const STATS: Stat[] = [
   {
-    value: "47+",
+    value: "17+",
     label: "Projects delivered",
   },
   {
-    value: "$2.2M+",
+    value: "$1.2M+",
     label: "Client revenue impacted",
   },
   {
-    value: "95%",
+    value: "97%",
     label: "Client retention",
   },
 ];
@@ -123,7 +123,7 @@ export function OurVision() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 lg:py-32 bg-[#F5F5F0]"
+      className="py-24 lg:py-32 bg-white"
       aria-labelledby="vision-heading"
       aria-describedby="vision-seo-content"
       itemScope
@@ -195,7 +195,7 @@ export function OurVision() {
           <div className="lg:col-span-2 pt-2">
             <span
               ref={labelRef}
-              className="text-xs font-medium tracking-widest block text-black opacity-0"
+              className="text-xs font-medium tracking-widest block text-black opacity-0 uppercase"
             >
               /Our Vision/
             </span>

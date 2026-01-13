@@ -115,8 +115,8 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 w-full z-[100] transition-all duration-300",
         isScrolled
-          ? "bg-[#F5F5F0]/98 backdrop-blur-md border-b border-[#1a1a1a]/10"
-          : "bg-[#F5F5F0] border-b border-transparent"
+          ? "bg-[#F4F5F3]/98 backdrop-blur-md border-b border-[#1a1a1a]/10"
+          : "bg-[#F4F5F3] border-b border-transparent"
       )}
       itemScope
       itemType="https://schema.org/WPHeader"
@@ -139,7 +139,7 @@ export function Navbar() {
           >
             <div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden">
               <Image
-                src="/images/navbar/EnlivoLogo-overlay.png"
+                src="/images/navbar/EnlivoLogo.png"
                 width={36}
                 height={36}
                 className="w-full h-full object-contain"
@@ -232,18 +232,27 @@ export function Navbar() {
             </DropdownMenu>
 
             {/* 2. Standard Links */}
-            <Link
-              href="/insights"
+            <a
+              href="/#services-overview"
               className={cn(
-                "px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:bg-black/5",
-                pathname === "/insights" ? "text-[#2563EB]" : "text-[#1a1a1a]"
+                "px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:bg-black/5 cursor-pointer",
+                pathname === "/" ? "text-[#2563EB]" : "text-[#1a1a1a]"
               )}
               title="How We Work - Our development process and methodology"
               itemProp="url"
               role="menuitem"
+              onClick={e => {
+                if (pathname === "/") {
+                  e.preventDefault();
+                  const el = document.getElementById("services-overview");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
             >
               <span itemProp="name">How We Work</span>
-            </Link>
+            </a>
             <Link
               href="/case-studies"
               className={cn(
@@ -336,7 +345,7 @@ export function Navbar() {
             <div className="pl-4">
               <Link
                 href="/contact"
-                className="bg-[#2563EB] hover:bg-[#1D4ED8] text-[#FFFFFF] text-sm font-semibold px-6 py-2.5 rounded-full transition-colors duration-300 shadow-lg shadow-blue-500/20"
+                className="bg-[#2563EB] hover:bg-[#1D4ED8] text-[#FFFFFF] text-sm font-medium px-6 py-2.5 rounded-full transition-colors duration-300 "
                 title="Contact Us - Get in touch with our team for enterprise software solutions"
                 itemProp="url"
                 role="menuitem"

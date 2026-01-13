@@ -81,14 +81,41 @@ export function ServicesOverview() {
 
   return (
     <section
-      className="py-24 bg-[#F5F5F0]"
+      className="py-24 bg-[#F4F5F3]"
       aria-labelledby="services-heading"
       itemScope
       itemType="https://schema.org/ItemList"
     >
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-12">
+        <header className="grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-x-16 mb-20 lg:mb-24 items-start">
+          {/* Left Label */}
+          <div className="lg:col-span-2 pt-3">
+            <span
+              className="text-xs font-medium tracking-[0.2em] text-zinc-400 uppercase tracking-widest block "
+              aria-label="Section label"
+            >
+              / Service We Offer /
+            </span>
+          </div>
+
+          {/* Right Content - Headline */}
+          <div className="lg:col-span-10">
+            <h2
+              id="process-heading"
+              className="text-3xl md:text-4xl lg:text-[3.25rem] font-medium leading-[1.15] tracking-tight text-[#1a1a1a] lg:text-left mb-6"
+              itemProp="name"
+            >
+              What We Build for Modern <br className="hidden lg:block" />
+              Enterprises at Scale.
+            </h2>
+            <p className="text-lg md:text-xl text-[#555555] leading-relaxed max-w-3xl font-medium">
+              End-to-end digital, AI, and security-first systems designed for
+              reliability, growth, and real-world enterprise operations.
+            </p>
+          </div>
+        </header>
+        {/* <div className="mb-12">
           <h2
             id="services-heading"
             className="text-3xl md:text-5xl font-medium text-[#1a1a1a] leading-[1.1] tracking-tight max-w-3xl"
@@ -97,7 +124,7 @@ export function ServicesOverview() {
             This is how we help ambitious <br className="hidden lg:block" />
             companies succeed.
           </h2>
-        </div>
+        </div> */}
 
         {/* Services Accordion List */}
         <div className="flex flex-col border-t border-[#1a1a1a]/10" role="list">

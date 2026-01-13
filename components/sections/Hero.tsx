@@ -193,7 +193,7 @@ export function Hero({
   return (
     <section
       ref={sectionRef}
-      className="relative pt-36 lg:pt-48 bg-[#F5F5F0] overflow-hidden"
+      className="relative pt-36 lg:pt-48 bg-[#F9FAF8] overflow-hidden"
       aria-labelledby="hero-heading"
       itemScope
       itemType="https://schema.org/WebPageElement"

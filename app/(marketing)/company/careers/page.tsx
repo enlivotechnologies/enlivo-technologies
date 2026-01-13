@@ -98,27 +98,28 @@ export default function CareersPage() {
       />
 
       {/* Main Background */}
-      <main className="bg-[#F5F5F0] min-h-screen font-sans selection:bg-zinc-900 selection:text-white">
+      <main className="bg-[#F9FAF8] min-h-screen font-sans selection:bg-zinc-900 selection:text-white">
         
         {/* Hero Section */}
         <section className="pt-32 pb-16 lg:pt-40 lg:pb-24">
           {/* NAV WIDTH CONSTRAINT APPLIED HERE */}
           <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E5E5E0] text-xs font-medium text-zinc-600 mb-8 shadow-sm">
+              <div className="inline-flex items-center gap-2 py-1 rounded-full  text-xs font-medium text-zinc-600 mb-4">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                 </span>
                 Hiring in India
               </div>
-              <h1 className="text-5xl md:text-6xl lg:text-[5rem] font-bold text-[#1a1a1a] tracking-tight mb-8 leading-[1]">
-                Do work that defines <br />
-                <span className="text-zinc-400">your decade.</span>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-[#1a1a1a] tracking-tight mb-4 leading-[1]">
+                Do work that defines your decade. 
+                {/* <br /><span className="text-zinc-400">your decade.</span> */}
               </h1>
-              <p className="text-xl text-[#555] font-medium leading-relaxed max-w-2xl">
-                Join a team of obsessive craftsmen in India. We foster a culture 
-                where the best idea wins, regardless of your title.
+              <p className="text-sm md:text-base lg:text-lg text-[#5a5a5a] font-medium leading-relaxed max-w-3xl">
+                {/* Join a team of obsessive craftsmen in India. We foster a culture 
+                where the best idea wins, regardless of your title. */}
+                Our philosophy is simple - hire a team of diverse, passionate people are foster a culture that empowers you to do your best work.
               </p>
             </div>
           </div>

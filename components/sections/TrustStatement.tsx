@@ -81,7 +81,7 @@ export function TrustStatement() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 lg:py-32 bg-[#F5F5F0]"
+      className="py-24 lg:py-32 bg-[#F9FAF8]"
       aria-labelledby="trust-heading"
       aria-describedby="trust-description"
       itemScope
@@ -97,26 +97,27 @@ export function TrustStatement() {
 
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Decorative accent line - hidden from screen readers */}
-        <div
+        {/* <div
           ref={accentRef}
           className="w-12 h-[3px] bg-[#2563EB] mb-8 origin-left"
           style={{ transform: "scaleX(0)" }}
           aria-hidden="true"
           role="presentation"
-        />
+        /> */}
 
         {/* H2 - Secondary heading supporting SEO hierarchy */}
         <h2
           ref={headingRef}
           id="trust-heading"
-          className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-[#1a1a1a] tracking-tight leading-[1.15] mb-6 max-w-5xl opacity-0"
+          className="text-center text-3xl md:text-5xl font-medium text-[#1a1a1a] tracking-tight leading-[1.15] mb-6 opacity-0"
           itemProp="slogan"
         >
-          Modern businesses run on software & reliability is non-negotiable.
+          {/* Modern businesses run on software & reliability is non-negotiable. */}  We are committed to enabling individuals and businesses to build reliable digital systems, operate with confidence, and achieve long-term growth through secure, scalable technology.
+
         </h2>
 
         {/* Value proposition paragraph with semantic keywords */}
-        <p
+        {/* <p
           ref={paragraphRef}
           id="trust-description"
           className="text-sm md:text-base lg:text-lg text-[#5a5a5a] leading-relaxed max-w-4xl opacity-0"
@@ -128,7 +129,7 @@ export function TrustStatement() {
           Through disciplined engineering, security-first architecture, and
           practical AI, complex ideas are transformed into production-ready
           platforms that deliver real business outcomes.
-        </p>
+        </p> */}
       </div>
     </section>
   );

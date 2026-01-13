@@ -93,7 +93,7 @@ export function Footer() {
               <Link href="/" className="inline-flex items-center gap-3 group">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/navbar/EnlivoLogo.png"
+                  src="/images/navbar/EnlivoLogo-overlay.png"
                   alt="Enlivo Technologies"
                   width={40}
                   height={40}
