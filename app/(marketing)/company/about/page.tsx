@@ -104,92 +104,28 @@ export default function AboutPage() {
             {/* RIGHT COLUMN: Single "About CEO" Card */}
             <div className="flex flex-col h-full">
               <div className="bg-[#F2F2F0] p-10 rounded-[2rem] flex flex-col justify-end h-full transition-colors duration-300 min-h-[500px]">
-                <p className="text-[#5a5a5a] text-lg leading-relaxed font-medium">
-                  Under the leadership of Founder and CEO Akshay K, Enlivo
-                  operates with a clear focus on building secure, dependable
-                  software systems. The company’s approach prioritizes long-term
-                  value, operational reliability, and technology decisions that
-                  support real business growth.
+                <p className="text-[#5a5a5a] text-base leading-relaxed font-medium">
+                  Under the leadership of Founder & CEO{" "}
+                  <span className="font-bold text-black">Akshay K</span>, Enlivo
+                  operates with a clear focus on building{" "}
+                  <span className="font-bold text-black">secure</span>,{" "}
+                  <span className="font-bold text-black">dependable </span>
+                  software systems. The company’s approach prioritizes{" "}
+                  <span className="font-bold text-black">
+                    long-term value
+                  </span>,{" "}
+                  <span className="font-bold text-black">
+                    operational reliability
+                  </span>
+                  , and{" "}
+                  <span className="font-bold text-black">
+                    technology decisions
+                  </span>{" "}
+                  that support real{" "}
+                  <span className="font-bold text-black">business growth</span>.
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* -------------------------------------------------------------------------
-          SECTION 4: VALUES / IMPACT
-      -------------------------------------------------------------------------- */}
-      <section className="py-24 bg-[#1a1a1a] text-white rounded-t-[3rem] mt-12">
-        <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">
-                Why Global Leaders <br />
-                Trust Enlivo
-              </h2>
-            </div>
-            <button className="group flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 hover:bg-white hover:text-black transition-all duration-300">
-              <span>View our Case Studies</span>
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </button>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              {
-                icon: <Trophy className="w-6 h-6" />,
-                label: "Award Winning",
-                desc: "Recognized for excellence in enterprise architecture.",
-              },
-              {
-                icon: <Users className="w-6 h-6" />,
-                label: "Elite Talent",
-                desc: "Top 1% of engineering talent from around the globe.",
-              },
-              {
-                icon: <Globe2 className="w-6 h-6" />,
-                label: "Global Reach",
-                desc: "Serving clients across 12 countries and 4 continents.",
-              },
-              {
-                icon: <Sparkles className="w-6 h-6" />,
-                label: "Innovation First",
-                desc: "Pioneering AI and Cloud Native methodologies.",
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors duration-300 group"
-              >
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-white">
-                  {item.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-3">{item.label}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Big Stats Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-10 border-t border-white/10">
-            {[
-              { num: "500+", label: "Projects Delivered" },
-              { num: "98%", label: "Client Retention" },
-              { num: "12", label: "Global Offices" },
-              { num: "50M+", label: "Users Impacted" },
-            ].map((stat, i) => (
-              <div key={i} className="text-center md:text-left">
-                <p className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  {stat.num}
-                </p>
-                <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
