@@ -39,22 +39,41 @@ const FOOTER_NAVIGATION = [
   {
     header: "Company",
     links: [
+<<<<<<< HEAD
       { label: "About Enlivo", href: "/company/about" },
       { label: "Careers", href: "/company/careers" },
       { label: "Internships", href: "/company/internships" },
       { label: "Contact", href: "/contact" },
       { label: "Case Studies", href: "/case-studies" },
       { label: "Insights & Reports", href: "/insights" },
+=======
+      { label: "About Enlivo" },
+      { label: "How We Work" },
+      { label: "Case Studies" },
+      { label: "Leadership" },
+      { label: "Careers" },
+      { label: "Internships" },
+>>>>>>> 865295c (Update code and push to new GitHub remote)
     ],
   },
   {
     header: "Resources",
     links: [
+<<<<<<< HEAD
       { label: "Contact Support", href: "/support" },
       { label: "Ambassador Program", href: "/ambassadors" },
       { label: "Tech Glossary", href: "/glossary" },
       { label: "FAQs", href: "/faq" },
       { label: "SaaS Landing Pages", href: "/resources/saas" },
+=======
+      { label: "Contact Support" },
+      { label: "FAQs" },
+      { label: "Security Practices" },
+      { label: "Privacy Policy" },
+      { label: "Terms of Service" },
+      { label: "Public Notice" },
+      { label: "Blog / Insights" },
+>>>>>>> 865295c (Update code and push to new GitHub remote)
     ],
   },
 ];
@@ -130,7 +149,7 @@ export function Footer() {
                   type="submit"
                   className="absolute right-1.5 top-1.5 bottom-1.5 px-6 bg-white hover:bg-gray-200 text-black text-sm font-bold rounded-full transition-colors duration-300"
                 >
-                  Submit
+                  Subscribe
                 </button>
               </form>
             </div>
@@ -142,6 +161,7 @@ export function Footer() {
               {FOOTER_NAVIGATION.map((column) => (
                 <div key={column.header} className="flex flex-col gap-4">
                   {/* Visually hidden header for SEO, but providing spacing */}
+<<<<<<< HEAD
                   <div className="h-0 opacity-0" aria-hidden="true">{column.header}</div> 
                   
                   {column.links.map((link) => (
@@ -153,6 +173,23 @@ export function Footer() {
                       {link.label}
                     </Link>
                   ))}
+=======
+                  <div className="h-0 opacity-0" aria-hidden="true">
+                    {column.header}
+                  </div>
+
+                  {column.links
+                    .filter((link) => link.label !== "SaaS Landing Pages")
+                    .map((link, idx) => (
+                      <span
+                        key={link.label + idx}
+                        className="text-[14px] font-medium text-gray-500 transition-colors duration-200 cursor-pointer hover:text-white hover:underline decoration-white/30 underline-offset-4"
+                        tabIndex={0}
+                      >
+                        {link.label}
+                      </span>
+                    ))}
+>>>>>>> 865295c (Update code and push to new GitHub remote)
                 </div>
               ))}
             </div>
