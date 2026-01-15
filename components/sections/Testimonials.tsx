@@ -16,75 +16,82 @@ interface Testimonial {
 }
 
 const TESTIMONIALS: Testimonial[] = [
-  // --- ROW 1 (Moves Left) ---
+  // --- ROW 1 (Moves Left) - 2 text + 2 videos ---
   {
     id: 1,
     type: "text",
-    name: "Ananya Rao",
-    role: "Product Manager",
-    company: "Enterprise Solutions",
+    name: "Rohit",
+    role: "Founder",
+    company: "Web Product",
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
-    text: "The team balanced UX, performance, and security without overengineering. What stood out was their ability to translate business requirements into technical decisions.",
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+    text: "I had already lost time and money with freelancers before. What was different here is communication — I always knew what was happening and why. That alone made this worth it.",
   },
   {
     id: 2,
     type: "video", // VIDEO 1
-    name: "Sarah Jenkins",
-    image: "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768464062/Untitled_design_1_vmz5hb.mp4",
+    name: "Satyam Vyas",
+    image: "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768462714/Untitled_design_scbpxt.mp4",
   },
   {
     id: 3,
     type: "text",
-    name: "Karthik R",
-    role: "Director of Tech",
-    company: "LogiChain",
+    name: "Amit",
+    role: "Non-Technical Founder",
+    company: "Startup MVP",
     image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-    text: "Enlivo helped stabilize and scale systems under production load. Their focus on reliability gave us confidence during expansion.",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+    text: "Before working with Enlivo, I was completely confused about what to build first. They didn't just start coding — they helped me understand the product step by step. For the first time, I felt like someone actually took responsibility instead of pushing decisions back on me.",
   },
   {
     id: 4,
     type: "video", // VIDEO 2
-    name: "Satyam Vyas",
-    image: "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768462714/Untitled_design_scbpxt.mp4",
+    name: "Sarah Jenkins",
+    image: "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768464062/Untitled_design_1_vmz5hb.mp4",
   },
 
-  // --- ROW 2 (Moves Right) ---
+  // --- ROW 2 (Moves Right) - 3 text + 1 video ---
   {
     id: 5,
-    type: "video", // VIDEO 3
-    name: "Olivia",
-    image: "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768464308/Untitled_design_2_hxk8qe.mp4",
+    type: "text",
+    name: "Suresh",
+    role: "Business Owner",
+    company: "",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
+    text: "What I liked most was clarity. Timelines were realistic, progress was visible, and there were no surprises. That's rare.",
   },
   {
     id: 6,
     type: "text",
-    name: "Sunil B K",
-    role: "CTO",
-    company: "Global FinTech",
+    name: "Agency Partner",
+    role: "Project Lead",
+    company: "",
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-    text: "Enlivo worked closely with our internal teams to modernize legacy systems without disrupting operations. Their approach to architecture gave us a scalable foundation.",
+    text: "We needed reliable execution without constant follow-ups. Work was delivered cleanly and on time, which made our job easier.",
   },
   {
     id: 7,
-    type: "video", // VIDEO 4 (New Video added here)
-    name: "James Carter",
-    image: "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768464802/Untitled_design_3_pkbjtp.mp4",
+    type: "text",
+    name: "Neha",
+    role: "Startup Founder",
+    company: "",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
+    text: "I'm not technical, so I was worried about being misled. Instead, everything was explained clearly and decisions were discussed before execution. I never felt out of control.",
   },
   {
     id: 8,
-    type: "text",
-    name: "Rohit Mehra",
-    role: "Head of Engineering",
-    company: "SaaS Platform",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
-    text: "Clear communication, predictable delivery, and strong engineering discipline made them a reliable partner at a critical growth stage.",
+    type: "video", // VIDEO 3
+    name: "Olivia",
+    image: "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768464308/Untitled_design_2_hxk8qe.mp4",
   },
 ];
 
+// Split testimonials into two rows with proper distribution
+// Row 1 (Upper): First 4 items - moves LEFT (normal direction)
+// Row 2 (Lower): Next 4 items - moves RIGHT (reverse direction - opposite)
 const firstRow = TESTIMONIALS.slice(0, 4);
 const secondRow = TESTIMONIALS.slice(4, 8);
 
@@ -93,16 +100,23 @@ function ReviewCard({ data }: { data: Testimonial }) {
   return (
     <figure
       className={cn(
-        "relative w-[300px] h-[260px] cursor-pointer overflow-hidden rounded-2xl p-6",
-        "bg-[#09090b] border border-white/[0.08]",
-        "hover:bg-[#111113] hover:border-white/[0.15] transition-all duration-300",
+        "relative w-[280px] h-auto min-h-[240px] cursor-pointer overflow-hidden rounded-lg p-5",
+        "bg-gradient-to-br from-[#09090b] to-[#0a0a0a] border border-white/[0.08]",
+        "hover:bg-gradient-to-br hover:from-[#111113] hover:to-[#0f0f0f] hover:border-white/[0.15] hover:shadow-lg hover:shadow-black/30 transition-all duration-300",
         "flex flex-col justify-between"
       )}
     >
-      <div>
-        {/* Header: Avatar + Name */}
-        <div className="flex items-center gap-3 mb-4">
-          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/10">
+      <div className="flex-1">
+        {/* Body Text */}
+        <blockquote className="text-[13px] leading-relaxed text-white/70 font-light mb-4">
+          "{data.text}"
+        </blockquote>
+      </div>
+
+      {/* Footer: Avatar, Name, Role & Company */}
+      <div className="pt-3 border-t border-white/[0.06]">
+        <div className="flex items-center gap-3">
+          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
             <Image
               src={data.image}
               alt={data.name}
@@ -111,21 +125,15 @@ function ReviewCard({ data }: { data: Testimonial }) {
               unoptimized
             />
           </div>
-          <div className="text-[14px] font-semibold text-white leading-tight">
-            {data.name}
+          <div className="flex-1 min-w-0">
+            <div className="text-[13px] font-semibold text-white leading-tight truncate">
+              {data.name}
+            </div>
+            <div className="text-[11px] text-white/60 mt-0.5">
+              {data.role}{data.company && ` • ${data.company}`}
+            </div>
           </div>
         </div>
-
-        {/* Body Text */}
-        <blockquote className="text-[13px] leading-relaxed text-zinc-400 font-normal line-clamp-4">
-          "{data.text}"
-        </blockquote>
-      </div>
-
-      {/* Footer: Role & Company */}
-      <div className="pt-4 border-t border-white/[0.06]">
-        <div className="text-[12px] font-medium text-white/90">{data.role}</div>
-        <div className="text-[11px] text-zinc-500 mt-0.5">{data.company}</div>
       </div>
     </figure>
   );
@@ -138,14 +146,15 @@ function PhotoCard({ data }: { data: Testimonial }) {
   return (
     <figure
       className={cn(
-        "relative w-[260px] h-[260px] overflow-hidden rounded-2xl",
-        "border border-white/[0.08] group bg-[#09090b]"
+        "relative w-[280px] h-[240px] overflow-hidden rounded-lg",
+        "border border-white/[0.08] group bg-[#09090b]",
+        "hover:border-white/[0.15] hover:shadow-lg hover:shadow-black/30 transition-all duration-300"
       )}
     >
       {isVideo ? (
         <video
           src={data.image}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           autoPlay
           loop
           muted
@@ -158,18 +167,18 @@ function PhotoCard({ data }: { data: Testimonial }) {
           src={data.image}
           alt={data.name}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
           unoptimized
         />
       )}
 
       {/* Dark Gradient Overlay at Bottom */}
-      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/95 via-black/85 to-transparent pointer-events-none" />
 
-      {/* Name Overlay at Bottom */}
-      <div className="absolute bottom-4 left-4 z-10">
-        <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-lg py-1.5 px-3 inline-block">
-          <span className="text-[13px] font-medium text-white">
+      {/* Name Overlay at Bottom - Matching Text Card Style */}
+      <div className="absolute bottom-4 left-4 right-4 z-10">
+        <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-lg py-1.5 px-3 inline-block shadow-lg">
+          <span className="text-[13px] font-semibold text-white">
             {data.name}
           </span>
         </div>
@@ -180,54 +189,58 @@ function PhotoCard({ data }: { data: Testimonial }) {
 
 export function Testimonials() {
   return (
-    <section className="py-16 bg-black overflow-hidden relative">
+    <section className="py-12 md:py-16 bg-black overflow-hidden relative">
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="mb-12 text-center">
-          <h2 className="text-3xl md:text-5xl font-medium text-white mb-6 tracking-tight">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-[family-name:var(--font-neue-montreal)] text-white mb-4 tracking-tight">
             Don't just take our word for it
           </h2>
-          <p className="text-lg text-white/50 max-w-2xl mx-auto">
-            Hear from engineering leaders who have transformed their businesses with Enlivo.
+          <p className="text-sm md:text-base text-white/50 max-w-2xl mx-auto leading-relaxed">
+            Hear from founders who have transformed their businesses with Enlivo.
           </p>
         </div>
 
         {/* Marquee Container */}
-        <div className="relative flex flex-col gap-4">
+        <div className="relative flex flex-col gap-3">
           
-          {/* Row 1: Moves LEFT */}
-          <Marquee 
-            pauseOnHover 
-            className="[--duration:50s] [--gap:1rem]"
-          >
-            {firstRow.map((item) =>
-              (item.type === "image" || item.type === "video") ? (
-                <PhotoCard key={item.id} data={item} />
-              ) : (
-                <ReviewCard key={item.id} data={item} />
-              )
-            )}
-          </Marquee>
+          {/* Row 1: Moves LEFT (Normal direction) */}
+          <div className="relative">
+            <Marquee 
+              pauseOnHover 
+              className="[--duration:45s] [--gap:0.75rem] p-0"
+            >
+              {firstRow.map((item) =>
+                (item.type === "image" || item.type === "video") ? (
+                  <PhotoCard key={item.id} data={item} />
+                ) : (
+                  <ReviewCard key={item.id} data={item} />
+                )
+              )}
+            </Marquee>
+          </div>
 
-          {/* Row 2: Moves RIGHT (Reverse) */}
-          <Marquee 
-            reverse 
-            pauseOnHover 
-            className="[--duration:55s] [--gap:1rem]"
-          >
-            {secondRow.map((item) =>
-              (item.type === "image" || item.type === "video") ? (
-                <PhotoCard key={item.id} data={item} />
-              ) : (
-                <ReviewCard key={item.id} data={item} />
-              )
-            )}
-          </Marquee>
+          {/* Row 2: Moves RIGHT (Reverse direction - opposite) */}
+          <div className="relative">
+            <Marquee 
+              reverse
+              pauseOnHover 
+              className="[--duration:50s] [--gap:0.75rem] p-0"
+            >
+              {secondRow.map((item) =>
+                (item.type === "image" || item.type === "video") ? (
+                  <PhotoCard key={item.id} data={item} />
+                ) : (
+                  <ReviewCard key={item.id} data={item} />
+                )
+              )}
+            </Marquee>
+          </div>
 
           {/* Side Fades */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black via-black/80 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black via-black/80 to-transparent z-10" />
         </div>
 
       </div>
