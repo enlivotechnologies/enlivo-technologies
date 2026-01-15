@@ -18,6 +18,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { SITE_CONFIG } from "@/lib/constants";
+import { Analytics } from "@vercel/analytics/next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
@@ -135,7 +136,9 @@ export default function RootLayout({
 
           {/* Global Footer */}
           <Footer />
+
         </SmoothScrollProvider>
+        <Analytics />
 
         {/* 
           Analytics scripts would go here

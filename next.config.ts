@@ -32,12 +32,6 @@ const nextConfig: NextConfig = {
     serverComponentsExternalPackages: ["cloudinary"],
   },
 
-  // Experimental features
-  experimental: {
-    // Enable optimized package imports
-    optimizePackageImports: ["@radix-ui/react-slot"],
-  },
-
   // Headers configuration (additional security headers)
   async headers() {
     return [
