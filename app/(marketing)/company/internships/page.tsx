@@ -422,54 +422,24 @@ export default function InternshipsPage() {
       </section>
 
       {/* --- APPLICATION / CONTACT SECTION --- */}
-      <section id="apply" className="py-24 relative bg-white">
-        <div className="max-w-5xl mx-auto px-6">
-          {/* Card Container */}
-          <div className="relative rounded-[2.5rem] overflow-hidden bg-[#0F172A] p-10 md:p-20 text-center shadow-2xl shadow-blue-900/20">
-            {/* Background Glows (Dark container for contrast) */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 blur-[100px] rounded-full mix-blend-screen pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/20 blur-[100px] rounded-full mix-blend-screen pointer-events-none" />
-
-            <div className="relative z-10">
-              <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/70 text-xs font-medium uppercase tracking-wider mb-6">
-                Limited Seats Available
-              </span>
-
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-                Ready to launch your career?
-              </h2>
-              <p className="text-slate-300 text-lg mb-12 max-w-xl mx-auto">
-                Secure your spot in the next cohort. Join a community of
-                builders and future leaders.
-              </p>
-
-              <div className="flex flex-col items-center gap-8">
-                {/* Primary Contact Button */}
-                <a
-                  href="mailto:info.enlivo@gmail.com?subject=Application for Full Stack Program"
-                  className="w-full sm:w-auto h-14 px-12 rounded-full bg-white text-slate-900 font-bold text-lg flex items-center justify-center gap-3 hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform duration-200"
-                >
-                  <Rocket className="w-5 h-5 text-blue-600" />
-                  Apply via Email
-                </a>
-
-                {/* Contact Numbers */}
-                <div className="flex flex-wrap justify-center gap-3 text-sm text-slate-400 font-mono">
-                  <div className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
-                    <span>📞 +91 89713 63921</span>
-                  </div>
-                  <div className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
-                    <span>📞 +91 77278 67878</span>
-                  </div>
-                </div>
-
-                <p className="text-xs text-slate-500 mt-2">
-                  Have questions? Visit{" "}
-                  <span className="text-slate-300">enlivotechnologies.com</span>{" "}
-                  for details.
-                </p>
-              </div>
-            </div>
+      <section id="apply" className="py-24 bg-white flex items-center justify-center min-h-[340px]">
+        <div className="w-full max-w-5xl mx-auto px-4">
+          <div className="rounded-[2.5rem] bg-gradient-to-br from-black via-[#111112] to-black shadow-2xl p-10 md:p-20 flex flex-col items-center justify-center text-center relative overflow-hidden">
+            {/* Subtle Glow Effect */}
+            <div className="absolute inset-0 pointer-events-none rounded-[2.5rem]" style={{boxShadow: '0 0 120px 0 #000, 0 0 40px 0 #2563eb22'}} />
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight font-mono" style={{letterSpacing: '0.04em'}}>
+              Ready to Start Your Journey?
+            </h2>
+            <p className="text-lg md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto font-medium">
+              Join thousands of students already learning with us. Transform your career today.
+            </p>
+            <a
+              href="#enroll"
+              className="inline-block bg-white text-black font-bold text-2xl rounded-full px-14 py-6 shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-200"
+              style={{boxShadow: '0 8px 60px 0 #0004'}}
+            >
+              Enroll Now
+            </a>
           </div>
         </div>
       </section>
