@@ -18,11 +18,6 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "res.cloudinary.com",
       },
-      // Fixed: Added Unsplash to allow student/mentor avatars
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
       // TODO: Add CMS image domains when integrated
       // {
       //   protocol: 'https',
@@ -31,7 +26,6 @@ const nextConfig: NextConfig = {
     ],
     formats: ["image/avif", "image/webp"],
   },
-  
   // Allow Cloudinary for video as well (for static serving, not Next.js video optimization)
   experimental: {
     optimizePackageImports: ["@radix-ui/react-slot"],
@@ -57,6 +51,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // TODO: Add redirects for old URL structure
+      // {
+      //   source: '/old-page',
+      //   destination: '/new-page',
+      //   permanent: true, // 308 status code
+      // },
     ];
   },
 };
