@@ -70,8 +70,6 @@ export function Hero({
   const sectionRef = useRef<HTMLElement>(null);
   const headingLine1Ref = useRef<HTMLSpanElement>(null);
   const headingLine2Ref = useRef<HTMLSpanElement>(null);
-  const highlightBoxRef = useRef<HTMLSpanElement>(null);
-  const asteriskRef = useRef<SVGSVGElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const imageRef = useRef<HTMLElement>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -84,8 +82,6 @@ export function Hero({
         headingLine1Ref.current?.querySelectorAll(".char-reveal");
       const line2Chars =
         headingLine2Ref.current?.querySelectorAll(".char-reveal");
-      const highlightChars =
-        highlightBoxRef.current?.querySelectorAll(".char-reveal");
 
       // Create timeline for sequenced animations
       const tl = gsap.timeline({
@@ -106,21 +102,7 @@ export function Hero({
         });
       }
 
-      // Show asterisk with smooth rotation
-      tl.fromTo(
-        asteriskRef.current,
-        { opacity: 0, scale: 0.5, rotation: -90 },
-        {
-          opacity: 1,
-          scale: 1,
-          rotation: 0,
-          duration: 0.5,
-          ease: "back.out(2)",
-        },
-        "-=0.35"
-      );
-
-      // Animate "products" word - fast and smooth
+      // Animate second line - smooth character reveal
       if (line2Chars) {
         tl.to(
           line2Chars,
@@ -128,35 +110,11 @@ export function Hero({
             opacity: 1,
             y: 0,
             filter: "blur(0px)",
-            duration: 0.4,
-            stagger: 0.025,
+            duration: 0.5,
+            stagger: 0.02,
             ease: "power3.out",
           },
-          "-=0.4"
-        );
-      }
-
-      // Animate highlighted box - smooth scale
-      tl.fromTo(
-        highlightBoxRef.current,
-        { scaleX: 0, transformOrigin: "left center" },
-        { scaleX: 1, duration: 0.4, ease: "power2.inOut" },
-        "-=0.25"
-      );
-
-      // Reveal characters inside highlight box - fast reveal
-      if (highlightChars) {
-        tl.to(
-          highlightChars,
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.35,
-            stagger: 0.018,
-            ease: "power3.out",
-          },
-          "-=0.25"
+          "-=0.3"
         );
       }
 
@@ -213,7 +171,7 @@ export function Hero({
 
           <h1
             id="hero-heading"
-            className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-white tracking-tight leading-[1.15] mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-[family-name:var(--font-neue-montreal)] text-white tracking-tight leading-[1.15] mb-6"
             itemProp="headline"
           >
             {/* Top Line - Character by character reveal */}
@@ -223,21 +181,9 @@ export function Hero({
 
             {/* Bottom Line: "into Reliable Products — Without Hiring a Tech Team" */}
             <span className="inline-flex flex-nowrap items-center gap-x-2 md:gap-x-3 mt-1">
-              {/* "into Reliable Products — Without" text */}
+              {/* "into Reliable Products — Without Hiring a Tech Team" text */}
               <span ref={headingLine2Ref} className="whitespace-nowrap">
-                <SplitText>into Reliable Products - Without</SplitText>
-              </span>
-
-              {/* Highlighted Box with "businesses." */}
-              <span
-                ref={highlightBoxRef}
-                className="px-2 md:px-4 py-0.5 rounded-lg bg-[#FFA500] text-[#0F172A] whitespace-nowrap"
-                style={{
-                  transform: "scaleX(0)",
-                  transformOrigin: "left center",
-                }}
-              >
-                <SplitText>businesses.</SplitText>
+                <SplitText>into Reliable Products — Without Hiring a Tech Team</SplitText>
               </span>
             </span>
           </h1>

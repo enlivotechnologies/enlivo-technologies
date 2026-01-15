@@ -16,6 +16,7 @@
 
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "@/styles/globals.css";
 import { SITE_CONFIG } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/next";
@@ -31,6 +32,17 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap", // Ensures text remains visible during font load
   variable: "--font-inter",
+});
+
+/**
+ * Custom font: Neue Montreal Medium
+ * Used for premium hero headings
+ */
+const neueMontreal = localFont({
+  src: "../public/fonts/neue-montreal/NeueMontreal-Medium.otf",
+  display: "swap",
+  variable: "--font-neue-montreal",
+  weight: "500",
 });
 
 /**
@@ -106,7 +118,7 @@ export default function RootLayout({
   return (
     <html
       lang={SITE_CONFIG.language}
-      className={inter.variable}
+      className={`${inter.variable} ${neueMontreal.variable}`}
       suppressHydrationWarning
     >
       <body
