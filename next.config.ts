@@ -29,8 +29,8 @@ const nextConfig: NextConfig = {
   // Allow Cloudinary for video as well (for static serving, not Next.js video optimization)
   experimental: {
     optimizePackageImports: ["@radix-ui/react-slot"],
-    serverComponentsExternalPackages: ["cloudinary"],
   },
+  serverExternalPackages: ["cloudinary"],
 
   // Headers configuration (additional security headers)
   async headers() {
