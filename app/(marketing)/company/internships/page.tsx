@@ -24,11 +24,11 @@ import { Marquee } from "@/components/ui/Marquee";
 import { cn } from "@/lib/utils";
 
 // --- SEO METADATA ---
-export const metadata: Metadata = buildMetadata({
-  title: "Applied Full Stack Development Program | Enlivo Careers",
-  description:
-    "A 6-month intensive, 100% online internship program designed to transform students into job-ready Full Stack Developers.",
-});
+// export const metadata: Metadata = buildMetadata({
+//   title: "Applied Full Stack Development Program | Enlivo Careers",
+//   description:
+//     "A 6-month intensive, 100% online internship program designed to transform students into job-ready Full Stack Developers.",
+// });
 
 // --- DATA ---
 const PROGRAM_HIGHLIGHTS = [
