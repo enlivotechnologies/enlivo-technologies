@@ -11,12 +11,12 @@ import type { PageSEO } from "@/lib/seo";
 export const HOME_SEO: PageSEO = {
   // 1. TITLE (Authority & Scale)
   // Combines the Brand Name with the two most valuable service categories.
-  title: "Enlivo Technologies | Enterprise Digital Transformation & Engineering",
+  title: "Enlivo Technologies | Global Digital Transformation & Strategy",
 
   // 2. DESCRIPTION (Global & Strategic)
   // Includes "Enlivo Global Tech Solutions" naturally to help rank for that variation too.
   description:
-    "Enlivo Technologies (Enlivo Global Tech Solutions) is a premier strategic partner for digital transformation, engineering secure enterprise systems, and AI solutions for global markets.",
+    "Enlivo architects the secure digital backbone for modern global business. Precision engineering for mission critical platforms, cloud infrastructure, and AI.",
 
   // 3. KEYWORDS (The "Big Giant" Strategy)
   // Categorized to capture search traffic at every level of the decision process.
