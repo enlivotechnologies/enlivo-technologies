@@ -1,13 +1,15 @@
+"use client";
+
 /**
  * app/(marketing)/company/internships/page.tsx
  *
- * PURPOSE: Premium Internship/Training Program Landing Page (Light Mode).
- * DESIGN: Clean, architectural, high-end white aesthetic with soft shadows.
+ * PURPOSE: Premium Internship/Training Program Landing Page.
+ * DESIGN: High-contrast architectural aesthetic (Dark Hero/Syllabus + Light Features/Testimonials).
  */
 
-import type { Metadata } from "next";
-import Image from "next/image";
+import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   CheckCircle2,
@@ -18,19 +20,17 @@ import {
   Award,
   Rocket,
   PlayCircle,
+  ChevronDown,
+  Zap,
+  Layers,
+  Bot,
+  Globe,
+  Database,
 } from "lucide-react";
-import { buildMetadata } from "@/lib/seo";
 import { Marquee } from "@/components/ui/Marquee";
 import { cn } from "@/lib/utils";
 
-// --- SEO METADATA ---
-// export const metadata: Metadata = buildMetadata({
-//   title: "Applied Full Stack Development Program | Enlivo Careers",
-//   description:
-//     "A 6-month intensive, 100% online internship program designed to transform students into job-ready Full Stack Developers.",
-// });
-
-// --- DATA ---
+// --- DATA: HERO HIGHLIGHTS ---
 const PROGRAM_HIGHLIGHTS = [
   {
     icon: Terminal,
@@ -49,6 +49,7 @@ const PROGRAM_HIGHLIGHTS = [
   },
 ];
 
+// --- DATA: BENTO FEATURES ---
 const BENTO_FEATURES = [
   {
     title: "Industry-Recognized Certification",
@@ -88,6 +89,123 @@ const BENTO_FEATURES = [
   },
 ];
 
+// --- DATA: DETAILED SYLLABUS ---
+const SYLLABUS_DATA = [
+  {
+    id: 1,
+    title: "Getting Started: Your Journey Overview",
+    icon: Terminal,
+    description:
+      "Orientation, environment setup, and mastering the professional developer workflow.",
+    techStack: ["Git", "Linux", "VS Code"],
+    topics: [
+      "Professional Git Workflows",
+      "Command Line Mastery",
+      "Development Environment Architecture",
+      "Agile Methodologies",
+    ],
+  },
+  {
+    id: 2,
+    title: "Part 1: C++ & DSA Fundamentals",
+    icon: Code2,
+    description:
+      "Building a rock-solid foundation in memory management and algorithmic thinking.",
+    techStack: ["C++", "STL", "GDB"],
+    topics: [
+      "Memory Management & Pointers",
+      "Time & Space Complexity",
+      "Recursion & Backtracking",
+      "Sorting & Searching Deep Dive",
+    ],
+  },
+  {
+    id: 3,
+    title: "Part 2: Data Structures Deep Dive",
+    icon: Layers,
+    description:
+      "Mastering complex data organization for high-performance applications.",
+    techStack: ["Abstract Data Types", "System Design"],
+    topics: [
+      "Advanced Linked Lists",
+      "Trees, BST & AVL",
+      "Heaps & Priority Queues",
+      "Hashing Strategies",
+    ],
+  },
+  {
+    id: 4,
+    title: "Part 3: Advanced Algorithms",
+    icon: Zap,
+    description:
+      "Solving complex problems with Dynamic Programming and Graph Theory.",
+    techStack: ["Algorithms", "Competitive Programming"],
+    topics: [
+      "Graph Theory & Traversal",
+      "Dynamic Programming Patterns",
+      "Greedy Algorithms",
+      "Bit Manipulation Mastery",
+    ],
+  },
+  {
+    id: 5,
+    title: "Part 4: AI Fundamentals & Theory",
+    icon: Database,
+    description:
+      "The mathematical and theoretical core behind modern Artificial Intelligence.",
+    techStack: ["Python", "NumPy", "Pandas", "PyTorch"],
+    topics: [
+      "Linear Algebra for ML",
+      "Neural Network Architecture",
+      "Natural Language Processing (NLP)",
+      "Data Preprocessing Pipelines",
+    ],
+  },
+  {
+    id: 6,
+    title: "Part 5: Building AI Applications",
+    icon: Bot,
+    description:
+      "Integrating Large Language Models into real-world software products.",
+    techStack: ["OpenAI", "LangChain", "Pinecone", "RAG"],
+    topics: [
+      "Prompt Engineering mastery",
+      "Retrieval Augmented Generation (RAG)",
+      "Vector Databases",
+      "API Integration & Management",
+    ],
+  },
+  {
+    id: 7,
+    title: "Part 6: Advanced AI & Multi-Agent Systems",
+    icon: Cpu,
+    description:
+      "Architecting autonomous systems that can think, plan, and execute.",
+    techStack: ["CrewAI", "AutoGPT", "Agentic Workflows"],
+    topics: [
+      "Multi-Agent Orchestration",
+      "Task Planning & Execution",
+      "Custom Tool Development",
+      "Autonomous Agent Evaluation",
+    ],
+  },
+  {
+    id: 8,
+    title: "Part 7: Production AI & Deployment",
+    icon: Globe,
+    description:
+      "Moving from local scripts to scalable, cloud-hosted AI applications.",
+    techStack: ["Docker", "AWS", "FastAPI", "CI/CD"],
+    topics: [
+      "Containerization with Docker",
+      "Cloud Infrastructure (AWS/GCP)",
+      "Model Quantization & Optimization",
+      "Monitoring & LLM-Ops",
+    ],
+  },
+];
+
+// --- DATA: TESTIMONIALS ---
 const TESTIMONIALS = [
   {
     id: 1,
@@ -102,7 +220,7 @@ const TESTIMONIALS = [
     type: "text",
     name: "Anusha Jha",
     role: "Software Engineer",
-    company: "Delloite",
+    company: "Deloitte",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
     text: "My journey truly began in the third year of my college. I lacked consistency in DSA practice even though my CS fundamentals were strong. Enlivo changed that.",
@@ -125,22 +243,116 @@ const TESTIMONIALS = [
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face",
     text: "When I started college, I was initially more drawn to management. I explored consulting but soon realized it lacked the constant challenge I found here.",
   },
-  {
-    id: 5,
-    type: "video",
-    name: "Rohit Sharma",
-    role: "SDE @ Amazon",
-    image:
-      "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768464062/Untitled_design_1_vmz5hb.mp4",
-  },
 ];
 
-// --- COMPONENTS ---
+// --- SUB-COMPONENT: Syllabus Accordion Item ---
+function SyllabusItem({
+  item,
+  isOpen,
+  toggle,
+}: {
+  item: (typeof SYLLABUS_DATA)[0];
+  isOpen: boolean;
+  toggle: () => void;
+}) {
+  return (
+    <div
+      className={cn(
+        "group mb-4 rounded-2xl border transition-all duration-500 overflow-hidden",
+        isOpen
+          ? "border-blue-500/50 bg-white/[0.03] shadow-[0_0_30px_-10px_rgba(59,130,246,0.2)]"
+          : "border-white/10 bg-transparent hover:border-white/20"
+      )}
+    >
+      <button
+        onClick={toggle}
+        className="w-full flex items-center justify-between p-5 md:p-6 text-left"
+      >
+        <div className="flex items-center gap-5">
+          {/* Number Box with Rotation Effect */}
+          <div
+            className={cn(
+              "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border text-lg font-bold transition-all duration-500",
+              isOpen
+                ? "bg-blue-600 border-blue-400 text-white rotate-[360deg] shadow-[0_0_15px_rgba(59,130,246,0.5)]"
+                : "bg-white/5 border-white/10 text-white/50"
+            )}
+          >
+            {item.id}
+          </div>
 
+          <div>
+            <h4
+              className={cn(
+                "text-lg md:text-xl font-bold tracking-tight transition-colors duration-300",
+                isOpen ? "text-white" : "text-white/70 group-hover:text-white"
+              )}
+            >
+              {item.title}
+            </h4>
+            {/* Tech Stack Badges */}
+            {/* <div className="flex flex-wrap gap-2 mt-2">
+              {item.techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div> */}
+          </div>
+        </div>
+
+        <div
+          className={cn(
+            "rounded-full p-2 transition-all duration-500",
+            isOpen
+              ? "bg-blue-600 text-white rotate-180"
+              : "bg-white/5 text-white/30"
+          )}
+        >
+          <ChevronDown className="h-5 w-5" />
+        </div>
+      </button>
+
+      {/* Accordion Content */}
+      <div
+        className={cn(
+          "grid transition-all duration-500 ease-in-out",
+          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        )}
+      >
+        <div className="overflow-hidden">
+          <div className="px-6 pb-8 ml-16 md:ml-20">
+            <div className="h-px w-full bg-gradient-to-r from-blue-500/50 to-transparent mb-6" />
+
+            <p className="text-white/50 text-sm mb-6 max-w-2xl leading-relaxed">
+              {item.description}
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {item.topics.map((topic, i) => (
+                <div key={i} className="flex items-center gap-3 group/item">
+                  <div className="h-1.5 w-1.5 rounded-full bg-blue-500/50 group-hover:item:bg-blue-400 transition-colors" />
+                  <span className="text-white/70 text-sm group-hover:item:text-white transition-colors">
+                    {topic}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// --- SUB-COMPONENT: Testimonial Cards ---
 function PhotoCard({ data }: { data: any }) {
   const isVideo = data.type === "video";
   return (
-    <figure className="relative w-[280px] h-[340px] overflow-hidden rounded-2xl border border-gray-200 shadow-md group bg-white">
+    <figure className="relative w-[280px] h-[340px] overflow-hidden rounded-2xl border border-gray-200 shadow-md group bg-white mx-3">
       {isVideo ? (
         <div className="absolute inset-0 w-full h-full">
           <video
@@ -153,7 +365,6 @@ function PhotoCard({ data }: { data: any }) {
             controls={false}
             style={{ pointerEvents: "none" }}
           />
-          {/* Play Icon Hint */}
           <div className="absolute top-3 right-3 bg-black/20 backdrop-blur-sm p-1.5 rounded-full">
             <PlayCircle className="w-4 h-4 text-white" />
           </div>
@@ -168,7 +379,6 @@ function PhotoCard({ data }: { data: any }) {
         />
       )}
 
-      {/* Gradient Overlay for Text Visibility */}
       <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
 
       <div className="absolute bottom-4 left-4 z-10">
@@ -190,7 +400,7 @@ function PhotoCard({ data }: { data: any }) {
 
 function ReviewCard({ data }: { data: any }) {
   return (
-    <figure className="relative w-[280px] h-[340px] flex flex-col justify-between p-6 rounded-2xl border border-gray-100 bg-white shadow-[0_2px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] transition-all duration-300">
+    <figure className="relative w-[280px] h-[340px] flex flex-col justify-between p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg transition-all duration-300 mx-3">
       <div>
         <div className="flex items-center gap-3 mb-5">
           <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gray-100 shadow-sm">
@@ -225,63 +435,67 @@ function ReviewCard({ data }: { data: any }) {
   );
 }
 
+// --- MAIN PAGE COMPONENT ---
 export default function InternshipsPage() {
+  const [openSyllabusId, setOpenSyllabusId] = useState<number | null>(1);
+
   return (
     <main className="bg-white min-h-screen text-slate-900 selection:bg-blue-100 selection:text-blue-900">
-      {/* --- HERO SECTION --- */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-black">
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
+      {/* --- PREMIUM HERO SECTION (Dark Mode) --- */}
+      <section className="relative min-h-[95vh] flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden bg-[#050505] text-white">
+        {/* Background Glows */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center flex-1 flex flex-col items-center justify-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-blue-100 shadow-sm mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-10 transition-colors hover:bg-white/10 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-xs font-medium text-blue-600 tracking-wide">
+            <span className="text-[11px] font-medium text-blue-100 tracking-[0.1em]">
               Applications Open for 2026 Batch
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-white tracking-tight leading-[1.15]">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.05] mb-8 max-w-5xl mx-auto">
             Applied Full Stack <br />
-            <span className="text-white">Development Program</span>
+            <span className="text-white/90">Development Program</span>
           </h1>
 
-          <p className="text-base md:text-lg text-[#5a5a5a] leading-relaxed max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+          <p className="text-base md:text-lg text-white/40 max-w-2xl mx-auto mb-4 font-light leading-relaxed">
             Hands-on exposure to live full stack projects, designed to transform
             students into job-ready developers.
-            <span className="block mt-2 text-white font-medium">
-              Fast-Track Your Career in 6 Months.
-            </span>
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            {/* Primary Action */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-2">
             <Link
               href="#apply"
-              className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full bg-blue-600 px-8 font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20"
+              className="group h-14 min-w-[180px] inline-flex items-center justify-center rounded-full bg-blue-600 px-10 font-bold text-white transition-all hover:bg-blue-500 hover:scale-[1.02] active:scale-95 shadow-lg shadow-blue-600/20"
             >
-              <span className="mr-2">Apply Now</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-hover:animate-shimmer" />
+              Apply Now
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
-            {/* Secondary Action */}
             <Link
               href="#curriculum"
-              className="inline-flex h-12 items-center justify-center rounded-full border border-gray-200 bg-white px-8 font-medium text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:border-gray-300"
+              className="h-14 min-w-[180px] inline-flex items-center justify-center rounded-full bg-white px-10 font-bold text-black transition-all hover:bg-white/90 hover:scale-[1.02] active:scale-95"
             >
               View Curriculum
             </Link>
           </div>
+        </div>
 
-          {/* Highlights Row - Clean and Minimal */}
-          <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto border-t border-white/10 pt-10">
+        {/* Integrated Highlights */}
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6">
+          <div className="w-full h-px bg-white/5 mb-16" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 pb-12">
             {PROGRAM_HIGHLIGHTS.map((item, idx) => (
-              <div key={idx} className="flex flex-col items-center">
-                <div className="p-2.5 bg-blue-50 rounded-xl mb-3">
-                  <item.icon className="w-5 h-5 text-blue-600" />
+              <div key={idx} className="flex flex-col items-center group">
+                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 transition-all group-hover:bg-blue-600/10 group-hover:border-blue-600/30">
+                  <item.icon className="w-6 h-6 text-white transition-colors group-hover:text-blue-400" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2 text-center">
+                <h3 className="text-xl font-bold mb-3 tracking-tight text-center">
                   {item.title}
                 </h3>
-                <p className="text-base text-gray-200 text-center mt-1 max-w-[240px]">
+                <p className="text-sm text-white/40 text-center max-w-[260px] leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -290,8 +504,8 @@ export default function InternshipsPage() {
         </div>
       </section>
 
-      {/* --- BENTO GRID FEATURES --- */}
-      <section className="py-20 lg:py-32 bg-slate-50/50 border-y border-gray-100">
+      {/* --- BENTO GRID FEATURES (Light Mode) --- */}
+      <section className="py-20 lg:py-32 bg-slate-50/50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-16 text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -324,8 +538,7 @@ export default function InternshipsPage() {
                     {feature.description}
                   </p>
                 </div>
-
-                {/* Subtle light effect on hover */}
+                {/* Hover Glow */}
                 <div className="absolute inset-0 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
             ))}
@@ -333,59 +546,87 @@ export default function InternshipsPage() {
         </div>
       </section>
 
-      {/* --- PARTNERS SECTION --- */}
-      <section className="py-16 bg-white overflow-hidden">
+      {/* --- DETAILED SYLLABUS SECTION (Premium Dark Mode) --- */}
+      <section
+        id="curriculum"
+        className="py-24 bg-black relative overflow-hidden text-white"
+      >
+        {/* Background Decor */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/5 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="max-w-5xl mx-auto px-6 relative z-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
+                <Zap className="w-3 h-3 text-blue-400" />
+                <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">
+                  Mastery Roadmap
+                </span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">
+                Detailed <span className="text-blue-500">Syllabus</span>
+              </h2>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setOpenSyllabusId(null)}
+                className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs font-bold text-white/50 hover:text-white hover:bg-white/10 transition-all"
+              >
+                Collapse All
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {SYLLABUS_DATA.map((item) => (
+              <SyllabusItem
+                key={item.id}
+                item={item}
+                isOpen={openSyllabusId === item.id}
+                toggle={() =>
+                  setOpenSyllabusId(openSyllabusId === item.id ? null : item.id)
+                }
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- PARTNERS SECTION (Light) --- */}
+      <section className="py-16 bg-white overflow-hidden border-b border-gray-100">
         <div className="text-center mb-10">
           <span className="text-2xl font-bold tracking-[0.2em] text-slate-700 uppercase">
             Our Partners
           </span>
         </div>
-        <div className="flex flex-wrap justify-center gap-10 items-center">
-          {/* Example partner logos, replace src with your own or random company logos */}
+        <div className="flex flex-wrap justify-center gap-10 items-center opacity-70">
           <img
             src="/images/partners/google.png"
             alt="Google"
-            className="h-10 grayscale opacity-80 hover:opacity-100 transition"
+            className="h-8 md:h-10 grayscale hover:grayscale-0 transition-all"
           />
           <img
             src="/images/partners/mobbin.png"
             alt="Mobbin"
-            className="h-10 grayscale opacity-80 hover:opacity-100 transition"
+            className="h-8 md:h-10 grayscale hover:grayscale-0 transition-all"
           />
           <img
             src="/images/partners/padlet.png"
             alt="Padlet"
-            className="h-10 grayscale opacity-80 hover:opacity-100 transition"
+            className="h-8 md:h-10 grayscale hover:grayscale-0 transition-all"
           />
           <img
             src="/images/partners/decode.png"
             alt="Decode"
-            className="h-10 grayscale opacity-80 hover:opacity-100 transition"
+            className="h-8 md:h-10 grayscale hover:grayscale-0 transition-all"
           />
-          <img
-            src="/images/partners/genio.png"
-            alt="Genio"
-            className="h-10 grayscale opacity-80 hover:opacity-100 transition"
-          />
-          <img
-            src="/images/partners/bigbluebutton.png"
-            alt="BigBlueButton"
-            className="h-10 grayscale opacity-80 hover:opacity-100 transition"
-          />
-          <img
-            src="/images/partners/craft.png"
-            alt="Craft"
-            className="h-10 grayscale opacity-80 hover:opacity-100 transition"
-          />
-          <img
-            src="/images/partners/axa.png"
-            alt="AXA"
-            className="h-10 grayscale opacity-80 hover:opacity-100 transition"
-          />
+          {/* Add more partners as needed */}
         </div>
       </section>
 
-      {/* --- TESTIMONIALS (Clean & Light) --- */}
+      {/* --- TESTIMONIALS (Light Mode) --- */}
       <section className="py-24 overflow-hidden bg-slate-50 relative">
         <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-50 pointer-events-none" />
 
@@ -395,8 +636,7 @@ export default function InternshipsPage() {
               Success Stories
             </h2>
             <p className="text-slate-500 max-w-md text-lg">
-              Join alumni who are now working at top tech companies like Amazon,
-              Oracle, Deloitte, and more.
+              Join alumni who are now working at top tech companies.
             </p>
           </div>
           <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm">
@@ -421,25 +661,141 @@ export default function InternshipsPage() {
         </div>
       </section>
 
-      {/* --- APPLICATION / CONTACT SECTION --- */}
-      <section id="apply" className="py-24 bg-white flex items-center justify-center min-h-[340px]">
-        <div className="w-full max-w-5xl mx-auto px-4">
-          <div className="rounded-[2.5rem] bg-gradient-to-br from-black via-[#111112] to-black shadow-2xl p-10 md:p-20 flex flex-col items-center justify-center text-center relative overflow-hidden">
-            {/* Subtle Glow Effect */}
-            <div className="absolute inset-0 pointer-events-none rounded-[2.5rem]" style={{boxShadow: '0 0 120px 0 #000, 0 0 40px 0 #2563eb22'}} />
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight font-mono" style={{letterSpacing: '0.04em'}}>
-              Ready to Start Your Journey?
-            </h2>
-            <p className="text-lg md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto font-medium">
-              Join thousands of students already learning with us. Transform your career today.
-            </p>
-            <a
-              href="#enroll"
-              className="inline-block bg-white text-black font-bold text-2xl rounded-full px-14 py-6 shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-200"
-              style={{boxShadow: '0 8px 60px 0 #0004'}}
-            >
-              Enroll Now
-            </a>
+      {/* --- PREMIUM COMPACT CTA SECTION --- */}
+      <section
+        id="apply"
+        className="py-16 bg-white flex items-center justify-center"
+      >
+        <div className="w-full max-w-4xl mx-auto px-6">
+          <div className="relative group rounded-[2rem] bg-[#0A0A0B] p-8 md:p-16 flex flex-col items-center justify-center text-center overflow-hidden border border-white/10 shadow-[0_24px_80px_-15px_rgba(0,0,0,0.3)]">
+            {/* Mesh Gradient Background */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
+              <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 blur-[100px] rounded-full" />
+              <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-600/10 blur-[100px] rounded-full" />
+            </div>
+
+            {/* Top Accent Line */}
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+
+            <div className="relative z-10 flex flex-col items-center">
+              {/* Badge */}
+              <div className="mb-6 px-3 py-1 rounded-full border border-white/5 bg-white/5 backdrop-blur-md">
+                <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em]">
+                  Next Cohort: Winter 2026
+                </span>
+              </div>
+
+              <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-6 tracking-tight">
+                Ready to Start <br className="hidden md:block" /> Your Journey?
+              </h2>
+
+              <p className="text-sm md:text-base text-white/40 leading-relaxed mb-10 max-w-md mx-auto font-light tracking-wide">
+                Join a community of builders. Transform your career with
+                hands-on, project-based learning.
+              </p>
+
+              {/* High-Contrast Button */}
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <a
+                  href="mailto:info.enlivo@gmail.com"
+                  className="group relative inline-flex items-center justify-center bg-white text-black font-bold text-base rounded-full px-10 py-4 transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+                >
+                  Enroll Now
+                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </a>
+
+                <Link
+                  href="mailto:info.enlivo@gmail.com"
+                  className="text-white/40 hover:text-white text-sm font-medium transition-colors py-2 px-4"
+                >
+                  Talk to an Advisor
+                </Link>
+              </div>
+            </div>
+
+            {/* Bottom Glow */}
+            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          </div>
+        </div>
+      </section>
+
+      {/* --- FAQ SECTION --- */}
+      <section className="py-24 bg-[#f7f8fa]">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center text-[#0a174e] mb-4">
+            FAQs
+          </h2>
+          <p className="text-lg text-center text-slate-500 mb-12">
+            Get your questions answered
+          </p>
+          <div className="space-y-6">
+            {/* FAQ Item */}
+            <details className="group rounded-xl bg-white px-6 py-5 shadow transition-all">
+              <summary className="font-semibold text-lg text-[#0a174e] cursor-pointer flex items-center justify-between">
+                What makes Enlivo's internship program different from others?
+                <span className="ml-2 text-xl transition-transform group-open:rotate-180">
+                  ⌄
+                </span>
+              </summary>
+              <div className="mt-3 text-slate-600 text-base">
+                Our program is designed by industry experts, offers real-world
+                project experience, 1-on-1 mentorship, and a job-focused
+                curriculum. We emphasize practical skills and career support,
+                not just theory.
+              </div>
+            </details>
+            <details className="group rounded-xl bg-white px-6 py-5 shadow transition-all">
+              <summary className="font-semibold text-lg text-[#0a174e] cursor-pointer flex items-center justify-between">
+                Do I need prior coding experience to join?
+                <span className="ml-2 text-xl transition-transform group-open:rotate-180">
+                  ⌄
+                </span>
+              </summary>
+              <div className="mt-3 text-slate-600 text-base">
+                No prior experience is required. Our curriculum starts from the
+                basics and supports you every step of the way, whether you’re a
+                beginner or looking to upskill.
+              </div>
+            </details>
+            <details className="group rounded-xl bg-white px-6 py-5 shadow transition-all">
+              <summary className="font-semibold text-lg text-[#0a174e] cursor-pointer flex items-center justify-between">
+                What kind of support and mentorship will I get?
+                <span className="ml-2 text-xl transition-transform group-open:rotate-180">
+                  ⌄
+                </span>
+              </summary>
+              <div className="mt-3 text-slate-600 text-base">
+                You’ll receive personalized mentorship from industry
+                professionals, regular feedback on your work, and access to a
+                supportive alumni network for career guidance and referrals.
+              </div>
+            </details>
+            <details className="group rounded-xl bg-white px-6 py-5 shadow transition-all">
+              <summary className="font-semibold text-lg text-[#0a174e] cursor-pointer flex items-center justify-between">
+                Are the courses self-paced or scheduled?
+                <span className="ml-2 text-xl transition-transform group-open:rotate-180">
+                  ⌄
+                </span>
+              </summary>
+              <div className="mt-3 text-slate-600 text-base">
+                The program is a blend of live online sessions and flexible
+                project work, so you get the benefits of both structure and
+                self-paced learning.
+              </div>
+            </details>
+            <details className="group rounded-xl bg-white px-6 py-5 shadow transition-all">
+              <summary className="font-semibold text-lg text-[#0a174e] cursor-pointer flex items-center justify-between">
+                Will I get a certificate and job support after completion?
+                <span className="ml-2 text-xl transition-transform group-open:rotate-180">
+                  ⌄
+                </span>
+              </summary>
+              <div className="mt-3 text-slate-600 text-base">
+                Yes! You’ll receive an industry-recognized certificate and
+                ongoing career support, including resume reviews, mock
+                interviews, and access to our alumni network for job referrals.
+              </div>
+            </details>
           </div>
         </div>
       </section>
