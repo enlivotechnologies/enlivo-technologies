@@ -20,10 +20,11 @@ import type { PageSEO } from "@/lib/seo";
  * - Include primary keyword in both
  */
 export const HOME_SEO: PageSEO = {
-  title: "Enlivo Global Tech Solutions",
+  title:
+    "Enlivo Technologies | Digital Engineering & Enterprise Technology Company",
 
   description:
-    "Enlivo Technologies designs and engineers websites, applications, enterprise platforms, and AI-powered solutions that companies rely on to operate, scale, and grow.",
+    "Enlivo Technologies is a technology company focused on building reliable digital platforms and systems for growing businesses and enterprises.",
 
   keywords: [
     "Enlivo Technologies",
