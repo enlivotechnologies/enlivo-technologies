@@ -96,12 +96,14 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 w-full z-[100] transition-all duration-500",
         isScrolled
-          ? "bg-black backdrop-blur-2xl border-b border-transparent shadow-2xl shadow-black/50"
-          : "bg-black backdrop-blur-xl border-b border-transparent"
+          ? "bg-black/80 backdrop-blur-2xl border-b border-white/5 shadow-2xl shadow-black/50"
+          : "bg-black/70 backdrop-blur-xl border-b border-white/5"
       )}
       itemScope
       itemType="https://schema.org/WPHeader"
     >
+      {/* Premium glassmorphism gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/80 to-black/70 pointer-events-none" />
       <nav
         className="relative z-10 max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8"
         role="navigation"
@@ -167,13 +169,13 @@ export function Navbar() {
             <div className="ml-6">
               <a
                 href="mailto:enlivotechnologies@gmail.com"
-                className="relative group/cta bg-gradient-to-r from-[#F5B301] via-[#F5B301] to-[#F5B301]/90 hover:from-[#F5B301]/90 hover:via-[#F5B301] hover:to-[#F5B301] text-[#0F172A] text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-300 shadow-lg shadow-[#F5B301]/30 hover:shadow-xl hover:shadow-[#F5B301]/40 hover:scale-105 active:scale-95 overflow-hidden"
+                className="relative group/cta bg-gradient-to-r from-[#FFA500] via-[#FFB733] to-[#FFA500] hover:from-[#FFB733] hover:via-[#FFA500] hover:to-[#FFB733] text-[#0F172A] text-sm font-bold px-6 py-3 rounded-lg transition-all duration-300 shadow-lg shadow-[#FFA500]/40 hover:shadow-xl hover:shadow-[#FFA500]/50 hover:scale-105 active:scale-95 overflow-hidden"
                 title="Talk to the Founder"
                 itemProp="email"
                 role="menuitem"
               >
                 {/* Animated gradient overlay */}
-                <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#F5B301] via-[#FFD700] to-[#F5B301] opacity-0 group-hover/cta:opacity-100 transition-opacity duration-500" />
+                <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#FFA500] via-[#FFD700] to-[#FFA500] opacity-0 group-hover/cta:opacity-100 transition-opacity duration-500" />
                 
                 <span className="relative z-10" itemProp="name">Talk to the Founder</span>
               </a>
@@ -234,14 +236,12 @@ export function Navbar() {
           <Link
             href="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="relative group/cta-mobile w-full bg-gradient-to-r from-[#F5B301] via-[#F5B301] to-[#F5B301]/90 hover:from-[#F5B301]/90 hover:via-[#F5B301] hover:to-[#F5B301] text-[#0F172A] py-3.5 rounded-xl font-semibold mt-4 transition-all duration-300 shadow-lg shadow-[#F5B301]/40 hover:shadow-xl hover:shadow-[#F5B301]/50 text-center block overflow-hidden"
+            className="relative group/cta-mobile w-full bg-gradient-to-r from-[#FFA500] via-[#FFB733] to-[#FFA500] hover:from-[#FFB733] hover:via-[#FFA500] hover:to-[#FFB733] text-[#0F172A] py-3.5 rounded-xl font-bold mt-4 transition-all duration-300 shadow-lg shadow-[#FFA500]/40 hover:shadow-xl hover:shadow-[#FFA500]/50 text-center block overflow-hidden"
             title="Talk to the Founder"
             role="menuitem"
           >
             {/* Animated gradient overlay */}
-            <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#F5B301] via-[#FFD700] to-[#F5B301] opacity-0 group-hover/cta-mobile:opacity-100 transition-opacity duration-500" />
-            {/* Shine effect */}
-            <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/cta-mobile:translate-x-full transition-transform duration-1000" />
+            <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#FFA500] via-[#FFD700] to-[#FFA500] opacity-0 group-hover/cta-mobile:opacity-100 transition-opacity duration-500" />
             <span className="relative z-10">Talk to the Founder</span>
           </Link>
         </div>

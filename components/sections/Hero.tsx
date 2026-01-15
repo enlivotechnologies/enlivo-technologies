@@ -231,7 +231,7 @@ export function Hero({
               {/* Highlighted Box with "businesses." */}
               <span
                 ref={highlightBoxRef}
-                className="px-2 md:px-4 py-0.5 rounded-lg bg-[#F5B301] text-[#0F172A] whitespace-nowrap"
+                className="px-2 md:px-4 py-0.5 rounded-lg bg-[#FFA500] text-[#0F172A] whitespace-nowrap"
                 style={{
                   transform: "scaleX(0)",
                   transformOrigin: "left center",
