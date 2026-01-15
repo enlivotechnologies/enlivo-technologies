@@ -29,7 +29,8 @@ export const SITE_CONFIG = {
 
   // Default SEO keywords (merged with page-specific)
   defaultKeywords: [
-    "Enlivo Technologies",
+    "Envilo Global Tech Solutions",
+    "Envilo Technologies",
     "enterprise software development",
     "digital product engineering",
     "secure digital systems",

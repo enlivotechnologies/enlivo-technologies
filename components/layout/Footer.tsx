@@ -1,9 +1,4 @@
-/**
- * components/layout/Footer.tsx
- *
- * PURPOSE: Premium enterprise footer (Dark Mode).
- * STYLE: High-contrast black aesthetic with architectural spacing and premium interactive elements.
- */
+"use client";
 
 import Link from "next/link";
 import { SITE_CONFIG, SOCIAL_LINKS } from "@/lib/constants";
@@ -34,34 +29,27 @@ const socialIcons = {
   facebook: Facebook,
 };
 
-// Navigation Data
+// Navigation Data - Kept EXACTLY as requested, but hrefs removed/nullified below
 const FOOTER_NAVIGATION = [
   {
     header: "Company",
     links: [
-      { label: "About Enlivo", href: "/company/about" },
-      { label: "How We Work", href: "/company/how-we-work" },
-      { label: "Case Studies", href: "/case-studies" },
-      { label: "Leadership", href: "/company/leadership" },
-      { label: "Careers", href: "/company/careers" },
-      { label: "Internships", href: "/company/internships" },
-      { label: "Contact", href: "/contact" },
-      { label: "Insights & Reports", href: "/insights" },
+      { label: "About Enlivo" },
+      { label: "How We Work" },
+      { label: "Case Studies" },
+      { label: "Leadership" },
+      { label: "Careers" },
+      { label: "Internships" },
     ],
   },
   {
     header: "Resources",
     links: [
-      { label: "Contact Support", href: "/support" },
-      { label: "Ambassador Program", href: "/ambassadors" },
-      { label: "Tech Glossary", href: "/glossary" },
-      { label: "FAQs", href: "/faq" },
-      { label: "SaaS Landing Pages", href: "/resources/saas" },
-      { label: "Security Practices", href: "/security" },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms of Service", href: "/terms" },
-      { label: "Public Notice", href: "/public-notice" },
-      { label: "Blog / Insights", href: "/insights" },
+      { label: "Support" },
+      { label: "FAQs" },
+      { label: "Security Practices" },
+      { label: "Tech Glossary" },
+      { label: "Blog & Insights" },
     ],
   },
 ];
@@ -82,6 +70,7 @@ export function Footer() {
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-16 xl:gap-12 mb-28">
           {/* 1. LEFT SECTION: BRAND IDENTITY */}
           <div className="xl:col-span-4 flex flex-col items-start">
+            {/* Logo Link kept active to return home */}
             <Link href="/" className="group block mb-6">
               <span className="font-bold text-4xl tracking-tight text-white">
                 Enlivo<span className="text-[#2563EB]">.</span>
@@ -92,10 +81,9 @@ export function Footer() {
               From concept to scalable enterprise system in record time.
             </p>
 
-            {/* Social Icons */}
+            {/* Social Icons - Kept active as they are external links */}
             <div className="flex items-center gap-6">
               {Object.entries(SOCIAL_LINKS).map(([platform, url]) => {
-                // If a specific icon isn't found, fallback to WhatsappIcon or just render nothing
                 const Icon =
                   socialIcons[platform as keyof typeof socialIcons] ||
                   WhatsappIcon;
@@ -126,13 +114,14 @@ export function Footer() {
               </h3>
 
               {/* Pill-Shaped Input Group (Dark Mode) */}
-              <form className="relative w-full group">
+              <form
+                className="relative w-full group"
+                onSubmit={(e) => e.preventDefault()} // Prevent submission for now
+              >
                 <input
                   type="email"
-                  // Enterprise standard placeholder indicating B2B email
                   placeholder="name@workemail.com"
                   required
-                  // Updated with #A1A1A1 placeholder and premium light focus glow
                   className="w-full h-[3.5rem] pl-6 pr-32 bg-white/5 text-white placeholder:text-[#A1A1A1] rounded-full border border-white/10 outline-none focus:border-white/30 focus:bg-white/10 focus:shadow-[0_0_20px_rgba(255,255,255,0.25)] transition-all duration-300 ease-out font-medium"
                 />
                 <button
@@ -145,23 +134,24 @@ export function Footer() {
             </div>
           </div>
 
-          {/* 3. RIGHT SECTION: NAVIGATION LINKS */}
+          {/* 3. RIGHT SECTION: NAVIGATION LINKS (No Routing) */}
           <div className="xl:col-span-4 xl:pl-12">
             <div className="grid grid-cols-2 gap-y-10 gap-x-4">
               {FOOTER_NAVIGATION.map((column) => (
                 <div key={column.header} className="flex flex-col gap-4">
-                  {/* Visually hidden header for SEO, but providing spacing */}
+                  {/* Visually hidden header for SEO structure */}
                   <div className="h-0 opacity-0" aria-hidden="true">
                     {column.header}
                   </div>
                   {column.links.map((link) => (
-                    <Link
-                      key={link.href || link.label}
-                      href={link.href || "#"}
-                      className="text-[14px] font-medium text-gray-500 hover:text-white hover:underline decoration-white/30 underline-offset-4 transition-all duration-200"
+                    <span
+                      key={link.label}
+                      // Use a span instead of Link to remove routing
+                      // Added cursor-pointer to maintain interaction feel
+                      className="text-[14px] font-medium text-gray-500 hover:text-white hover:underline decoration-white/30 underline-offset-4 transition-all duration-200 cursor-pointer"
                     >
                       {link.label}
-                    </Link>
+                    </span>
                   ))}
                 </div>
               ))}
@@ -169,7 +159,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* --- BOTTOM BAR: COPYRIGHT & LEGAL --- */}
+        {/* --- BOTTOM BAR: COPYRIGHT & LEGAL (No Routing) --- */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6 text-[13px] font-medium text-gray-500">
           <p>
             © {currentYear} {SITE_CONFIG.name} Private Limited. All rights
@@ -177,21 +167,15 @@ export function Footer() {
           </p>
 
           <nav className="flex flex-wrap gap-8" aria-label="Legal navigation">
-            <Link
-              href="/privacy"
-              className="hover:text-white transition-colors"
-            >
+            <span className="hover:text-white transition-colors cursor-pointer">
               Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
+            </span>
+            <span className="hover:text-white transition-colors cursor-pointer">
               Terms of Service
-            </Link>
-            <Link
-              href="/public-notice"
-              className="hover:text-white transition-colors"
-            >
+            </span>
+            <span className="hover:text-white transition-colors cursor-pointer">
               Public Notice
-            </Link>
+            </span>
           </nav>
         </div>
       </div>

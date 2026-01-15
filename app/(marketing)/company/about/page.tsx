@@ -94,7 +94,7 @@ export default function AboutPage() {
             {/* CENTER COLUMN: Large Portrait Image */}
             <div className="relative h-[500px] lg:h-auto min-h-[500px] rounded-[2rem] overflow-hidden shadow-sm">
               <Image
-                src="/images/about/image.jpg"
+                src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768466580/image_hp6od6.jpg"
                 alt="Akshay K - CEO Enlivo Technologies"
                 fill
                 className="object-cover"

@@ -72,10 +72,8 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 w-full z-[100] transition-all duration-300",
-        isScrolled
-          ? "bg-[#F9FAF8]/98 backdrop-blur-md border-b border-[#1a1a1a]/10"
-          : "bg-[#F9FAF8] border-b border-transparent"
+        "fixed top-0 left-0 w-full z-[100] transition-all duration-300 bg-white",
+        isScrolled ? "border-b border-[#E5E7EB]" : "border-b border-transparent"
       )}
       itemScope
       itemType="https://schema.org/WPHeader"
@@ -98,17 +96,17 @@ export function Navbar() {
           >
             <div className="w-7 h-7 rounded-full flex items-center justify-center overflow-hidden">
               <Image
-                src="/images/navbar/EnlivoLogo.png"
+                src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768460030/EnlivotechnologiesLogo_kzklhg.png"
                 width={28}
                 height={28}
                 className="w-full h-full object-contain"
-                alt="Enlivo Technologies Logo - Digital Product Engineering Company"
-                unoptimized
+                alt="Envilo Global Tech Solutions Logo"
+                priority
                 itemProp="logo"
               />
             </div>
             <span
-              className="text-base font-medium text-[#1a1a1a] tracking-tight"
+              className="text-base font-semibold text-[#1a1a1a] tracking-tight"
               itemProp="name"
             >
               Enlivo Technologies
@@ -139,7 +137,7 @@ export function Navbar() {
 
             {/* 2. How We Work */}
             <a
-              href="/#services-overview"
+              href="/#our-process"
               className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:text-[#2563EB] hover:bg-black/5 cursor-pointer text-[#1a1a1a]"
               title="How We Work - Our development process and methodology"
               itemProp="url"
@@ -147,7 +145,7 @@ export function Navbar() {
               onClick={(e) => {
                 if (pathname === "/") {
                   e.preventDefault();
-                  const el = document.getElementById("services-overview");
+                  const el = document.getElementById("our-process");
                   if (el) {
                     el.scrollIntoView({ behavior: "smooth" });
                   }
@@ -158,6 +156,7 @@ export function Navbar() {
             </a>
 
             {/* 3. Case Studies */}
+            {/*
             <Link
               href="/case-studies"
               className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:text-[#2563EB] hover:bg-black/5 text-[#1a1a1a]"
@@ -167,6 +166,7 @@ export function Navbar() {
             >
               <span itemProp="name">Case Studies</span>
             </Link>
+            */}
 
             {/* 4. Company Dropdown */}
             <DropdownMenu>
@@ -222,15 +222,15 @@ export function Navbar() {
 
             {/* 5. CTA Button */}
             <div className="pl-4">
-              <Link
-                href="/contact"
+              <a
+                href="mailto:enlivotechnologies@gmail.com"
                 className="bg-[#2563EB] hover:bg-[#1D4ED8] text-[#FFFFFF] text-sm font-medium px-6 py-2.5 rounded-full transition-colors duration-300 "
                 title="Contact Us - Get in touch with our team for enterprise software solutions"
-                itemProp="url"
+                itemProp="email"
                 role="menuitem"
               >
                 <span itemProp="name">Talk to Our Team</span>
-              </Link>
+              </a>
             </div>
           </div>
 

@@ -1,242 +1,196 @@
-/**
- * components/sections/ServicesOverview.tsx
- *
- * PURPOSE: Interactive services accordion on homepage.
- * WHY: Showcases Enlivo Technologies' service offerings with engaging UI.
- *
- * SEO NOTES:
- * - H2 heading for proper hierarchy
- * - Service titles in H3 for crawlability
- * - Schema.org Service markup
- * - Keywords: enterprise software, digital product engineering, AI automation
- */
-
 "use client";
 
-import { useState } from "react";
+import { useRef, useEffect } from "react";
+import Link from "next/link";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  Monitor,
+  Layers,
+  Code2,
+  Server,
+  Cpu,
+  Cloud,
+  ShieldCheck,
+} from "lucide-react";
 
-// Service data structure
-interface Service {
-  number: string;
-  title: string;
-  description: string;
-  href: string; // Link to service detail page
+// Register ScrollTrigger safely
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
-// Services data - Enlivo Technologies offerings
+// --- DATA ---
+interface Service {
+  title: string;
+  description: string;
+  href: string;
+  icon: any;
+}
+
 const SERVICES_DATA: Service[] = [
   {
-    number: "01",
-    title: "Website & Digital Experience Design",
+    title: "Website & Experience Design",
     description:
-      "We design high-performance websites and digital experiences that balance brand, usability, accessibility, and speed—built to convert, scale, and perform across devices.",
-    href: "/services/product-engineering",
+      "High-performance digital experiences balancing brand, usability, and speed.",
+    href: "/services/web-design",
+    icon: Monitor,
   },
   {
-    number: "02",
-    title: "Product Strategy & UX Design",
+    title: "Product Strategy & UX",
     description:
-      "We translate complex business requirements into clear product strategy, intuitive user flows, and scalable UX systems that drive adoption and long-term value.",
-    href: "/services/product-engineering",
+      "Translating complex requirements into clear strategies and intuitive flows.",
+    href: "/services/product-strategy",
+    icon: Layers,
   },
   {
-    number: "03",
     title: "Web & Mobile Engineering",
     description:
-      "We build secure, reliable web and mobile applications using modern engineering practices—optimized for performance, maintainability, and real-world usage at scale.",
-    href: "/services/product-engineering",
+      "Secure, reliable applications using modern engineering practices.",
+    href: "/services/engineering",
+    icon: Code2,
   },
   {
-    number: "04",
-    title: "Enterprise Systems & Backend Platforms",
+    title: "Enterprise Systems",
     description:
-      "We engineer robust backend systems, APIs, and integrations that power mission-critical workflows, data pipelines, and enterprise operations.",
-    href: "/services/enterprise-systems",
+      "Robust backend systems and APIs powering mission-critical workflows.",
+    href: "/services/enterprise",
+    icon: Server,
   },
   {
-    number: "05",
-    title: "AI, Automation & Intelligent Systems",
+    title: "AI & Intelligent Systems",
     description:
-      "We design and deploy applied AI systems, automation pipelines, and intelligent workflows that operate reliably in production—not experiments or demos.",
-    href: "/services/ai-automation",
+      "Applied AI pipelines and automation workflows that operate reliably.",
+    href: "/services/ai",
+    icon: Cpu,
   },
   {
-    number: "06",
-    title: "Cloud & Platform Engineering",
+    title: "Cloud Infrastructure",
     description:
-      "We architect cloud-native infrastructure that supports scalability, availability, cost efficiency, and operational resilience across modern platforms.",
-    href: "/services/cloud-platforms",
+      "Cloud-native architectures supporting scalability and cost efficiency.",
+    href: "/services/cloud",
+    icon: Cloud,
   },
+  // The 7th item (Center of last row)
   {
-    number: "07",
-    title: "Cybersecurity & Secure Engineering",
+    title: "Cybersecurity Engineering",
     description:
-      "Security is embedded into every layer of our work—from application security and data protection to access control, secure architecture, and operational safeguards.",
-    href: "/services/cybersecurity",
+      "Security embedded into every layer—from data protection to access control.",
+    href: "/services/security",
+    icon: ShieldCheck,
   },
 ];
 
 export function ServicesOverview() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Header Content Fade In (Centered)
+      gsap.fromTo(
+        headerRef.current,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+        }
+      );
+
+      // 2. Grid Fade In
+      gsap.fromTo(
+        gridRef.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          delay: 0.2,
+          ease: "power2.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
-      className="py-24 bg-[#F4F5F3]"
-      aria-labelledby="services-heading"
-      itemScope
-      itemType="https://schema.org/ItemList"
+      ref={sectionRef}
+      id="services-overview"
+      className="py-24 lg:py-32 bg-white relative overflow-hidden"
     >
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <header className="grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-x-16 mb-20 lg:mb-24 items-start">
-          {/* Left Label */}
-          <div className="lg:col-span-2 pt-3">
-            <span
-              className="text-xs font-medium tracking-[0.2em] text-zinc-400 uppercase tracking-widest block "
-              aria-label="Section label"
-            >
-              / Service We Offer /
+        {/* --- CENTERED HEADER --- */}
+        <div ref={headerRef} className="text-center max-w-4xl mx-auto mb-20">
+          <div className="mb-3">
+            <span className="inline-block text-[11px] font-medium tracking-[0.25em] text-black/40 uppercase mb-6">
+              / What We Do /
             </span>
           </div>
-
-          {/* Right Content - Headline */}
-          <div className="lg:col-span-10">
-            <h2
-              id="process-heading"
-              className="text-2xl md:text-4xl lg:text-5xl font-medium text-[#1a1a1a] leading-[1.15] mb-6 tracking-tight w-full"
-              itemProp="name"
-            >
-             What We Build for Growing Businesses That Need Reliable Technology
-            </h2>
-            <p className="text-base md:text-lg text-[#5a5a5a] leading-relaxed max-w-3xl font-medium">
-              Secure software, enterprise platforms, and AI systems built to support growth and reliable day to day operations.
-            </p>
-          </div>
-        </header>
-        {/* <div className="mb-12">
-          <h2
-            id="services-heading"
-            className="text-3xl md:text-5xl font-medium text-[#1a1a1a] leading-[1.1] tracking-tight max-w-3xl"
-            itemProp="name"
-          >
-            This is how we help ambitious <br className="hidden lg:block" />
-            companies succeed.
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-medium text-[#1a1a1a] leading-[1.15] mb-6 tracking-tight">
+            We provide our customer the finest service available
           </h2>
-        </div> */}
+        </div>
 
-        {/* Services Accordion List */}
-        <div className="flex flex-col border-t border-[#1a1a1a]/10" role="list">
+        {/* --- GRID LAYOUT WITH CSS MASKING --- */}
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-gray-200 relative"
+        >
           {SERVICES_DATA.map((service, index) => {
-            const isOpen = openIndex === index;
+            const isLastItem = index === SERVICES_DATA.length - 1;
 
             return (
-              <article
-                key={service.number}
-                onMouseEnter={() => setOpenIndex(index)}
-                onMouseLeave={() => setOpenIndex(null)}
-                className="relative border-b border-[#1a1a1a]/10 cursor-pointer group"
-                role="listitem"
-                itemScope
-                itemType="https://schema.org/Service"
-                itemProp="itemListElement"
+              <div
+                key={service.title}
+                className={`contents ${isLastItem ? "lg:last-row" : ""}`}
               >
-                {/* Background Layer (Blue Hover Effect) */}
-                <div
-                  className={`
-                    absolute inset-0 w-full rounded-lg transition-all duration-300 ease-out origin-center
-                    ${
-                      isOpen
-                        ? "bg-[#2563EB] scale-[1.005] shadow-lg opacity-100 my-1"
-                        : "bg-transparent scale-100 opacity-0 my-0"
-                    }
-                  `}
-                  aria-hidden="true"
-                />
+                {/* GHOST CELL LEFT */}
+                {isLastItem && (
+                  <div
+                    className="hidden lg:block bg-white w-full h-full"
+                    aria-hidden="true"
+                  />
+                )}
 
-                {/* Content Layer */}
-                <div
-                  className={`relative z-10 w-full transition-all duration-300 ${
-                    isOpen ? "py-5 px-6" : "py-4 px-0"
-                  }`}
+                <Link
+                  href={service.href}
+                  className="bg-white p-8 xl:p-10 flex flex-col items-center text-center group h-full"
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    {/* Left: Number + Content */}
-                    <div className="flex items-start gap-6 md:gap-12 flex-1">
-                      {/* Service Number */}
-                      <span
-                        className={`
-                          text-sm font-medium pt-1 transition-colors duration-300
-                          ${
-                            isOpen
-                              ? "text-white/60"
-                              : "text-[#1a1a1a] opacity-40"
-                          }
-                        `}
-                        aria-hidden="true"
-                      >
-                        {service.number}
-                      </span>
-
-                      <div className="flex-1">
-                        {/* Service Title */}
-                        <h3
-                          className={`
-                            text-xl md:text-3xl font-medium tracking-tight transition-colors duration-300
-                            ${isOpen ? "text-white" : "text-[#1a1a1a]"}
-                          `}
-                          itemProp="name"
-                        >
-                          {service.title}
-                        </h3>
-
-                        {/* Description (Expandable) */}
-                        <div
-                          className={`
-                            grid transition-all duration-300 ease-out
-                            ${
-                              isOpen
-                                ? "grid-rows-[1fr] opacity-100 mt-2"
-                                : "grid-rows-[0fr] opacity-0 mt-0"
-                            }
-                          `}
-                        >
-                          <div className="overflow-hidden">
-                            <p
-                              className="text-sm text-white/90 font-light leading-relaxed max-w-3xl"
-                              itemProp="description"
-                            >
-                              {service.description}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right: Expand Icon */}
-                    <div className="flex items-center h-full pt-1">
-                      <span
-                        className={`
-                          text-2xl font-light transition-transform duration-300 block
-                          ${
-                            isOpen
-                              ? "text-white rotate-45"
-                              : "text-[#1a1a1a] rotate-0"
-                          }
-                        `}
-                        aria-hidden="true"
-                      >
-                        +
-                      </span>
+                  {/* ICON CIRCLE */}
+                  <div className="mb-5">
+                    <div className="w-14 h-14 rounded-full bg-[#F9FAFB] border border-gray-100 flex items-center justify-center">
+                      <service.icon
+                        strokeWidth={1.5}
+                        className="w-6 h-6 text-zinc-600"
+                      />
                     </div>
                   </div>
-                </div>
 
-                {/* Hidden link for SEO crawlability */}
-                <meta
-                  itemProp="url"
-                  content={`https://www.enlivotechnologies.com${service.href}`}
-                />
-              </article>
+                  {/* TITLE */}
+                  <h3 className="text-[17px] font-medium text-[#111] mb-2 tracking-tight">
+                    {service.title}
+                  </h3>
+
+                  {/* DESCRIPTION */}
+                  <p className="text-[14px] leading-relaxed text-zinc-500 max-w-[280px]">
+                    {service.description}
+                  </p>
+                </Link>
+
+                {/* GHOST CELL RIGHT */}
+                {isLastItem && (
+                  <div
+                    className="hidden lg:block bg-white w-full h-full"
+                    aria-hidden="true"
+                  />
+                )}
+              </div>
             );
           })}
         </div>

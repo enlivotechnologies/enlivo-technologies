@@ -98,6 +98,7 @@ export function OurProcess() {
 
   return (
     <section
+      id="our-process"
       className="py-24 lg:py-32 bg-[#050505] text-white overflow-hidden"
       aria-labelledby="process-heading"
       aria-describedby="process-description"

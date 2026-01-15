@@ -13,16 +13,23 @@ const nextConfig: NextConfig = {
 
   // Image optimization configuration
   images: {
-    // Add domains for external images (CMS, etc.)
     remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
       // TODO: Add CMS image domains when integrated
       // {
       //   protocol: 'https',
       //   hostname: 'cdn.sanity.io',
       // },
     ],
-    // Optimize image formats
     formats: ["image/avif", "image/webp"],
+  },
+  // Allow Cloudinary for video as well (for static serving, not Next.js video optimization)
+  experimental: {
+    optimizePackageImports: ["@radix-ui/react-slot"],
+    serverComponentsExternalPackages: ["cloudinary"],
   },
 
   // Experimental features

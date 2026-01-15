@@ -17,7 +17,7 @@
 
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 
@@ -64,7 +64,7 @@ function SplitText({
 export function Hero({
   subheading,
   description = "Designing and engineering websites, applications, enterprise platforms, and AI-powered solutions that companies rely on to operate, scale, and grow with confidence.",
-  imageUrl = "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-5.png",
+  imageUrl = "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768460210/hero3_jlvgha.png",
   imageAlt = "Enlivo Technologies team collaborating on secure software systems, enterprise platforms, and AI-powered solutions for modern businesses",
 }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -74,8 +74,10 @@ export function Hero({
   const asteriskRef = useRef<SVGSVGElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const imageRef = useRef<HTMLElement>(null);
+  const [imageVisible, setImageVisible] = useState(false);
 
   useEffect(() => {
+    setImageVisible(true);
     const ctx = gsap.context(() => {
       // Get all character spans
       const line1Chars =
@@ -193,7 +195,8 @@ export function Hero({
   return (
     <section
       ref={sectionRef}
-      className="relative pt-36 lg:pt-48 bg-[#F9FAF8] overflow-hidden"
+      className="relative pt-36 lg:pt-48 bg-white overflow-hidden"
+      // bg-[#F9FAF8]
       aria-labelledby="hero-heading"
       itemScope
       itemType="https://schema.org/WebPageElement"
@@ -259,7 +262,7 @@ export function Hero({
         <figure
           ref={imageRef}
           className="relative w-full rounded-2xl overflow-hidden mb-12 lg:mb-16"
-          style={{ opacity: 0 }}
+          style={{ opacity: imageVisible ? 1 : 0 }}
         >
           <Image
             src={imageUrl}
@@ -268,7 +271,6 @@ export function Hero({
             height={1080}
             className="w-full h-auto object-cover rounded-2xl"
             priority
-            unoptimized
             itemProp="image"
           />
         </figure>

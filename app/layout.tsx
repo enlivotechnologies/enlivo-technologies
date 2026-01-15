@@ -69,9 +69,9 @@ export const metadata: Metadata = {
 
   // Icons configuration
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/images/navbar/EnlivotechnologiesLogo.png",
+    shortcut: "/images/navbar/EnlivotechnologiesLogo.png",
+    apple: "/images/navbar/EnlivotechnologiesLogo.png",
   },
 
   // Manifest for PWA
