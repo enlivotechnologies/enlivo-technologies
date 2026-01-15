@@ -63,8 +63,8 @@ function SplitText({
 
 export function Hero({
   subheading,
-  description = "Designing and engineering websites, applications, enterprise platforms, and AI-powered solutions that companies rely on to operate, scale, and grow with confidence.",
-  imageUrl = "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768460210/hero3_jlvgha.png",
+  description = "Backend, frontend, and UI delivered by a founder-led engineering team that owns execution from day one.",
+  imageUrl = "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768502352/8a3628a7-3d06-480c-970b-b2c4b9720897_mpofoq.jpg",
   imageAlt = "Enlivo Technologies team collaborating on secure software systems, enterprise platforms, and AI-powered solutions for modern businesses",
 }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -74,10 +74,10 @@ export function Hero({
   const asteriskRef = useRef<SVGSVGElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const imageRef = useRef<HTMLElement>(null);
-  const [imageVisible, setImageVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setImageVisible(true);
+    setIsMounted(true);
     const ctx = gsap.context(() => {
       // Get all character spans
       const line1Chars =
@@ -195,84 +195,93 @@ export function Hero({
   return (
     <section
       ref={sectionRef}
-      className="relative pt-36 lg:pt-48 bg-white overflow-hidden"
-      // bg-[#F9FAF8]
+      className="relative pt-36 lg:pt-48 bg-black overflow-hidden"
       aria-labelledby="hero-heading"
       itemScope
       itemType="https://schema.org/WebPageElement"
     >
+      {/* Text Content - Constrained Width */}
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Text Section - Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-20 mb-12 lg:mb-16 items-start">
-          {/* Left: H1 Heading */}
-          <div>
-            {/* Optional Subheading/Eyebrow */}
-            {subheading && (
-              <p className="text-sm md:text-base text-[#2563EB] font-medium uppercase tracking-wider mb-4">
-                {subheading}
-              </p>
-            )}
-
-            <h1
-              id="hero-heading"
-              className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-[#1a1a1a] tracking-tight leading-[1.15]"
-              itemProp="headline"
-            >
-              {/* Top Line - Character by character reveal */}
-              <span ref={headingLine1Ref} className="block whitespace-nowrap">
-                <SplitText>We build secure software</SplitText>
-              </span>
-
-              {/* Bottom Line: systems for modern + Box */}
-              <span className="inline-flex flex-nowrap items-center gap-x-2 md:gap-x-3 mt-1">
-                {/* "systems for modern" text */}
-                <span ref={headingLine2Ref} className="whitespace-nowrap">
-                  <SplitText>systems for modern</SplitText>
-                </span>
-
-                {/* Highlighted Box with "businesses." */}
-                <span
-                  ref={highlightBoxRef}
-                  className="px-2 md:px-4 py-0.5 rounded-lg bg-[#E2E8F0] text-[#0F172A] whitespace-nowrap"
-                  style={{
-                    transform: "scaleX(0)",
-                    transformOrigin: "left center",
-                  }}
-                >
-                  <SplitText>businesses.</SplitText>
-                </span>
-              </span>
-            </h1>
-          </div>
-
-          {/* Right: Description */}
-          <div className="lg:pt-4 lg:flex lg:flex-col lg:justify-start">
-            <p
-              ref={descriptionRef}
-              className="text-sm md:text-base lg:text-lg text-[#5a5a5a] leading-relaxed lg:max-w-md lg:ml-auto"
-              style={{ opacity: 0 }}
-              itemProp="description"
-            >
-              {description}
+        {/* Hero Text Section - Single Column Layout for SEO */}
+        <div className="max-w-4xl mb-12 lg:mb-16">
+          {/* Optional Subheading/Eyebrow */}
+          {subheading && (
+            <p className="text-sm md:text-base text-[#2563EB] font-medium uppercase tracking-wider mb-4">
+              {subheading}
             </p>
-          </div>
-        </div>
+          )}
 
-        {/* Image Section */}
+          <h1
+            id="hero-heading"
+            className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-white tracking-tight leading-[1.15] mb-6"
+            itemProp="headline"
+          >
+            {/* Top Line - Character by character reveal */}
+            <span ref={headingLine1Ref} className="block whitespace-nowrap">
+              <SplitText>We Help Founders Turn Ideas</SplitText>
+            </span>
+
+            {/* Bottom Line: "into Reliable Products — Without Hiring a Tech Team" */}
+            <span className="inline-flex flex-nowrap items-center gap-x-2 md:gap-x-3 mt-1">
+              {/* "into Reliable Products — Without" text */}
+              <span ref={headingLine2Ref} className="whitespace-nowrap">
+                <SplitText>into Reliable Products - Without</SplitText>
+              </span>
+
+              {/* Highlighted Box with "businesses." */}
+              <span
+                ref={highlightBoxRef}
+                className="px-2 md:px-4 py-0.5 rounded-lg bg-[#F5B301] text-[#0F172A] whitespace-nowrap"
+                style={{
+                  transform: "scaleX(0)",
+                  transformOrigin: "left center",
+                }}
+              >
+                <SplitText>businesses.</SplitText>
+              </span>
+            </span>
+          </h1>
+
+          {/* Description - SEO optimized, placed below heading */}
+          <p
+            ref={descriptionRef}
+            className="mt-6 md:mt-8 text-base md:text-lg text-white/50 leading-relaxed max-w-3xl opacity-0"
+            itemProp="description"
+            suppressHydrationWarning
+          >
+            {description}
+          </p>
+        </div>
+      </div>
+
+      {/* Full-Width Image Section - Premium Design - Edge to Edge */}
+      <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+        {/* Premium gradient overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50 z-10 pointer-events-none" />
+        
         <figure
           ref={imageRef}
-          className="relative w-full rounded-2xl overflow-hidden mb-12 lg:mb-16"
-          style={{ opacity: imageVisible ? 1 : 0 }}
+          className={`relative w-full h-[40vh] sm:h-[45vh] md:h-[50vh] lg:h-[55vh] overflow-hidden transition-opacity duration-700 ${
+            isMounted ? "opacity-100" : "opacity-0"
+          }`}
+          suppressHydrationWarning
         >
           <Image
             src={imageUrl}
             alt={imageAlt}
-            width={1920}
-            height={1080}
-            className="w-full h-auto object-cover rounded-2xl"
+            fill
+            className="object-cover object-center"
             priority
             itemProp="image"
+            sizes="100vw"
+            quality={95}
           />
+          
+          {/* Premium overlay effects for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 pointer-events-none" />
+          
+          {/* Subtle radial vignette */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(0,0,0,0.1)_100%)] z-10 pointer-events-none" />
         </figure>
       </div>
     </section>

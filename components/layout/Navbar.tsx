@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,11 +46,35 @@ const companyItems: NavItem[] = [
   },
 ];
 
+// Main navigation items
+const mainNavItems: NavItem[] = [
+  {
+    id: "services",
+    label: "Services",
+    href: "/#services-overview",
+  },
+  {
+    id: "process",
+    label: "How it works",
+    href: "/#our-process",
+  },
+  {
+    id: "about",
+    label: "About Enlivo",
+    href: "/company/about",
+  },
+];
+
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [mobileCompanyOpen, setMobileCompanyOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
+
+  // Set mounted state to prevent hydration issues
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Handle scroll effect
   useEffect(() => {
@@ -66,20 +90,20 @@ export function Navbar() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  // Check if current page is in a section
-  const isCompanyActive = pathname?.startsWith("/company");
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 w-full z-[100] transition-all duration-300 bg-white",
-        isScrolled ? "border-b border-[#E5E7EB]" : "border-b border-transparent"
+        "fixed top-0 left-0 w-full z-[100] transition-all duration-500",
+        isScrolled
+          ? "bg-black backdrop-blur-2xl border-b border-transparent shadow-2xl shadow-black/50"
+          : "bg-black backdrop-blur-xl border-b border-transparent"
       )}
       itemScope
       itemType="https://schema.org/WPHeader"
     >
       <nav
-        className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8"
+        className="relative z-10 max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8"
         role="navigation"
         aria-label="Main navigation"
         itemScope
@@ -89,16 +113,16 @@ export function Navbar() {
           {/* --- Logo Section --- */}
           <Link
             href="/"
-            className="flex items-center gap-3 cursor-pointer group"
+            className="flex items-center gap-2.5 cursor-pointer group"
             aria-label="Enlivo Technologies - Home"
             title="Enlivo Technologies - Enterprise Software Solutions"
             itemProp="url"
           >
-            <div className="w-7 h-7 rounded-full flex items-center justify-center overflow-hidden">
+            <div className="w-8 h-8 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
               <Image
                 src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768460030/EnlivotechnologiesLogo_kzklhg.png"
-                width={28}
-                height={28}
+                width={32}
+                height={32}
                 className="w-full h-full object-contain"
                 alt="Envilo Global Tech Solutions Logo"
                 priority
@@ -106,7 +130,7 @@ export function Navbar() {
               />
             </div>
             <span
-              className="text-base font-semibold text-[#1a1a1a] tracking-tight"
+              className="text-lg font-bold text-white/80 tracking-tight group-hover:text-[#F5B301] transition-colors duration-300"
               itemProp="name"
             >
               Enlivo Technologies
@@ -114,129 +138,51 @@ export function Navbar() {
           </Link>
 
           {/* --- Desktop Navigation --- */}
-          <div className="hidden lg:flex items-center space-x-1" role="menubar">
-            {/* 1. Services */}
-            <a
-              href="/#services-overview"
-              className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:text-[#2563EB] hover:bg-black/5 cursor-pointer text-[#1a1a1a]"
-              title="Our Services - Digital Product Engineering & Enterprise Systems"
-              itemProp="url"
-              role="menuitem"
-              onClick={(e) => {
-                if (pathname === "/") {
-                  e.preventDefault();
-                  const el = document.getElementById("services-overview");
-                  if (el) {
-                    el.scrollIntoView({ behavior: "smooth" });
+          <div className="hidden lg:flex items-center gap-1" role="menubar">
+            {/* Main Navigation Links */}
+            {mainNavItems.map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                className="relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 hover:text-[#F5B301] cursor-pointer text-white/70 hover:text-white/90 group/nav"
+                title={item.label}
+                itemProp="url"
+                role="menuitem"
+                onClick={(e) => {
+                  if (pathname === "/" && item.href.startsWith("/#")) {
+                    e.preventDefault();
+                    const id = item.href.replace("/#", "");
+                    const el = document.getElementById(id);
+                    if (el) {
+                      el.scrollIntoView({ behavior: "smooth" });
+                    }
                   }
-                }
-              }}
-            >
-              <span itemProp="name">Services</span>
-            </a>
-
-            {/* 2. How We Work */}
-            <a
-              href="/#our-process"
-              className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:text-[#2563EB] hover:bg-black/5 cursor-pointer text-[#1a1a1a]"
-              title="How We Work - Our development process and methodology"
-              itemProp="url"
-              role="menuitem"
-              onClick={(e) => {
-                if (pathname === "/") {
-                  e.preventDefault();
-                  const el = document.getElementById("our-process");
-                  if (el) {
-                    el.scrollIntoView({ behavior: "smooth" });
-                  }
-                }
-              }}
-            >
-              <span itemProp="name">How We Work</span>
-            </a>
-
-            {/* 3. Case Studies */}
-            {/*
-            <Link
-              href="/case-studies"
-              className="px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 hover:text-[#2563EB] hover:bg-black/5 text-[#1a1a1a]"
-              title="Case Studies - See our successful digital transformation projects"
-              itemProp="url"
-              role="menuitem"
-            >
-              <span itemProp="name">Case Studies</span>
-            </Link>
-            */}
-
-            {/* 4. Company Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button
-                  className={cn(
-                    "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 flex items-center gap-1.5 outline-none ring-0 focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none group",
-                    isCompanyActive
-                      ? "text-[#2563EB] bg-[#2563EB]/10"
-                      : "text-[#1a1a1a] hover:bg-black/5"
-                  )}
-                  aria-label="Company information menu"
-                  aria-haspopup="true"
-                  role="menuitem"
-                >
-                  Company
-                  <ChevronDown
-                    size={14}
-                    className="group-data-[state=open]:rotate-180 transition-transform duration-300"
-                    aria-hidden="true"
-                  />
-                </button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent
-                className="w-[220px] p-2 bg-white rounded-2xl border border-gray-100 shadow-xl shadow-black/5 mt-2 z-[110]"
-                align="end"
-                sideOffset={10}
-                role="menu"
+                }}
               >
-                <div className="flex flex-col gap-1">
-                  {companyItems.map((item) => (
-                    <DropdownMenuItem key={item.id} asChild>
-                      <Link
-                        href={item.href}
-                        className="block px-4 py-3 rounded-xl hover:bg-gray-50 text-[#1a1a1a] transition-colors cursor-pointer outline-none"
-                        title={item.label}
-                        itemProp="url"
-                        role="menuitem"
-                      >
-                        <span
-                          className="text-[15px] font-medium"
-                          itemProp="name"
-                        >
-                          {item.label}
-                        </span>
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </div>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                <span className="relative z-10" itemProp="name">{item.label}</span>
+              </a>
+            ))}
 
-            {/* 5. CTA Button */}
-            <div className="pl-4">
+            {/* Golden CTA Button */}
+            <div className="ml-6">
               <a
                 href="mailto:enlivotechnologies@gmail.com"
-                className="bg-[#2563EB] hover:bg-[#1D4ED8] text-[#FFFFFF] text-sm font-medium px-6 py-2.5 rounded-full transition-colors duration-300 "
-                title="Contact Us - Get in touch with our team for enterprise software solutions"
+                className="relative group/cta bg-gradient-to-r from-[#F5B301] via-[#F5B301] to-[#F5B301]/90 hover:from-[#F5B301]/90 hover:via-[#F5B301] hover:to-[#F5B301] text-[#0F172A] text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-300 shadow-lg shadow-[#F5B301]/30 hover:shadow-xl hover:shadow-[#F5B301]/40 hover:scale-105 active:scale-95 overflow-hidden"
+                title="Talk to the Founder"
                 itemProp="email"
                 role="menuitem"
               >
-                <span itemProp="name">Talk to Our Team</span>
+                {/* Animated gradient overlay */}
+                <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#F5B301] via-[#FFD700] to-[#F5B301] opacity-0 group-hover/cta:opacity-100 transition-opacity duration-500" />
+                
+                <span className="relative z-10" itemProp="name">Talk to the Founder</span>
               </a>
             </div>
           </div>
 
           {/* --- Mobile Menu Button --- */}
           <button
-            className="lg:hidden text-[#1a1a1a] p-2 hover:bg-black/5 rounded-full transition-colors"
+            className="lg:hidden relative text-white/80 p-2 rounded-full transition-all duration-300 hover:text-white group/mobile"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={
               isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"
@@ -244,11 +190,13 @@ export function Navbar() {
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
           >
-            {isMobileMenuOpen ? (
-              <X size={24} aria-hidden="true" />
-            ) : (
-              <Menu size={24} aria-hidden="true" />
-            )}
+            <span className="relative z-10">
+              {isMobileMenuOpen ? (
+                <X size={24} aria-hidden="true" className="transition-transform duration-300 rotate-90" />
+              ) : (
+                <Menu size={24} aria-hidden="true" className="transition-transform duration-300" />
+              )}
+            </span>
           </button>
         </div>
       </nav>
@@ -257,7 +205,7 @@ export function Navbar() {
       <div
         id="mobile-menu"
         className={cn(
-          "fixed inset-0 z-40 bg-[#F9FAF8] pt-24 px-6 overflow-y-auto transition-all duration-300 lg:hidden",
+          "fixed inset-0 z-40 bg-black backdrop-blur-2xl pt-24 px-6 overflow-y-auto transition-all duration-500 lg:hidden",
           isMobileMenuOpen
             ? "opacity-100 visible"
             : "opacity-0 invisible pointer-events-none"
@@ -265,94 +213,36 @@ export function Navbar() {
         role="menu"
         aria-label="Mobile navigation menu"
       >
-        <div className="flex flex-col space-y-6 text-lg font-medium text-[#1a1a1a] max-w-sm mx-auto">
+        <div className="relative z-10 flex flex-col space-y-6 text-lg font-medium text-white/80 max-w-sm mx-auto">
           {/* Mobile Links */}
           <div className="space-y-4">
-            {/* Mobile: Services */}
-            <Link
-              href="/services"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full text-left py-2 hover:opacity-70 transition-opacity"
-              title="Services"
-              role="menuitem"
-            >
-              Services
-            </Link>
-
-            {/* Mobile: Standard Links */}
-            <Link
-              href="/insights"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full text-left py-2 hover:opacity-70 transition-opacity"
-              title="How We Work - Our development process"
-              role="menuitem"
-            >
-              How We Work
-            </Link>
-            <Link
-              href="/case-studies"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full text-left py-2 hover:opacity-70 transition-opacity"
-              title="Case Studies - Our successful projects"
-              role="menuitem"
-            >
-              Case Studies
-            </Link>
-
-            {/* Mobile: Company Dropdown */}
-            <div className="border-t border-black/5 pt-4">
-              <button
-                onClick={() => setMobileCompanyOpen(!mobileCompanyOpen)}
-                className="w-full flex items-center justify-between group py-2"
-                aria-expanded={mobileCompanyOpen}
-                aria-controls="mobile-company-menu"
+            {mainNavItems.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block w-full text-left py-2 hover:text-[#F5B301] text-white/80 hover:text-white transition-colors"
+                title={item.label}
+                role="menuitem"
               >
-                <span className={mobileCompanyOpen ? "text-[#2563EB]" : ""}>
-                  Company
-                </span>
-                <ChevronDown
-                  size={20}
-                  className={`transition-transform duration-300 ${
-                    mobileCompanyOpen
-                      ? "rotate-180 text-[#2563EB]"
-                      : "text-gray-400"
-                  }`}
-                  aria-hidden="true"
-                />
-              </button>
-              {mobileCompanyOpen && (
-                <div
-                  id="mobile-company-menu"
-                  className="ml-2 mt-2 space-y-2 border-l-2 border-[#2563EB]/20 pl-4"
-                >
-                  {companyItems.map((item) => (
-                    <Link
-                      key={item.id}
-                      href={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full text-left p-2 rounded-lg hover:bg-white/50 transition-colors"
-                      title={item.label}
-                      role="menuitem"
-                    >
-                      <div className="font-medium text-base text-gray-800 hover:opacity-70 transition-opacity">
-                        {item.label}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+                {item.label}
+              </Link>
+            ))}
           </div>
 
           {/* Mobile: CTA */}
           <Link
             href="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-[#FFFFFF] py-3.5 rounded-xl font-semibold mt-4 transition-colors duration-300 shadow-lg shadow-blue-500/20 text-center block"
-            title="Contact Us - Get in touch with our team"
+            className="relative group/cta-mobile w-full bg-gradient-to-r from-[#F5B301] via-[#F5B301] to-[#F5B301]/90 hover:from-[#F5B301]/90 hover:via-[#F5B301] hover:to-[#F5B301] text-[#0F172A] py-3.5 rounded-xl font-semibold mt-4 transition-all duration-300 shadow-lg shadow-[#F5B301]/40 hover:shadow-xl hover:shadow-[#F5B301]/50 text-center block overflow-hidden"
+            title="Talk to the Founder"
             role="menuitem"
           >
-            Talk to Our Team
+            {/* Animated gradient overlay */}
+            <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#F5B301] via-[#FFD700] to-[#F5B301] opacity-0 group-hover/cta-mobile:opacity-100 transition-opacity duration-500" />
+            {/* Shine effect */}
+            <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/cta-mobile:translate-x-full transition-transform duration-1000" />
+            <span className="relative z-10">Talk to the Founder</span>
           </Link>
         </div>
       </div>
