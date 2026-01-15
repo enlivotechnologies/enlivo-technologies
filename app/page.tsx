@@ -23,6 +23,7 @@ import { HOME_SEO, HOME_HEADINGS } from "@/seo/home";
 // Components
 import { Hero } from "@/components/sections/Hero";
 import { TrustStatement } from "@/components/sections/TrustStatement";
+import { FounderProblem } from "@/components/sections/FounderProblem";
 import { ServicesOverview } from "@/components/sections/ServicesOverview";
 import { OurProcess } from "@/components/sections/OurProcess";
 import { Testimonials } from "@/components/sections/Testimonials";
@@ -59,6 +60,9 @@ export default function HomePage() {
 
       {/* Trust Statement / Value Proposition */}
       <TrustStatement />
+
+      {/* Core Problem Section - Why Most Founder-Led Products Fail */}
+      <FounderProblem />
 
       {/* Services Overview - Critical for internal linking */}
       <section id="services-overview" aria-labelledby="services-heading">

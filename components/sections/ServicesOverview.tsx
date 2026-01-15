@@ -5,13 +5,11 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
-  Monitor,
-  Layers,
-  Code2,
+  Rocket,
   Server,
-  Cpu,
-  Cloud,
-  ShieldCheck,
+  Globe,
+  Palette,
+  HeadphonesIcon,
 } from "lucide-react";
 
 // Register ScrollTrigger safely
@@ -29,54 +27,39 @@ interface Service {
 
 const SERVICES_DATA: Service[] = [
   {
-    title: "Website & Experience Design",
+    title: "MVP & Product Development",
     description:
-      "High-performance digital experiences balancing brand, usability, and speed.",
-    href: "/services/web-design",
-    icon: Monitor,
+      "Rapidly build and launch your minimum viable product with a focus on core features that deliver value to your users from day one.",
+    href: "/services/mvp-development",
+    icon: Rocket,
   },
   {
-    title: "Product Strategy & UX",
+    title: "Backend Systems & APIs",
     description:
-      "Translating complex requirements into clear strategies and intuitive flows.",
-    href: "/services/product-strategy",
-    icon: Layers,
-  },
-  {
-    title: "Web & Mobile Engineering",
-    description:
-      "Secure, reliable applications using modern engineering practices.",
-    href: "/services/engineering",
-    icon: Code2,
-  },
-  {
-    title: "Enterprise Systems",
-    description:
-      "Robust backend systems and APIs powering mission-critical workflows.",
-    href: "/services/enterprise",
+      "Scalable, secure backend infrastructure and RESTful APIs that power your applications with reliability and performance.",
+    href: "/services/backend-systems",
     icon: Server,
   },
   {
-    title: "AI & Intelligent Systems",
+    title: "Frontend Web Applications",
     description:
-      "Applied AI pipelines and automation workflows that operate reliably.",
-    href: "/services/ai",
-    icon: Cpu,
+      "Modern, responsive web applications built with cutting-edge frameworks for exceptional user experiences across all devices.",
+    href: "/services/frontend-applications",
+    icon: Globe,
   },
   {
-    title: "Cloud Infrastructure",
+    title: "UI Implementation",
     description:
-      "Cloud-native architectures supporting scalability and cost efficiency.",
-    href: "/services/cloud",
-    icon: Cloud,
+      "Pixel-perfect UI implementation that transforms designs into interactive, accessible, and performant user interfaces.",
+    href: "/services/ui-implementation",
+    icon: Palette,
   },
-  // The 7th item (Center of last row)
   {
-    title: "Cybersecurity Engineering",
+    title: "Ongoing Development & Support",
     description:
-      "Security embedded into every layer—from data protection to access control.",
-    href: "/services/security",
-    icon: ShieldCheck,
+      "Continuous improvement, maintenance, and technical support to keep your product evolving and running smoothly.",
+    href: "/services/ongoing-support",
+    icon: HeadphonesIcon,
   },
 ];
 
@@ -126,32 +109,34 @@ export function ServicesOverview() {
     >
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         {/* --- CENTERED HEADER --- */}
-        <div ref={headerRef} className="text-center max-w-4xl mx-auto mb-20">
-          <div className="mb-3">
+        <div ref={headerRef} className="text-center max-w-5xl mx-auto mb-20">
+          {/* <div className="mb-3">
             <span className="inline-block text-[11px] font-medium tracking-[0.25em] text-black/40 uppercase mb-6">
               / What We Do /
             </span>
-          </div>
+          </div> */}
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-medium text-[#1a1a1a] leading-[1.15] mb-6 tracking-tight">
-            We provide our customer the finest service available
+          What We Help Founders Build MVP & Product Development Backend Systems & APIs
           </h2>
         </div>
 
-        {/* --- GRID LAYOUT WITH CSS MASKING --- */}
+        {/* --- GRID LAYOUT --- */}
         <div
           ref={gridRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-gray-200 relative"
         >
           {SERVICES_DATA.map((service, index) => {
+            // For 5 items: first 3 in row 1, last 2 in row 2 (centered)
+            const isInLastRow = index >= 3;
             const isLastItem = index === SERVICES_DATA.length - 1;
 
             return (
               <div
                 key={service.title}
-                className={`contents ${isLastItem ? "lg:last-row" : ""}`}
+                className={`contents ${isInLastRow ? "lg:col-start-auto" : ""}`}
               >
-                {/* GHOST CELL LEFT */}
-                {isLastItem && (
+                {/* GHOST CELL LEFT - Only for first item in last row (4th item) */}
+                {index === 3 && (
                   <div
                     className="hidden lg:block bg-white w-full h-full"
                     aria-hidden="true"
@@ -160,30 +145,30 @@ export function ServicesOverview() {
 
                 <Link
                   href={service.href}
-                  className="bg-white p-8 xl:p-10 flex flex-col items-center text-center group h-full"
+                  className="bg-white p-8 xl:p-10 flex flex-col items-center text-center group h-full transition-all duration-300 hover:bg-gray-50"
                 >
                   {/* ICON CIRCLE */}
                   <div className="mb-5">
-                    <div className="w-14 h-14 rounded-full bg-[#F9FAFB] border border-gray-100 flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-[#F9FAFB] border border-gray-100 flex items-center justify-center group-hover:border-gray-200 group-hover:bg-gray-50 transition-all duration-300">
                       <service.icon
                         strokeWidth={1.5}
-                        className="w-6 h-6 text-zinc-600"
+                        className="w-6 h-6 text-zinc-600 group-hover:text-zinc-800 transition-colors duration-300"
                       />
                     </div>
                   </div>
 
                   {/* TITLE */}
-                  <h3 className="text-[17px] font-medium text-[#111] mb-2 tracking-tight">
+                  <h3 className="text-[17px] font-medium text-[#111] mb-3 tracking-tight group-hover:text-[#0F172A] transition-colors duration-300">
                     {service.title}
                   </h3>
 
                   {/* DESCRIPTION */}
-                  <p className="text-[14px] leading-relaxed text-zinc-500 max-w-[280px]">
+                  <p className="text-[14px] leading-relaxed text-zinc-500 max-w-[280px] group-hover:text-zinc-600 transition-colors duration-300">
                     {service.description}
                   </p>
                 </Link>
 
-                {/* GHOST CELL RIGHT */}
+                {/* GHOST CELL RIGHT - Only for last item (5th item) */}
                 {isLastItem && (
                   <div
                     className="hidden lg:block bg-white w-full h-full"

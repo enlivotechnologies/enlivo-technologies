@@ -77,7 +77,7 @@ export const HOME_HEADINGS = {
     caseStudies: "Global Impact",  // Shows scale
     process: "Our Approach",       // Shows methodology
     trust: "Our Team",
-    cta: "Ready to Transform?",    // Focus on result
+    cta: "Let's Make This Simple",    // Focus on result
   },
 } as const;
 

@@ -6,6 +6,7 @@
 
 export { Hero } from "./Hero";
 export { TrustStatement } from "./TrustStatement";
+export { FounderProblem } from "./FounderProblem";
 export { ServicesOverview } from "./ServicesOverview";
 export { OurProcess } from "./OurProcess";
 export { Testimonials } from "./Testimonials";

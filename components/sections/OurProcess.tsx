@@ -34,62 +34,69 @@ interface ProcessStep {
 const PROCESS_STEPS: ProcessStep[] = [
   {
     number: "01",
-    title: ["Understand", "the Business"],
+    title: ["Product clarity call", "(with founder)"],
     description:
-      "Every engagement begins by understanding the problem behind the request. Business goals, users, constraints, and risks are defined early so technology decisions are made with purpose — not assumptions.",
-    outcome: "Clear direction and shared understanding.",
+      "Start with a direct conversation with the founder to understand your vision, goals, and challenges. We ask the right questions to clarify requirements, assess feasibility, and align on expectations before any work begins.",
+    outcome: "Clear vision, aligned expectations, and a solid foundation.",
     keywords: [
-      "business analysis",
-      "requirements gathering",
-      "stakeholder alignment",
+      "product discovery",
+      "founder consultation",
+      "requirements clarification",
+      "feasibility assessment",
     ],
   },
   {
     number: "02",
-    title: ["Design", "with Intent"],
+    title: ["Scope + roadmap", "definition"],
     description:
-      "Architecture, user experience, and security considerations are planned together. Design is treated as a decision-making tool, not just a visual layer, ensuring scalability, usability, and long-term maintainability.",
-    outcome: "A blueprint that supports growth, performance, and security.",
+      "We define the project scope, create a detailed roadmap, and break down the work into manageable phases. You'll see exactly what will be built, when, and how it aligns with your business objectives.",
+    outcome: "A clear roadmap and defined scope for success.",
     keywords: [
-      "software architecture",
-      "UX design",
-      "system design",
-      "scalable architecture",
+      "project scoping",
+      "roadmap planning",
+      "project definition",
+      "milestone planning",
     ],
   },
   {
     number: "03",
-    title: ["Build with", "Discipline"],
+    title: ["Build in weekly", "milestones"],
     description:
-      "Engineering follows proven practices: modular development, code reviews, testing, and documentation. Systems are built to be stable, observable, and ready for real-world usage.",
-    outcome: "Production-ready software, not prototypes.",
+      "Development happens in weekly sprints with clear milestones. You get regular updates, see progress in real-time, and can provide feedback as we build. No surprises, just steady, visible progress.",
+    outcome: "Transparent progress with weekly deliverables.",
     keywords: [
-      "software engineering",
-      "code quality",
-      "test-driven development",
-      "CI/CD",
+      "agile development",
+      "weekly sprints",
+      "milestone delivery",
+      "iterative development",
     ],
   },
   {
     number: "04",
-    title: ["Secure", "by Default"],
+    title: ["Demo, feedback,", "iterate"],
     description:
-      "Security is embedded throughout the lifecycle — from access control and data protection to infrastructure hardening and compliance readiness. Risks are addressed before systems go live, not after incidents occur.",
-    outcome: "Platforms teams can trust with sensitive data and operations.",
+      "Each milestone ends with a demo where you see the work, provide feedback, and we iterate. This continuous feedback loop ensures we're building exactly what you need, the way you need it.",
+    outcome: "Refined product that matches your exact needs.",
     keywords: [
-      "cybersecurity",
-      "secure development",
-      "compliance",
-      "data protection",
+      "demo sessions",
+      "client feedback",
+      "iterative improvement",
+      "collaborative development",
     ],
   },
   {
     number: "05",
-    title: ["Launch, Measure,", "Improve"],
+    title: ["Launch + ongoing", "support"],
     description:
-      "Deployment is only the beginning. Performance, reliability, and user behavior are monitored, and improvements are made based on real usage — not guesses.",
-    outcome: "Systems that evolve with the business.",
-    keywords: ["deployment", "monitoring", "continuous improvement", "DevOps"],
+      "We handle deployment, ensure everything works smoothly, and provide ongoing support. Your product launches successfully, and we're there to help it grow and evolve with your business.",
+    outcome: "Successful launch with continuous support and growth.",
+    keywords: [
+      "product launch",
+      "deployment",
+      "ongoing support",
+      "maintenance",
+      "continuous improvement",
+    ],
   },
 ];
 
@@ -108,11 +115,11 @@ export function OurProcess() {
       {/* Schema.org HowTo structured data for SEO */}
       <meta
         itemProp="name"
-        content="Enterprise Software Development Process | Enlivo Technologies"
+        content="How We Work - Product Development Process | Enlivo Technologies"
       />
       <meta
         itemProp="description"
-        content="Building reliable digital systems requires structure, accountability, and disciplined execution. Our proven 5-step process reduces delivery risk, aligns teams, and produces secure, production-ready software for enterprise operations."
+        content="Our simple, transparent 5-step process: Product clarity call with founder, scope and roadmap definition, weekly milestone builds, demo and feedback iterations, and launch with ongoing support. Get results without the complexity."
       />
       <meta itemProp="totalTime" content="P12W" />
       <meta itemProp="estimatedCost" content="Contact for quote" />
@@ -123,46 +130,44 @@ export function OurProcess() {
 
       {/* Hidden SEO content for search engines - keyword rich */}
       <div className="sr-only" id="process-description">
-        Enlivo Technologies enterprise software development process: A proven
-        5-step methodology for building secure, production-ready digital
-        systems. Our structured approach includes business analysis, intentional
-        software architecture design, disciplined engineering practices,
-        security-first development, and continuous improvement. We reduce
-        delivery risk, align business and technical teams, and deliver scalable
-        enterprise software solutions that support real business operations.
-        Keywords: software development process, enterprise software, secure
-        development, production-ready software, digital transformation, agile
-        methodology.
+        Enlivo Technologies product development process: A simple, transparent
+        5-step methodology. Start with a product clarity call with the founder,
+        define scope and roadmap, build in weekly milestones, demo and iterate
+        based on feedback, then launch with ongoing support. Our process ensures
+        transparency, regular communication, and results-driven delivery.
+        Keywords: product development process, MVP development, agile
+        methodology, weekly sprints, founder-led development, transparent
+        process.
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* --- Header Section --- */}
-        <header className="grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-x-16 mb-20 lg:mb-24">
-          {/* Left Label */}
-          <div className="lg:col-span-2 pt-2">
+        {/* --- Header Section - Centered --- */}
+        <header className="text-center mb-20 lg:mb-24">
+          {/* Label */}
+          <div className="mb-4">
             <span
               className="text-[11px] font-medium tracking-[0.2em] text-white/40 uppercase block font-sans"
-              aria-label="Section: Our Process"
+              aria-label="Section: How We Work"
             >
-              / Our Process /
+              / How We Work /
             </span>
           </div>
 
-          {/* Right Content - Headline */}
-          <div className="lg:col-span-10">
+          {/* Headline - Centered */}
+          <div className="max-w-4xl mx-auto">
             <h2
               id="process-heading"
-              className="text-3xl md:text-4xl lg:text-[3.25rem] font-medium leading-[1.15] tracking-tight text-white lg:text-left"
+              className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-[family-name:var(--font-neue-montreal)] leading-[1.1] tracking-tight text-white"
               itemProp="name"
             >
-              A Proven Software Development Process for Enterprise Scale Success
+              A Simple, Transparent Process That Gets Results
             </h2>
           </div>
         </header>
 
         {/* --- Process Cards Container --- */}
         <div
-          className="flex flex-col lg:flex-row gap-3 lg:gap-3 lg:h-[420px]"
+          className="flex flex-col lg:flex-row gap-4 lg:gap-4 lg:h-[480px]"
           role="list"
         >
           {PROCESS_STEPS.map((step, index) => {
@@ -174,16 +179,16 @@ export function OurProcess() {
                 onMouseEnter={() => setActiveIndex(index)}
                 onFocus={() => setActiveIndex(index)}
                 tabIndex={0}
-                className={`
+                  className={`
                   group relative flex flex-col
-                  rounded-2xl border transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] cursor-default
-                  focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50
-                  h-auto min-h-[180px] lg:min-h-0 lg:h-full
-                  p-5 lg:p-6
+                  rounded-xl border transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] cursor-default
+                  focus:outline-none focus:ring-2 focus:ring-[#FFA500]/50
+                  h-auto min-h-[200px] lg:min-h-0 lg:h-full
+                  p-6 lg:p-8
                   ${
                     isActive
-                      ? "border-white/20 bg-[#0a0a0a] lg:flex-[2.8]"
-                      : "border-white/[0.08] bg-transparent lg:flex-1 hover:border-white/[0.12]"
+                      ? "border-[#FFA500]/30 bg-gradient-to-br from-[#0a0a0a] to-[#0f0f0f] lg:flex-[2.8] shadow-lg shadow-[#FFA500]/10"
+                      : "border-white/[0.08] bg-transparent lg:flex-1 hover:border-white/[0.15] hover:bg-white/[0.02]"
                   }
                 `}
                 role="listitem"
@@ -218,7 +223,7 @@ export function OurProcess() {
 
                   <h3
                     className={`
-                      text-xl lg:text-[1.65rem] font-medium tracking-tight transition-colors duration-500 leading-[1.2]
+                      text-xl lg:text-2xl xl:text-[1.75rem] font-[family-name:var(--font-neue-montreal)] tracking-tight transition-colors duration-500 leading-[1.2]
                       ${isActive ? "text-white" : "text-white/30"}
                     `}
                     itemProp="name"
@@ -252,22 +257,19 @@ export function OurProcess() {
                     </p>
 
                     {/* Outcome Badge */}
-                    <div
-                      className="flex items-center gap-2"
+                    <p
+                      className="text-[13px] text-white/60 leading-relaxed"
                       itemProp="result"
                       itemScope
                       itemType="https://schema.org/Thing"
                     >
-                      <span className="text-[9px] font-semibold tracking-[0.15em] text-[#2563EB] uppercase">
-                        Outcome:
+                      <span className="text-[#FFA500] font-semibold tracking-[0.1em] uppercase mr-2">
+                        OUTCOME:
                       </span>
-                      <span
-                        className="text-[13px] text-white/60"
-                        itemProp="name"
-                      >
+                      <span itemProp="name">
                         {step.outcome}
                       </span>
-                    </div>
+                    </p>
                   </div>
                 </div>
               </article>
