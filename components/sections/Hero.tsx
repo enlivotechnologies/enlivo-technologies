@@ -1,234 +1,183 @@
 /**
  * components/sections/Hero.tsx
  *
- * PURPOSE: Hero section with H1 heading and award-winning GSAP animations.
- * WHY: First content users see, contains primary H1 for SEO.
- *
- * SEO CRITICAL:
- * - H1 should contain primary keyword
- * - Only ONE H1 per page
- * - Description should be compelling and include secondary keywords
- * - Image alt text should be descriptive for accessibility & SEO
- *
- * ANIMATIONS:
- * - Premium left-to-right text reveal with smooth blur effect
- * - Award-winning fluidity and timing
+ * PURPOSE: Hero section with centered content and premium animations.
+ * STYLE: Replicating "Windaro/Vectura" UI (Centered text, pill buttons, dark aesthetic).
  */
 
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { gsap } from "gsap";
 
 interface HeroProps {
-  /** H1 heading - primary SEO keyword should be included */
   heading?: string;
-  /** Optional subheading/eyebrow text */
-  subheading?: string;
-  /** Description paragraph - include secondary keywords naturally */
   description?: string;
-  /** Hero image URL */
   imageUrl?: string;
-  /** Hero image alt text for accessibility & SEO - be descriptive */
   imageAlt?: string;
 }
 
-// Split text into individual characters wrapped in spans
-function SplitText({
-  children,
-  className = "",
-}: {
-  children: string;
-  className?: string;
-}) {
-  return (
-    <>
-      {children.split("").map((char, index) => (
-        <span
-          key={index}
-          className={`inline-block char-reveal ${className}`}
-          style={{
-            opacity: 0,
-            transform: "translateY(20px)",
-            filter: "blur(8px)",
-          }}
-        >
-          {char === " " ? "\u00A0" : char}
-        </span>
-      ))}
-    </>
-  );
-}
-
 export function Hero({
-  subheading,
+  heading = "We Help Founders Turn Ideas into Reliable Products — Without Hiring a Tech Team",
   description = "Backend, frontend, and UI delivered by a founder-led engineering team that owns execution from day one.",
-  imageUrl = "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768502352/8a3628a7-3d06-480c-970b-b2c4b9720897_mpofoq.jpg",
-  imageAlt = "Enlivo Technologies team collaborating on secure software systems, enterprise platforms, and AI-powered solutions for modern businesses",
+  imageUrl = "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768559211/etgmwEyGLXsT9Rv13qZtx7LlzQ_f7hnmi.mp4",
+  imageAlt = "Business finance dashboard overview",
 }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const headingLine1Ref = useRef<HTMLSpanElement>(null);
-  const headingLine2Ref = useRef<HTMLSpanElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const button1Ref = useRef<HTMLAnchorElement>(null);
+  const button2Ref = useRef<HTMLAnchorElement>(null);
   const imageRef = useRef<HTMLElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    const ctx = gsap.context(() => {
-      // Get all character spans
-      const line1Chars =
-        headingLine1Ref.current?.querySelectorAll(".char-reveal");
-      const line2Chars =
-        headingLine2Ref.current?.querySelectorAll(".char-reveal");
-
-      // Create timeline for sequenced animations
-      const tl = gsap.timeline({
-        defaults: {
-          ease: "power4.out",
-        },
-      });
-
-      // Animate first line - smooth character reveal with blur
-      if (line1Chars) {
-        tl.to(line1Chars, {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          duration: 0.5,
-          stagger: 0.02,
-          ease: "power3.out",
-        });
-      }
-
-      // Animate second line - smooth character reveal
-      if (line2Chars) {
-        tl.to(
-          line2Chars,
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.5,
-            stagger: 0.02,
-            ease: "power3.out",
-          },
-          "-=0.3"
-        );
-      }
-
-      // Animate description - elegant fade
-      tl.fromTo(
-        descriptionRef.current,
-        { opacity: 0, y: 15, filter: "blur(4px)" },
-        {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          duration: 0.6,
-          ease: "power2.out",
-        },
-        "-=0.2"
-      );
-
-      // Animate image - cinematic reveal
-      tl.fromTo(
-        imageRef.current,
-        { opacity: 0, y: 30, scale: 0.98 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          ease: "power3.out",
-        },
-        "-=0.4"
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
   }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    
+    let ctx: gsap.Context | null = null;
+    let timer: NodeJS.Timeout | null = null;
+    
+    // Wait for next tick to ensure DOM is ready
+    timer = setTimeout(() => {
+      // Check if refs are still valid before creating context
+      if (!sectionRef.current) return;
+      
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          defaults: { ease: "power3.out" },
+        });
+
+        // 1. Image fade in
+        if (imageRef.current) {
+          tl.fromTo(
+            imageRef.current,
+            { opacity: 0, scale: 1.05 },
+            { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }
+          );
+        }
+
+        // 2. Heading fade up
+        if (headingRef.current) {
+          tl.fromTo(
+            headingRef.current,
+            { opacity: 0, y: 30, filter: "blur(8px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
+            "-=0.6"
+          );
+        }
+
+        // 3. Description fade up
+        if (descriptionRef.current) {
+          tl.fromTo(
+            descriptionRef.current,
+            { opacity: 0, y: 20, filter: "blur(4px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7 },
+            "-=0.4"
+          );
+        }
+
+        // 4. Buttons pop in
+        if (button1Ref.current && button2Ref.current) {
+          tl.fromTo(
+            [button1Ref.current, button2Ref.current],
+            { opacity: 0, y: 20, scale: 0.95 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.1 },
+            "-=0.2"
+          );
+        }
+      }, sectionRef);
+    }, 50);
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      if (ctx) {
+        try {
+          ctx.revert();
+        } catch (error) {
+          // Silently handle cleanup errors that may occur during unmount
+        }
+      }
+    };
+  }, [isMounted]);
 
   return (
     <section
       ref={sectionRef}
-      className="relative pt-36 lg:pt-48 bg-black overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-6 px-4 sm:px-6 lg:px-8"
+      style={{ backgroundColor: "#FFFFFF" }}
       aria-labelledby="hero-heading"
-      itemScope
-      itemType="https://schema.org/WebPageElement"
     >
-      {/* Text Content - Constrained Width */}
-      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Text Section - Single Column Layout for SEO */}
-        <div className="max-w-4xl mb-12 lg:mb-16">
-          {/* Optional Subheading/Eyebrow */}
-          {subheading && (
-            <p className="text-sm md:text-base text-[#2563EB] font-medium uppercase tracking-wider mb-4">
-              {subheading}
-            </p>
-          )}
+      {/* Background Container (Video/Image) */}
+      <figure
+        ref={imageRef}
+        className="absolute inset-x-4 top-18 bottom-6 rounded-3xl overflow-hidden shadow-2xl opacity-0 bg-black"
+      >
+        <video
+          src={imageUrl}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-80"
+        />
+        
+        {/* Dark Gradient Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-black/40" />
+      </figure>
 
-          <h1
-            id="hero-heading"
-            className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-[family-name:var(--font-neue-montreal)] text-white tracking-tight leading-[1.15] mb-6"
-            itemProp="headline"
-          >
-            {/* Top Line - Character by character reveal */}
-            <span ref={headingLine1Ref} className="block whitespace-nowrap">
-              <SplitText>We Help Founders Turn Ideas</SplitText>
-            </span>
+      {/* Content Container - Centered */}
+      <div className="relative z-10 max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <div className="max-w-2xl mx-auto text-center">
+          {/* H1 Heading */}
+        <h1
+          ref={headingRef}
+          id="hero-heading"
+            className="text-2xl md:text-4xl lg:text-5xl font-normal  text-white tracking-tight leading-[1.1] mb-6 opacity-0"
+        >
+            {heading}
+        </h1>
 
-            {/* Bottom Line: "into Reliable Products — Without Hiring a Tech Team" */}
-            <span className="inline-flex flex-nowrap items-center gap-x-2 md:gap-x-3 mt-1">
-              {/* "into Reliable Products — Without Hiring a Tech Team" text */}
-              <span ref={headingLine2Ref} className="whitespace-nowrap">
-                <SplitText>into Reliable Products — Without Hiring a Tech Team</SplitText>
-              </span>
-            </span>
-          </h1>
-
-          {/* Description - SEO optimized, placed below heading */}
+          {/* Description Text */}
           <p
             ref={descriptionRef}
-            className="mt-6 md:mt-8 text-base md:text-lg text-white/50 leading-relaxed max-w-3xl opacity-0"
-            itemProp="description"
-            suppressHydrationWarning
+            className="text-lg sm:text-xl text-gray-200 leading-relaxed max-w-lg mx-auto mb-10 opacity-0 font-light"
           >
             {description}
           </p>
-        </div>
-      </div>
 
-      {/* Full-Width Image Section - Premium Design - Edge to Edge */}
-      <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-        {/* Premium gradient overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50 z-10 pointer-events-none" />
-        
-        <figure
-          ref={imageRef}
-          className={`relative w-full h-[40vh] sm:h-[45vh] md:h-[50vh] lg:h-[55vh] overflow-hidden transition-opacity duration-700 ${
-            isMounted ? "opacity-100" : "opacity-0"
-          }`}
-          suppressHydrationWarning
-        >
-          <Image
-            src={imageUrl}
-            alt={imageAlt}
-            fill
-            className="object-cover object-center"
-            priority
-            itemProp="image"
-            sizes="100vw"
-            quality={95}
-          />
-          
-          {/* Premium overlay effects for depth */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 pointer-events-none" />
-          
-          {/* Subtle radial vignette */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(0,0,0,0.1)_100%)] z-10 pointer-events-none" />
-        </figure>
+          {/* Buttons Group */}
+          <div
+            ref={buttonsRef}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+          {/* Button 1: White Pill */}
+          <a
+            ref={button1Ref}
+            href="https://cal.com/nishal-pktyks"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white text-black text-[15px] font-medium px-8 py-3.5 rounded-full hover:bg-gray-100 transition-all duration-200 min-w-[160px] opacity-0"
+          >
+           Request a Demo
+          </a>
+
+          {/* Button 2: Glass/Dark Pill */}
+          <a
+            ref={button2Ref}
+            href="mailto:enlivotechnologies@gmail.com"
+            className="bg-white/10 backdrop-blur-md text-white text-[15px] font-medium px-8 py-3.5 rounded-full hover:bg-white/20 transition-all duration-200 min-w-[160px] opacity-0 border border-white/10"
+          >
+            Contact us
+          </a>
+          </div>
+        </div>
       </div>
     </section>
   );

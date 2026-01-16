@@ -22,6 +22,7 @@ import { HOME_SEO, HOME_HEADINGS } from "@/seo/home";
 
 // Components
 import { Hero } from "@/components/sections/Hero";
+// import { QuoteSection } from "@/components/sections/QuoteSection";
 import { TrustStatement } from "@/components/sections/TrustStatement";
 import { FounderProblem } from "@/components/sections/FounderProblem";
 import { ServicesOverview } from "@/components/sections/ServicesOverview";
@@ -57,6 +58,9 @@ export default function HomePage() {
 
       {/* Hero Section - Contains H1 */}
       <Hero />
+
+      {/* Quote Section - Premium testimonial-style layout */}
+      {/* <QuoteSection /> */}
 
       {/* Trust Statement / Value Proposition */}
       <TrustStatement />

@@ -4,13 +4,7 @@ import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  Rocket,
-  Server,
-  Globe,
-  Palette,
-  HeadphonesIcon,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 // Register ScrollTrigger safely
 if (typeof window !== "undefined") {
@@ -22,7 +16,6 @@ interface Service {
   title: string;
   description: string;
   href: string;
-  icon: any;
 }
 
 const SERVICES_DATA: Service[] = [
@@ -31,70 +24,84 @@ const SERVICES_DATA: Service[] = [
     description:
       "Rapidly build and launch your minimum viable product with a focus on core features that deliver value to your users from day one.",
     href: "/services/mvp-development",
-    icon: Rocket,
   },
   {
     title: "Backend Systems & APIs",
     description:
       "Scalable, secure backend infrastructure and RESTful APIs that power your applications with reliability and performance.",
     href: "/services/backend-systems",
-    icon: Server,
   },
   {
     title: "Frontend Web Applications",
     description:
       "Modern, responsive web applications built with cutting-edge frameworks for exceptional user experiences across all devices.",
     href: "/services/frontend-applications",
-    icon: Globe,
   },
   {
     title: "UI Implementation",
     description:
       "Pixel-perfect UI implementation that transforms designs into interactive, accessible, and performant user interfaces.",
     href: "/services/ui-implementation",
-    icon: Palette,
   },
   {
     title: "Ongoing Development & Support",
     description:
       "Continuous improvement, maintenance, and technical support to keep your product evolving and running smoothly.",
     href: "/services/ongoing-support",
-    icon: HeadphonesIcon,
   },
 ];
 
 export function ServicesOverview() {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const subheadingRef = useRef<HTMLParagraphElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Header Content Fade In (Centered)
-      gsap.fromTo(
-        headerRef.current,
-        { y: 30, opacity: 0 },
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: sectionRef.current, start: "top 85%" },
+      });
+
+      // Animate heading
+      tl.fromTo(
+        headingRef.current,
+        { y: 40, opacity: 0, filter: "blur(10px)" },
         {
           y: 0,
           opacity: 1,
-          duration: 1,
+          filter: "blur(0px)",
+          duration: 1.0,
           ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
         }
       );
 
-      // 2. Grid Fade In
-      gsap.fromTo(
-        gridRef.current,
-        { y: 40, opacity: 0 },
+      // Animate subheading
+      tl.fromTo(
+        subheadingRef.current,
+        { y: 20, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 1,
-          delay: 0.2,
-          ease: "power2.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-        }
+          duration: 0.8,
+          ease: "power3.out",
+        },
+        "-=0.6"
+      );
+
+      // Animate list items on scroll
+      tl.fromTo(
+        listRef.current?.children || [],
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+        },
+        "-=0.4"
       );
     }, sectionRef);
 
@@ -107,75 +114,74 @@ export function ServicesOverview() {
       id="services-overview"
       className="py-24 lg:py-32 bg-white relative overflow-hidden"
     >
-      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
         {/* --- CENTERED HEADER --- */}
-        <div ref={headerRef} className="text-center max-w-5xl mx-auto mb-20">
-          {/* <div className="mb-3">
-            <span className="inline-block text-[11px] font-medium tracking-[0.25em] text-black/40 uppercase mb-6">
-              / What We Do /
-            </span>
-          </div> */}
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-medium text-[#1a1a1a] leading-[1.15] mb-6 tracking-tight">
-          What We Help Founders Build MVP & Product Development Backend Systems & APIs
+        <div ref={headerRef} className="text-center max-w-4xl mx-auto mb-24">
+          <h2 
+            ref={headingRef}
+            className="text-4xl md:text-5xl lg:text-6xl font-medium text-black leading-[1.1] mb-6 tracking-tight opacity-0"
+          >
+            What We Help Founders Build
           </h2>
+          <p 
+            ref={subheadingRef}
+            className="text-lg md:text-xl text-gray-500 leading-relaxed max-w-2xl mx-auto opacity-0 font-light"
+          >
+            From MVP to production-ready products, we deliver the full stack of engineering services your startup needs to scale.
+          </p>
         </div>
 
-        {/* --- GRID LAYOUT --- */}
-        <div
-          ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-gray-200 relative"
-        >
+        {/* Services List - Award Winning Interaction */}
+        <div ref={listRef} className="flex flex-col border-t border-gray-200">
           {SERVICES_DATA.map((service, index) => {
-            // For 5 items: first 3 in row 1, last 2 in row 2 (centered)
-            const isInLastRow = index >= 3;
-            const isLastItem = index === SERVICES_DATA.length - 1;
+            const number = String(index + 1).padStart(2, "0");
 
             return (
-              <div
+              <Link
                 key={service.title}
-                className={`contents ${isInLastRow ? "lg:col-start-auto" : ""}`}
+                href={service.href}
+                className="group relative w-full block border-b border-gray-200 outline-none"
               >
-                {/* GHOST CELL LEFT - Only for first item in last row (4th item) */}
-                {index === 3 && (
-                  <div
-                    className="hidden lg:block bg-white w-full h-full"
-                    aria-hidden="true"
-                  />
-                )}
+                {/* Background Transition Layer 
+                  This creates the smooth black sweep from top to bottom
+                */}
+                <div className="absolute inset-0 bg-[#0A0A0A] scale-y-0 origin-top transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100" />
 
-                <Link
-                  href={service.href}
-                  className="bg-white p-8 xl:p-10 flex flex-col items-center text-center group h-full transition-all duration-300 hover:bg-gray-50"
-                >
-                  {/* ICON CIRCLE */}
-                  <div className="mb-5">
-                    <div className="w-14 h-14 rounded-full bg-[#F9FAFB] border border-gray-100 flex items-center justify-center group-hover:border-gray-200 group-hover:bg-gray-50 transition-all duration-300">
-                      <service.icon
-                        strokeWidth={1.5}
-                        className="w-6 h-6 text-zinc-600 group-hover:text-zinc-800 transition-colors duration-300"
-                      />
+                <div className="relative z-10 flex flex-col md:flex-row items-start md:items-baseline justify-between px-4 sm:px-6 lg:px-10 py-10 transition-colors duration-500 ease-out">
+                  
+                  {/* Left: Number */}
+                  <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-12">
+                    <span className="text-lg font-mono text-gray-400 group-hover:text-white/60 transition-colors duration-300">
+                      {number}
+                    </span>
+                  </div>
+
+                  {/* Center: Title & Description Expansion */}
+                  <div className="flex-1 w-full md:pr-20">
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium text-black group-hover:text-white transition-colors duration-300 tracking-tight">
+                      {service.title}
+                    </h3>
+                    
+                    {/* The "Grid Height" Trick:
+                      Allows animating from height:0 to height:auto smoothly 
+                    */}
+                    <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                      <div className="overflow-hidden">
+                        <p className="pt-4 text-base md:text-lg text-gray-400 group-hover:text-gray-300 font-light leading-relaxed max-w-2xl opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-75 ease-out">
+                          {service.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  {/* TITLE */}
-                  <h3 className="text-[17px] font-medium text-[#111] mb-3 tracking-tight group-hover:text-[#0F172A] transition-colors duration-300">
-                    {service.title}
-                  </h3>
-
-                  {/* DESCRIPTION */}
-                  <p className="text-[14px] leading-relaxed text-zinc-500 max-w-[280px] group-hover:text-zinc-600 transition-colors duration-300">
-                    {service.description}
-                  </p>
-                </Link>
-
-                {/* GHOST CELL RIGHT - Only for last item (5th item) */}
-                {isLastItem && (
-                  <div
-                    className="hidden lg:block bg-white w-full h-full"
-                    aria-hidden="true"
-                  />
-                )}
-              </div>
+                  {/* Right: Icon */}
+                  <div className="hidden md:flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-full border border-gray-200 group-hover:border-white/20 transition-all duration-500 mt-2 md:mt-0">
+                    <ArrowUpRight 
+                      className="w-5 h-5 text-black group-hover:text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:rotate-45" 
+                    />
+                  </div>
+                </div>
+              </Link>
             );
           })}
         </div>

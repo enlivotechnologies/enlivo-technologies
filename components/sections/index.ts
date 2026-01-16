@@ -5,6 +5,7 @@
  */
 
 export { Hero } from "./Hero";
+// export { QuoteSection } from "./QuoteSection";
 export { TrustStatement } from "./TrustStatement";
 export { FounderProblem } from "./FounderProblem";
 export { ServicesOverview } from "./ServicesOverview";

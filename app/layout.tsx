@@ -46,6 +46,28 @@ const neueMontreal = localFont({
 });
 
 /**
+ * Custom font: Geist Regular
+ * Used for body text and hero descriptions
+ */
+const geist = localFont({
+  src: "../public/fonts/geist-font/Geist-Regular-BF6569491e3eff1.otf",
+  display: "swap",
+  variable: "--font-geist",
+  weight: "400",
+});
+
+/**
+ * Custom font: Geist Light
+ * Used for navigation items
+ */
+const geistLight = localFont({
+  src: "../public/fonts/geist-font/Geist-Light-BF6569491dc9c01.otf",
+  display: "swap",
+  variable: "--font-geist-light",
+  weight: "300",
+});
+
+/**
  * Global metadata defaults
  * These are inherited by all pages unless overridden
  *
@@ -118,7 +140,7 @@ export default function RootLayout({
   return (
     <html
       lang={SITE_CONFIG.language}
-      className={`${inter.variable} ${neueMontreal.variable}`}
+      className={`${inter.variable} ${neueMontreal.variable} ${geist.variable} ${geistLight.variable}`}
       suppressHydrationWarning
     >
       <body
