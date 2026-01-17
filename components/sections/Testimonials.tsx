@@ -194,11 +194,11 @@ export function Testimonials() {
         
         {/* Header */}
         <div className="mb-12 text-center">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-[family-name:var(--font-neue-montreal)] text-white mb-4 tracking-tight">
-            Don't just take our word for it
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-neue-montreal)] text-white mb-6 tracking-tight leading-[1.1]">
+            Trusted by founders who ship
           </h2>
-          <p className="text-sm md:text-base text-white/50 max-w-2xl mx-auto leading-relaxed">
-            Hear from founders who have transformed their businesses with Enlivo.
+          <p className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed font-light">
+            Real stories from entrepreneurs who built their products with Enlivo — from idea to launch, without the hiring headaches.
           </p>
         </div>
 

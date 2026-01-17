@@ -1,3 +1,10 @@
+/**
+ * components/sections/ServicesOverview.tsx
+ *
+ * PURPOSE: Services overview section with interactive hover effects.
+ * DESIGN: Clean list layout with smooth black background transitions on hover.
+ */
+
 "use client";
 
 import { useRef, useEffect } from "react";
@@ -11,13 +18,14 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// --- DATA ---
+// --- TYPES ---
 interface Service {
   title: string;
   description: string;
   href: string;
 }
 
+// --- DATA ---
 const SERVICES_DATA: Service[] = [
   {
     title: "MVP & Product Development",
@@ -117,21 +125,22 @@ export function ServicesOverview() {
       <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
         {/* --- CENTERED HEADER --- */}
         <div ref={headerRef} className="text-center max-w-4xl mx-auto mb-24">
-          <h2 
+          <h2
             ref={headingRef}
             className="text-4xl md:text-5xl lg:text-6xl font-medium text-black leading-[1.1] mb-6 tracking-tight opacity-0"
           >
             What We Help Founders Build
           </h2>
-          <p 
+          <p
             ref={subheadingRef}
             className="text-lg md:text-xl text-gray-500 leading-relaxed max-w-2xl mx-auto opacity-0 font-light"
           >
-            From MVP to production-ready products, we deliver the full stack of engineering services your startup needs to scale.
+            From MVP to production-ready products, we deliver the full stack of
+            engineering services your startup needs to scale.
           </p>
         </div>
 
-        {/* Services List - Award Winning Interaction */}
+        {/* Services List - Interactive Hover Effects */}
         <div ref={listRef} className="flex flex-col border-t border-gray-200">
           {SERVICES_DATA.map((service, index) => {
             const number = String(index + 1).padStart(2, "0");
@@ -142,13 +151,10 @@ export function ServicesOverview() {
                 href={service.href}
                 className="group relative w-full block border-b border-gray-200 outline-none"
               >
-                {/* Background Transition Layer 
-                  This creates the smooth black sweep from top to bottom
-                */}
+                {/* Background Transition Layer - Creates smooth black sweep from top to bottom */}
                 <div className="absolute inset-0 bg-[#0A0A0A] scale-y-0 origin-top transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100" />
 
                 <div className="relative z-10 flex flex-col md:flex-row items-start md:items-baseline justify-between px-4 sm:px-6 lg:px-10 py-10 transition-colors duration-500 ease-out">
-                  
                   {/* Left: Number */}
                   <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-12">
                     <span className="text-lg font-mono text-gray-400 group-hover:text-white/60 transition-colors duration-300">
@@ -161,10 +167,8 @@ export function ServicesOverview() {
                     <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium text-black group-hover:text-white transition-colors duration-300 tracking-tight">
                       {service.title}
                     </h3>
-                    
-                    {/* The "Grid Height" Trick:
-                      Allows animating from height:0 to height:auto smoothly 
-                    */}
+
+                    {/* Grid Height Trick: Allows animating from height:0 to height:auto smoothly */}
                     <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                       <div className="overflow-hidden">
                         <p className="pt-4 text-base md:text-lg text-gray-400 group-hover:text-gray-300 font-light leading-relaxed max-w-2xl opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-75 ease-out">
@@ -176,9 +180,7 @@ export function ServicesOverview() {
 
                   {/* Right: Icon */}
                   <div className="hidden md:flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-full border border-gray-200 group-hover:border-white/20 transition-all duration-500 mt-2 md:mt-0">
-                    <ArrowUpRight 
-                      className="w-5 h-5 text-black group-hover:text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:rotate-45" 
-                    />
+                    <ArrowUpRight className="w-5 h-5 text-black group-hover:text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:rotate-45" />
                   </div>
                 </div>
               </Link>

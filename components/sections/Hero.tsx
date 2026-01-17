@@ -20,7 +20,7 @@ interface HeroProps {
 export function Hero({
   heading = "We Help Founders Turn Ideas into Reliable Products — Without Hiring a Tech Team",
   description = "Backend, frontend, and UI delivered by a founder-led engineering team that owns execution from day one.",
-  imageUrl = "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768559211/etgmwEyGLXsT9Rv13qZtx7LlzQ_f7hnmi.mp4",
+  imageUrl = "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768641853/video123_yp9n3b.mp4",
   imageAlt = "Business finance dashboard overview",
 }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);

@@ -94,36 +94,41 @@ export default function AboutPage() {
             {/* CENTER COLUMN: Large Portrait Image */}
             <div className="relative h-[500px] lg:h-auto min-h-[500px] rounded-[2rem] overflow-hidden shadow-sm">
               <Image
-                src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768466580/image_hp6od6.jpg"
+                src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768642767/ceo_mstgxw.png"
                 alt="Akshay K - CEO Enlivo Technologies"
                 fill
                 className="object-cover"
               />
+              {/* Gradient Overlay for Text Readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              
+              {/* Text Overlay at Bottom Center */}
+              <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-8 px-6 z-10">
+                <div className="text-center">
+                  <p className="text-sm font-medium text-white/90 uppercase tracking-wider mb-2 font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+                    Meet the Founder
+                  </p>
+                  <h3 className="text-2xl md:text-3xl font-semibold text-white tracking-tight font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+                    Akshay K
+                  </h3>
+                  <p className="text-base text-white/80 mt-1 font-light font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+                    Founder & CEO Enlivo Technologies
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* RIGHT COLUMN: Single "About CEO" Card */}
             <div className="flex flex-col h-full">
-              <div className="bg-[#F2F2F0] p-10 rounded-[2rem] flex flex-col justify-end h-full transition-colors duration-300 min-h-[500px]">
-                <p className="text-[#5a5a5a] text-base leading-relaxed font-medium">
-                  Under the leadership of Founder & CEO{" "}
-                  <span className="font-bold text-black">Akshay K</span>, Enlivo
-                  operates with a clear focus on building{" "}
-                  <span className="font-bold text-black">secure</span>,{" "}
-                  <span className="font-bold text-black">dependable </span>
-                  software systems. The company’s approach prioritizes{" "}
-                  <span className="font-bold text-black">
-                    long-term value
-                  </span>,{" "}
-                  <span className="font-bold text-black">
-                    operational reliability
-                  </span>
-                  , and{" "}
-                  <span className="font-bold text-black">
-                    technology decisions
-                  </span>{" "}
-                  that support real{" "}
-                  <span className="font-bold text-black">business growth</span>.
-                </p>
+              <div className="bg-[#F2F2F0] p-10 md:p-12 rounded-[2rem] flex flex-col justify-start h-full transition-colors duration-300 min-h-[500px]">
+                <div className="space-y-6">
+                  <p className="text-[#1a1a1a] text-sm md:text-lg leading-[1.7] font-normal font-sans tracking-tight" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+                    <span className="font-normal text-black">Akshay K</span> founded Enlivo with a clear vision: to bridge the gap between ambitious founders and reliable engineering execution. After years of building scalable products and witnessing the challenges founders face, he created Enlivo to solve a fundamental problem.
+                  </p>
+                  <p className="text-[#1a1a1a] text-sm md:text-lg leading-[1.7] font-normal font-sans tracking-tight" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+                    Today, he leads a team dedicated to turning ideas into production-ready software — without the hiring headaches, management overhead, or technical debt that derails most startups.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

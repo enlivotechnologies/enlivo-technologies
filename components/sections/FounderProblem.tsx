@@ -1,14 +1,14 @@
 /**
  * components/sections/FounderProblem.tsx
  *
- * DESIGN: Premium 1+4 Grid Layout (Vectura Style).
- * STYLE: White background, thin borders, no animations (Static/Clean).
+ * DESIGN: Premium 1+4 Grid Layout with Section Header.
+ * STYLE: White background, thin borders, static cards (no hover effects), centered typography.
  */
 
 "use client";
 
 import Image from "next/image";
-import { UserX, ZapOff, Hourglass, ShieldAlert } from "lucide-react";
+import { UserX, ZapOff, Hourglass, ShieldAlert, AlertCircle } from "lucide-react";
 
 const PROBLEMS = [
   {
@@ -42,11 +42,27 @@ export function FounderProblem() {
     <section className="bg-[#FFFFFF] py-24 lg:py-32">
       <div className="max-w-[105rem] mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Grid Layout: 12 Columns */}
+        {/* --- SECTION HEADER --- */}
+        <div className="max-w-4xl mx-auto text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-50 border border-gray-200 text-sm font-medium text-gray-900 mb-6">
+             <AlertCircle className="w-4 h-4 text-black" />
+             <span>The Reality</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight leading-[1.1] mb-6">
+            Building a product is hard. <br className="hidden md:block" />
+            Hiring a team shouldn't be.
+          </h2>
+          
+          <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-2xl mx-auto">
+             Most founders get stuck managing people instead of building their vision. The traditional hiring model is fundamentally broken.
+          </p>
+        </div>
+
+        {/* --- GRID LAYOUT --- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           
           {/* --- LEFT: MAIN FEATURE CARD (Spans 5 Columns) --- */}
-          {/* Added border, removed hover/scale effects */}
           <div className="lg:col-span-5 relative bg-[#111111] rounded-[2.5rem] overflow-hidden min-h-[500px] lg:h-auto border border-gray-200">
             {/* Background Image */}
             <div className="absolute inset-0">
@@ -60,13 +76,13 @@ export function FounderProblem() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
             </div>
 
-            {/* Content Overlay - Positioned at Bottom */}
+            {/* Content Overlay */}
             <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-12">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight leading-[1.1] mb-6 drop-shadow-lg">
                 Why most founder-led products fail
               </h2>
               <p className="text-lg text-gray-200 leading-relaxed max-w-md font-light drop-shadow-md">
-                The traditional hiring model is broken. It forces visionaries to become project managers, leading to burnout and stalled growth.
+                It forces visionaries to become project managers, leading to burnout, technical debt, and stalled growth.
               </p>
             </div>
           </div>
@@ -78,7 +94,6 @@ export function FounderProblem() {
               return (
                 <div
                   key={index}
-                  // Added border, removed hover/shadow/translate effects
                   className="bg-white rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between h-full min-h-[280px] border border-gray-200"
                 >
                   <div>
