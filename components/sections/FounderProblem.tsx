@@ -2,7 +2,7 @@
  * components/sections/FounderProblem.tsx
  *
  * DESIGN: Premium 1+4 Grid Layout (Vectura Style).
- * CHANGES: Removed button from left card, moved text to bottom for a cinematic look.
+ * STYLE: White background, thin borders, no animations (Static/Clean).
  */
 
 "use client";
@@ -39,23 +39,24 @@ const PROBLEMS = [
 
 export function FounderProblem() {
   return (
-    <section className="bg-black py-24 lg:py-32">
+    <section className="bg-[#FFFFFF] py-24 lg:py-32">
       <div className="max-w-[105rem] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Grid Layout: 12 Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           
           {/* --- LEFT: MAIN FEATURE CARD (Spans 5 Columns) --- */}
-          <div className="lg:col-span-5 relative bg-[#111111] rounded-[2.5rem] overflow-hidden min-h-[500px] lg:h-auto group">
+          {/* Added border, removed hover/scale effects */}
+          <div className="lg:col-span-5 relative bg-[#111111] rounded-[2.5rem] overflow-hidden min-h-[500px] lg:h-auto border border-gray-200">
             {/* Background Image */}
             <div className="absolute inset-0">
               <Image
                 src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768631808/career_k5rv6v.jpg"
                 alt="Founder looking stressed"
                 fill
-                className="object-cover object-center opacity-70 transition-transform duration-700 group-hover:scale-105"
+                className="object-cover object-center opacity-70"
               />
-              {/* Premium Gradient Overlay (Darker at bottom for text readability) */}
+              {/* Premium Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
             </div>
 
@@ -77,7 +78,8 @@ export function FounderProblem() {
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between h-full min-h-[280px] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                  // Added border, removed hover/shadow/translate effects
+                  className="bg-white rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between h-full min-h-[280px] border border-gray-200"
                 >
                   <div>
                     <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center mb-8 border border-gray-100">
