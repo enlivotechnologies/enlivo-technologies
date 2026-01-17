@@ -37,7 +37,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black pt-20 pb-10 border-t border-white/10" aria-labelledby="footer-heading">
+    <footer id="footer" className="bg-black pt-20 pb-10 border-t border-white/10" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">Footer</h2>
       
       {/* INCREASED WIDTH CONTAINER: max-w-[85rem] for better spacing */}

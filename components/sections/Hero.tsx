@@ -28,7 +28,6 @@ export function Hero({
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
   const button1Ref = useRef<HTMLAnchorElement>(null);
-  const button2Ref = useRef<HTMLAnchorElement>(null);
   const imageRef = useRef<HTMLElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -81,12 +80,12 @@ export function Hero({
           );
         }
 
-        // 4. Buttons pop in
-        if (button1Ref.current && button2Ref.current) {
+        // 4. Button pop in
+        if (button1Ref.current) {
           tl.fromTo(
-            [button1Ref.current, button2Ref.current],
+            button1Ref.current,
             { opacity: 0, y: 20, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.1 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.6 },
             "-=0.2"
           );
         }
@@ -152,30 +151,18 @@ export function Hero({
             {description}
           </p>
 
-          {/* Buttons Group */}
+          {/* Button: See How It Works */}
           <div
             ref={buttonsRef}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex items-center justify-center"
           >
-          {/* Button 1: White Pill */}
-          <a
-            ref={button1Ref}
-            href="https://cal.com/nishal-pktyks"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-black text-[15px] font-medium px-8 py-3.5 rounded-full hover:bg-gray-100 transition-all duration-200 min-w-[160px] opacity-0"
-          >
-           Request a Demo
-          </a>
-
-          {/* Button 2: Glass/Dark Pill */}
-          <a
-            ref={button2Ref}
-            href="mailto:enlivotechnologies@gmail.com"
-            className="bg-white/10 backdrop-blur-md text-white text-[15px] font-medium px-8 py-3.5 rounded-full hover:bg-white/20 transition-all duration-200 min-w-[160px] opacity-0 border border-white/10"
-          >
-            Contact us
-          </a>
+            <a
+              ref={button1Ref}
+              href="#footer"
+              className="bg-white text-black text-[15px] font-medium px-8 py-3.5 rounded-full hover:bg-gray-100 transition-all duration-200 min-w-[180px] opacity-0"
+            >
+              See How It Works
+            </a>
           </div>
         </div>
       </div>

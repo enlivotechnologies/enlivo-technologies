@@ -8,7 +8,6 @@
 
 "use client";
 
-import { useEffect } from "react";
 import Image from "next/image";
 import { CheckCircle2, TrendingUp, ArrowRight } from "lucide-react";
 
@@ -21,17 +20,6 @@ export function CTA({
   heading = "Start with clarity, scale with confidence.",
   description = "Enlivo helps founders move faster — with a dedicated engineering team, transparent processes, and a focus on building scalable products from day one."
 }: CTAProps = {}) {
-  // --- Initialize Cal.com ---
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi();
-      cal("ui", {
-        styles: { branding: { brandColor: "#000000" } },
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      });
-    })();
-  }, []);
 
   return (
     <section className="py-24 lg:py-32 bg-white">
@@ -98,14 +86,15 @@ export function CTA({
               </div>
 
               {/* Action Button: White Pill Shape */}
-              <button
-                data-cal-link="nishal-pktyks" 
-                data-cal-config='{"layout":"month_view"}'
+              <a
+                href="https://cal.com/nishal-pktyks"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black text-[17px] font-medium px-8 py-4 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-[1.02]"
               >
-                <span>Get started now</span>
+                <span>Get a Free Product Clarity Call</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </a>
 
             </div>
           </div>
@@ -114,45 +103,4 @@ export function CTA({
       </div>
     </section>
   );
-}
-
-// --- Helper to load Cal.com script (Same logic as before) ---
-function getCalApi(): Promise<any> {
-  return new Promise((resolve) => {
-    (function (C: any, A: string, L: string) {
-      let p = function (a: any, ar: any) {
-        a.q.push(ar);
-      };
-      let d = C.document;
-      C.cal =
-        C.cal ||
-        function () {
-          let cal = C.cal;
-          let ar = arguments;
-          if (!cal.loaded) {
-            cal.ns = {};
-            cal.q = cal.q || [];
-            d.head.appendChild(d.createElement("script")).src = A;
-            cal.loaded = true;
-          }
-          if (ar[0] === L) {
-            const api = function () {
-              p(api, arguments);
-            } as { (): void; q: unknown[] };
-            const namespace = ar[1];
-            api.q = api.q || [];
-            typeof namespace === "string"
-              ? (cal.ns[namespace] = api) && p(api, arguments)
-              : p(cal, arguments);
-            return;
-          }
-          p(cal, arguments);
-        };
-    })(window, "https://app.cal.com/embed/embed.js", "init");
-
-    // @ts-ignore
-    resolve(window.cal);
-    // @ts-ignore
-    window.cal("init", { origin: "https://app.cal.com" });
-  });
 }
