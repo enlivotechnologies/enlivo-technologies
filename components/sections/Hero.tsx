@@ -134,7 +134,7 @@ export function Hero({
 
       {/* Content Container - Centered */}
       <div className="relative z-10 max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-        <div className="max-w-2xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           {/* H1 Heading */}
         <h1
           ref={headingRef}
@@ -147,7 +147,7 @@ export function Hero({
           {/* Description Text */}
           <p
             ref={descriptionRef}
-            className="text-lg sm:text-xl text-gray-200 leading-relaxed max-w-lg mx-auto mb-10 opacity-0 font-light"
+            className="text-lg sm:text-xl text-gray-200 leading-relaxed max-w-xl mx-auto mb-10 opacity-0 font-light"
           >
             {description}
           </p>
