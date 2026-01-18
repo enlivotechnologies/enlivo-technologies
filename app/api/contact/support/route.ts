@@ -289,32 +289,45 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate environment variables
+    if (!process.env.SMTP_EMAIL || !process.env.SMTP_PASSWORD) {
+      console.error("Missing SMTP environment variables:", {
+        SMTP_EMAIL: process.env.SMTP_EMAIL ? "set" : "missing",
+        SMTP_PASSWORD: process.env.SMTP_PASSWORD ? "set" : "missing",
+      });
+      return NextResponse.json(
+        { error: "Email service configuration error. Please contact support." },
+        { status: 500 }
+      );
+    }
+
     // Create transporter
     // Use explicit host/port if provided, otherwise fallback to gmail service
     const transporter = nodemailer.createTransport(
       process.env.SMTP_HOST && process.env.SMTP_PORT
         ? {
-            host: process.env.SMTP_HOST,
-            port: parseInt(process.env.SMTP_PORT),
+            host: String(process.env.SMTP_HOST),
+            port: parseInt(String(process.env.SMTP_PORT), 10),
             secure: false, // true for 465, false for other ports
             auth: {
-              user: process.env.SMTP_EMAIL,
-              pass: process.env.SMTP_PASSWORD,
+              user: String(process.env.SMTP_EMAIL),
+              pass: String(process.env.SMTP_PASSWORD),
             },
           }
         : {
             service: "gmail",
             auth: {
-              user: process.env.SMTP_EMAIL,
-              pass: process.env.SMTP_PASSWORD,
+              user: String(process.env.SMTP_EMAIL),
+              pass: String(process.env.SMTP_PASSWORD),
             },
           }
     );
 
     // Email content
+    const smtpEmail = String(process.env.SMTP_EMAIL);
     const mailOptions = {
-      from: `"Enlivo Support Form" <${process.env.SMTP_EMAIL}>`,
-      to: process.env.SMTP_EMAIL,
+      from: `"Enlivo Support Form" <${smtpEmail}>`,
+      to: smtpEmail,
       replyTo: email,
       subject: `New Support Inquiry from ${fullName}`,
       html: createEmailTemplate({
