@@ -58,14 +58,13 @@ export default function FullStackDeveloperPage() {
 
                   {/* Main Heading - Stacked */}
                   <h1 className="text-2xl md:text-4xl lg:text-5xl font-medium text-white leading-[1.1] tracking-tight">
-                    Become a Job-Ready<br />
-                    Full-Stack Developer<br />
-                    in 6 Months
+                  Become a Job Ready Full-Stack Developer
+                  Through Real World Work in 6 Months
                   </h1>
 
                   {/* Subheading */}
                   <p className="text-base md:text-lg text-gray-300 leading-relaxed font-normal max-w-2xl">
-                    The only internship you need to be among top 1% developers. Live mentorship, real production projects, and industry workflows — not tutorials, not assignments.
+                  This is not a tutorial based program. You work on real systems, receive continuous feedback, and grow into responsibility the way engineers do in real teams.
                   </p>
 
                   {/* CTA Buttons */}

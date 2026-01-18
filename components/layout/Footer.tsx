@@ -7,6 +7,7 @@
 
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Linkedin, Instagram, Twitter, ArrowRight } from "lucide-react";
@@ -21,9 +22,9 @@ const FOOTER_LINKS = {
     { label: "Internships", href: "/company/internships" },
   ],
   info: [
+    { label: "Support", href: "/contact" },
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
-    { label: "Support", href: "mailto:enlivotechnologies@gmail.com" },
   ],
 };
 
@@ -35,6 +36,22 @@ const SOCIALS = [
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleNewsletterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (email.trim()) {
+      // Simple UI feedback - no storage
+      setIsSubmitted(true);
+      setEmail("");
+      
+      // Reset after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 3000);
+    }
+  };
 
   return (
     <footer id="footer" className="bg-black pt-20 pb-10 border-t border-white/10" aria-labelledby="footer-heading">
@@ -44,21 +61,21 @@ export function Footer() {
       <div className="max-w-[85rem] mx-auto px-6 lg:px-8">
         
         {/* --- MAIN GRID CONTENT --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-20 items-start">
           
           {/* 1. BRAND COLUMN (Left - lg:col-span-5) */}
           <div className="lg:col-span-5 flex flex-col items-start">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 mb-6 group">
-              <div className="w-10 h-10 relative flex items-center justify-center flex-shrink-0">
-                 <Image
-                    src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768460030/EnlivotechnologiesLogo_kzklhg.png"
-                    width={40}
-                    height={40}
-                    className="w-full h-full object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity"
-                    alt="Enlivo Technologies Logo"
-                    priority
-                  />
+              <div className="w-7 h-7 relative flex items-center justify-center flex-shrink-0">
+                <Image
+                  src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768460030/EnlivotechnologiesLogo_kzklhg.png"
+                  width={28}
+                  height={28}
+                  className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                  alt="Enlivo Technologies Logo"
+                  priority
+                />
               </div>
               <span className="text-xl font-semibold text-white tracking-tight group-hover:opacity-80 transition-opacity font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
                 Enlivo Technologies
@@ -93,9 +110,9 @@ export function Footer() {
           {/* 2. NAVIGATION LINKS (Center - lg:col-span-3) */}
           <div className="lg:col-span-3 grid grid-cols-2 gap-8 lg:pl-4">
             
-            {/* Column: Menu */}
+            {/* Column: Company */}
             <div className="flex flex-col gap-5">
-              <h3 className="text-sm font-semibold text-white uppercase tracking-wider font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>Menu</h3>
+              <h3 className="text-lg font-medium text-white tracking-wider font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>Company</h3>
               <nav className="flex flex-col gap-3">
                 {FOOTER_LINKS.menu.map((link) => (
                   <Link 
@@ -110,9 +127,9 @@ export function Footer() {
               </nav>
             </div>
 
-            {/* Column: Info */}
+            {/* Column: Resources */}
             <div className="flex flex-col gap-5">
-              <h3 className="text-sm font-semibold text-white uppercase tracking-wider font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>Info</h3>
+              <h3 className="text-lg font-medium text-white tracking-wider font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>Resources</h3>
               <nav className="flex flex-col gap-3">
                 {FOOTER_LINKS.info.map((link) => (
                   <Link 
@@ -129,8 +146,8 @@ export function Footer() {
           </div>
 
           {/* 3. NEWSLETTER (Right - lg:col-span-4) */}
-          <div className="lg:col-span-4 lg:pl-10">
-            <h3 className="text-lg font-semibold text-white mb-3 font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+          <div className="lg:col-span-4 lg:pl-10 flex flex-col items-start">
+            <h3 className="text-lg font-medium text-white mb-3 font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
               Subscribe to Our Newsletter
             </h3>
             <p className="text-gray-400 font-light mb-6 max-w-sm leading-relaxed text-[14px] font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
@@ -138,24 +155,32 @@ export function Footer() {
             </p>
 
             {/* Premium Pill Input */}
-            <form 
-              className="relative w-full group"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full h-12 pl-5 pr-14 bg-white/5 border border-white/10 rounded-full text-white placeholder:text-gray-500 text-sm outline-none focus:border-white/20 focus:bg-white/10 focus:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all duration-300"
-                required
-              />
-              <button
-                type="submit"
-                className="absolute right-1.5 top-1.5 bottom-1.5 w-9 h-9 bg-[#D4F24F] hover:bg-[#ccee3e] text-black rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-[0_0_10px_rgba(212,242,79,0.2)]"
-                aria-label="Subscribe"
+            {!isSubmitted ? (
+              <form 
+                className="relative w-full group"
+                onSubmit={handleNewsletterSubmit}
               >
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:-rotate-45" />
-              </button>
-            </form>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="w-full h-12 pl-5 pr-14 bg-white/5 border border-white/10 rounded-full text-white placeholder:text-gray-500 text-sm outline-none focus:border-white/20 focus:bg-white/10 focus:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all duration-300"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="absolute right-1.5 top-1.5 bottom-1.5 w-9 h-9 bg-[#D4F24F] hover:bg-[#ccee3e] text-black rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-[0_0_10px_rgba(212,242,79,0.2)]"
+                  aria-label="Subscribe"
+                >
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:-rotate-45" />
+                </button>
+              </form>
+            ) : (
+              <div className="w-full h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-full text-white text-sm">
+                Thank you for subscribing!
+              </div>
+            )}
           </div>
 
         </div>
@@ -163,7 +188,7 @@ export function Footer() {
         {/* --- BOTTOM BAR --- */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-xs font-light font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-            Copyright © {currentYear} Enlivo Technologies. All Rights Reserved.
+            Copyright © 2025 Enlivo Technologies. All Rights Reserved.
           </p>
           
           <div className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">

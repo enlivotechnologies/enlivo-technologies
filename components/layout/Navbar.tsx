@@ -129,9 +129,7 @@ export function Navbar() {
           {/* --- Desktop CTA Button (Right) --- */}
           <div className="hidden lg:flex flex-shrink-0 z-20 items-center">
             <a
-              href="https://cal.com/nishal-pktyks"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:Info.enlivo@gmail.com"
               className="bg-black text-white text-[17px] font-medium px-6 py-2.5 rounded-full hover:bg-gray-900 transition-colors duration-200 whitespace-nowrap"
               title="Talk to the Founder"
                 role="menuitem"
@@ -173,8 +171,7 @@ export function Navbar() {
           ))}
 
           <Link
-            href="https://cal.com/nishal-pktyks"
-            target="_blank"
+            href="mailto:Info.enlivo@gmail.com"
             onClick={() => setIsMobileMenuOpen(false)}
             className="w-full bg-black text-white py-4 rounded-full font-medium text-center mt-6 hover:bg-gray-900 transition-colors duration-200"
           >

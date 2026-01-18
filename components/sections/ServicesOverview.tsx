@@ -163,15 +163,15 @@ export function ServicesOverview() {
                   {/* Center: Title & Description Expansion */}
                   <div className="flex-1 w-full md:pr-20">
                     <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium text-black group-hover:text-white transition-colors duration-300 tracking-tight">
-                      {service.title}
-                    </h3>
+                    {service.title}
+                  </h3>
 
                     {/* Grid Height Trick: Allows animating from height:0 to height:auto smoothly */}
                     <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                       <div className="overflow-hidden">
-                        <p className="pt-4 text-base md:text-lg text-gray-400 group-hover:text-gray-300 font-light leading-relaxed max-w-2xl opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-75 ease-out">
-                          {service.description}
-                        </p>
+                        <p className="pt-4 text-base md:text-lg text-gray-400 group-hover:text-gray-300 font-light leading-relaxed w-full opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-75 ease-out">
+                    {service.description}
+                  </p>
                       </div>
                     </div>
                   </div>

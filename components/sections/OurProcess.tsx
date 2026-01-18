@@ -140,7 +140,7 @@ export function OurProcess() {
         process.
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
         {/* --- Header Section - Centered --- */}
         <header className="text-center mb-20 lg:mb-24">
           {/* Label */}

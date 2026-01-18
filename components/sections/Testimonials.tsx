@@ -100,23 +100,28 @@ function ReviewCard({ data }: { data: Testimonial }) {
   return (
     <figure
       className={cn(
-        "relative w-[280px] h-auto min-h-[240px] cursor-pointer overflow-hidden rounded-lg p-5",
+        "relative w-[360px] h-[320px] cursor-pointer overflow-hidden rounded-xl p-6",
         "bg-gradient-to-br from-[#09090b] to-[#0a0a0a] border border-white/[0.08]",
-        "hover:bg-gradient-to-br hover:from-[#111113] hover:to-[#0f0f0f] hover:border-white/[0.15] hover:shadow-lg hover:shadow-black/30 transition-all duration-300",
+        "hover:bg-gradient-to-br hover:from-[#111113] hover:to-[#0f0f0f] hover:border-white/[0.15] hover:shadow-xl hover:shadow-black/40 transition-all duration-300",
         "flex flex-col justify-between"
       )}
+      style={{
+        willChange: "transform, border-color",
+        backfaceVisibility: "hidden",
+        transform: "translate3d(0, 0, 0)",
+      }}
     >
       <div className="flex-1">
         {/* Body Text */}
-        <blockquote className="text-[13px] leading-relaxed text-white/70 font-light mb-4">
+        <blockquote className="text-sm leading-relaxed text-white/75 font-normal mb-5">
           "{data.text}"
         </blockquote>
       </div>
 
       {/* Footer: Avatar, Name, Role & Company */}
-      <div className="pt-3 border-t border-white/[0.06]">
+      <div className="pt-4 border-t border-white/[0.08]">
         <div className="flex items-center gap-3">
-          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
+          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
             <Image
               src={data.image}
               alt={data.name}
@@ -126,10 +131,10 @@ function ReviewCard({ data }: { data: Testimonial }) {
             />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-[13px] font-semibold text-white leading-tight truncate">
+            <div className="text-sm font-semibold text-white leading-tight truncate">
               {data.name}
             </div>
-            <div className="text-[11px] text-white/60 mt-0.5">
+            <div className="text-xs text-white/60 mt-1">
               {data.role}{data.company && ` • ${data.company}`}
             </div>
           </div>
@@ -146,10 +151,15 @@ function PhotoCard({ data }: { data: Testimonial }) {
   return (
     <figure
       className={cn(
-        "relative w-[280px] h-[240px] overflow-hidden rounded-lg",
+        "relative w-[360px] h-[320px] overflow-hidden rounded-xl",
         "border border-white/[0.08] group bg-[#09090b]",
-        "hover:border-white/[0.15] hover:shadow-lg hover:shadow-black/30 transition-all duration-300"
+        "hover:border-white/[0.15] hover:shadow-xl hover:shadow-black/40 transition-all duration-300"
       )}
+      style={{
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+        transform: "translate3d(0, 0, 0)",
+      }}
     >
       {isVideo ? (
         <video
@@ -172,13 +182,10 @@ function PhotoCard({ data }: { data: Testimonial }) {
         />
       )}
 
-      {/* Dark Gradient Overlay at Bottom */}
-      <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/95 via-black/85 to-transparent pointer-events-none" />
-
       {/* Name Overlay at Bottom - Matching Text Card Style */}
-      <div className="absolute bottom-4 left-4 right-4 z-10">
-        <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-lg py-1.5 px-3 inline-block shadow-lg">
-          <span className="text-[13px] font-semibold text-white">
+      <div className="absolute bottom-5 left-5 right-5 z-10">
+        <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-lg py-2 px-4 inline-block shadow-lg">
+          <span className="text-sm font-semibold text-white">
             {data.name}
           </span>
         </div>
@@ -190,7 +197,7 @@ function PhotoCard({ data }: { data: Testimonial }) {
 export function Testimonials() {
   return (
     <section className="py-12 md:py-16 bg-black overflow-hidden relative">
-      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="mb-12 text-center">

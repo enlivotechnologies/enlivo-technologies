@@ -252,31 +252,39 @@ body {
   }
 }
 
-/* Marquee Animations */
+/* Marquee Animations - Optimized for Performance */
 @keyframes marquee {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(calc(-100% - var(--gap)));
+    transform: translate3d(calc(-100% - var(--gap)), 0, 0);
   }
 }
 
 @keyframes marquee-vertical {
   from {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateY(calc(-100% - var(--gap)));
+    transform: translate3d(0, calc(-100% - var(--gap)), 0);
   }
 }
 
 .animate-marquee {
   animation: marquee var(--duration) linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translate3d(0, 0, 0);
 }
 
 .animate-marquee-vertical {
   animation: marquee-vertical var(--duration) linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translate3d(0, 0, 0);
 }
 
 /* Floating animation for cards */

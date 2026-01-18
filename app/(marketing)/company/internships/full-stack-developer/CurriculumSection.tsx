@@ -323,37 +323,39 @@ export function CurriculumSection() {
   };
 
   return (
-    <section id="syllabus" className="py-24 md:py-32 bg-white">
+    <section id="syllabus" className="py-24 md:py-32 bg-[#FFFFFF]">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* --- HEADER --- */}
         <div className="mb-24 max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-600 mb-8">
+          {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-100 text-purple-700 mb-8">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neutral-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-neutral-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-600"></span>
             </span>
-            <span className="text-[11px] font-mono uppercase tracking-widest">
+            <span className="text-[11px] font-mono uppercase tracking-widest font-semibold">
               The Path Forward
             </span>
-          </div>
+          </div> */}
           
-          <h2 className="text-5xl md:text-6xl font-medium text-black tracking-tighter leading-[1.05] mb-8">
-            Program Journey.
+          <h2 className="text-5xl md:text-6xl font-medium tracking-tighter leading-[1.05] mb-8">
+            <span className="text-black">The Program</span>{" "}
+            <span className="text-[#8B5CF6]">Journey.</span>
           </h2>
           
-          <div className="pl-6 border-l-2 border-neutral-200">
-            <p className="text-xl md:text-2xl text-neutral-500 font-light leading-relaxed mb-4">
-              A structured, hands-on journey designed to gradually build confidence, responsibility, and real-world engineering skills.
+          <div className="pl-6 border-l-2 border-purple-200">
+            <p className="text-base md:text-lg text-gray-700 font-light leading-relaxed mb-4">
+            This internship is designed as a progression — from guided learning to real responsibility.
+            You start with support, take on meaningful work, and gradually own outcomes that reflect how professional teams operate.
             </p>
-            <p className="text-sm text-neutral-400 font-mono uppercase tracking-wide">
-              * Adaptable based on real-time progress
+            <p className="text-sm text-purple-600 font-mono uppercase tracking-wide font-medium">
+              * The journey adapts as you grow — based on progress, feedback, and readiness.
             </p>
           </div>
         </div>
 
         {/* --- SYSTEM SPEC LIST --- */}
-        <div className="border-t border-neutral-200">
+        <div className="space-y-4">
           {PROGRAM_DATA.map((section, index) => {
             const isExpanded = expandedItems.has(index);
 
@@ -361,14 +363,16 @@ export function CurriculumSection() {
               <div
                 key={index}
                 className={cn(
-                  "border-b border-neutral-200 transition-colors duration-500 ease-in-out group",
-                  isExpanded ? "bg-neutral-50" : "bg-white hover:bg-neutral-50/50"
+                  "rounded-xl border transition-all duration-300 ease-in-out group",
+                  isExpanded 
+                    ? "bg-neutral-50 border-neutral-200 shadow-sm" 
+                    : "bg-white border-neutral-200 hover:border-neutral-300 hover:shadow-sm"
                 )}
               >
                 {/* Accordion Trigger */}
                 <button
                   onClick={() => toggleItem(index)}
-                  className="w-full text-left focus:outline-none py-8 md:py-10 px-4 md:px-8 flex flex-col md:flex-row gap-6 md:gap-12 md:items-baseline"
+                  className="w-full text-left focus:outline-none py-4 md:py-5 px-6 md:px-8 flex flex-col md:flex-row gap-4 md:gap-8 md:items-center"
                 >
                   {/* Column 1: Index */}
                   <span className="text-sm font-mono text-neutral-400 font-medium shrink-0">
@@ -378,25 +382,22 @@ export function CurriculumSection() {
                   {/* Column 2: Main Content */}
                   <div className="flex-1">
                     <h3 className={cn(
-                      "text-2xl md:text-3xl font-medium tracking-tight mb-3 transition-colors duration-300",
+                      "text-xl md:text-2xl font-medium tracking-tight transition-colors duration-300",
                       isExpanded ? "text-black" : "text-neutral-800 group-hover:text-black"
                     )}>
                       {section.name}
                     </h3>
-                    <p className="text-base md:text-lg text-neutral-500 font-light max-w-2xl">
-                      {section.outcome}
-                    </p>
                   </div>
 
                   {/* Column 3: Icon */}
-                  <div className="shrink-0 pt-2 md:pt-0">
+                  <div className="shrink-0 pt-1 md:pt-0">
                     <div className={cn(
-                      "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 border",
+                      "w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 border",
                       isExpanded 
                         ? "bg-black border-black text-white rotate-180" 
                         : "bg-white border-neutral-200 text-neutral-400 group-hover:border-neutral-300 group-hover:text-neutral-600"
                     )}>
-                      <ChevronDown className="w-5 h-5" strokeWidth={1.5} />
+                      <ChevronDown className="w-4 h-4" strokeWidth={1.5} />
                     </div>
                   </div>
                 </button>
@@ -410,21 +411,20 @@ export function CurriculumSection() {
                 >
                   <div className="overflow-hidden">
                     {/* Content Container */}
-                    <div className="px-4 md:px-8 pb-12 pt-2 md:pl-[6.5rem]"> {/* Indent to align with text */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 border-t border-neutral-200/60 pt-8">
+                    <div className="px-6 md:px-8 pb-8 pt-0 md:pl-[6.5rem]">
+                      <div className="border-t border-neutral-200/60 pt-6 space-y-8">
                         
                         {section.topics.map((topic, tIndex) => (
-                          <div key={tIndex} className="space-y-4">
-                            <h4 className="flex items-center gap-2 text-sm font-bold text-black uppercase tracking-wider">
-                               <CornerDownRight className="w-4 h-4 text-neutral-400" />
-                               {topic.title}
+                          <div key={tIndex} className="space-y-3">
+                            <h4 className="text-base md:text-lg font-semibold text-black tracking-tight">
+                              {topic.title}
                             </h4>
-                            <ul className="space-y-3 pl-6 border-l border-neutral-200">
+                            <ul className="space-y-2.5 pl-4">
                               {topic.subtopics.map((sub, sIndex) => (
-                                <li key={sIndex} className="text-neutral-600 text-[15px] leading-relaxed group/item flex items-center gap-2">
-                                  {/* Hover indicator */}
-                                  <span className="w-1 h-1 rounded-full bg-neutral-300 group-hover/item:bg-black transition-colors" />
-                                  {sub}
+                                <li key={sIndex} className="text-neutral-600 text-sm md:text-[15px] leading-relaxed group/item flex items-start gap-3">
+                                  {/* Circle indicator */}
+                                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 mt-2 shrink-0 group-hover/item:bg-black transition-colors" />
+                                  <span className="flex-1">{sub}</span>
                                 </li>
                               ))}
                             </ul>

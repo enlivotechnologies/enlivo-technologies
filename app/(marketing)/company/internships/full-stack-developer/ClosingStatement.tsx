@@ -13,11 +13,11 @@ import { ArrowUpRight } from "lucide-react";
 
 export function ClosingStatement() {
   return (
-    <section className="py-24 md:py-32 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-24 md:py-32 bg-[#FFFFFF]">
       <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           {/* Dark Card with Rounded Corners */}
-          <div className="relative bg-gray-900 rounded-3xl p-10 md:p-14 lg:p-16 overflow-hidden shadow-2xl">
+          <div className="relative bg-black rounded-3xl p-10 md:p-14 lg:p-16 overflow-hidden shadow-2xl">
             {/* Subtle Texture Overlay */}
             <div className="absolute inset-0 opacity-5">
               <div className="absolute inset-0" style={{
@@ -28,22 +28,22 @@ export function ClosingStatement() {
             {/* Content */}
             <div className="relative z-10 text-center space-y-6">
               {/* Main Heading */}
-              <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.1] tracking-tight">
-                Your Tech Career Starts Here.
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-medium text-white leading-[1.1] tracking-tight">
+              Ready to Take Responsibility?
               </h2>
 
               {/* Sub-heading */}
-              <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed font-light max-w-3xl mx-auto">
-                Be part of cohort where peers practices, pushes, and grows with you, every day.
+              <p className="text-base md:text-lg text-gray-300 leading-relaxed font-light max-w-3xl mx-auto">
+              This internship is for people ready to learn through real work, feedback, and accountability — not passive watching.
               </p>
 
               {/* CTA Button */}
               <div className="pt-4">
                 <Link
                   href="/company/internships"
-                  className="group inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-xl font-semibold text-base hover:scale-[1.02] hover:shadow-xl transition-all duration-200"
+                  className="group inline-flex items-center justify-center gap-2 bg-[#8B5CF6] text-black px-8 py-4 rounded-xl font-medium text-base scale-[1.02] hover:shadow-xl transition-all duration-200"
                 >
-                  Enroll Now
+                 Apply for the Internship
                   <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </Link>
               </div>

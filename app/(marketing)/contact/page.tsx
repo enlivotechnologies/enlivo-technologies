@@ -1,17 +1,16 @@
 /**
  * app/(marketing)/contact/page.tsx
  *
- * PURPOSE: Contact page - high-intent conversion page.
- * WHY: Users on this page are ready to engage. Should be fast,
- *      accessible, and conversion-optimized.
+ * PURPOSE: Contact page - premium, conversion-optimized design.
+ * WHY: Users on this page are ready to engage. Clean, modern UI.
  */
 
 import type { Metadata } from "next";
+import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { JsonLd, buildBreadcrumbSchema, buildFAQSchema } from "@/lib/schema";
 import { CONTACT_SEO, CONTACT_HEADINGS, CONTACT_FAQS } from "@/seo/contact";
-import { Container } from "@/components/ui/Container";
-import { ContactForm } from "@/components/sections/ContactForm";
+import { Mail, MessageCircle, Briefcase } from "lucide-react";
 
 /**
  * Page Metadata
@@ -33,90 +32,155 @@ export default function ContactPage() {
       />
       <JsonLd data={buildFAQSchema(CONTACT_FAQS)} />
 
+      <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <header className="bg-gray-900 text-white py-16 lg:py-24">
-        <Container>
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6">
-            {CONTACT_HEADINGS.h1}
+        <section className="py-16 md:py-24">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="space-y-4">
+              <p className="text-sm md:text-base font-medium text-gray-600 uppercase tracking-wider">
+                CONTACT
+              </p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight leading-[1.1]">
+                How can we help?
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl">
-            Ready to transform your business? Get in touch with our team to
-            discuss your project requirements.
-          </p>
-        </Container>
-      </header>
-
-      <Container className="py-16">
-        <div className="grid lg:grid-cols-2 gap-16">
-          {/* Contact Form */}
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              {CONTACT_HEADINGS.sections.form}
-            </h2>
-            <ContactForm />
+              <p className="text-base md:text-lg text-gray-600 font-light leading-relaxed max-w-2xl mx-auto">
+                Whether you&apos;re ready to see Enlivo in action or just need a hand with a question, our sales and support teams are here to help.
+              </p>
+            </div>
+          </div>
           </section>
 
-          {/* Contact Information */}
-          <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              {CONTACT_HEADINGS.sections.info}
+        {/* Contact Cards Section */}
+        <section className="py-12 md:py-16 lg:py-20 bg-[#FBFAF9]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
+              
+              {/* Support Card */}
+              <div className="bg-[#FFFFFF] rounded-2xl p-10 md:p-12 min-h-[380px] flex flex-col">
+                <div className="flex flex-col h-full space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-xl bg-black/5 flex items-center justify-center flex-shrink-0">
+                      <MessageCircle className="w-7 h-7 text-black" strokeWidth={2} />
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-medium text-black tracking-tight">
+                      Support
             </h2>
-
-            {/* TODO: Add actual contact information */}
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                <a
-                  href="mailto:contact@company.com"
-                  className="text-blue-600 hover:underline"
-                >
-                  contact@company.com
-                </a>
+                  </div>
+                  <p className="text-lg text-gray-600 font-light leading-relaxed flex-grow">
+                    Email us at{" "}
+                    <a 
+                      href="mailto:enlivotechnologies@gmail.com" 
+                      className="text-black hover:text-gray-700 underline font-medium"
+                    >
+                      enlivotechnologies@gmail.com
+                    </a>{" "}
+                    with your question.
+                  </p>
+                  <Link
+                    href="/contact/support"
+                    className="inline-flex items-center justify-center w-full px-8 py-4 bg-black text-white rounded-xl font-medium hover:bg-gray-800 transition-all duration-200 text-base shadow-sm hover:shadow-md mt-auto"
+                  >
+                    Submit an inquiry
+                  </Link>
+                </div>
               </div>
 
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                <a
-                  href="tel:+1-555-555-5555"
-                  className="text-blue-600 hover:underline"
-                >
-                  +1 (555) 555-5555
-                </a>
+              {/* Sales Card */}
+              <div className="bg-[#F2EBE8] rounded-2xl p-10 md:p-12 min-h-[380px] flex flex-col">
+                <div className="flex flex-col h-full space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-xl bg-black/5 flex items-center justify-center flex-shrink-0">
+                      <Briefcase className="w-7 h-7 text-black" strokeWidth={2} />
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-medium text-black tracking-tight">
+                      Sales
+                    </h2>
+                  </div>
+                  <p className="text-lg text-gray-600 font-light leading-relaxed flex-grow">
+                    Connect with our sales team to request a demo or discuss pricing.
+                  </p>
+                  <a
+                    href="https://cal.com/nishal-pktyks"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center w-full px-8 py-4 bg-[#F5F5F4] border-2 border-black/10 text-black rounded-xl font-medium hover:bg-black/5 hover:border-black/20 transition-all duration-200 text-base shadow-sm hover:shadow-md mt-auto"
+                  >
+                    Book a demo
+                  </a>
+                </div>
               </div>
 
-              {/* TODO: Add office locations if applicable */}
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Office</h3>
-                <address className="text-gray-600 not-italic">
-                  123 Business Avenue
-                  <br />
-                  Suite 100
-                  <br />
-                  City, State 12345
-                </address>
+              {/* Media Inquiry Card */}
+              <div className="bg-[#EDEDED] rounded-2xl p-10 md:p-12 min-h-[380px] flex flex-col">
+                <div className="flex flex-col h-full space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-xl bg-black/5 flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-7 h-7 text-black" strokeWidth={2} />
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-medium text-black tracking-tight">
+                      Media inquiry
+                    </h2>
+                  </div>
+                  <p className="text-lg text-gray-600 font-light leading-relaxed flex-grow">
+                    Reach out to our team for press requests or media opportunities.
+                  </p>
+                  <a
+                    href="mailto:enlivotechnologies@gmail.com?subject=Media Inquiry"
+                    className="inline-flex items-center justify-center w-full px-8 py-4 bg-[#FAFAFA] border-2 border-black/10 text-black rounded-xl font-medium hover:bg-black/5 hover:border-black/20 transition-all duration-200 text-base shadow-sm hover:shadow-md mt-auto"
+                  >
+                    Email us
+                  </a>
+                </div>
+              </div>
+
               </div>
             </div>
           </section>
-        </div>
 
         {/* FAQ Section */}
-        <section className="mt-16 pt-16 border-t">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">
-            {CONTACT_HEADINGS.sections.faq}
+        {CONTACT_FAQS && CONTACT_FAQS.length > 0 && (
+          <section className="py-16 md:py-24">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-3xl md:text-4xl font-medium text-black tracking-tight mb-12 text-center">
+                Frequently asked questions
           </h2>
 
-          <div className="space-y-6">
+              <div>
             {CONTACT_FAQS.map((faq, index) => (
-              <div key={index} className="p-6 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">
+                  <details
+                    key={index}
+                    className="group"
+                  >
+                    <summary className="flex items-center justify-between cursor-pointer list-none py-4 border-b border-gray-200 hover:text-gray-700 transition-colors duration-200">
+                      <h3 className="text-base md:text-lg font-medium text-black pr-4">
                   {faq.question}
                 </h3>
-                <p className="text-gray-600">{faq.answer}</p>
+                      <svg
+                        className="w-5 h-5 text-black transform transition-transform duration-200 group-open:rotate-180 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </summary>
+                    <div className="pt-4 pb-6">
+                      <p className="text-base text-gray-600 font-light leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </details>
+                ))}
               </div>
-            ))}
           </div>
         </section>
-      </Container>
+        )}
+      </main>
     </>
   );
 }
