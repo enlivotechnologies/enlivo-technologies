@@ -40,79 +40,73 @@ export function WhoShouldApply() {
           </p>
         </div>
 
-        {/* --- COMPARISON GRID --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        {/* --- COMPARISON GRID WITH VERTICAL DIVIDER --- */}
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           
-          {/* LEFT CARD: GOOD FIT */}
-          <div className="group relative bg-[#0A0A0A] rounded-[2.5rem] p-10 md:p-12 border border-emerald-900/30 overflow-hidden flex flex-col hover:border-emerald-500/20 transition-colors duration-500">
-            {/* Ambient Glow */}
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none" />
-            
-            <div className="relative z-10 flex flex-col h-full">
-              {/* Card Header */}
-              <div className="flex items-start justify-between mb-10 pb-8 border-b border-emerald-500/10">
-                <h3 className="text-2xl md:text-3xl font-medium text-white tracking-tight leading-tight max-w-[80%]">
-                  This Internship Is a Good Fit If You…
+          {/* LEFT: GOOD FIT */}
+          <div className="flex flex-col">
+            {/* Header */}
+            <div className="flex items-start justify-between mb-10 pb-8">
+              <div className="flex-1 pr-4">
+                <h3 className="text-2xl md:text-3xl font-medium text-white tracking-tight leading-tight mb-2">
+                  This Internship Is a Good Fit
                 </h3>
-                <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 text-emerald-500 flex-shrink-0 mt-1">
-                   <CheckCircle2 className="w-6 h-6" strokeWidth={1.5} />
-                </div>
+                <p className="text-lg text-white/80 font-normal">If You…</p>
               </div>
+              <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                <CheckCircle2 className="w-5 h-5 text-green-400" strokeWidth={1.5} />
+              </div>
+            </div>
 
-              {/* List */}
-              <div className="space-y-6">
-                {TARGET_PROFILE.map((item, index) => (
-                  <div key={index} className="flex items-start gap-4 group/item">
-                    <div className="mt-1.5 w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover/item:bg-emerald-500 group-hover/item:text-black transition-colors duration-300">
-                      <Check className="w-3 h-3 text-emerald-400 group-hover/item:text-black" strokeWidth={3} />
-                    </div>
-                    <p className="text-lg text-gray-300 font-light leading-relaxed group-hover/item:text-white transition-colors duration-300">
-                      {item}
-                    </p>
+            {/* List */}
+            <div className="space-y-5">
+              {TARGET_PROFILE.map((item, index) => (
+                <div key={index} className="flex items-start gap-4">
+                  <div className="mt-1 w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                    <Check className="w-3 h-3 text-green-400" strokeWidth={2.5} />
                   </div>
-                ))}
-              </div>
+                  <p className="text-base text-gray-300 font-normal leading-relaxed">
+                    {item}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* RIGHT CARD: NOT RIGHT */}
-          <div className="relative bg-[#0A0A0A] rounded-[2.5rem] p-10 md:p-12 border border-white/5 flex flex-col hover:border-white/10 transition-colors duration-500">
-            <div className="relative z-10 flex flex-col h-full">
-              {/* Card Header */}
-              <div className="flex items-start justify-between mb-10 pb-8 border-b border-white/5">
-                <h3 className="text-2xl md:text-3xl font-medium text-gray-200 tracking-tight leading-tight max-w-[80%]">
-                  This Internship May Not Be Right If You…
-                </h3>
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center border border-white/5 text-gray-400 flex-shrink-0 mt-1">
-                   <AlertCircle className="w-6 h-6" strokeWidth={1.5} />
-                </div>
-              </div>
+          {/* VERTICAL DIVIDER LINE */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2" />
 
-              {/* List */}
-              <div className="space-y-6">
-                {NON_TARGET_PROFILE.map((item, index) => (
-                  <div key={index} className="flex items-start gap-4">
-                    <div className="mt-1.5 w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 border border-white/5">
-                      <X className="w-3 h-3 text-gray-500" strokeWidth={3} />
-                    </div>
-                    <p className="text-lg text-gray-500 font-light leading-relaxed">
-                      {item}
-                    </p>
-                  </div>
-                ))}
+          {/* RIGHT: NOT RIGHT */}
+          <div className="flex flex-col">
+            {/* Header */}
+            <div className="flex items-start justify-between mb-10 pb-8">
+              <div className="flex-1 pr-4">
+                <h3 className="text-2xl md:text-3xl font-medium text-white tracking-tight leading-tight mb-2">
+                  This Internship May Not Be Right
+                </h3>
+                <p className="text-lg text-white/80 font-normal">If You…</p>
               </div>
+              <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                <AlertCircle className="w-5 h-5 text-red-400" strokeWidth={1.5} />
+              </div>
+            </div>
+
+            {/* List */}
+            <div className="space-y-5">
+              {NON_TARGET_PROFILE.map((item, index) => (
+                <div key={index} className="flex items-start gap-4">
+                  <div className="mt-1 w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                    <X className="w-3 h-3 text-red-400" strokeWidth={2.5} />
+                  </div>
+                  <p className="text-base text-gray-500 font-normal leading-relaxed">
+                    {item}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
         </div>
-
-        {/* --- FOOTER STATEMENT --- */}
-        <div className="mt-24 text-center border-t border-white/5 pt-12">
-          <p className="text-xl text-gray-500 font-light italic">
-            "We believe the right fit matters more than mass participation."
-          </p>
-        </div>
-
       </div>
     </section>
   );

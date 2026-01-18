@@ -44,18 +44,19 @@ export function FounderProblem() {
         
         {/* --- SECTION HEADER --- */}
         <div className="max-w-4xl mx-auto text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-50 border border-gray-200 text-sm font-medium text-gray-900 mb-6">
-             <AlertCircle className="w-4 h-4 text-black" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-xs font-medium text-gray-700 uppercase tracking-wider mb-8">
+             <AlertCircle className="w-3.5 h-3.5 text-gray-600" />
              <span>The Reality</span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight leading-[1.1] mb-6">
-            Building a product is hard. <br className="hidden md:block" />
-            Hiring a team shouldn't be.
+          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-black tracking-[-0.02em] leading-[1.15] mb-8">
+            Building a product is hard.<br className="hidden md:block" />
+            <span className="text-gray-900">Hiring a team shouldn&apos;t be.</span>
           </h2>
           
-          <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-2xl mx-auto">
-             Most founders get stuck managing people instead of building their vision. The traditional hiring model is fundamentally broken.
+          <p className="text-base md:text-lg text-gray-600 font-normal leading-relaxed max-w-2xl mx-auto">
+            Most founders get stuck managing people instead of building their vision.<br className="hidden md:block" />
+            The traditional hiring model is fundamentally broken.
           </p>
         </div>
 

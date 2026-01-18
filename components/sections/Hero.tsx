@@ -47,9 +47,9 @@ export function Hero({
       if (!sectionRef.current) return;
       
       ctx = gsap.context(() => {
-        const tl = gsap.timeline({
+      const tl = gsap.timeline({
           defaults: { ease: "power3.out" },
-        });
+      });
 
         // 1. Image fade in
         if (imageRef.current) {
@@ -62,34 +62,34 @@ export function Hero({
 
         // 2. Heading fade up
         if (headingRef.current) {
-          tl.fromTo(
-            headingRef.current,
-            { opacity: 0, y: 30, filter: "blur(8px)" },
+      tl.fromTo(
+        headingRef.current,
+        { opacity: 0, y: 30, filter: "blur(8px)" },
             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
             "-=0.6"
-          );
+      );
         }
 
         // 3. Description fade up
         if (descriptionRef.current) {
-          tl.fromTo(
-            descriptionRef.current,
-            { opacity: 0, y: 20, filter: "blur(4px)" },
+      tl.fromTo(
+        descriptionRef.current,
+        { opacity: 0, y: 20, filter: "blur(4px)" },
             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7 },
             "-=0.4"
-          );
+      );
         }
 
         // 4. Button pop in
         if (button1Ref.current) {
-          tl.fromTo(
+        tl.fromTo(
             button1Ref.current,
             { opacity: 0, y: 20, scale: 0.95 },
             { opacity: 1, y: 0, scale: 1, duration: 0.6 },
-            "-=0.2"
-          );
-        }
-      }, sectionRef);
+          "-=0.2"
+        );
+      }
+    }, sectionRef);
     }, 50);
 
     return () => {
@@ -144,23 +144,23 @@ export function Hero({
         </h1>
 
           {/* Description Text */}
-          <p
-            ref={descriptionRef}
+        <p
+          ref={descriptionRef}
             className="text-lg sm:text-xl text-gray-200 leading-relaxed max-w-xl mx-auto mb-10 opacity-0 font-light"
-          >
-            {description}
-          </p>
+        >
+          {description}
+        </p>
 
           {/* Button: See How It Works */}
-          <div
-            ref={buttonsRef}
+        <div
+          ref={buttonsRef}
             className="flex items-center justify-center"
-          >
+        >
             <a
               ref={button1Ref}
               href="#footer"
               className="bg-white text-black text-[15px] font-medium px-8 py-3.5 rounded-full hover:bg-gray-100 transition-all duration-200 min-w-[180px] opacity-0"
-            >
+          >
               See How It Works
             </a>
           </div>

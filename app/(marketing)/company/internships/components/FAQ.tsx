@@ -19,27 +19,27 @@ interface FAQItem {
 const FAQ_DATA: FAQItem[] = [
   {
     question: "Is this internship paid or unpaid?",
-    answer: "This is an unpaid internship focused on learning and skill development. The value comes from hands-on experience, mentorship, and real project work that builds your portfolio and professional capabilities.",
+    answer: "This is a paid internship. You'll receive compensation while gaining hands-on experience, mentorship, and real project work. We believe in valuing your time and contributions as you build your portfolio and professional capabilities.",
   },
   {
     question: "Is this internship remote, onsite, or hybrid?",
-    answer: "The internship is conducted remotely, allowing you to work from anywhere while maintaining consistent communication and collaboration with the team through structured workflows and regular check-ins.",
+    answer: "The internship is conducted remotely, allowing you to work from anywhere. We maintain consistent communication and collaboration through structured workflows, regular check-ins, and virtual team sessions.",
   },
   {
     question: "What is the time commitment per week?",
-    answer: "We expect a consistent time commitment of approximately 20-25 hours per week. This includes active development work, code reviews, mentorship sessions, and learning activities. Consistency matters more than exact hours.",
+    answer: "We expect a consistent commitment of 20-25 hours per week. This includes active development work, code reviews, mentorship sessions, and learning activities. Consistency and quality matter more than exact hours logged.",
   },
   {
     question: "Do I need prior experience to apply?",
-    answer: "Some foundational knowledge is helpful, but we welcome motivated learners at different stages. What matters most is your willingness to learn, commitment to improvement, and openness to feedback. Beginners can apply if they demonstrate genuine motivation and commitment to learning.",
+    answer: "Some foundational knowledge is helpful, but we welcome motivated learners at different stages. What matters most is your willingness to learn, commitment to improvement, and openness to feedback. We're looking for serious learners ready to grow.",
   },
   {
     question: "How is selection done?",
-    answer: "Selection is based on your application, motivation, and alignment with our program values. We look for serious learners who are committed to growth, not just certificate seekers. The process includes reviewing your application and may involve a brief conversation to ensure mutual fit.",
+    answer: "Selection is based on your application, motivation, and alignment with our program values. We look for committed learners who are serious about growth, not just certificate seekers. The process includes reviewing your application and may involve a brief conversation to ensure mutual fit.",
   },
   {
     question: "Will I get a certificate after completion?",
-    answer: "Yes, you'll receive a Certificate of Completion after successfully meeting program expectations and standards. However, the real value is in the skills, experience, and portfolio work you'll build during the internship.",
+    answer: "Yes, you'll receive a Certificate of Completion after successfully meeting program expectations and standards. However, the real value is in the practical skills, real-world experience, and portfolio work you'll build during the internship.",
   },
 ];
 
@@ -81,7 +81,7 @@ export function FAQ() {
                   {/* Question Button */}
                   <button
                     onClick={() => toggleItem(index)}
-                    className="w-full flex items-center justify-between p-6 md:p-7 text-left focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded-xl transition-colors"
+                    className="w-full flex items-center justify-between p-6 md:p-7 text-left focus:outline-none rounded-xl transition-colors"
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${index}`}
                   >
@@ -107,8 +107,8 @@ export function FAQ() {
                       isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
                     )}
                   >
-                    <div className="px-6 md:px-7 pb-6 md:pb-7 border-t border-gray-200">
-                      <p className="text-sm md:text-base text-gray-600 leading-relaxed font-light pt-4">
+                    <div className="px-6 md:px-7 pb-6 md:pb-7">
+                      <p className="text-sm md:text-base text-gray-600 leading-relaxed font-light pt-2">
                         {item.answer}
                       </p>
                     </div>

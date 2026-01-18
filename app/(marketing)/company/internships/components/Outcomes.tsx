@@ -76,11 +76,11 @@ export function Outcomes() {
             return (
               <div
                 key={outcome.id}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                className="relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10"
               >
                 {/* Icon */}
                 <div className="mb-5">
-                  <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center">
                     <Icon className="w-6 h-6 text-black" strokeWidth={1.5} />
                   </div>
                 </div>

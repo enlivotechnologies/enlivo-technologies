@@ -19,7 +19,7 @@ export default function InternshipsPage() {
       <WhyDifferent />
       <InternshipTracks />
       <HowItWorks />
-      <MentorshipStandards />
+      {/* <MentorshipStandards /> */}
       <Outcomes />
       <WhoShouldApply />
       <FAQ />
