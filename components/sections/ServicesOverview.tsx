@@ -30,31 +30,31 @@ const SERVICES_DATA: Service[] = [
   {
     title: "MVP & Product Development",
     description:
-      "Rapidly build and launch your minimum viable product with a focus on core features that deliver value to your users from day one.",
+      "Turn your startup idea into a validated, market-ready product in weeks—not months. Our expert MVP development team builds scalable minimum viable products with core features that drive user engagement and investor interest. From rapid prototyping to production launch, we help founders validate business models and secure funding faster.",
     href: "/services/mvp-development",
   },
   {
     title: "Backend Systems & APIs",
     description:
-      "Scalable, secure backend infrastructure and RESTful APIs that power your applications with reliability and performance.",
+      "Enterprise-grade backend infrastructure that scales with your business. We architect secure, high-performance RESTful APIs, microservices, and database systems that power mission-critical applications. Built with security-first principles and optimized for reliability—trusted by startups and enterprises for handling millions of requests daily.",
     href: "/services/backend-systems",
   },
   {
     title: "Frontend Web Applications",
     description:
-      "Modern, responsive web applications built with cutting-edge frameworks for exceptional user experiences across all devices.",
+      "Beautiful, lightning-fast web applications that convert visitors into customers. Our frontend development team builds responsive, mobile-first applications using React, Next.js, and modern frameworks that deliver exceptional user experiences. Every interaction is optimized for performance, accessibility, and engagement across all devices.",
     href: "/services/frontend-applications",
   },
   {
     title: "UI Implementation",
     description:
-      "Pixel-perfect UI implementation that transforms designs into interactive, accessible, and performant user interfaces.",
+      "Transform your design vision into pixel-perfect, production-ready code. We specialize in converting Figma and Sketch designs into responsive, accessible, and performant user interfaces that maintain 100% design fidelity. Our component-based approach ensures consistency, scalability, and faster time-to-market for your product.",
     href: "/services/ui-implementation",
   },
   {
     title: "Ongoing Development & Support",
     description:
-      "Continuous improvement, maintenance, and technical support to keep your product evolving and running smoothly.",
+      "Keep your product competitive with continuous development and 24/7 technical support. We provide proactive maintenance, security updates, performance optimization, and feature enhancements that evolve with your business needs. Trusted by growing companies who need reliable partners for long-term success.",
     href: "/services/ongoing-support",
   },
 ];
@@ -135,8 +135,7 @@ export function ServicesOverview() {
             ref={subheadingRef}
             className="text-lg md:text-xl text-gray-500 leading-relaxed max-w-2xl mx-auto opacity-0 font-light"
           >
-            From MVP to production-ready products, we deliver the full stack of
-            engineering services your startup needs to scale.
+            From MVP to production-ready products, we deliver the full stack of engineering services your startup needs to scale.
           </p>
         </div>
 
@@ -146,13 +145,12 @@ export function ServicesOverview() {
             const number = String(index + 1).padStart(2, "0");
 
             return (
-              <Link
+              <div
                 key={service.title}
-                href={service.href}
-                className="group relative w-full block border-b border-gray-200 outline-none"
+                className="group relative w-full block border-b border-gray-200 outline-none cursor-pointer"
               >
-                {/* Background Transition Layer - Creates smooth black sweep from top to bottom */}
-                <div className="absolute inset-0 bg-[#0A0A0A] scale-y-0 origin-top transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100" />
+                {/* Background Transition Layer - Creates smooth blue sweep from top to bottom */}
+                <div className="absolute inset-0 bg-blue-600 scale-y-0 origin-top transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100" />
 
                 <div className="relative z-10 flex flex-col md:flex-row items-start md:items-baseline justify-between px-4 sm:px-6 lg:px-10 py-10 transition-colors duration-500 ease-out">
                   {/* Left: Number */}
@@ -178,12 +176,17 @@ export function ServicesOverview() {
                     </div>
                   </div>
 
-                  {/* Right: Icon */}
-                  <div className="hidden md:flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-full border border-gray-200 group-hover:border-white/20 transition-all duration-500 mt-2 md:mt-0">
+                  {/* Right: Icon - Commented out */}
+                  {/* <div className="hidden md:flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-full border border-gray-200 group-hover:border-white/20 transition-all duration-500 mt-2 md:mt-0">
                     <ArrowUpRight className="w-5 h-5 text-black group-hover:text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:rotate-45" />
-                  </div>
+                  </div> */}
+                  
+                  {/* Links - Commented out for now */}
+                  {/* <Link href={service.href} className="...">
+                    ...
+                  </Link> */}
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>

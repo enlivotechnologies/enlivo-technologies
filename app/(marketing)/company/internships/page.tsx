@@ -10,7 +10,7 @@
  */
 
 import React from "react";
-import { InternshipHero, WhyDifferent, InternshipTracks, HowItWorks } from "./components";
+import { InternshipHero, WhyDifferent, MentorshipStandards, InternshipTracks, HowItWorks, Outcomes, WhoShouldApply, FAQ } from "./components";
 
 export default function InternshipsPage() {
   return (
@@ -19,6 +19,10 @@ export default function InternshipsPage() {
       <WhyDifferent />
       <InternshipTracks />
       <HowItWorks />
+      <MentorshipStandards />
+      <Outcomes />
+      <WhoShouldApply />
+      <FAQ />
     </main>
   );
 }

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Code2, Cloud, Terminal } from "lucide-react";
 
 // --- DATA ---
@@ -10,19 +11,25 @@ const TRACKS = [
     id: "01",
     title: "Full Stack Development",
     icon: Code2,
-    href: "#apply-fullstack",
+    href: "/company/internships/full-stack-developer",
+    image: "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768669946/fullstack_rcogah.jpg",
+    hasImage: true,
   },
   {
     id: "02",
     title: "AWS Cloud Engineering",
     icon: Cloud,
     href: "#apply-aws",
+    image: "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768670131/aws_wuotze.jpg",
+    hasImage: true,
   },
   {
     id: "03",
     title: "DevOps Engineering",
     icon: Terminal,
     href: "#apply-devops",
+    image: "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768670402/devops_qqpnhi.jpg",
+    hasImage: true,
   },
 ];
 
@@ -32,19 +39,14 @@ export function InternshipTracks() {
       <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 border-b border-gray-100 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 ">
           <div className="max-w-3xl">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight mb-4">
-              Choose Your Path.
+            Areas of Internship
             </h2>
             <p className="text-lg text-gray-500 font-light">
-              Three specialized tracks designed to make you industry-ready.
+            Choose the area where you’ll work, learn, and build real experience.
             </p>
-          </div>
-          <div className="hidden md:block">
-            <span className="text-sm font-mono text-gray-400 uppercase tracking-widest">
-              Select a Track
-            </span>
           </div>
         </div>
 
@@ -56,27 +58,33 @@ export function InternshipTracks() {
             return (
               <div
                 key={track.id}
-                // Static Card: No 'group', no 'hover', no 'transition' classes.
-                className="relative flex flex-col justify-between h-[550px] bg-[#0A0A0A] rounded-[2.5rem] p-10 overflow-hidden border border-white/5"
+                className="relative flex flex-col justify-between h-[420px] rounded-[2.5rem] p-8 overflow-hidden border border-white/5"
+                style={track.hasImage ? {} : { backgroundColor: "#0A0A0A" }}
               >
                 {/* --- CARD BACKGROUND --- */}
-                {/* Static Grid Pattern Overlay */}
-                <div className="absolute inset-0 opacity-20 pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-
-                {/* --- TOP CONTENT (ID & Icon) --- */}
-                <div className="relative z-10 flex justify-between items-start">
-                  <span className="font-mono text-sm text-gray-500 border border-white/10 px-3 py-1 rounded-full bg-white/5">
-                    TRACK {track.id}
-                  </span>
-                  {/* Static Icon State */}
-                  <div className="w-12 h-12 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white">
-                    <Icon className="w-5 h-5" strokeWidth={1.5} />
-                  </div>
-                </div>
+                {track.hasImage ? (
+                  <>
+                    {/* Image Background */}
+                    <div className="absolute inset-0">
+                      <Image
+                        src={track.image!}
+                        alt={track.title}
+                        fill
+                        className="object-cover"
+                        priority
+                      />
+                      {/* Dark Gradient Overlay for Text Readability */}
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+                    </div>
+                  </>
+                ) : (
+                  /* Static Grid Pattern Overlay for non-image cards */
+                  <div className="absolute inset-0 opacity-20 pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+                )}
 
                 {/* --- CENTER VISUAL (Big Typography) --- */}
-                <div className="relative z-10 my-auto">
-                  <h3 className="text-4xl md:text-5xl font-medium text-white leading-[1.1] tracking-tight">
+                <div className="relative z-10 flex-1 flex items-center">
+                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium text-white leading-[1.1] tracking-tight">
                     {track.title.split(" ").map((word, i) => (
                       <span key={i} className="block">{word}</span>
                     ))}
@@ -84,14 +92,15 @@ export function InternshipTracks() {
                 </div>
 
                 {/* --- BOTTOM CONTENT (Static Apply Button) --- */}
-                <div className="relative z-10 pt-8 border-t border-white/10">
+                <div className={`relative z-10 pt-6 ${
+                  track.hasImage ? "border-t border-white/20" : "border-t border-white/10"
+                }`}>
                   <Link
                     href={track.href}
-                    // Removed hover:scale, active:scale, and transition effects.
-                    className="w-full h-14 rounded-full bg-white text-black font-semibold text-lg flex items-center justify-center gap-2"
+                    className="w-full h-12 rounded-full bg-white text-black font-semibold text-base flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors duration-200"
                   >
                     Apply Now
-                    <ArrowRight className="w-5 h-5" />
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
 

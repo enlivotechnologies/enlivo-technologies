@@ -68,6 +68,17 @@ const geistLight = localFont({
 });
 
 /**
+ * Custom font: Corinthia Regular
+ * Used for elegant script text
+ */
+const corinthia = localFont({
+  src: "../public/fonts/Corinthia/Corinthia-Regular.ttf",
+  display: "swap",
+  variable: "--font-corinthia",
+  weight: "400",
+});
+
+/**
  * Global metadata defaults
  * These are inherited by all pages unless overridden
  *
@@ -140,7 +151,7 @@ export default function RootLayout({
   return (
     <html
       lang={SITE_CONFIG.language}
-      className={`${inter.variable} ${neueMontreal.variable} ${geist.variable} ${geistLight.variable}`}
+      className={`${inter.variable} ${neueMontreal.variable} ${geist.variable} ${geistLight.variable} ${corinthia.variable}`}
       suppressHydrationWarning
     >
       <body
