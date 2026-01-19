@@ -173,6 +173,8 @@ export interface ArticleSchema extends BaseSchema {
     logo: {
       '@type': 'ImageObject';
       url: string;
+      width?: number;
+      height?: number;
     };
   };
   mainEntityOfPage: {
