@@ -13,13 +13,12 @@ export default function proxy(request: NextRequest) {
   const url = request.nextUrl.clone();
   const hostname = request.headers.get('host') || '';
 
-  // Define domains based on environment
-  const isProduction = process.env.NODE_ENV === 'production';
-  const mainDomain = isProduction ? 'enlivotechnologies.com' : 'localhost:3000';
-  const careersSubdomain = `careers.${mainDomain}`;
+  // Normalize hostname (remove port for comparison)
+  const normalizedHostname = hostname.split(':')[0];
 
   // Check if request is coming from careers subdomain
-  if (hostname === careersSubdomain || hostname.startsWith('careers.')) {
+  // Handles: careers.enlivotechnologies.com, careers.www.enlivotechnologies.com, etc.
+  if (normalizedHostname.startsWith('careers.')) {
     // Skip rewriting if already on /company/careers path (to avoid double rewriting)
     if (url.pathname.startsWith('/company/careers')) {
       return NextResponse.next();
