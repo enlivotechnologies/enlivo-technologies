@@ -11,15 +11,16 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Linkedin, Instagram, Twitter, ArrowRight } from "lucide-react";
+import { CAREERS_URL } from "@/lib/constants";
 
 // --- CONFIGURATION ---
 
 const FOOTER_LINKS = {
   menu: [
-    { label: "About Enlivo", href: "/company/about" },
-    { label: "How We Work", href: "/#our-process" },
-    { label: "Careers", href: "/company/careers" },
-    { label: "Internships", href: "/company/internships" },
+    { label: "About Enlivo", href: "/company/about", isExternal: false },
+    { label: "How We Work", href: "/#our-process", isExternal: false },
+    { label: "Careers", href: CAREERS_URL, isExternal: true },
+    { label: "Internships", href: "/company/internships", isExternal: false },
   ],
   info: [
     { label: "Support", href: "/contact" },
@@ -114,16 +115,32 @@ export function Footer() {
             <div className="flex flex-col gap-5">
               <h3 className="text-lg font-medium text-white tracking-wider font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>Company</h3>
               <nav className="flex flex-col gap-3">
-                {FOOTER_LINKS.menu.map((link) => (
-                  <Link 
-                    key={link.label} 
-                    href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors duration-200 text-[14px] font-sans" 
-                    style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {FOOTER_LINKS.menu.map((link) => {
+                  if (link.isExternal) {
+                    return (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-white transition-colors duration-200 text-[14px] font-sans"
+                        style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+                      >
+                        {link.label}
+                      </a>
+                    );
+                  }
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className="text-gray-400 hover:text-white transition-colors duration-200 text-[14px] font-sans"
+                      style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
               </nav>
             </div>
 

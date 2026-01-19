@@ -11,6 +11,7 @@ import { buildMetadata } from "@/lib/seo";
 import { JsonLd, buildBreadcrumbSchema } from "@/lib/schema";
 import { COMPANY_INDEX_SEO, COMPANY_HEADINGS } from "@/seo/company";
 import { Container } from "@/components/ui/Container";
+import { CAREERS_URL } from "@/lib/constants";
 
 /**
  * Page Metadata
@@ -57,15 +58,17 @@ export default function CompanyPage() {
           </Link>
 
           {/* Careers */}
-          <Link
-            href="/company/careers"
+          <a
+            href={CAREERS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="block p-8 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
           >
             <h2 className="text-xl font-bold text-gray-900 mb-2">Careers</h2>
             <p className="text-gray-600">
               Join our team and build the future of enterprise technology.
             </p>
-          </Link>
+          </a>
 
           {/* Internships */}
           <Link

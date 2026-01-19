@@ -7,6 +7,12 @@
  */
 
 /**
+ * Careers subdomain URL
+ * WHY: Centralized URL for careers subdomain to ensure consistency
+ */
+export const CAREERS_URL = "https://careers.enlivotechnologies.com";
+
+/**
  * Site-wide configuration
  * TODO: Update with actual business details before launch
  */
@@ -71,7 +77,7 @@ export const NAVIGATION = {
       href: "/company",
       children: [
         { label: "About", href: "/company/about" },
-        { label: "Careers", href: "/company/careers" },
+        { label: "Careers", href: CAREERS_URL, isExternal: true },
         { label: "Internships", href: "/company/internships" },
       ],
     },
@@ -90,7 +96,7 @@ export const NAVIGATION = {
     ],
     company: [
       { label: "About", href: "/company/about" },
-      { label: "Careers", href: "/company/careers" },
+      { label: "Careers", href: CAREERS_URL, isExternal: true },
       { label: "Internships", href: "/company/internships" },
       { label: "Contact", href: "/contact" },
     ],

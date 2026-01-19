@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { MapPin, Clock, Sparkles, Building2 } from "lucide-react";
+import { MapPin, Building2 } from "lucide-react";
 import type { Job } from "../data";
 import { JobApplicationFormInline } from "./JobApplicationFormInline";
 
@@ -80,10 +79,7 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
       {/* Main Content */}
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         {activeTab === "details" ? (
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
-            
-            {/* LEFT COLUMN: Job Details (8 columns) */}
-            <div className="lg:col-span-8">
+          <div>
             
             {/* Job Description */}
             <div className="mb-12">
@@ -203,54 +199,10 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
             )}
 
           </div>
-
-          {/* RIGHT COLUMN: Details Sidebar (4 columns) - Sticky */}
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-24">
-              <div className="bg-white border border-[#EBEBE6] rounded-xl p-7 shadow-sm">
-                
-                <h3 className="text-xl font-bold text-[#1a1a1a] mb-7 tracking-tight">
-                  Details
-                </h3>
-
-                {/* Details List */}
-                <div className="space-y-5">
-                  <div className="flex items-start gap-3.5">
-                    <Building2 className="w-5 h-5 text-[#666] flex-shrink-0 mt-0.5" />
-                    <span className="text-[15px] text-[#666] leading-relaxed">{workType}</span>
-                  </div>
-                  
-                  <div className="flex items-start gap-3.5">
-                    <MapPin className="w-5 h-5 text-[#666] flex-shrink-0 mt-0.5" />
-                    <span className="text-[15px] text-[#666] leading-relaxed">{job.location}</span>
-                  </div>
-                  
-                  <div className="flex items-start gap-3.5">
-                    {job.isIntern ? (
-                      <Sparkles className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                    ) : (
-                      <Clock className="w-5 h-5 text-[#666] flex-shrink-0 mt-0.5" />
-                    )}
-                    <span className="text-[15px] text-[#666] leading-relaxed">{job.type}</span>
-                  </div>
-                </div>
-
-                {/* Apply Button */}
-                <button
-                  onClick={() => setActiveTab("application")}
-                  className="w-full bg-[#1A1A1A] text-white text-center py-4 px-6 rounded-lg font-semibold text-[15px] hover:bg-[#000000] transition-all duration-200 block mt-8 shadow-sm hover:shadow-md"
-                >
-                  Apply
-                </button>
-
-              </div>
-            </div>
-          </div>
-          </div>
         ) : (
           /* Application Form Tab */
           <div className="max-w-4xl">
-            <JobApplicationFormInline jobTitle={job.title} />
+            <JobApplicationFormInline job={job} />
           </div>
         )}
       </div>

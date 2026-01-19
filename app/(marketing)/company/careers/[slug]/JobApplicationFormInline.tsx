@@ -56,11 +56,13 @@ const COUNTRIES = [
   { name: "Algeria", code: "+213", flag: "🇩🇿" },
 ];
 
+import type { Job } from "../data";
+
 interface JobApplicationFormInlineProps {
-  jobTitle: string;
+  job: Job;
 }
 
-export function JobApplicationFormInline({ jobTitle }: JobApplicationFormInlineProps) {
+export function JobApplicationFormInline({ job }: JobApplicationFormInlineProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(COUNTRIES.find(c => c.name === "India") || COUNTRIES[0]);
@@ -142,7 +144,10 @@ export function JobApplicationFormInline({ jobTitle }: JobApplicationFormInlineP
       
       // Prepare form data
       const data = {
-        jobTitle,
+        jobTitle: job.title,
+        jobSlug: job.slug,
+        jobDepartment: job.department,
+        jobType: job.type,
         fullName: formData.get("fullName") as string,
         email: formData.get("email") as string,
         phoneNumber: formData.get("phoneNumber") as string || undefined,
@@ -367,61 +372,70 @@ export function JobApplicationFormInline({ jobTitle }: JobApplicationFormInlineP
         <p className="text-sm text-[#666] mb-6">Please fill in additional questions</p>
         
         <div className="space-y-6">
-          {/* Manager Experience */}
-          <div>
-            <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
-              How many years of experience do you have as a manager? *
-            </label>
-            <input
-              type="text"
-              name="managerExperience"
-              required
-              className="w-full px-4 py-3 border border-[#E5E5E0] rounded-lg focus:ring-2 focus:ring-[#1A1A1A] focus:border-transparent transition-all text-base"
-              placeholder="Enter years of experience"
-            />
-          </div>
-
-          {/* DotNet Version Experience */}
-          <div>
-            <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
-              Do you have hands-on experience with DotNet version 9.0 and above? *
-            </label>
-            <div className="space-y-2">
-              {["Yes", "No"].map((option) => (
-                <label key={option} className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="dotnetVersionExperience"
-                    value={option}
-                    required
-                    className="w-4 h-4 text-[#1A1A1A] focus:ring-[#1A1A1A]"
-                  />
-                  <span className="text-base text-[#1a1a1a]">{option}</span>
-                </label>
-              ))}
+          {/* Manager Experience - Only for Engineering roles */}
+          {job.department === "Engineering" && job.title.toLowerCase().includes("manager") && (
+            <div>
+              <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
+                How many years of experience do you have as a manager? *
+              </label>
+              <input
+                type="text"
+                name="managerExperience"
+                required
+                className="w-full px-4 py-3 border border-[#E5E5E0] rounded-lg focus:ring-2 focus:ring-[#1A1A1A] focus:border-transparent transition-all text-base"
+                placeholder="Enter years of experience"
+              />
             </div>
-          </div>
+          )}
 
-          {/* Willing to Relocate */}
-          <div>
-            <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
-              Are you willing to relocate to Pune? *
-            </label>
-            <div className="space-y-2">
-              {["Yes", "No"].map((option) => (
-                <label key={option} className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="willingToRelocate"
-                    value={option}
-                    required
-                    className="w-4 h-4 text-[#1A1A1A] focus:ring-[#1A1A1A]"
-                  />
-                  <span className="text-base text-[#1a1a1a]">{option}</span>
-                </label>
-              ))}
+          {/* DotNet Version Experience - Only for .NET/Backend Engineering roles */}
+          {(job.title.toLowerCase().includes("backend") || 
+            job.title.toLowerCase().includes("dotnet") || 
+            job.title.toLowerCase().includes(".net") ||
+            job.title.toLowerCase().includes("software engineer")) && (
+            <div>
+              <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
+                Do you have hands-on experience with DotNet version 9.0 and above? *
+              </label>
+              <div className="space-y-2">
+                {["Yes", "No"].map((option) => (
+                  <label key={option} className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="dotnetVersionExperience"
+                      value={option}
+                      required
+                      className="w-4 h-4 text-[#1A1A1A] focus:ring-[#1A1A1A]"
+                    />
+                    <span className="text-base text-[#1a1a1a]">{option}</span>
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* Willing to Relocate - Show location from job data */}
+          {job.location && !job.location.toLowerCase().includes("remote") && (
+            <div>
+              <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
+                Are you willing to relocate to {job.location.split(",")[0]}? *
+              </label>
+              <div className="space-y-2">
+                {["Yes", "No"].map((option) => (
+                  <label key={option} className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="willingToRelocate"
+                      value={option}
+                      required
+                      className="w-4 h-4 text-[#1A1A1A] focus:ring-[#1A1A1A]"
+                    />
+                    <span className="text-base text-[#1a1a1a]">{option}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Notice Period */}
           <div>
@@ -486,101 +500,112 @@ export function JobApplicationFormInline({ jobTitle }: JobApplicationFormInlineP
             </div>
           </div>
 
-          {/* DotNet 8/9/10 Experience */}
-          <div>
-            <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
-              Do you have experience working with DotNet 8/9/10 *
-            </label>
-            <div className="space-y-2">
-              {["Yes", "No"].map((option) => (
-                <label key={option} className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="dotnet8910Experience"
-                    value={option}
-                    required
-                    className="w-4 h-4 text-[#1A1A1A] focus:ring-[#1A1A1A]"
-                  />
-                  <span className="text-base text-[#1a1a1a]">{option}</span>
-                </label>
-              ))}
+          {/* DotNet 8/9/10 Experience - Only for .NET/Backend Engineering roles */}
+          {(job.title.toLowerCase().includes("backend") || 
+            job.title.toLowerCase().includes("dotnet") || 
+            job.title.toLowerCase().includes(".net") ||
+            job.title.toLowerCase().includes("software engineer")) && (
+            <div>
+              <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
+                Do you have experience working with DotNet 8/9/10? *
+              </label>
+              <div className="space-y-2">
+                {["Yes", "No"].map((option) => (
+                  <label key={option} className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="dotnet8910Experience"
+                      value={option}
+                      required
+                      className="w-4 h-4 text-[#1A1A1A] focus:ring-[#1A1A1A]"
+                    />
+                    <span className="text-base text-[#1a1a1a]">{option}</span>
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* India Citizen */}
-          <div>
-            <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
-              Are you a citizen of India and currently based in India? *
-            </label>
-            <div className="space-y-2">
-              {["Yes", "No"].map((option) => (
-                <label key={option} className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="indiaCitizen"
-                    value={option}
-                    required
-                    className="w-4 h-4 text-[#1A1A1A] focus:ring-[#1A1A1A]"
-                  />
-                  <span className="text-base text-[#1a1a1a]">{option}</span>
-                </label>
-              ))}
+          {/* Location/Citizenship - Only for India-based roles */}
+          {job.location.toLowerCase().includes("india") && (
+            <div>
+              <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
+                Are you a citizen of India and currently based in India? *
+              </label>
+              <div className="space-y-2">
+                {["Yes", "No"].map((option) => (
+                  <label key={option} className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="indiaCitizen"
+                      value={option}
+                      required
+                      className="w-4 h-4 text-[#1A1A1A] focus:ring-[#1A1A1A]"
+                    />
+                    <span className="text-base text-[#1a1a1a]">{option}</span>
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Current CTC Range */}
-          <div>
-            <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
-              What is your current annual CTC range? (INR) *
-            </label>
-            <div className="space-y-2">
-              {[
-                "0 - 5 Lakh", "5 - 10 Lakh", "10 - 15 Lakh", "15 - 20 Lakh",
-                "20 - 25 Lakh", "25 - 30 Lakh", "30 - 35 Lakh", "35 to 40 Lakh",
-                "40 to 45 Lakh", "45 to 50 Lakh", "50 to 55 Lakh", "55 to 60 Lakh",
-                "60 to 70 Lakh", "70 to 80 Lakh", "80 to 90 Lakh", "90Lakh to 1Cr", "1Cr +"
-              ].map((option) => (
-                <label key={option} className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="currentCTCRange"
-                    value={option}
-                    required
-                    className="w-4 h-4 text-[#1A1A1A] focus:ring-[#1A1A1A]"
-                  />
-                  <span className="text-base text-[#1a1a1a]">{option}</span>
+          {/* Current CTC Range - Only for full-time roles (not internships) */}
+          {!job.isIntern && job.location.toLowerCase().includes("india") && (
+            <>
+              <div>
+                <label className="block text-sm font-medium text-[#1a1a1a] mb-3">
+                  What is your current annual CTC range? (INR) *
                 </label>
-              ))}
-            </div>
-          </div>
+                <div className="space-y-2">
+                  {[
+                    "0 - 5 Lakh", "5 - 10 Lakh", "10 - 15 Lakh", "15 - 20 Lakh",
+                    "20 - 25 Lakh", "25 - 30 Lakh", "30 - 35 Lakh", "35 to 40 Lakh",
+                    "40 to 45 Lakh", "45 to 50 Lakh", "50 to 55 Lakh", "55 to 60 Lakh",
+                    "60 to 70 Lakh", "70 to 80 Lakh", "80 to 90 Lakh", "90Lakh to 1Cr", "1Cr +"
+                  ].map((option) => (
+                    <label key={option} className="flex items-center gap-3 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="currentCTCRange"
+                        value={option}
+                        required
+                        className="w-4 h-4 text-[#1A1A1A] focus:ring-[#1A1A1A]"
+                      />
+                      <span className="text-base text-[#1a1a1a]">{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
 
-          {/* Current CTC Breakup */}
-          <div>
-            <label className="block text-sm font-medium text-[#1a1a1a] mb-2">
-              Please share the figures for your current CTC breakup: Fixed, Variable, ESOPs (with vesting), and any other components *
-            </label>
-            <input
-              type="text"
-              name="currentCTCBreakup"
-              required
-              className="w-full px-4 py-3 border border-[#E5E5E0] rounded-lg focus:ring-2 focus:ring-[#1A1A1A] focus:border-transparent transition-all text-base"
-              placeholder="Enter CTC breakup details"
-            />
-          </div>
+              {/* Current CTC Breakup */}
+              <div>
+                <label className="block text-sm font-medium text-[#1a1a1a] mb-2">
+                  Please share the figures for your current CTC breakup: Fixed, Variable, ESOPs (with vesting), and any other components *
+                </label>
+                <input
+                  type="text"
+                  name="currentCTCBreakup"
+                  required
+                  className="w-full px-4 py-3 border border-[#E5E5E0] rounded-lg focus:ring-2 focus:ring-[#1A1A1A] focus:border-transparent transition-all text-base"
+                  placeholder="Enter CTC breakup details"
+                />
+              </div>
 
-          {/* Expected CTC */}
-          <div>
-            <label className="block text-sm font-medium text-[#1a1a1a] mb-2">
-              What is your expected annual CTC? (INR) *
-            </label>
-            <input
-              type="text"
-              name="expectedCTC"
-              required
-              className="w-full px-4 py-3 border border-[#E5E5E0] rounded-lg focus:ring-2 focus:ring-[#1A1A1A] focus:border-transparent transition-all text-base"
-              placeholder="Enter expected CTC"
-            />
-          </div>
+              {/* Expected CTC */}
+              <div>
+                <label className="block text-sm font-medium text-[#1a1a1a] mb-2">
+                  What is your expected annual CTC? (INR) *
+                </label>
+                <input
+                  type="text"
+                  name="expectedCTC"
+                  required
+                  className="w-full px-4 py-3 border border-[#E5E5E0] rounded-lg focus:ring-2 focus:ring-[#1A1A1A] focus:border-transparent transition-all text-base"
+                  placeholder="Enter expected CTC"
+                />
+              </div>
+            </>
+          )}
 
           {/* LinkedIn Profile */}
           <div>

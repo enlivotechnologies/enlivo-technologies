@@ -13,6 +13,9 @@ import nodemailer from "nodemailer";
  */
 function createJobApplicationEmailTemplate(data: {
   jobTitle: string;
+  jobSlug?: string;
+  jobDepartment?: string;
+  jobType?: string;
   fullName: string;
   email: string;
   phoneNumber?: string;
@@ -253,7 +256,7 @@ function createJobApplicationEmailTemplate(data: {
             <div class="header">
               <span class="badge">Job Application</span>
               <h1>New Job Application</h1>
-              <div class="job-title">Position: ${data.jobTitle}</div>
+              <div class="job-title">Position: ${data.jobTitle}${data.jobDepartment ? ` (${data.jobDepartment})` : ''}${data.jobType ? ` - ${data.jobType}` : ''}</div>
             </div>
             
             <div class="content">
@@ -454,6 +457,9 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const {
       jobTitle,
+      jobSlug,
+      jobDepartment,
+      jobType,
       fullName,
       email,
       phoneNumber,
@@ -536,6 +542,9 @@ export async function POST(request: NextRequest) {
       subject: `New Job Application: ${jobTitle} - ${fullName}`,
       html: createJobApplicationEmailTemplate({
         jobTitle,
+        jobSlug,
+        jobDepartment,
+        jobType,
         fullName,
         email,
         phoneNumber,
