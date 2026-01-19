@@ -13,7 +13,12 @@ import { CareersFooter } from "./CareersFooter";
 
 export function ConditionalFooter() {
   const pathname = usePathname();
-  const isCareersPage = pathname?.startsWith("/company/careers");
+  
+  // Check if we're on careers subdomain or careers path
+  const isCareersPage = 
+    typeof window !== 'undefined' && 
+    (window.location.hostname.startsWith('careers.') || 
+     pathname?.startsWith("/company/careers"));
 
   if (isCareersPage) {
     return <CareersFooter />;
