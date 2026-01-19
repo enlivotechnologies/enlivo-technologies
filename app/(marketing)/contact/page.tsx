@@ -99,7 +99,7 @@ export default function ContactPage() {
                   <p className="text-lg text-gray-600 font-light leading-relaxed flex-grow">
                     Connect with our sales team to request a demo or discuss pricing.
                   </p>
-                  <a
+                <a
                     href="https://cal.com/nishal-pktyks"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -124,12 +124,12 @@ export default function ContactPage() {
                   <p className="text-lg text-gray-600 font-light leading-relaxed flex-grow">
                     Reach out to our team for press requests or media opportunities.
                   </p>
-                  <a
+                <a
                     href="mailto:enlivotechnologies@gmail.com?subject=Media Inquiry"
                     className="inline-flex items-center justify-center w-full px-8 py-4 bg-[#FAFAFA] border-2 border-black/10 text-black rounded-xl font-medium hover:bg-black/5 hover:border-black/20 transition-all duration-200 text-base shadow-sm hover:shadow-md mt-auto"
-                  >
+                >
                     Email us
-                  </a>
+                </a>
                 </div>
               </div>
 

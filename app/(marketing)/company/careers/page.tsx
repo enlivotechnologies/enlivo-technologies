@@ -3,73 +3,15 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { JsonLd, buildBreadcrumbSchema } from "@/lib/schema";
 import { CAREERS_SEO } from "@/seo/company"; 
+import { JOBS_DATA } from "./data";
 // Note: We are using a direct div with Navbar classes instead of the generic Container component
-import { Globe, ArrowUpRight, Clock, Sparkles, MapPin, Briefcase } from "lucide-react";
+import { Globe, ArrowUpRight, Clock, Sparkles, MapPin } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
   ...CAREERS_SEO,
   title: "Careers at Enlivo - Join our India Team",
   description: "Explore internships and full-time positions in Design and Engineering at our India hubs.",
 });
-
-/**
- * MOCK DATA
- */
-const MOCK_JOBS = [
-  // DESIGN
-  {
-    slug: "senior-product-designer",
-    title: "Senior Product Designer",
-    department: "Design",
-    type: "Full-time",
-    location: "Bengaluru, India",
-    salary: "₹35L - ₹50L",
-    description: "Lead our core platform initiatives and design system for the next generation of users.",
-    isIntern: false
-  },
-  {
-    slug: "product-design-intern",
-    title: "Product Design Intern",
-    department: "Design",
-    type: "Internship (6 Months)",
-    location: "Remote / India",
-    salary: "₹45k / month",
-    description: "Work closely with senior designers to craft pixel-perfect interfaces and user flows.",
-    isIntern: true
-  },
-  
-  // ENGINEERING
-  {
-    slug: "frontend-engineer-ii",
-    title: "Frontend Engineer II",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Mumbai, India",
-    salary: "₹28L - ₹42L",
-    description: "Craft beautiful, high-performance UI components using Next.js and Tailwind.",
-    isIntern: false
-  },
-  {
-    slug: "backend-engineering-intern",
-    title: "Backend Engineering Intern",
-    department: "Engineering",
-    type: "Internship (Summer)",
-    location: "Bengaluru, India",
-    salary: "₹50k / month",
-    description: "Help build scalable APIs and optimize database queries for high-traffic systems.",
-    isIntern: true
-  },
-  {
-    slug: "staff-software-engineer",
-    title: "Staff Software Engineer",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Remote / India",
-    salary: "₹60L - ₹85L",
-    description: "Architect scalable systems for our enterprise analytics platform.",
-    isIntern: false
-  }
-];
 
 export default function CareersPage() {
   const departments = [
@@ -128,7 +70,7 @@ export default function CareersPage() {
         {/* Listings Section */}
         <div className="pb-32 space-y-20">
           {departments.map((dept) => {
-            const deptJobs = MOCK_JOBS.filter(dept.filter);
+            const deptJobs = JOBS_DATA.filter(dept.filter);
             if (deptJobs.length === 0) return null;
 
             return (
@@ -193,12 +135,6 @@ export default function CareersPage() {
                               <div className="flex items-center gap-1.5 text-[13px] font-medium text-zinc-500">
                                 {job.isIntern ? <Sparkles className="w-3.5 h-3.5 text-amber-500" /> : <Clock className="w-3.5 h-3.5" />}
                                 {job.type}
-                              </div>
-
-                              {/* Salary */}
-                              <div className="flex items-center gap-1.5 text-[13px] font-medium text-zinc-500">
-                                <Briefcase className="w-3.5 h-3.5" />
-                                {job.salary}
                               </div>
                             </div>
                           </div>

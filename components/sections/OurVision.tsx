@@ -197,63 +197,63 @@ export function OurVision() {
         <div className="flex flex-col items-center text-center">
           
           {/* Eyebrow Label - Centered at Top */}
-          <span
-            ref={labelRef}
+            <span
+              ref={labelRef}
             className="text-[11px] font-medium tracking-[0.2em] text-[#1a1a1a] opacity-50 uppercase mb-6"
             style={{ opacity: 0 }}
-          >
+            >
             /OUR VISION/
-          </span>
+            </span>
 
           {/* Vision Headline - Refined Typography */}
-          <h2
-            ref={headingRef}
-            id="vision-heading"
+            <h2
+              ref={headingRef}
+              id="vision-heading"
             className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-medium text-[#1a1a1a] leading-[1.15] mb-6 tracking-[-0.02em] max-w-4xl mx-auto opacity-0"
-            itemProp="slogan"
-          >
+              itemProp="slogan"
+            >
             Whether it&apos;s a digital platform, an enterprise system, or an AI powered product - we design and engineer solutions that work.
-          </h2>
+            </h2>
 
           {/* Supporting Description - Single Premium Paragraph */}
-          <p
-            ref={descriptionRef}
+            <p
+              ref={descriptionRef}
             className="text-sm md:text-base text-[#1a1a1a] leading-[1.7] font-normal max-w-3xl mx-auto mb-16 opacity-0"
-          >
+            >
             Our focus is on building secure, scalable, and reliable digital products that organizations can trust today and as they grow. Good design isn&apos;t just about looks—it&apos;s about solving real problems and getting results.
-          </p>
+            </p>
 
           {/* Statistics Grid - Premium Full Width Spacing */}
-          <div
-            ref={statsRef}
+            <div
+              ref={statsRef}
             className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16 lg:gap-20 xl:gap-24 w-full max-w-6xl mx-auto mt-4"
-            role="list"
-            aria-label="Enlivo Technologies company statistics and achievements"
-            itemProp="aggregateRating"
-            itemScope
-            itemType="https://schema.org/AggregateRating"
-          >
-            {STATS.map((stat, index) => (
-              <div
-                key={index}
+              role="list"
+              aria-label="Enlivo Technologies company statistics and achievements"
+              itemProp="aggregateRating"
+              itemScope
+              itemType="https://schema.org/AggregateRating"
+            >
+              {STATS.map((stat, index) => (
+                <div
+                  key={index}
                 className="flex flex-col items-center opacity-0"
-                role="listitem"
-                itemProp="ratingValue"
-              >
-                {/* Stat Value - Refined Size */}
-                <span
-                  className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#2563EB] leading-none mb-3 tracking-[-0.02em]"
-                  aria-label={`${stat.value} ${stat.label}`}
+                  role="listitem"
+                  itemProp="ratingValue"
                 >
-                  {stat.value}
-                </span>
+                {/* Stat Value - Refined Size */}
+                  <span
+                  className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#2563EB] leading-none mb-3 tracking-[-0.02em]"
+                    aria-label={`${stat.value} ${stat.label}`}
+                  >
+                    {stat.value}
+                  </span>
                 {/* Stat Label - Refined Typography */}
                 <span className="text-xs md:text-sm font-medium text-[#1a1a1a] opacity-80 text-center">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </div>
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
 
         </div>
       </div>
