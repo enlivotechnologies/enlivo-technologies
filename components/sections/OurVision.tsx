@@ -141,7 +141,7 @@ export function OurVision() {
       <meta itemProp="url" content="https://www.enlivotechnologies.com" />
       <meta
         itemProp="logo"
-        content="https://www.enlivotechnologies.com/logo.png"
+        content="https://www.enlivotechnologies.com/images/navbar/EnlivotechnologiesLogo.png"
       />
       <meta itemProp="foundingDate" content="2020" />
       <meta itemProp="numberOfEmployees" content="10-50" />
@@ -151,7 +151,7 @@ export function OurVision() {
       />
       <meta
         itemProp="description"
-        content="Enlivo Technologies builds secure, scalable software systems—websites, applications, and enterprise platforms—that help organizations operate reliably and grow sustainably."
+        content="Enlivo architects the secure digital backbone for modern global business. Precision engineering for mission critical platforms, cloud infrastructure, and AI."
       />
 
       {/* ============================================

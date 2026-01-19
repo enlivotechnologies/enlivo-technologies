@@ -17,22 +17,22 @@ import { buildOrganizationSchema } from "@/lib/schema";
 export const ORGANIZATION_SCHEMA = buildOrganizationSchema({
   name: "Enlivo Technologies",
   description:
-    "Enlivo Technologies is an enterprise software company that designs and engineers secure, scalable digital products people trust. Specializing in product engineering, AI automation, and cloud platform solutions.",
+    "Enlivo architects the secure digital backbone for modern global business. Precision engineering for mission critical platforms, cloud infrastructure, and AI.",
 
   // Contact information
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+91-XXX-XXX-XXXX", // TODO: Add actual phone number
+    telephone: "+91-89713-63921", // WhatsApp number
     contactType: "customer service",
-    email: "contact@enlivotechnologies.com",
+    email: "Info.enlivo@gmail.com",
     availableLanguage: ["English"],
   },
 
   // Social media profiles - helps Google build Knowledge Panel
   sameAs: [
-    "https://linkedin.com/company/enlivotechnologies",
-    "https://twitter.com/enlivotechnologies",
-    // 'https://github.com/enlivotechnologies',
+    "https://www.linkedin.com/company/enlivo-global-tech-solutions-pvt-ltd/",
+    "https://www.instagram.com/enlivo_globalsolutions_techpvt",
+    // Add other social profiles as needed
   ],
 });
 

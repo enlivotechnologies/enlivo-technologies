@@ -74,7 +74,13 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
     url: `${BASE_URL}/company/internships`,
     lastModified: new Date(),
     changeFrequency: "monthly",
-    priority: 0.5,
+    priority: 0.7,
+  },
+  {
+    url: `${BASE_URL}/company/internships/full-stack-developer`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.6,
   },
   {
     url: `${BASE_URL}/contact`,

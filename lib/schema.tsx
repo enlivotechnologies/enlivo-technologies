@@ -26,7 +26,12 @@ export interface OrganizationSchema extends BaseSchema {
   '@type': 'Organization';
   name: string;
   url: string;
-  logo: string;
+  logo: string | {
+    '@type': 'ImageObject';
+    url: string;
+    width?: number;
+    height?: number;
+  };
   description: string;
   foundingDate?: string;
   founders?: Array<{ '@type': 'Person'; name: string }>;
@@ -56,16 +61,22 @@ export function buildOrganizationSchema(
     '@type': 'Organization',
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/images/logo.png`,
+    // Use ImageObject format for better Google recognition
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE_CONFIG.url}/images/navbar/EnlivotechnologiesLogo.png`,
+      width: 500,
+      height: 500,
+    },
     description: SITE_CONFIG.description,
     // TODO: Add when business details are finalized
     // foundingDate: '2020',
     // address: { ... },
     // contactPoint: { ... },
     sameAs: [
-      // TODO: Add social media URLs
-      // 'https://linkedin.com/company/your-company',
-      // 'https://twitter.com/your-company',
+      'https://www.linkedin.com/company/enlivo-global-tech-solutions-pvt-ltd/',
+      'https://www.instagram.com/enlivo_globalsolutions_techpvt',
+      // Add other social profiles as needed
     ],
     ...overrides,
   };
@@ -204,7 +215,9 @@ export function buildArticleSchema(article: {
       name: SITE_CONFIG.name,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_CONFIG.url}/images/logo.png`,
+        url: `${SITE_CONFIG.url}/images/navbar/EnlivotechnologiesLogo.png`,
+        width: 500,
+        height: 500,
       },
     },
     mainEntityOfPage: {

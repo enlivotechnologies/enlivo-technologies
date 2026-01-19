@@ -44,7 +44,7 @@ export const SITE_CONFIG = {
   name: "Enlivo Technologies",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.enlivotechnologies.com",
   description:
-    "Enlivo Technologies is an enterprise software company specializing in secure, scalable digital product engineering, AI automation, and cloud platform solutions.",
+    "Enlivo architects the secure digital backbone for modern global business. Precision engineering for mission critical platforms, cloud infrastructure, and AI.",
 
   // Localization
   locale: "en_US",
