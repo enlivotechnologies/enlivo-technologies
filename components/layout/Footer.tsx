@@ -10,35 +10,72 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Linkedin, Instagram, Twitter, ArrowRight } from "lucide-react";
-import { CAREERS_URL } from "@/lib/constants";
+import { ArrowRight } from "lucide-react";
+import { getCareersUrl } from "@/lib/constants";
 
 // --- CONFIGURATION ---
 
-const FOOTER_LINKS = {
-  menu: [
-    { label: "About Enlivo", href: "/company/about", isExternal: false },
-    { label: "How We Work", href: "/#our-process", isExternal: false },
-    { label: "Careers", href: CAREERS_URL, isExternal: true },
-    { label: "Internships", href: "/company/internships", isExternal: false },
-  ],
-  info: [
-    { label: "Support", href: "/contact" },
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-  ],
-};
+const FOOTER_LINKS_INFO = [
+  { label: "Support", href: "/contact" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
+];
+
+// Custom SVG Icons
+const LinkedInIcon = () => (
+  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 9.4c0-2.24 0-3.36.436-4.216a4 4 0 0 1 1.748-1.748C6.04 3 7.16 3 9.4 3h5.2c2.24 0 3.36 0 4.216.436a4 4 0 0 1 1.748 1.748C21 6.04 21 7.16 21 9.4v5.2c0 2.24 0 3.36-.436 4.216a4 4 0 0 1-1.748 1.748C17.96 21 16.84 21 14.6 21H9.4c-2.24 0-3.36 0-4.216-.436a4 4 0 0 1-1.748-1.748C3 17.96 3 16.84 3 14.6zm5-1.775v.5"/>
+    <path d="M8 16.375V10.75m4 5.625V13.5m0 0v-2.75m0 2.75c0-1.288 1.222-2 2.4-2 1.6 0 1.6 1.375 1.6 2.875v2"/>
+  </svg>
+);
+
+const InstagramIcon = () => (
+  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 9.4c0-2.24 0-3.36.436-4.216a4 4 0 0 1 1.748-1.748C6.04 3 7.16 3 9.4 3h5.2c2.24 0 3.36 0 4.216.436a4 4 0 0 1 1.748 1.748C21 6.04 21 7.16 21 9.4v5.2c0 2.24 0 3.36-.436 4.216a4 4 0 0 1-1.748 1.748C17.96 21 16.84 21 14.6 21H9.4c-2.24 0-3.36 0-4.216-.436a4 4 0 0 1-1.748-1.748C3 17.96 3 16.84 3 14.6zm14-2.9h.5"/>
+    <path d="M15.462 11.487a3.5 3.5 0 1 1-6.925 1.026 3.5 3.5 0 0 1 6.925-1.026"/>
+  </svg>
+);
+
+const WhatsAppIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
+    <path d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z"/>
+  </svg>
+);
 
 const SOCIALS = [
-  { icon: Twitter, href: "#", label: "X (Twitter)" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Linkedin, href: "https://www.linkedin.com/company/enlivo-global-tech-solutions-pvt-ltd/", label: "LinkedIn" },
+  { 
+    icon: LinkedInIcon, 
+    href: "https://www.linkedin.com/company/enlivo-global-tech-solutions-pvt-ltd/", 
+    label: "LinkedIn" 
+  },
+  { 
+    icon: InstagramIcon, 
+    href: "https://www.instagram.com/enlivo_globalsolutions_techpvt?igsh=MTlydnYxbGRzbm14Mw==", 
+    label: "Instagram" 
+  },
+  { 
+    icon: WhatsAppIcon, 
+    href: "https://wa.me/918971363921", 
+    label: "WhatsApp" 
+  },
 ];
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  // Get careers URL dynamically
+  const careersUrl = getCareersUrl();
+  const FOOTER_LINKS = {
+    menu: [
+      { label: "About Enlivo", href: "/company/about", isExternal: false },
+      { label: "How We Work", href: "/#our-process", isExternal: false },
+      { label: "Careers", href: careersUrl, isExternal: careersUrl.startsWith('http') },
+      { label: "Internships", href: "/company/internships", isExternal: false },
+    ],
+    info: FOOTER_LINKS_INFO,
+  };
 
   const handleNewsletterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -98,10 +135,10 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300"
+                    className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-white hover:scale-110 transition-all duration-300"
                     aria-label={social.label}
                   >
-                    <Icon strokeWidth={1.5} className="w-4 h-4" />
+                    <Icon />
                   </a>
                 );
               })}

@@ -8,7 +8,7 @@
 export interface Job {
   slug: string;
   title: string;
-  department: "Design" | "Engineering";
+  department: "Design" | "Engineering" | "Operations" | "Product" | "Sales & Marketing";
   type: string;
   location: string;
   description: string;
@@ -254,6 +254,431 @@ export const JOBS_DATA: Job[] = [
       "Unlimited learning and development budget",
       "Conference attendance and speaking opportunities",
       "Leadership development programs"
+    ]
+  },
+  {
+    slug: "senior-backend-engineer",
+    title: "Senior Backend Engineer",
+    department: "Engineering",
+    type: "Full-time",
+    location: "Bengaluru, India",
+    description: "Build robust APIs and microservices using Node.js and Python.",
+    isIntern: false,
+    about: "Join our backend engineering team to build scalable APIs and microservices that power our platform. You'll work with modern technologies, design efficient database schemas, and ensure system reliability. This role offers the opportunity to work on high-traffic systems and contribute to architectural decisions.",
+    responsibilities: [
+      "Design and develop RESTful APIs and microservices",
+      "Optimize database queries and improve system performance",
+      "Implement security best practices and authentication systems",
+      "Collaborate with frontend engineers on API contracts",
+      "Write comprehensive tests and maintain code quality",
+      "Participate in code reviews and technical discussions"
+    ],
+    requirements: [
+      "5+ years of experience in backend development",
+      "Strong proficiency in Node.js, Python, or similar",
+      "Experience with databases (PostgreSQL, MongoDB)",
+      "Understanding of RESTful API design principles",
+      "Experience with cloud platforms (AWS, GCP)",
+      "Strong problem-solving and debugging skills"
+    ],
+    preferredSkills: [
+      "Experience with microservices architecture",
+      "Knowledge of message queues (RabbitMQ, Kafka)",
+      "Experience with containerization (Docker, Kubernetes)",
+      "Understanding of system monitoring and observability"
+    ],
+    interviewProcess: [
+      "Round 1: HR screening and initial discussion",
+      "Round 2: Technical assessment - coding challenge",
+      "Round 3: System design and architecture discussion",
+      "Round 4: Team collaboration and final discussion"
+    ],
+    companyDetails: "Enlivo Technologies is a premium software engineering company building secure, scalable systems for organizations worldwide. We specialize in helping founders and enterprises transform their ideas into production-ready products through expert engineering and design.",
+    benefits: [
+      "Competitive salary and benefits package",
+      "Health insurance coverage",
+      "Remote work options",
+      "Equipment and software provided",
+      "Continuous learning opportunities",
+      "Team events and activities"
+    ]
+  },
+  {
+    slug: "devops-engineer",
+    title: "DevOps Engineer",
+    department: "Engineering",
+    type: "Full-time",
+    location: "Mumbai, India",
+    description: "Manage infrastructure, CI/CD pipelines, and cloud deployments.",
+    isIntern: false,
+    about: "Join our DevOps team to manage infrastructure, automate deployments, and ensure system reliability. You'll work with modern cloud platforms, containerization technologies, and monitoring tools to keep our systems running smoothly. This role offers the opportunity to work with cutting-edge infrastructure technologies.",
+    responsibilities: [
+      "Manage and maintain cloud infrastructure (AWS, GCP)",
+      "Design and implement CI/CD pipelines",
+      "Automate deployment and scaling processes",
+      "Monitor system performance and troubleshoot issues",
+      "Implement security best practices and compliance",
+      "Collaborate with engineering teams on infrastructure needs"
+    ],
+    requirements: [
+      "4+ years of experience in DevOps or infrastructure engineering",
+      "Strong experience with cloud platforms (AWS, GCP, or Azure)",
+      "Proficiency in infrastructure as code (Terraform, CloudFormation)",
+      "Experience with containerization (Docker, Kubernetes)",
+      "Knowledge of CI/CD tools (GitHub Actions, Jenkins, GitLab CI)",
+      "Strong scripting skills (Bash, Python)"
+    ],
+    preferredSkills: [
+      "Experience with monitoring tools (Datadog, New Relic, Prometheus)",
+      "Knowledge of security best practices and compliance",
+      "Experience with serverless architectures",
+      "Understanding of networking and security"
+    ],
+    interviewProcess: [
+      "Round 1: HR screening and initial discussion",
+      "Round 2: Technical assessment - infrastructure and automation",
+      "Round 3: System design and troubleshooting discussion",
+      "Round 4: Team collaboration and final discussion"
+    ],
+    companyDetails: "Enlivo Technologies is a premium software engineering company building secure, scalable systems for organizations worldwide. We specialize in helping founders and enterprises transform their ideas into production-ready products through expert engineering and design.",
+    benefits: [
+      "Competitive salary and benefits package",
+      "Health insurance coverage",
+      "Remote work options",
+      "Equipment and software provided",
+      "Continuous learning opportunities",
+      "Team events and activities"
+    ]
+  },
+  
+  // OPERATIONS
+  {
+    slug: "operations-manager",
+    title: "Operations Manager",
+    department: "Operations",
+    type: "Full-time",
+    location: "Pune, India",
+    description: "Streamline processes and drive operational excellence across the organization.",
+    isIntern: false,
+    about: "Join our operations team to streamline processes, improve efficiency, and drive operational excellence. You'll work closely with leadership to implement best practices, manage vendor relationships, and ensure smooth day-to-day operations. This role offers the opportunity to make a significant impact on how we operate as a company.",
+    responsibilities: [
+      "Develop and implement operational processes and procedures",
+      "Manage vendor relationships and contracts",
+      "Coordinate cross-functional projects and initiatives",
+      "Analyze operational metrics and identify improvement opportunities",
+      "Support leadership with strategic planning and execution",
+      "Ensure compliance with policies and regulations"
+    ],
+    requirements: [
+      "5+ years of experience in operations or business management",
+      "Strong analytical and problem-solving skills",
+      "Experience with process improvement methodologies",
+      "Excellent communication and project management skills",
+      "Ability to work independently and manage multiple priorities",
+      "Experience in a fast-paced, growing organization"
+    ],
+    preferredSkills: [
+      "Experience with project management tools (Asana, Jira)",
+      "Knowledge of business analytics and reporting",
+      "Experience with vendor management",
+      "Understanding of financial planning and budgeting"
+    ],
+    interviewProcess: [
+      "Round 1: HR screening and initial discussion",
+      "Round 2: Case study and problem-solving",
+      "Round 3: Team collaboration and culture fit",
+      "Round 4: Leadership discussion and final review"
+    ],
+    companyDetails: "Enlivo Technologies is a premium software engineering company building secure, scalable systems for organizations worldwide. We specialize in helping founders and enterprises transform their ideas into production-ready products through expert engineering and design.",
+    benefits: [
+      "Competitive salary and benefits package",
+      "Health insurance coverage",
+      "Flexible work arrangements",
+      "Professional development opportunities",
+      "Team events and activities"
+    ]
+  },
+  {
+    slug: "people-operations-specialist",
+    title: "People Operations Specialist",
+    department: "Operations",
+    type: "Full-time",
+    location: "Bengaluru, India",
+    description: "Support employee experience and HR operations.",
+    isIntern: false,
+    about: "Join our people operations team to support employee experience, manage HR processes, and contribute to our company culture. You'll work on everything from onboarding to employee engagement, ensuring our team has the support they need to succeed. This role offers the opportunity to shape how we support and develop our people.",
+    responsibilities: [
+      "Manage employee onboarding and offboarding processes",
+      "Support HR operations and employee relations",
+      "Coordinate employee engagement initiatives and events",
+      "Maintain employee records and HR systems",
+      "Assist with recruitment and hiring processes",
+      "Support leadership with people-related initiatives"
+    ],
+    requirements: [
+      "3+ years of experience in HR or people operations",
+      "Strong organizational and communication skills",
+      "Experience with HR systems and processes",
+      "Ability to handle sensitive and confidential information",
+      "Strong attention to detail",
+      "Passion for creating great employee experiences"
+    ],
+    preferredSkills: [
+      "Experience with HRIS systems",
+      "Knowledge of employment law and compliance",
+      "Experience with employee engagement initiatives",
+      "Understanding of recruitment and talent acquisition"
+    ],
+    interviewProcess: [
+      "Round 1: HR screening and initial discussion",
+      "Round 2: Case study and problem-solving",
+      "Round 3: Team collaboration and culture fit",
+      "Round 4: Final discussion with leadership"
+    ],
+    companyDetails: "Enlivo Technologies is a premium software engineering company building secure, scalable systems for organizations worldwide. We specialize in helping founders and enterprises transform their ideas into production-ready products through expert engineering and design.",
+    benefits: [
+      "Competitive salary and benefits package",
+      "Health insurance coverage",
+      "Flexible work arrangements",
+      "Professional development opportunities",
+      "Team events and activities"
+    ]
+  },
+  {
+    slug: "business-operations-analyst",
+    title: "Business Operations Analyst",
+    department: "Operations",
+    type: "Full-time",
+    location: "Mumbai, India",
+    description: "Analyze business metrics and drive data-driven decisions.",
+    isIntern: false,
+    about: "Join our operations team as a Business Operations Analyst to analyze business metrics, create reports, and drive data-driven decisions. You'll work with leadership to understand business performance, identify trends, and provide insights that help us grow. This role offers the opportunity to work with data and make a real impact on business strategy.",
+    responsibilities: [
+      "Analyze business metrics and create reports",
+      "Build dashboards and data visualizations",
+      "Identify trends and provide actionable insights",
+      "Support strategic planning with data analysis",
+      "Collaborate with teams to understand business needs",
+      "Maintain data accuracy and integrity"
+    ],
+    requirements: [
+      "3+ years of experience in business analysis or data analysis",
+      "Strong analytical and quantitative skills",
+      "Proficiency in Excel, SQL, and data visualization tools",
+      "Experience with business intelligence tools (Tableau, Looker)",
+      "Strong communication and presentation skills",
+      "Ability to translate data into actionable insights"
+    ],
+    preferredSkills: [
+      "Experience with Python or R for data analysis",
+      "Knowledge of statistical analysis methods",
+      "Experience with CRM systems (Salesforce, HubSpot)",
+      "Understanding of business metrics and KPIs"
+    ],
+    interviewProcess: [
+      "Round 1: HR screening and initial discussion",
+      "Round 2: Technical assessment - data analysis challenge",
+      "Round 3: Case study and problem-solving",
+      "Round 4: Team collaboration and final discussion"
+    ],
+    companyDetails: "Enlivo Technologies is a premium software engineering company building secure, scalable systems for organizations worldwide. We specialize in helping founders and enterprises transform their ideas into production-ready products through expert engineering and design.",
+    benefits: [
+      "Competitive salary and benefits package",
+      "Health insurance coverage",
+      "Flexible work arrangements",
+      "Professional development opportunities",
+      "Team events and activities"
+    ]
+  },
+  
+  // PRODUCT
+  {
+    slug: "product-manager",
+    title: "Product Manager",
+    department: "Product",
+    type: "Full-time",
+    location: "Bengaluru, India",
+    description: "Drive product strategy and execution for our core platform.",
+    isIntern: false,
+    about: "Join our product team to drive product strategy and execution. You'll work closely with engineering, design, and leadership to define product vision, prioritize features, and ensure we're building products that solve real problems. This role offers the opportunity to shape product direction and make a significant impact on our platform.",
+    responsibilities: [
+      "Define product strategy and roadmap",
+      "Gather and prioritize product requirements",
+      "Collaborate with engineering and design teams",
+      "Conduct user research and analyze feedback",
+      "Track product metrics and measure success",
+      "Communicate product vision to stakeholders"
+    ],
+    requirements: [
+      "5+ years of experience in product management",
+      "Strong analytical and strategic thinking skills",
+      "Experience with agile development methodologies",
+      "Excellent communication and collaboration skills",
+      "Experience working with engineering and design teams",
+      "Track record of shipping successful products"
+    ],
+    preferredSkills: [
+      "Experience with product analytics tools (Mixpanel, Amplitude)",
+      "Knowledge of user research methodologies",
+      "Experience with A/B testing and experimentation",
+      "Understanding of technical concepts and constraints"
+    ],
+    interviewProcess: [
+      "Round 1: HR screening and initial discussion",
+      "Round 2: Product case study and strategy discussion",
+      "Round 3: Team collaboration and culture fit",
+      "Round 4: Leadership discussion and final review"
+    ],
+    companyDetails: "Enlivo Technologies is a premium software engineering company building secure, scalable systems for organizations worldwide. We specialize in helping founders and enterprises transform their ideas into production-ready products through expert engineering and design.",
+    benefits: [
+      "Competitive salary and equity",
+      "Health insurance and wellness programs",
+      "Flexible work arrangements",
+      "Professional development budget",
+      "Learning opportunities and conference attendance"
+    ]
+  },
+  {
+    slug: "senior-product-manager",
+    title: "Senior Product Manager",
+    department: "Product",
+    type: "Full-time",
+    location: "Pune, India",
+    description: "Lead product initiatives and drive innovation across multiple product lines.",
+    isIntern: false,
+    about: "Join our product team as a Senior Product Manager to lead product initiatives and drive innovation. You'll own product strategy for key areas, work with cross-functional teams, and make data-driven decisions that impact our business. This role offers the opportunity to lead product direction and mentor other product managers.",
+    responsibilities: [
+      "Lead product strategy and roadmap for key product areas",
+      "Define and prioritize product features based on user needs and business goals",
+      "Work closely with engineering, design, and leadership teams",
+      "Conduct market research and competitive analysis",
+      "Define and track product metrics and KPIs",
+      "Mentor junior product managers and contribute to product culture"
+    ],
+    requirements: [
+      "7+ years of experience in product management",
+      "Strong strategic thinking and analytical skills",
+      "Experience leading product initiatives from conception to launch",
+      "Excellent communication and leadership skills",
+      "Experience working with engineering and design teams",
+      "Track record of shipping successful products at scale"
+    ],
+    preferredSkills: [
+      "Experience with product analytics and data analysis",
+      "Knowledge of user research and UX principles",
+      "Experience with A/B testing and experimentation",
+      "Understanding of technical architecture and constraints",
+      "Experience with agile and lean product development"
+    ],
+    interviewProcess: [
+      "Round 1: HR screening and initial discussion",
+      "Round 2: Product case study and strategy discussion",
+      "Round 3: Team collaboration and leadership discussion",
+      "Round 4: Final discussion with product leadership"
+    ],
+    companyDetails: "Enlivo Technologies is a premium software engineering company building secure, scalable systems for organizations worldwide. We specialize in helping founders and enterprises transform their ideas into production-ready products through expert engineering and design.",
+    benefits: [
+      "Competitive salary and equity",
+      "Health insurance and wellness programs",
+      "Flexible work arrangements",
+      "Professional development budget",
+      "Learning opportunities and conference attendance",
+      "Leadership development programs"
+    ]
+  },
+  
+  // SALES & MARKETING
+  {
+    slug: "sales-development-representative",
+    title: "Sales Development Representative",
+    department: "Sales & Marketing",
+    type: "Full-time",
+    location: "Mumbai, India",
+    description: "Generate leads and build relationships with potential clients.",
+    isIntern: false,
+    about: "Join our sales team as a Sales Development Representative to generate leads, qualify prospects, and build relationships with potential clients. You'll work closely with the sales team to identify opportunities, conduct outreach, and help grow our business. This role offers the opportunity to learn sales fundamentals and grow your career in sales.",
+    responsibilities: [
+      "Generate and qualify sales leads",
+      "Conduct outreach to potential clients via email and phone",
+      "Schedule meetings and demos for the sales team",
+      "Maintain accurate records in CRM system",
+      "Research target accounts and industries",
+      "Collaborate with marketing on lead generation campaigns"
+    ],
+    requirements: [
+      "1-3 years of experience in sales or business development",
+      "Strong communication and interpersonal skills",
+      "Experience with CRM systems (Salesforce, HubSpot)",
+      "Ability to work in a fast-paced environment",
+      "Strong organizational and time management skills",
+      "Passion for building relationships and helping clients"
+    ],
+    preferredSkills: [
+      "Experience with B2B sales",
+      "Knowledge of sales automation tools",
+      "Experience with email outreach and cold calling",
+      "Understanding of the software/technology industry"
+    ],
+    interviewProcess: [
+      "Round 1: HR screening and initial discussion",
+      "Round 2: Sales role-play and scenario discussion",
+      "Round 3: Team collaboration and culture fit",
+      "Round 4: Final discussion with sales leadership"
+    ],
+    companyDetails: "Enlivo Technologies is a premium software engineering company building secure, scalable systems for organizations worldwide. We specialize in helping founders and enterprises transform their ideas into production-ready products through expert engineering and design.",
+    benefits: [
+      "Competitive base salary and commission structure",
+      "Health insurance coverage",
+      "Flexible work arrangements",
+      "Sales training and development programs",
+      "Team events and activities"
+    ]
+  },
+  {
+    slug: "marketing-manager",
+    title: "Marketing Manager",
+    department: "Sales & Marketing",
+    type: "Full-time",
+    location: "Pune, India",
+    description: "Develop and execute marketing strategies to grow brand awareness and generate leads.",
+    isIntern: false,
+    about: "Join our marketing team to develop and execute marketing strategies that grow brand awareness and generate leads. You'll work on everything from content marketing to digital campaigns, helping us reach and engage with potential clients. This role offers the opportunity to shape our brand and marketing approach.",
+    responsibilities: [
+      "Develop and execute marketing strategies and campaigns",
+      "Create content for blog, social media, and marketing materials",
+      "Manage digital marketing channels (SEO, SEM, social media)",
+      "Analyze marketing metrics and optimize campaigns",
+      "Collaborate with sales on lead generation initiatives",
+      "Manage marketing budget and track ROI"
+    ],
+    requirements: [
+      "4+ years of experience in marketing",
+      "Strong experience with digital marketing channels",
+      "Experience with content creation and copywriting",
+      "Proficiency in marketing analytics and tools",
+      "Strong communication and creative skills",
+      "Experience in B2B marketing"
+    ],
+    preferredSkills: [
+      "Experience with marketing automation tools (HubSpot, Marketo)",
+      "Knowledge of SEO and content marketing",
+      "Experience with paid advertising (Google Ads, LinkedIn Ads)",
+      "Understanding of marketing attribution and analytics"
+    ],
+    interviewProcess: [
+      "Round 1: HR screening and initial discussion",
+      "Round 2: Marketing case study and strategy discussion",
+      "Round 3: Portfolio review and creative discussion",
+      "Round 4: Team collaboration and final discussion"
+    ],
+    companyDetails: "Enlivo Technologies is a premium software engineering company building secure, scalable systems for organizations worldwide. We specialize in helping founders and enterprises transform their ideas into production-ready products through expert engineering and design.",
+    benefits: [
+      "Competitive salary and benefits package",
+      "Health insurance coverage",
+      "Flexible work arrangements",
+      "Marketing budget for campaigns and tools",
+      "Professional development opportunities",
+      "Team events and activities"
     ]
   }
 ];

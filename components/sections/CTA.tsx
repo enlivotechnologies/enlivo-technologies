@@ -25,27 +25,29 @@ export function CTA({
     <section className="py-16 lg:py-20 bg-white">
       <div className="max-w-[105rem] mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Container: Rounded corners, gray background */}
-        <div className="relative flex flex-col lg:flex-row items-center justify-end rounded-[2.5rem] overflow-hidden bg-gray-50 min-h-[500px] lg:h-[600px]">
+        {/* Main Container */}
+        {/* CHANGED: Added `lg:items-stretch` (was just items-center) to allow children to fill height on desktop */}
+        <div className="relative flex flex-col lg:flex-row items-center lg:items-stretch justify-end rounded-[2.5rem] overflow-hidden bg-gray-50 min-h-[500px] lg:h-[600px]">
           
           {/* --- Left: Full Height Image --- */}
-          {/* We position it absolute on desktop to allow the card to 'float' over it comfortably */}
           <div className="relative w-full lg:absolute lg:inset-y-0 lg:left-0 lg:w-[65%] h-[300px] lg:h-full">
             <Image
-              src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768579852/img_r9uwif.jpg"
+              src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768831613/business_nle9oq.jpg"
               alt="Founder looking confidently at the future"
               fill
               className="object-cover object-center"
               priority
             />
-            {/* Gradient Overlay: Ensures smooth visual transition if needed */}
+            {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20 lg:to-transparent" />
           </div>
 
           {/* --- Right: The Black Card (Premium UI) --- */}
-          {/* z-10 ensures it sits on top. lg:mr-12 positions it nicely on the right. */}
-          <div className="relative z-10 w-full lg:w-[45%] max-w-2xl lg:mr-16 -mt-10 lg:mt-0 px-4 lg:px-0">
-            <div className="bg-black text-white rounded-[2rem] p-6 md:p-8 lg:p-10 shadow-2xl border border-gray-800">
+          {/* CHANGED: Added `lg:h-full` to wrapper to ensure it spans the container height */}
+          <div className="relative z-10 w-full lg:w-[45%] max-w-2xl lg:mr-16 -mt-10 lg:mt-0 px-4 lg:px-0 lg:h-full">
+            
+            {/* CHANGED: Added `lg:h-full lg:flex lg:flex-col lg:justify-center` to make the box match height and center content */}
+            <div className="bg-black text-white rounded-[2rem] p-6 md:p-8 lg:p-10 shadow-2xl border border-gray-800 lg:h-full lg:flex lg:flex-col lg:justify-center">
               
               {/* Heading */}
               <h2 className="text-2xl md:text-3xl lg:text-[2.25rem] font-medium leading-[1.1] tracking-tight mb-5">
@@ -85,16 +87,18 @@ export function CTA({
                 </div>
               </div>
 
-              {/* Action Button: White Pill Shape */}
-              <a
-                href="https://cal.com/nishal-pktyks"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black text-base font-medium px-7 py-3.5 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-[1.02]"
-              >
-                <span>Get a Free Product Clarity Call</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
+              {/* Action Button */}
+              <div>
+                <a
+                    href="https://cal.com/nishal-pktyks"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black text-base font-medium px-7 py-3.5 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-[1.02]"
+                >
+                    <span>Get a Free Product Clarity Call</span>
+                    <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
 
             </div>
           </div>

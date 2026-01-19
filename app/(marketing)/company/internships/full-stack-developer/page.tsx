@@ -70,13 +70,15 @@ export default function FullStackDeveloperPage() {
                   {/* CTA Buttons */}
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 pt-2">
                     {/* Primary CTA - Purple/Pink Vibrant */}
-                    <Link
-                      href="/company/internships"
+                    <a
+                      href="https://forms.gle/McnKvvBJtaVDhmLM6"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="group inline-flex items-center justify-center gap-2 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white px-8 py-4 rounded-xl font-semibold text-base hover:scale-[1.02] hover:shadow-xl transition-all duration-200"
                     >
                       Apply for Internship
                       <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </Link>
+                    </a>
 
                     {/* Secondary CTA - White with Border */}
                     <Link

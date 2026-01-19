@@ -7,10 +7,33 @@
  */
 
 /**
- * Careers subdomain URL
- * WHY: Centralized URL for careers subdomain to ensure consistency
+ * Get Careers URL - Environment aware
+ * WHY: Use subdomain in production, normal route on localhost
+ * 
+ * @returns Careers URL based on environment
  */
-export const CAREERS_URL = "https://careers.enlivotechnologies.com";
+export function getCareersUrl(): string {
+  // Client-side: check if we're on localhost
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('192.168.')) {
+      return '/company/careers';
+    }
+    return 'https://careers.enlivotechnologies.com';
+  }
+  
+  // Server-side: use environment variable or default to production
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://careers.enlivotechnologies.com';
+  }
+  return '/company/careers';
+}
+
+/**
+ * Careers URL constant for backward compatibility
+ * NOTE: Use getCareersUrl() for dynamic environment detection
+ */
+export const CAREERS_URL = 'https://careers.enlivotechnologies.com';
 
 /**
  * Site-wide configuration
@@ -77,7 +100,8 @@ export const NAVIGATION = {
       href: "/company",
       children: [
         { label: "About", href: "/company/about" },
-        { label: "Careers", href: CAREERS_URL, isExternal: true },
+        // Note: Careers URL should use getCareersUrl() in components for dynamic behavior
+        { label: "Careers", href: "/company/careers" },
         { label: "Internships", href: "/company/internships" },
       ],
     },
@@ -96,7 +120,8 @@ export const NAVIGATION = {
     ],
     company: [
       { label: "About", href: "/company/about" },
-      { label: "Careers", href: CAREERS_URL, isExternal: true },
+      // Note: Careers URL should use getCareersUrl() in components for dynamic behavior
+      { label: "Careers", href: "/company/careers" },
       { label: "Internships", href: "/company/internships" },
       { label: "Contact", href: "/contact" },
     ],

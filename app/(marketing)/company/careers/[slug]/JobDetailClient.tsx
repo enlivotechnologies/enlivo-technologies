@@ -23,14 +23,14 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
       
       {/* Dark Header Section */}
       <section className="bg-[#1A1A1A] text-white pt-20 lg:pt-28">
-        <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
           {/* Job Title */}
-          <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white mb-6 tracking-[-0.02em] leading-[1.1]">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-[-0.02em] leading-[1.1]">
             {job.title}
           </h1>
 
           {/* Job Summary */}
-          <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl leading-[1.7]">
+          <p className="text-lg md:text-xl text-white/90 mb-6 max-w-3xl leading-[1.6]">
             {job.description}
           </p>
 
@@ -50,7 +50,7 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
 
       {/* Tab Navigation */}
       <div className="border-b border-[#E5E5E0] bg-white sticky top-0 z-10 backdrop-blur-sm bg-white/95">
-        <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-8">
             <button
               onClick={() => setActiveTab("details")}
@@ -77,27 +77,27 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {activeTab === "details" ? (
           <div>
             
             {/* Job Description */}
-            <div className="mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-5 tracking-tight">
+            <div className="mb-8">
+              <h2 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-3 tracking-tight">
                 Job description
               </h2>
-              <p className="text-base md:text-[17px] text-[#666] leading-[1.75]">
+              <p className="text-base text-[#666] leading-[1.6]">
                 {job.about || job.description}
               </p>
             </div>
 
             {/* Company Details */}
             {job.companyDetails && (
-              <div className="mb-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-5 tracking-tight">
+              <div className="mb-8">
+                <h2 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-3 tracking-tight">
                   Company details
                 </h2>
-                <p className="text-base md:text-[17px] text-[#666] leading-[1.75]">
+                <p className="text-base text-[#666] leading-[1.6]">
                   {job.companyDetails}
                 </p>
               </div>
@@ -105,15 +105,15 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
 
             {/* Responsibilities */}
             {job.responsibilities && job.responsibilities.length > 0 && (
-              <div className="mb-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-5 tracking-tight">
+              <div className="mb-8">
+                <h2 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-3 tracking-tight">
                   Responsibilities
                 </h2>
-                <ul className="space-y-3.5">
+                <ul className="space-y-2.5">
                   {job.responsibilities.map((responsibility, index) => (
-                    <li key={index} className="flex items-start gap-3.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a] mt-2.5 flex-shrink-0" />
-                      <span className="text-base md:text-[17px] text-[#666] leading-[1.75]">
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a] mt-2 flex-shrink-0" />
+                      <span className="text-base text-[#666] leading-[1.6]">
                         {responsibility}
                       </span>
                     </li>
@@ -124,15 +124,15 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
 
             {/* Requirements */}
             {job.requirements && job.requirements.length > 0 && (
-              <div className="mb-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-5 tracking-tight">
+              <div className="mb-8">
+                <h2 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-3 tracking-tight">
                   Requirements
                 </h2>
-                <ul className="space-y-3.5">
+                <ul className="space-y-2.5">
                   {job.requirements.map((requirement, index) => (
-                    <li key={index} className="flex items-start gap-3.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a] mt-2.5 flex-shrink-0" />
-                      <span className="text-base md:text-[17px] text-[#666] leading-[1.75]">
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a] mt-2 flex-shrink-0" />
+                      <span className="text-base text-[#666] leading-[1.6]">
                         {requirement}
                       </span>
                     </li>
@@ -143,15 +143,15 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
 
             {/* Preferred Skills */}
             {job.preferredSkills && job.preferredSkills.length > 0 && (
-              <div className="mb-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-5 tracking-tight">
+              <div className="mb-8">
+                <h2 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-3 tracking-tight">
                   Preferred Skills
                 </h2>
-                <ul className="space-y-3.5">
+                <ul className="space-y-2.5">
                   {job.preferredSkills.map((skill, index) => (
-                    <li key={index} className="flex items-start gap-3.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a] mt-2.5 flex-shrink-0" />
-                      <span className="text-base md:text-[17px] text-[#666] leading-[1.75]">
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a] mt-2 flex-shrink-0" />
+                      <span className="text-base text-[#666] leading-[1.6]">
                         {skill}
                       </span>
                     </li>
@@ -162,15 +162,15 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
 
             {/* Interview Process */}
             {job.interviewProcess && job.interviewProcess.length > 0 && (
-              <div className="mb-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-5 tracking-tight">
+              <div className="mb-8">
+                <h2 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-3 tracking-tight">
                   Interview process
                 </h2>
-                <ul className="space-y-3.5">
+                <ul className="space-y-2.5">
                   {job.interviewProcess.map((step, index) => (
-                    <li key={index} className="flex items-start gap-3.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a] mt-2.5 flex-shrink-0" />
-                      <span className="text-base md:text-[17px] text-[#666] leading-[1.75]">
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a] mt-2 flex-shrink-0" />
+                      <span className="text-base text-[#666] leading-[1.6]">
                         {step}
                       </span>
                     </li>
@@ -181,15 +181,15 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
 
             {/* Benefits */}
             {job.benefits && job.benefits.length > 0 && (
-              <div className="mb-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-5 tracking-tight">
+              <div className="mb-8">
+                <h2 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-3 tracking-tight">
                   Benefits
                 </h2>
-                <ul className="space-y-3.5">
+                <ul className="space-y-2.5">
                   {job.benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start gap-3.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a] mt-2.5 flex-shrink-0" />
-                      <span className="text-base md:text-[17px] text-[#666] leading-[1.75]">
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1a1a1a] mt-2 flex-shrink-0" />
+                      <span className="text-base text-[#666] leading-[1.6]">
                         {benefit}
                       </span>
                     </li>

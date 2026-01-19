@@ -3,107 +3,97 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Code2, Cloud, Terminal } from "lucide-react";
 
 // --- DATA ---
 const TRACKS = [
   {
     id: "01",
     title: "Full Stack Development",
-    icon: Code2,
     href: "/company/internships/full-stack-developer",
     image: "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768669946/fullstack_rcogah.jpg",
-    hasImage: true,
+    description: "Master frontend and backend technologies to build complete web solutions.",
   },
   {
     id: "02",
     title: "AWS Cloud Engineering",
-    icon: Cloud,
     href: "#apply-aws",
     image: "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768670131/aws_wuotze.jpg",
-    hasImage: true,
+    description: "Architect scalable, reliable, and secure cloud infrastructure on AWS.",
   },
   {
     id: "03",
     title: "DevOps Engineering",
-    icon: Terminal,
     href: "#apply-devops",
     image: "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768670402/devops_qqpnhi.jpg",
-    hasImage: true,
+    description: "Streamline development workflows with CI/CD and automation tools.",
   },
 ];
 
 export function InternshipTracks() {
   return (
-    <section className="py-24 md:py-32 bg-white">
-      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="areas-of-internship" className="py-24 bg-gray-50">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 ">
-          <div className="max-w-3xl">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight mb-4">
-            Areas of Internship
-            </h2>
-            <p className="text-lg text-gray-500 font-light">
-            Choose the area where you’ll work, learn, and build real experience.
-            </p>
-          </div>
+        {/* Header */}
+        <div className="mb-12 md:text-center max-w-2xl mx-auto">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-gray-900 tracking-tight mb-4">
+            Explore Our Internship Areas and Specializations
+          </h2>
+          <p className="text-lg text-gray-500">
+            Real-world internship tracks. Learn, build, and grow with hands-on experience and mentorship.
+          </p>
         </div>
 
         {/* Tracks Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {TRACKS.map((track) => {
-            const Icon = track.icon;
-            
             return (
               <div
                 key={track.id}
-                className="relative flex flex-col justify-between h-[420px] rounded-[2.5rem] p-8 overflow-hidden border border-white/5"
-                style={track.hasImage ? {} : { backgroundColor: "#0A0A0A" }}
+                // Removed 'group', transitions, and hover:shadow effects
+                className="relative h-[28rem] w-full overflow-hidden rounded-[2rem] bg-gray-900 shadow-md"
               >
-                {/* --- CARD BACKGROUND --- */}
-                {track.hasImage ? (
-                  <>
-                    {/* Image Background */}
-                    <div className="absolute inset-0">
-                      <Image
-                        src={track.image!}
-                        alt={track.title}
-                        fill
-                        className="object-cover"
-                        priority
-                      />
-                      {/* Dark Gradient Overlay for Text Readability */}
-                      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
-                    </div>
-                  </>
-                ) : (
-                  /* Static Grid Pattern Overlay for non-image cards */
-                  <div className="absolute inset-0 opacity-20 pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-                )}
-
-                {/* --- CENTER VISUAL (Big Typography) --- */}
-                <div className="relative z-10 flex-1 flex items-center">
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium text-white leading-[1.1] tracking-tight">
-                    {track.title.split(" ").map((word, i) => (
-                      <span key={i} className="block">{word}</span>
-                    ))}
-                  </h3>
+                {/* --- BACKGROUND IMAGE --- */}
+                <div className="absolute inset-0 h-full w-full">
+                  <Image
+                    src={track.image}
+                    alt={track.title}
+                    fill
+                    // Removed hover scale and transitions
+                    className="object-cover"
+                    priority
+                  />
+                  
+                  {/* --- STATIC OVERLAYS --- */}
+                  <div className="absolute inset-0 bg-black/20" /> 
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-black/60 to-transparent" />
                 </div>
 
-                {/* --- BOTTOM CONTENT (Static Apply Button) --- */}
-                <div className={`relative z-10 pt-6 ${
-                  track.hasImage ? "border-t border-white/20" : "border-t border-white/10"
-                }`}>
-                  <Link
-                    href={track.href}
-                    className="w-full h-12 rounded-full bg-white text-black font-semibold text-base flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors duration-200"
-                  >
-                    Apply Now
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
+                {/* --- CONTENT OVERLAY --- */}
+                <div className="absolute bottom-0 left-0 right-0 px-6 pb-8 flex flex-col justify-end h-full">
+                  
+                  {/* Content Wrapper - Removed translate effects */}
+                  <div>
+                    
+                    {/* Title */}
+                    <h3 className="mb-3 text-3xl font-bold leading-tight text-white antialiased">
+                      {track.title}
+                    </h3>
+                    
+                    {/* Description - Made always visible (removed opacity transitions) */}
+                    <p className="mb-8 text-[15px] leading-relaxed text-gray-300 line-clamp-2 opacity-90">
+                      {track.description}
+                    </p>
 
+                    {/* Action Button - Removed hover scale/active effects */}
+                    <Link
+                      href={track.href}
+                      className="flex w-full items-center justify-center gap-2 rounded-full bg-white py-3.5 text-base font-bold text-gray-900 shadow-lg"
+                    >
+                      Apply Now
+                    </Link>
+                  </div>
+                </div>
               </div>
             );
           })}

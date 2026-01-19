@@ -20,8 +20,8 @@ import localFont from "next/font/local";
 import "@/styles/globals.css";
 import { SITE_CONFIG } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/next";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { ConditionalNavbar } from "@/components/layout/ConditionalNavbar";
+import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 
 /**
@@ -171,16 +171,16 @@ export default function RootLayout({
             Skip to main content
           </a>
 
-          {/* Global Navigation */}
-          <Navbar />
+          {/* Global Navigation - Conditionally renders CareersNavbar or Navbar */}
+          <ConditionalNavbar />
 
           {/* Main Content Area */}
           <main id="main-content" className="flex-1">
             {children}
           </main>
 
-          {/* Global Footer */}
-          <Footer />
+          {/* Global Footer - Conditionally renders CareersFooter or Footer */}
+          <ConditionalFooter />
         </SmoothScrollProvider>
         <Analytics />
 

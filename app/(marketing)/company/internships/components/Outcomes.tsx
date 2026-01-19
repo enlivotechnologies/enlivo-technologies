@@ -76,7 +76,7 @@ export function Outcomes() {
             return (
               <div
                 key={outcome.id}
-                className="relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10"
+                className="relative bg-[#151515]/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/5"
               >
                 {/* Icon */}
                 <div className="mb-5">

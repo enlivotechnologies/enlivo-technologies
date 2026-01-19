@@ -17,7 +17,10 @@ export default function proxy(request: NextRequest) {
   const normalizedHostname = hostname.split(':')[0];
 
   // Check if request is coming from careers subdomain
-  // Handles: careers.enlivotechnologies.com, careers.www.enlivotechnologies.com, etc.
+  // Handles: 
+  // - careers.enlivotechnologies.com (production)
+  // - careers.localhost (local development)
+  // - careers.www.enlivotechnologies.com, etc.
   if (normalizedHostname.startsWith('careers.')) {
     // Skip rewriting if already on /company/careers path (to avoid double rewriting)
     if (url.pathname.startsWith('/company/careers')) {

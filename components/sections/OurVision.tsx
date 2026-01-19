@@ -61,7 +61,7 @@ const STATS: Stat[] = [
     label: "Revenue enabled for clients",
   },
   {
-    value: "95%+",
+    value: "95%",
     label: "Client retention rate",
   },
 ];

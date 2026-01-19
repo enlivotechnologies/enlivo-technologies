@@ -55,22 +55,15 @@ export function HowItWorks() {
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* --- HEADER --- */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="max-w-3xl">
+        <div className="text-center mb-16">
+          <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight leading-[1.1] mb-6">
               The Path to <br className="hidden md:block" />
-              <span className="text-gray-400">Professional Engineering.</span>
+              <span className="text-black">Professional Engineering.</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-xl leading-relaxed font-light">
+            <p className="text-lg text-black max-w-xl mx-auto leading-relaxed font-light">
               No random tutorials. A structured four-stage evolution from student to deployed engineer.
             </p>
-          </div>
-          
-          <div className="hidden md:block">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-gray-50 text-sm font-medium text-gray-600">
-               <span className="w-2 h-2 rounded-full bg-green-500" />
-               Duration: 6 Months
-            </div>
           </div>
         </div>
 

@@ -61,6 +61,13 @@ const FEATURE_CARDS = [
     description: "You work in a structured, respectful environment with clear expectations, timelines, and communication — similar to how real companies operate.",
     gridClass: "lg:col-start-2 lg:col-span-1",
   },
+  {
+    id: 9,
+    badge: "Industry-Ready Portfolio",
+    badgeColor: "bg-cyan-100 text-cyan-800",
+    description: "Build a portfolio of real projects that demonstrate your skills to employers. Every project you complete is something you can showcase in interviews and on your resume.",
+    gridClass: "lg:col-start-3 lg:col-span-1",
+  },
 ];
 
 export function WhyDifferent() {
