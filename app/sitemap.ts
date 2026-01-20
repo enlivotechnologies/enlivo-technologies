@@ -17,11 +17,18 @@
 
 import type { MetadataRoute } from "next";
 import { SITE_CONFIG } from "@/lib/constants";
+import { getAllCaseStudies, getAllInsights, getAllJobs } from "@/lib/cms";
 
 /**
  * Sitemap Configuration
  */
 const BASE_URL = SITE_CONFIG.url;
+
+/**
+ * Revalidation: Regenerate sitemap every 24 hours
+ * This ensures new content is discovered quickly
+ */
+export const revalidate = 86400; // 24 hours in seconds
 
 /**
  * ACTUAL SERVICE PAGES THAT EXIST
@@ -133,34 +140,105 @@ function getServicePages(): MetadataRoute.Sitemap {
 }
 
 /**
+ * Generate case study pages
+ * Includes both index and individual case study pages
+ */
+async function getCaseStudyPages(): Promise<MetadataRoute.Sitemap> {
+  const caseStudies = await getAllCaseStudies();
+  
+  return [
+    // Case studies index page
+    {
+      url: `${BASE_URL}/case-studies`,
+      lastModified: caseStudies.length > 0 
+        ? new Date(Math.max(...caseStudies.map(cs => new Date(cs.updatedAt || cs.publishedAt).getTime())))
+        : new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    // Individual case study pages
+    ...caseStudies.map((study) => ({
+      url: `${BASE_URL}/case-studies/${study.slug}`,
+      lastModified: new Date(study.updatedAt || study.publishedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+}
+
+/**
+ * Generate insight/blog pages
+ * Includes both index and individual insight pages
+ */
+async function getInsightPages(): Promise<MetadataRoute.Sitemap> {
+  const insights = await getAllInsights();
+  
+  return [
+    // Insights index page (if it exists as a route)
+    // Note: Add this only if you have an /insights index page
+    // {
+    //   url: `${BASE_URL}/insights`,
+    //   lastModified: insights.length > 0 
+    //     ? new Date(Math.max(...insights.map(i => new Date(i.updatedAt || i.publishedAt).getTime())))
+    //     : new Date(),
+    //   changeFrequency: "weekly" as const,
+    //   priority: 0.7,
+    // },
+    // Individual insight pages
+    ...insights.map((insight) => ({
+      url: `${BASE_URL}/insights/${insight.slug}`,
+      lastModified: new Date(insight.updatedAt || insight.publishedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ];
+}
+
+/**
+ * Generate job posting pages (if dynamic)
+ */
+async function getJobPages(): Promise<MetadataRoute.Sitemap> {
+  try {
+    const jobs = await getAllJobs();
+    return jobs.map((job) => ({
+      url: `${BASE_URL}/company/careers/${job.slug}`,
+      lastModified: new Date(job.publishedAt),
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    }));
+  } catch (error) {
+    // If jobs are not available, return empty array
+    return [];
+  }
+}
+
+/**
  * Sitemap Generation Function
- * 
- * NOTE: Removed case studies and insights as they don't exist yet
- * Add them back when actual content is created
  * 
  * This function is called by Next.js to generate the sitemap.
  * It runs at build time for static routes and can be revalidated.
+ * 
+ * SEO BEST PRACTICES:
+ * - Include all indexable pages
+ * - Use accurate lastModified dates
+ * - Set appropriate priorities (0.0-1.0)
+ * - Set realistic changeFrequency
+ * - Revalidate regularly to include new content
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Fetch dynamic content in parallel for better performance
+  const [caseStudyPages, insightPages, jobPages] = await Promise.all([
+    getCaseStudyPages(),
+    getInsightPages(),
+    getJobPages(),
+  ]);
+
   // Combine all pages
   return [
     ...STATIC_PAGES,
     ...getServicePages(),
-    // TODO: Add case studies when they exist
-    // const caseStudies = await getAllCaseStudies();
-    // ...caseStudies.map((study) => ({
-    //   url: `${BASE_URL}/case-studies/${study.slug}`,
-    //   lastModified: new Date(study.updatedAt || study.publishedAt),
-    //   changeFrequency: "monthly" as const,
-    //   priority: 0.7,
-    // })),
-    // TODO: Add insights when they exist
-    // const insights = await getAllInsights();
-    // ...insights.map((insight) => ({
-    //   url: `${BASE_URL}/insights/${insight.slug}`,
-    //   lastModified: new Date(insight.updatedAt || insight.publishedAt),
-    //   changeFrequency: "monthly" as const,
-    //   priority: 0.6,
-    // })),
+    ...caseStudyPages,
+    ...insightPages,
+    ...jobPages,
   ];
 }
