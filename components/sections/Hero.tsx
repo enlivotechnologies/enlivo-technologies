@@ -154,7 +154,7 @@ export function Hero({
   return (
     <section
       ref={sectionRef}
-      className="relative flex items-center justify-center overflow-hidden pt-4 sm:pt-6 md:pt-8 pb-8 px-4 sm:px-6 lg:px-8"
+      className="relative flex items-center justify-center overflow-hidden pt-16 sm:pt-20 md:pt-22 pb-8 px-4 sm:px-6 lg:px-8"
       style={{ backgroundColor: "#FFFFFF" }}
       aria-labelledby="hero-heading"
       suppressHydrationWarning
