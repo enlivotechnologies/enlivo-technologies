@@ -26,7 +26,6 @@ export function CTA({
       <div className="max-w-[105rem] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Container */}
-        {/* CHANGED: Added `lg:items-stretch` (was just items-center) to allow children to fill height on desktop */}
         <div className="relative flex flex-col lg:flex-row items-center lg:items-stretch justify-end rounded-2xl sm:rounded-[2.5rem] overflow-hidden bg-gray-50 min-h-[400px] sm:min-h-[500px] lg:h-[600px]">
           
           {/* --- Left: Full Height Image --- */}
@@ -44,10 +43,10 @@ export function CTA({
           </div>
 
           {/* --- Right: The Black Card (Premium UI) --- */}
-          {/* CHANGED: Added `lg:h-full` to wrapper to ensure it spans the container height */}
-          <div className="relative z-10 w-full lg:w-[45%] max-w-2xl lg:mr-16 -mt-6 sm:-mt-10 lg:mt-0 px-4 sm:px-6 lg:px-0 lg:h-full">
+          {/* CHANGED: Removed `lg:mr-16` so it touches the right edge. Kept everything else. */}
+          <div className="relative z-10 w-full lg:w-[45%] max-w-2xl -mt-6 sm:-mt-10 lg:mt-0 px-4 sm:px-6 lg:px-0 lg:h-full">
             
-            {/* CHANGED: Added `lg:h-full lg:flex lg:flex-col lg:justify-center` to make the box match height and center content */}
+            {/* Inner Content Box */}
             <div className="bg-black text-white rounded-xl sm:rounded-2xl lg:rounded-[2rem] p-5 sm:p-6 md:p-8 lg:p-10 shadow-2xl border border-gray-800 lg:h-full lg:flex lg:flex-col lg:justify-center">
               
               {/* Heading */}

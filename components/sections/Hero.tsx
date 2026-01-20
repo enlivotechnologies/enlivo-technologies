@@ -154,8 +154,8 @@ export function Hero({
   return (
     <section
       ref={sectionRef}
-      className="relative flex items-center justify-center overflow-hidden pt-18  pb-4 px-4 sm:px-6 lg:px-8"
-      style={{ backgroundColor: "#FFFFFF" }}
+      className="relative flex items-center justify-center overflow-hidden pt-18  pb-4 px-4 sm:px-6 lg:px-8 bg-[#FFFFFF]"
+     
       aria-labelledby="hero-heading"
       suppressHydrationWarning
     >
@@ -192,6 +192,9 @@ export function Hero({
             aria-hidden="true"
           />
         )}
+
+        {/* Light Black Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-black/30" />
 
         {/* Content Overlay */}
         <div className="relative z-10 flex h-full w-full items-center justify-center">
