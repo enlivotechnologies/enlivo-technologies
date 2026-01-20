@@ -36,7 +36,7 @@ export default function manifest(): MetadataRoute.Manifest {
         src: "/images/navbar/EnlivotechnologiesLogo.png",
         sizes: "any",
         type: "image/png",
-        purpose: "any maskable",
+        purpose: "maskable",
       },
       {
         src: "/images/navbar/EnlivotechnologiesLogo.png",
