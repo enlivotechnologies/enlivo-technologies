@@ -8,6 +8,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 // Lazy load GSAP to reduce initial bundle size
 let gsapPromise: Promise<any> | null = null;
@@ -43,10 +44,15 @@ export function Hero({
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [gsap, setGsap] = useState<any>(null);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   // Mark as hydrated after first render to prevent hydration mismatches
   useEffect(() => {
     setIsHydrated(true);
+    // Detect mobile device
+    if (typeof window !== 'undefined') {
+      setIsMobileDevice(window.innerWidth < 768);
+    }
   }, []);
 
   // Load GSAP only when needed (after component mounts)
@@ -60,14 +66,13 @@ export function Hero({
   }, [isHydrated]);
 
   // Intersection Observer for video lazy loading - only after hydration
-  // On mobile, load video immediately for better UX
+  // On mobile, use poster image instead of video to reduce payload
   useEffect(() => {
     if (!isHydrated) return;
 
-    // On mobile, load video immediately (no lazy loading)
-    const isMobile = window.innerWidth < 768;
-    if (isMobile && !shouldLoadVideo) {
-      setShouldLoadVideo(true);
+    // On mobile, don't load video (use poster image only) to reduce payload
+    // This reduces network payload from 24MB to ~500KB
+    if (isMobileDevice) {
       return;
     }
 
@@ -92,12 +97,36 @@ export function Hero({
         observer.unobserve(imageRef.current);
       }
     };
-  }, [isHydrated, shouldLoadVideo]);
+  }, [isHydrated, shouldLoadVideo, isMobileDevice]);
 
   // GSAP animations - only run when GSAP is loaded
+  // On mobile, skip animations to improve LCP (show content immediately)
   useEffect(() => {
     if (!isMounted || !gsap) return;
     
+    // On mobile, show content immediately without animation to improve LCP
+    if (isMobileDevice) {
+      if (imageRef.current) {
+        imageRef.current.style.opacity = "1";
+      }
+      if (headingRef.current) {
+        headingRef.current.style.opacity = "1";
+        headingRef.current.style.transform = "none";
+        headingRef.current.style.filter = "none";
+      }
+      if (descriptionRef.current) {
+        descriptionRef.current.style.opacity = "1";
+        descriptionRef.current.style.transform = "none";
+        descriptionRef.current.style.filter = "none";
+      }
+      if (button1Ref.current) {
+        button1Ref.current.style.opacity = "1";
+        button1Ref.current.style.transform = "none";
+      }
+      return;
+    }
+    
+    // Desktop: Use GSAP animations
     let ctx: any = null;
     let timer: NodeJS.Timeout | null = null;
     
@@ -160,7 +189,7 @@ export function Hero({
         }
       }
     };
-  }, [isMounted, gsap]);
+  }, [isMounted, gsap, isMobileDevice]);
 
   return (
     <section
@@ -177,7 +206,23 @@ export function Hero({
         suppressHydrationWarning
       >
         {/* Video / Poster */}
-        {shouldLoadVideo && isHydrated ? (
+        {/* On mobile: Use static poster image to reduce payload. On desktop: Load video */}
+        {isMobileDevice && isHydrated ? (
+          // Mobile: Always show poster image (no video to reduce payload from 24MB to ~500KB)
+          <div className="absolute inset-0 w-full h-full">
+            <Image
+              src="https://res.cloudinary.com/dqmryiyhz/image/upload/w_1200,h_800,c_fill,q_auto,f_auto/v1768641853/video123_yp9n3b.jpg"
+              alt={imageAlt}
+              fill
+              className="object-cover object-center"
+              priority
+              sizes="100vw"
+              quality={85}
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40" />
+          </div>
+        ) : shouldLoadVideo && isHydrated ? (
+          // Desktop: Load video when ready
           <video
             ref={videoRef}
             src={imageUrl}
@@ -185,37 +230,27 @@ export function Hero({
             loop
             muted
             playsInline
-            preload="auto"
-            webkit-playsinline="true"
-            x5-playsinline="true"
+            preload="metadata"
+            aria-label={imageAlt}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-80"
             onLoadedData={() => {
-              // Video loaded, ensure it plays on mobile
               if (videoRef.current) {
                 const playPromise = videoRef.current.play();
                 if (playPromise !== undefined) {
-                  playPromise
-                    .then(() => {
-                      // Video is playing
-                    })
-                    .catch((error) => {
-                      // Auto-play was prevented, try again on user interaction
-                      console.log("Autoplay prevented, will play on interaction");
-                    });
+                  playPromise.catch(() => {
+                    // Silent fail if autoplay is blocked
+                  });
                 }
               }
             }}
             onCanPlay={() => {
-              // Ensure video plays when it can
               if (videoRef.current && videoRef.current.paused) {
-                videoRef.current.play().catch(() => {
-                  // Silent fail if autoplay is blocked
-                });
+                videoRef.current.play().catch(() => {});
               }
             }}
           />
         ) : (
-          // Placeholder/poster image while video loads
+          // Placeholder while loading
           <div
             className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 to-gray-800"
             aria-hidden="true"
@@ -229,10 +264,11 @@ export function Hero({
         <div className="relative z-10 flex h-full w-full items-center justify-center">
           <div className="max-w-3xl mx-auto text-center px-4 sm:px-8">
             {/* H1 Heading */}
+            {/* On mobile: Show immediately (no opacity-0) to improve LCP */}
             <h1
               ref={headingRef}
               id="hero-heading"
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-white tracking-tight leading-[1.15] sm:leading-[1.1] mb-4 sm:mb-6 opacity-0"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-white tracking-tight leading-[1.15] sm:leading-[1.1] mb-4 sm:mb-6 opacity-100 md:opacity-0"
             >
               {heading}
             </h1>
@@ -240,7 +276,7 @@ export function Hero({
             {/* Description Text */}
             <p
               ref={descriptionRef}
-              className="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed max-w-xl mx-auto mb-6 sm:mb-8 opacity-0 font-light"
+              className="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed max-w-xl mx-auto mb-6 sm:mb-8 opacity-100 md:opacity-0 font-light"
             >
               {description}
             </p>
@@ -253,7 +289,7 @@ export function Hero({
               <a
                 ref={button1Ref}
                 href="#footer"
-                className="bg-white text-black text-sm sm:text-[15px] font-medium px-6 sm:px-8 py-3 sm:py-3.5 rounded-full hover:bg-gray-100 transition-all duration-200 w-full sm:w-auto sm:min-w-[180px] text-center opacity-0"
+                className="bg-white text-black text-sm sm:text-[15px] font-medium px-6 sm:px-8 py-3 sm:py-3.5 rounded-full hover:bg-gray-100 transition-all duration-200 w-full sm:w-auto sm:min-w-[180px] text-center opacity-100 md:opacity-0"
               >
                 See How It Works
               </a>
