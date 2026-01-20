@@ -20,8 +20,10 @@ import { SITE_CONFIG } from "@/lib/constants";
  * 
  * This file generates /manifest.json automatically.
  * Next.js will serve this at /manifest.json route.
+ * 
+ * NOTE: Must be async in Next.js 13+
  */
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
   return {
     name: SITE_CONFIG.name,
     short_name: "Enlivo",
