@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { buildMetadata } from "@/lib/seo";
-import { JsonLd, buildBreadcrumbSchema } from "@/lib/schema";
+import { JsonLd, buildBreadcrumbSchema, buildFAQSchema } from "@/lib/schema";
 import { ArrowUpRight, ChevronDown, Shield, CheckCircle2, Video, Award } from "lucide-react";
 import { CurriculumSection } from "./CurriculumSection";
 import { FAQSection } from "./FAQSection";
@@ -27,6 +27,42 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function FullStackDeveloperPage() {
+  // FAQ data for structured data
+  const faqData = [
+    {
+      question: "Who is this internship designed for?",
+      answer: "College students serious about software engineering, beginners who want strong fundamentals (not shortcuts), and self-learners stuck in tutorial hell. This internship is for those ready to commit daily effort and take responsibility for real work.",
+    },
+    {
+      question: "Do I need prior experience to apply?",
+      answer: "Basic computer knowledge is enough. We start from fundamentals and move to advanced concepts step by step. What matters more is your commitment to learning and willingness to put in consistent effort throughout the program.",
+    },
+    {
+      question: "What is the expected time commitment?",
+      answer: "This is a full-time commitment over 6 months. You'll work on real projects, receive feedback, and participate in code reviews. Expect to invest significant daily hours — similar to what you'd commit in an actual engineering role.",
+    },
+    {
+      question: "How does mentorship and feedback work?",
+      answer: "You receive regular feedback on your work — what's good, what needs improvement, and how to fix it. Senior engineers guide you through decisions, review your code, and help you understand professional standards. Support is provided, but effort and responsibility are expected from you.",
+    },
+    {
+      question: "What kind of projects will I work on?",
+      answer: "Real-world projects similar to what professionals do in companies. You'll build full-stack applications with authentication, work with databases and APIs, contribute to existing systems, and complete a capstone project that demonstrates your skills.",
+    },
+    {
+      question: "Is this internship paid or unpaid?",
+      answer: "This is an unpaid educational internship focused on building real-world engineering skills and experience. You receive mentorship, structured learning, and portfolio-ready work — valuable preparation for a professional engineering career.",
+    },
+    {
+      question: "Does this guarantee a job or placement?",
+      answer: "No. We focus on skills, projects, and readiness — results depend on effort. We don't make false promises. Instead, we prepare you with real experience and the ability to demonstrate your capabilities to potential employers.",
+    },
+    {
+      question: "What happens if I struggle during the program?",
+      answer: "Struggling is part of learning. We provide support through mentorship, code reviews, and guidance. However, if you're consistently not meeting expectations or not putting in the required effort, we'll have honest conversations about whether this is the right fit.",
+    },
+  ];
+
   return (
     <>
       <JsonLd
@@ -37,6 +73,7 @@ export default function FullStackDeveloperPage() {
           { name: "Full Stack Developer Internship" },
         ])}
       />
+      <JsonLd data={buildFAQSchema(faqData)} />
 
       <main className="min-h-screen bg-white">
         {/* Hero Banner Section - Premium Design */}

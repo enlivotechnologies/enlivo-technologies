@@ -74,10 +74,11 @@ export default function robots(): MetadataRoute.Robots {
       // },
     ],
 
-    // Point to sitemap
+    // Point to sitemap (CRITICAL for SEO)
     sitemap: `${baseUrl}/sitemap.xml`,
 
     // Host declaration (helps with domain canonicalization)
-    host: baseUrl,
+    // This ensures Google knows the preferred domain (www vs non-www)
+    host: baseUrl.replace(/^https?:\/\//, '').replace(/\/$/, ''),
   };
 }

@@ -56,10 +56,12 @@ export function buildMetadata(pageSEO: PageSEO): Metadata {
     : `${SITE_CONFIG.url}/images/og/default.png`;
 
   // Construct full title with brand suffix
+  // For homepage, use title as-is if it already contains brand name
+  // For other pages, always add brand suffix
   const fullTitle =
-    pathname === "/"
-      ? `${title} | ${SITE_CONFIG.name}`
-      : `${title} | ${SITE_CONFIG.name}`;
+    pathname === "/" && title.includes(SITE_CONFIG.name)
+      ? title // Homepage title already includes brand name
+      : `${title} | ${SITE_CONFIG.name}`; // Other pages get brand suffix
 
   return {
     title: fullTitle,

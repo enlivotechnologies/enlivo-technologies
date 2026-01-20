@@ -18,13 +18,78 @@ export const HOME_SEO: PageSEO = {
   description:
     "Enlivo architects the secure digital backbone for modern global business. Precision engineering for mission critical platforms, cloud infrastructure, and AI.",
 
-  // 3. KEYWORDS (The "Big Giant" Strategy)
-  // Categorized to capture search traffic at every level of the decision process.
+  // 3. KEYWORDS (User-Focused Search Strategy)
+  // Targeting what people actually type in search engines
   keywords: [
     // --- BRAND VARIATIONS ---
     "Enlivo Technologies",
     "Enlivo Global Tech Solutions",
     "Enlivo",
+    
+    // --- HIGH-VOLUME USER SEARCHES (What people actually type) ---
+    "software development company",
+    "web development services",
+    "custom software development",
+    "software development agency",
+    "app development company",
+    "website development services",
+    "software engineering services",
+    "tech consulting",
+    "IT services company",
+    "software solutions provider",
+    
+    // --- COMMERCIAL INTENT (People ready to buy) ---
+    "hire software developers",
+    "outsource software development",
+    "software development outsourcing",
+    "offshore software development",
+    "software development team",
+    "custom software development services",
+    "enterprise software development",
+    "startup software development",
+    
+    // --- PROBLEM-SOLVING (What users search when they have problems) ---
+    "build an app",
+    "create a website",
+    "develop software",
+    "software development help",
+    "need a developer",
+    "software development company near me",
+    "best software development company",
+    "affordable software development",
+    
+    // --- TECHNOLOGY-SPECIFIC (High search volume) ---
+    "React development services",
+    "Next.js development",
+    "Node.js development",
+    "full stack development",
+    "backend development services",
+    "frontend development services",
+    "API development",
+    "cloud development services",
+    
+    // --- INDUSTRY-SPECIFIC (Targeted searches) ---
+    "startup development services",
+    "SaaS development",
+    "enterprise software solutions",
+    "digital transformation services",
+    "software modernization",
+    "MVP development services",
+    "product development company",
+    
+    // --- LOCATION-BASED (If targeting specific regions) ---
+    "software development company India",
+    "software development services India",
+    "best software company Bangalore",
+    
+    // --- LONG-TAIL (Specific use cases) ---
+    "build MVP for startup",
+    "custom web application development",
+    "software development for startups",
+    "enterprise application development",
+    "scalable software development",
+    "rapid prototyping services",
+    "minimum viable product development",
     
     // --- HIGH-LEVEL STRATEGIC (What CEOs search for) ---
     "enterprise digital transformation services",
@@ -52,8 +117,8 @@ export const HOME_SEO: PageSEO = {
     
     // --- GLOBAL/RELIABILITY (Trust Signals) ---
     "top software engineering firms worldwide",
-    "secure fintech software solutions", // (Optional: implies high security)
-    "HIPAA compliant software development", // (Optional: implies high security)
+    "secure fintech software solutions",
+    "HIPAA compliant software development",
     "reliable offshore development partners",
     "end-to-end software delivery",
   ],

@@ -13,18 +13,28 @@ import { JsonLd, buildBreadcrumbSchema, buildServiceSchema } from "@/lib/schema"
 import { ArrowUpRight, Database, Server, Lock, CheckCircle2, Zap, Cpu } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Backend Systems & API Development Services | Enlivo Technologies",
+  title: "Backend Development Services | API Development Company | Enlivo",
   description:
-    "Scalable, secure backend infrastructure and RESTful APIs that power your applications with reliability and performance. Expert backend development for modern applications.",
+    "Hire expert backend developers. Build scalable APIs, microservices, and database systems. Enterprise-grade backend development services. Get a quote today.",
   keywords: [
     "backend development",
+    "backend development services",
     "API development",
     "backend services",
-    "RESTful API",
+    "hire backend developers",
+    "RESTful API development",
     "backend infrastructure",
     "server-side development",
     "database architecture",
     "backend engineering",
+    "API development company",
+    "microservices development",
+    "backend systems",
+    "Node.js backend development",
+    "Python backend development",
+    "backend API services",
+    "custom backend development",
+    "scalable backend services",
   ],
   pathname: "/services/backend-systems",
   ogImage: "/images/og/services.png",

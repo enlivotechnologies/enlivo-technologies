@@ -80,11 +80,11 @@ export const NAVIGATION = {
       label: "Services",
       href: "/services",
       children: [
-        { label: "Product Engineering", href: "/services/product-engineering" },
-        { label: "Enterprise Systems", href: "/services/enterprise-systems" },
-        { label: "AI & Automation", href: "/services/ai-automation" },
-        { label: "Cloud Platforms", href: "/services/cloud-platforms" },
-        { label: "Cybersecurity", href: "/services/cybersecurity" },
+        { label: "MVP & Product Development", href: "/services/mvp-development" },
+        { label: "Backend Systems & APIs", href: "/services/backend-systems" },
+        { label: "Frontend Web Applications", href: "/services/frontend-applications" },
+        { label: "UI Implementation", href: "/services/ui-implementation" },
+        { label: "Ongoing Development & Support", href: "/services/ongoing-support" },
       ],
     },
     {
@@ -112,11 +112,11 @@ export const NAVIGATION = {
   ],
   footer: {
     services: [
-      { label: "Product Engineering", href: "/services/product-engineering" },
-      { label: "Enterprise Systems", href: "/services/enterprise-systems" },
-      { label: "AI & Automation", href: "/services/ai-automation" },
-      { label: "Cloud Platforms", href: "/services/cloud-platforms" },
-      { label: "Cybersecurity", href: "/services/cybersecurity" },
+      { label: "MVP & Product Development", href: "/services/mvp-development" },
+      { label: "Backend Systems & APIs", href: "/services/backend-systems" },
+      { label: "Frontend Web Applications", href: "/services/frontend-applications" },
+      { label: "UI Implementation", href: "/services/ui-implementation" },
+      { label: "Ongoing Development & Support", href: "/services/ongoing-support" },
     ],
     company: [
       { label: "About", href: "/company/about" },
@@ -149,40 +149,33 @@ export const CTA_CONFIG = {
 /**
  * Services data structure
  * WHY: Single source for service information used across pages
+ * NOTE: These match the actual service pages that exist
  */
 export const SERVICES = [
   {
-    slug: "product-engineering",
-    name: "Product Engineering",
-    shortDescription: "Build scalable digital products from concept to launch.",
-    // TODO: Add full description, features, benefits
+    slug: "mvp-development",
+    name: "MVP & Product Development",
+    shortDescription: "Turn your startup idea into a validated, market-ready product in weeks—not months.",
   },
   {
-    slug: "enterprise-systems",
-    name: "Enterprise Systems",
-    shortDescription:
-      "Modernize legacy systems and integrate enterprise applications.",
-    // TODO: Add full description, features, benefits
+    slug: "backend-systems",
+    name: "Backend Systems & APIs",
+    shortDescription: "Enterprise-grade backend infrastructure that scales with your business.",
   },
   {
-    slug: "ai-automation",
-    name: "AI & Automation",
-    shortDescription:
-      "Leverage AI and machine learning to automate business processes.",
-    // TODO: Add full description, features, benefits
+    slug: "frontend-applications",
+    name: "Frontend Web Applications",
+    shortDescription: "Beautiful, lightning-fast web applications that convert visitors into customers.",
   },
   {
-    slug: "cloud-platforms",
-    name: "Cloud Platforms",
-    shortDescription: "Design and implement cloud-native architectures.",
-    // TODO: Add full description, features, benefits
+    slug: "ui-implementation",
+    name: "UI Implementation",
+    shortDescription: "Transform your design vision into pixel-perfect, production-ready code.",
   },
   {
-    slug: "cybersecurity",
-    name: "Cybersecurity",
-    shortDescription:
-      "Protect your digital assets with comprehensive security solutions.",
-    // TODO: Add full description, features, benefits
+    slug: "ongoing-support",
+    name: "Ongoing Development & Support",
+    shortDescription: "Keep your product competitive with continuous development and 24/7 technical support.",
   },
 ] as const;
 

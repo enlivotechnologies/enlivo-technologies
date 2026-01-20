@@ -13,18 +13,28 @@ import { JsonLd, buildBreadcrumbSchema, buildServiceSchema } from "@/lib/schema"
 import { ArrowUpRight, Palette, Eye, Code, Layers, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "UI Implementation Services | Enlivo Technologies",
+  title: "UI Implementation Services | Design to Code | Enlivo",
   description:
-    "Pixel-perfect UI implementation that transforms designs into interactive, accessible, and performant user interfaces. Expert design-to-code services.",
+    "Convert Figma designs to code. Pixel-perfect UI implementation services. React, Next.js, responsive design. Fast turnaround. Get a quote today.",
   keywords: [
     "UI implementation",
+    "UI implementation services",
     "design to code",
+    "Figma to code",
+    "design to HTML",
     "UI development",
     "pixel perfect implementation",
     "design handoff",
     "UI coding",
     "interface development",
     "UI/UX implementation",
+    "convert design to code",
+    "design implementation",
+    "UI development services",
+    "frontend UI development",
+    "design to React",
+    "Figma to React",
+    "Sketch to code",
   ],
   pathname: "/services/ui-implementation",
   ogImage: "/images/og/services.png",

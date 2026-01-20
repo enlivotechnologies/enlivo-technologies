@@ -13,18 +13,28 @@ import { JsonLd, buildBreadcrumbSchema, buildServiceSchema } from "@/lib/schema"
 import { ArrowUpRight, Wrench, Shield, TrendingUp, Headphones, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Ongoing Development & Support Services | Enlivo Technologies",
+  title: "Software Maintenance & Support Services | 24/7 Support | Enlivo",
   description:
-    "Continuous improvement, maintenance, and technical support to keep your product evolving and running smoothly. Reliable ongoing development and support services.",
+    "Keep your software running smoothly. Ongoing development, maintenance, and 24/7 technical support. Bug fixes, updates, feature enhancements. Get support today.",
   keywords: [
+    "software maintenance",
+    "software maintenance services",
     "ongoing development",
     "maintenance services",
     "development support",
     "technical support",
     "product maintenance",
     "continuous improvement",
-    "software maintenance",
-    "development services",
+    "software support services",
+    "app maintenance",
+    "website maintenance",
+    "software updates",
+    "bug fixes",
+    "software development support",
+    "ongoing support",
+    "maintenance and support",
+    "24/7 technical support",
+    "software maintenance company",
   ],
   pathname: "/services/ongoing-support",
   ogImage: "/images/og/services.png",

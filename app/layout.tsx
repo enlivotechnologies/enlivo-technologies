@@ -23,6 +23,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { ConditionalNavbar } from "@/components/layout/ConditionalNavbar";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
 /**
  * Font optimization using next/font
@@ -120,8 +121,9 @@ export const metadata: Metadata = {
     apple: "/images/navbar/EnlivotechnologiesLogo.png",
   },
 
-  // Manifest for PWA
-  manifest: "/site.webmanifest",
+  // Manifest for PWA (Next.js 13+ uses app/manifest.ts)
+  // The manifest.ts file will automatically generate /manifest.json
+  manifest: "/manifest.json",
 };
 
 /**
@@ -182,13 +184,12 @@ export default function RootLayout({
           {/* Global Footer - Conditionally renders CareersFooter or Footer */}
           <ConditionalFooter />
         </SmoothScrollProvider>
+        
+        {/* Vercel Analytics */}
         <Analytics />
-
-        {/* 
-          Analytics scripts would go here
-          TODO: Add Google Analytics / Plausible when ready
-          Use next/script with strategy="afterInteractive"
-        */}
+        
+        {/* Google Analytics 4 */}
+        <GoogleAnalytics />
       </body>
     </html>
   );

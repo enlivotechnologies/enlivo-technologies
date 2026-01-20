@@ -13,18 +13,28 @@ import { JsonLd, buildBreadcrumbSchema, buildServiceSchema } from "@/lib/schema"
 import { ArrowUpRight, Globe, Smartphone, Zap, Palette, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Frontend Web Applications Development | Enlivo Technologies",
+  title: "Frontend Development Services | React & Next.js Experts | Enlivo",
   description:
-    "Modern, responsive web applications built with cutting-edge frameworks for exceptional user experiences across all devices. Expert frontend development services.",
+    "Hire expert frontend developers. Build beautiful, fast web applications with React, Next.js, and modern frameworks. Responsive design, great UX. Get started today.",
   keywords: [
     "frontend development",
+    "frontend development services",
     "web application development",
     "frontend services",
+    "hire frontend developers",
     "React development",
+    "React development services",
     "Next.js development",
+    "Next.js development services",
     "responsive web design",
     "frontend engineering",
     "user interface development",
+    "web app development",
+    "frontend web development",
+    "custom web application",
+    "modern web development",
+    "frontend development company",
+    "React.js development",
   ],
   pathname: "/services/frontend-applications",
   ogImage: "/images/og/services.png",
