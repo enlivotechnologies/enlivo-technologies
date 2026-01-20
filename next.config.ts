@@ -29,14 +29,27 @@ const nextConfig: NextConfig = {
       // },
     ],
     formats: ["image/avif", "image/webp"],
+    // Optimize image loading
+    minimumCacheTTL: 60,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
-  // Allow Cloudinary for video as well (for static serving, not Next.js video optimization)
+  
+  // Bundle optimization
   experimental: {
-    optimizePackageImports: ["@radix-ui/react-slot"],
+    optimizePackageImports: [
+      "@radix-ui/react-slot",
+      "gsap",
+      "lenis",
+      "lucide-react",
+    ],
   },
   serverExternalPackages: ["cloudinary"],
 
-  // Headers configuration (additional security headers)
+  // Compression
+  compress: true,
+
+  // Headers configuration (performance & security)
   async headers() {
     return [
       {
@@ -45,6 +58,38 @@ const nextConfig: NextConfig = {
           {
             key: "X-DNS-Prefetch-Control",
             value: "on",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "DENY",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "origin-when-cross-origin",
+          },
+        ],
+      },
+      {
+        // Cache static assets aggressively
+        source: "/:path*\\.(jpg|jpeg|png|gif|ico|svg|webp|avif|woff|woff2|ttf|otf)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        // Cache fonts
+        source: "/fonts/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },

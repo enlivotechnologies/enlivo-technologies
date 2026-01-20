@@ -20,18 +20,38 @@ import {
 } from "@/lib/schema";
 import { HOME_SEO, HOME_HEADINGS } from "@/seo/home";
 
-// Components
+// Components - Lazy load below-fold components for better performance
 import { Hero } from "@/components/sections/Hero";
-// import { QuoteSection } from "@/components/sections/QuoteSection";
-import { TrustStatement } from "@/components/sections/TrustStatement";
-import { FounderProblem } from "@/components/sections/FounderProblem";
-import { ServicesOverview } from "@/components/sections/ServicesOverview";
-import { OurProcess } from "@/components/sections/OurProcess";
-import { Testimonials } from "@/components/sections/Testimonials";
-import { OurVision } from "@/components/sections/OurVision";
-// import { Stats } from "@/components/sections/Stats";
-// import { CaseStudiesPreview } from "@/components/sections/CaseStudiesPreview";
-import { CTA } from "@/components/sections/CTA";
+import dynamic from "next/dynamic";
+
+// Lazy load below-fold components to reduce initial bundle size
+const TrustStatement = dynamic(() => import("@/components/sections/TrustStatement").then((mod) => ({ default: mod.TrustStatement })), {
+  loading: () => <div className="min-h-[400px]" />, // Prevent layout shift
+});
+
+const FounderProblem = dynamic(() => import("@/components/sections/FounderProblem").then((mod) => ({ default: mod.FounderProblem })), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+
+const ServicesOverview = dynamic(() => import("@/components/sections/ServicesOverview").then((mod) => ({ default: mod.ServicesOverview })), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+
+const OurProcess = dynamic(() => import("@/components/sections/OurProcess").then((mod) => ({ default: mod.OurProcess })), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+
+const Testimonials = dynamic(() => import("@/components/sections/Testimonials").then((mod) => ({ default: mod.Testimonials })), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+
+const OurVision = dynamic(() => import("@/components/sections/OurVision").then((mod) => ({ default: mod.OurVision })), {
+  loading: () => <div className="min-h-[400px]" />,
+});
+
+const CTA = dynamic(() => import("@/components/sections/CTA").then((mod) => ({ default: mod.CTA })), {
+  loading: () => <div className="min-h-[200px]" />,
+});
 
 /**
  * Homepage Metadata

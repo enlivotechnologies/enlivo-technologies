@@ -8,7 +8,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
+
+// Lazy load GSAP to reduce initial bundle size
+let gsapPromise: Promise<any> | null = null;
+
+function loadGSAP() {
+  if (!gsapPromise) {
+    gsapPromise = import("gsap").then((mod) => mod.gsap);
+  }
+  return gsapPromise;
+}
 
 interface HeroProps {
   heading?: string;
@@ -29,27 +38,57 @@ export function Hero({
   const buttonsRef = useRef<HTMLDivElement>(null);
   const button1Ref = useRef<HTMLAnchorElement>(null);
   const imageRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [gsap, setGsap] = useState<any>(null);
 
+  // Load GSAP only when needed (after component mounts)
   useEffect(() => {
-    setIsMounted(true);
+    loadGSAP().then((gsapModule) => {
+      setGsap(gsapModule);
+      setIsMounted(true);
+    });
   }, []);
 
+  // Intersection Observer for video lazy loading
   useEffect(() => {
-    if (!isMounted) return;
+    if (!imageRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !shouldLoadVideo) {
+            setShouldLoadVideo(true);
+          }
+        });
+      },
+      { rootMargin: "50px" }
+    );
+
+    observer.observe(imageRef.current);
+
+    return () => {
+      if (imageRef.current) {
+        observer.unobserve(imageRef.current);
+      }
+    };
+  }, [shouldLoadVideo]);
+
+  // GSAP animations - only run when GSAP is loaded
+  useEffect(() => {
+    if (!isMounted || !gsap) return;
     
-    let ctx: gsap.Context | null = null;
+    let ctx: any = null;
     let timer: NodeJS.Timeout | null = null;
     
-    // Wait for next tick to ensure DOM is ready
     timer = setTimeout(() => {
-      // Check if refs are still valid before creating context
       if (!sectionRef.current) return;
       
       ctx = gsap.context(() => {
-      const tl = gsap.timeline({
+        const tl = gsap.timeline({
           defaults: { ease: "power3.out" },
-      });
+        });
 
         // 1. Image fade in
         if (imageRef.current) {
@@ -62,49 +101,47 @@ export function Hero({
 
         // 2. Heading fade up
         if (headingRef.current) {
-      tl.fromTo(
-        headingRef.current,
-        { opacity: 0, y: 30, filter: "blur(8px)" },
+          tl.fromTo(
+            headingRef.current,
+            { opacity: 0, y: 30, filter: "blur(8px)" },
             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
             "-=0.6"
-      );
+          );
         }
 
         // 3. Description fade up
         if (descriptionRef.current) {
-      tl.fromTo(
-        descriptionRef.current,
-        { opacity: 0, y: 20, filter: "blur(4px)" },
+          tl.fromTo(
+            descriptionRef.current,
+            { opacity: 0, y: 20, filter: "blur(4px)" },
             { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7 },
             "-=0.4"
-      );
+          );
         }
 
         // 4. Button pop in
         if (button1Ref.current) {
-        tl.fromTo(
+          tl.fromTo(
             button1Ref.current,
             { opacity: 0, y: 20, scale: 0.95 },
             { opacity: 1, y: 0, scale: 1, duration: 0.6 },
-          "-=0.2"
-        );
-      }
-    }, sectionRef);
+            "-=0.2"
+          );
+        }
+      }, sectionRef);
     }, 50);
 
     return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
+      if (timer) clearTimeout(timer);
       if (ctx) {
         try {
           ctx.revert();
         } catch (error) {
-          // Silently handle cleanup errors that may occur during unmount
+          // Silently handle cleanup errors
         }
       }
     };
-  }, [isMounted]);
+  }, [isMounted, gsap]);
 
   return (
     <section
@@ -117,15 +154,34 @@ export function Hero({
       <figure
         ref={imageRef}
         className="absolute inset-x-4 top-18 bottom-6 rounded-3xl overflow-hidden shadow-2xl opacity-0 bg-black"
+        style={{ aspectRatio: "16/9", minHeight: "400px" }}
       >
-        <video
-          src={imageUrl}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-80"
-        />
+        {shouldLoadVideo ? (
+          <video
+            ref={videoRef}
+            src={imageUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-80"
+            onLoadedData={() => {
+              // Video loaded, ensure it plays
+              if (videoRef.current) {
+                videoRef.current.play().catch(() => {
+                  // Auto-play may fail, that's okay
+                });
+              }
+            }}
+          />
+        ) : (
+          // Placeholder/poster image while video loads
+          <div 
+            className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 to-gray-800"
+            aria-hidden="true"
+          />
+        )}
         
         {/* Dark Gradient Overlay for Text Readability */}
         <div className="absolute inset-0 bg-black/40" />

@@ -36,7 +36,8 @@ export function CTA({
               alt="Founder looking confidently at the future"
               fill
               className="object-cover object-center"
-              priority
+              loading="lazy"
+              sizes="(max-width: 1024px) 100vw, 65vw"
             />
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20 lg:to-transparent" />

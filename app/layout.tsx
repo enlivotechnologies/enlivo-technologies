@@ -87,6 +87,19 @@ const corinthia = localFont({
  * - metadataBase is REQUIRED for correct canonical URLs
  * - robots defaults allow indexing (can be overridden per page)
  */
+
+/**
+ * Viewport configuration
+ * Separated from metadata in Next.js 14+
+ */
+/**
+ * Global metadata defaults
+ * These are inherited by all pages unless overridden
+ *
+ * SEO NOTES:
+ * - metadataBase is REQUIRED for correct canonical URLs
+ * - robots defaults allow indexing (can be overridden per page)
+ */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
   title: {
@@ -108,12 +121,6 @@ export const metadata: Metadata = {
     },
   },
 
-  // Site verification - TODO: Add actual verification codes
-  // verification: {
-  //   google: 'your-google-verification-code',
-  //   yandex: 'your-yandex-verification-code',
-  // },
-
   // Icons configuration
   icons: {
     icon: "/images/navbar/EnlivotechnologiesLogo.png",
@@ -122,14 +129,9 @@ export const metadata: Metadata = {
   },
 
   // Manifest for PWA (Next.js 13+ uses app/manifest.ts)
-  // The manifest.ts file will automatically generate /manifest.json
   manifest: "/manifest.json",
 };
 
-/**
- * Viewport configuration
- * Separated from metadata in Next.js 14+
- */
 export const viewport: Viewport = {
   themeColor: SITE_CONFIG.themeColor,
   width: "device-width",
@@ -156,6 +158,13 @@ export default function RootLayout({
       className={`${inter.variable} ${neueMontreal.variable} ${geist.variable} ${geistLight.variable} ${corinthia.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Resource hints for performance - Preconnect to external domains */}
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+      </head>
       <body
         className="min-h-screen bg-[#F5F5F0] font-sans antialiased"
         suppressHydrationWarning
@@ -185,10 +194,8 @@ export default function RootLayout({
           <ConditionalFooter />
         </SmoothScrollProvider>
         
-        {/* Vercel Analytics */}
+        {/* Analytics - Loaded after page is interactive */}
         <Analytics />
-        
-        {/* Google Analytics 4 */}
         <GoogleAnalytics />
       </body>
     </html>
