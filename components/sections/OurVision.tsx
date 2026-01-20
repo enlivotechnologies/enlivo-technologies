@@ -229,16 +229,12 @@ export function OurVision() {
             className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16 lg:gap-20 xl:gap-24 w-full max-w-6xl mx-auto mt-4"
               role="list"
               aria-label="Enlivo Technologies company statistics and achievements"
-              itemProp="aggregateRating"
-              itemScope
-              itemType="https://schema.org/AggregateRating"
             >
               {STATS.map((stat, index) => (
                 <div
                   key={index}
                 className="flex flex-col items-center opacity-0"
                   role="listitem"
-                  itemProp="ratingValue"
                 >
                 {/* Stat Value - Refined Size */}
                   <span

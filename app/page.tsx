@@ -55,12 +55,20 @@ export default function HomePage() {
       {/* Structured Data - Organization Schema with Logo for Google Knowledge Panel */}
       <JsonLd 
         data={buildOrganizationSchema({
-          // Ensure logo is properly configured for Google search
+          // Ensure logo is properly configured for Google search (112x112 minimum)
           logo: {
             '@type': 'ImageObject',
             url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.enlivotechnologies.com'}/images/navbar/EnlivotechnologiesLogo.png`,
             width: 112,
             height: 112,
+          },
+          // Contact information for Knowledge Panel
+          contactPoint: {
+            '@type': 'ContactPoint',
+            telephone: '+91-89713-63921',
+            contactType: 'customer service',
+            email: 'Info.enlivo@gmail.com',
+            availableLanguage: ['English'],
           },
         })} 
       />
