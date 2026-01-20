@@ -42,18 +42,26 @@ export function Hero({
   const [isMounted, setIsMounted] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [gsap, setGsap] = useState<any>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Mark as hydrated after first render to prevent hydration mismatches
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   // Load GSAP only when needed (after component mounts)
   useEffect(() => {
+    if (!isHydrated) return;
+    
     loadGSAP().then((gsapModule) => {
       setGsap(gsapModule);
       setIsMounted(true);
     });
-  }, []);
+  }, [isHydrated]);
 
-  // Intersection Observer for video lazy loading
+  // Intersection Observer for video lazy loading - only after hydration
   useEffect(() => {
-    if (!imageRef.current) return;
+    if (!isHydrated || !imageRef.current) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -73,7 +81,7 @@ export function Hero({
         observer.unobserve(imageRef.current);
       }
     };
-  }, [shouldLoadVideo]);
+  }, [isHydrated, shouldLoadVideo]);
 
   // GSAP animations - only run when GSAP is loaded
   useEffect(() => {
@@ -146,17 +154,19 @@ export function Hero({
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-6 px-4 sm:px-6 lg:px-8"
+      className="relative flex items-center justify-center overflow-hidden pt-4 sm:pt-6 md:pt-8 pb-8 px-4 sm:px-6 lg:px-8"
       style={{ backgroundColor: "#FFFFFF" }}
       aria-labelledby="hero-heading"
+      suppressHydrationWarning
     >
-      {/* Background Container (Video/Image) */}
+      {/* Background Container (Video + Content) */}
       <figure
         ref={imageRef}
-        className="absolute inset-x-4 top-18 bottom-6 rounded-3xl overflow-hidden shadow-2xl opacity-0 bg-black"
-        style={{ aspectRatio: "16/9", minHeight: "400px" }}
+        className="relative w-full max-w-[95rem] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl opacity-0 bg-black aspect-[9/16] md:aspect-[16/9] min-h-[520px] md:min-h-[500px] md:max-h-[600px]"
+        suppressHydrationWarning
       >
-        {shouldLoadVideo ? (
+        {/* Video / Poster */}
+        {shouldLoadVideo && isHydrated ? (
           <video
             ref={videoRef}
             src={imageUrl}
@@ -177,51 +187,48 @@ export function Hero({
           />
         ) : (
           // Placeholder/poster image while video loads
-          <div 
+          <div
             className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 to-gray-800"
             aria-hidden="true"
           />
         )}
-        
-        {/* Dark Gradient Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-black/40" />
-      </figure>
 
-      {/* Content Container - Centered */}
-      <div className="relative z-10 max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* H1 Heading */}
-        <h1
-          ref={headingRef}
-          id="hero-heading"
-            className="text-2xl md:text-4xl lg:text-5xl font-normal  text-white tracking-tight leading-[1.1] mb-6 opacity-0"
-        >
-            {heading}
-        </h1>
+        {/* Content Overlay */}
+        <div className="relative z-10 flex h-full w-full items-center justify-center">
+          <div className="max-w-3xl mx-auto text-center px-4 sm:px-8">
+            {/* H1 Heading */}
+            <h1
+              ref={headingRef}
+              id="hero-heading"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-white tracking-tight leading-[1.15] sm:leading-[1.1] mb-4 sm:mb-6 opacity-0"
+            >
+              {heading}
+            </h1>
 
-          {/* Description Text */}
-        <p
-          ref={descriptionRef}
-            className="text-lg sm:text-xl text-gray-200 leading-relaxed max-w-xl mx-auto mb-10 opacity-0 font-light"
-        >
-          {description}
-        </p>
+            {/* Description Text */}
+            <p
+              ref={descriptionRef}
+              className="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed max-w-xl mx-auto mb-6 sm:mb-8 opacity-0 font-light"
+            >
+              {description}
+            </p>
 
-          {/* Button: See How It Works */}
-        <div
-          ref={buttonsRef}
-            className="flex items-center justify-center"
-        >
-            <a
-              ref={button1Ref}
-              href="#footer"
-              className="bg-white text-black text-[15px] font-medium px-8 py-3.5 rounded-full hover:bg-gray-100 transition-all duration-200 min-w-[180px] opacity-0"
-          >
-              See How It Works
-            </a>
+            {/* Button: See How It Works */}
+            <div
+              ref={buttonsRef}
+              className="flex items-center justify-center"
+            >
+              <a
+                ref={button1Ref}
+                href="#footer"
+                className="bg-white text-black text-sm sm:text-[15px] font-medium px-6 sm:px-8 py-3 sm:py-3.5 rounded-full hover:bg-gray-100 transition-all duration-200 w-full sm:w-auto sm:min-w-[180px] text-center opacity-0"
+              >
+                See How It Works
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      </figure>
     </section>
   );
 }

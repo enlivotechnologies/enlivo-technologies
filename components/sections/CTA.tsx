@@ -22,15 +22,15 @@ export function CTA({
 }: CTAProps = {}) {
 
   return (
-    <section className="py-16 lg:py-20 bg-white">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-[105rem] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Container */}
         {/* CHANGED: Added `lg:items-stretch` (was just items-center) to allow children to fill height on desktop */}
-        <div className="relative flex flex-col lg:flex-row items-center lg:items-stretch justify-end rounded-[2.5rem] overflow-hidden bg-gray-50 min-h-[500px] lg:h-[600px]">
+        <div className="relative flex flex-col lg:flex-row items-center lg:items-stretch justify-end rounded-2xl sm:rounded-[2.5rem] overflow-hidden bg-gray-50 min-h-[400px] sm:min-h-[500px] lg:h-[600px]">
           
           {/* --- Left: Full Height Image --- */}
-          <div className="relative w-full lg:absolute lg:inset-y-0 lg:left-0 lg:w-[65%] h-[300px] lg:h-full">
+          <div className="relative w-full lg:absolute lg:inset-y-0 lg:left-0 lg:w-[65%] h-[250px] sm:h-[300px] lg:h-full">
             <Image
               src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768831613/business_nle9oq.jpg"
               alt="Founder looking confidently at the future"
@@ -45,30 +45,30 @@ export function CTA({
 
           {/* --- Right: The Black Card (Premium UI) --- */}
           {/* CHANGED: Added `lg:h-full` to wrapper to ensure it spans the container height */}
-          <div className="relative z-10 w-full lg:w-[45%] max-w-2xl lg:mr-16 -mt-10 lg:mt-0 px-4 lg:px-0 lg:h-full">
+          <div className="relative z-10 w-full lg:w-[45%] max-w-2xl lg:mr-16 -mt-6 sm:-mt-10 lg:mt-0 px-4 sm:px-6 lg:px-0 lg:h-full">
             
             {/* CHANGED: Added `lg:h-full lg:flex lg:flex-col lg:justify-center` to make the box match height and center content */}
-            <div className="bg-black text-white rounded-[2rem] p-6 md:p-8 lg:p-10 shadow-2xl border border-gray-800 lg:h-full lg:flex lg:flex-col lg:justify-center">
+            <div className="bg-black text-white rounded-xl sm:rounded-2xl lg:rounded-[2rem] p-5 sm:p-6 md:p-8 lg:p-10 shadow-2xl border border-gray-800 lg:h-full lg:flex lg:flex-col lg:justify-center">
               
               {/* Heading */}
-              <h2 className="text-2xl md:text-3xl lg:text-[2.25rem] font-medium leading-[1.1] tracking-tight mb-5">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[2.25rem] font-medium leading-[1.15] sm:leading-[1.1] tracking-tight mb-4 sm:mb-5">
                 {heading}
               </h2>
               
               {/* Description */}
-              <p className="text-base md:text-lg text-gray-400 font-light leading-relaxed mb-8">
+              <p className="text-sm sm:text-base md:text-lg text-gray-400 font-light leading-relaxed mb-6 sm:mb-8">
                 {description}
               </p>
 
               {/* Dividers & Features */}
-              <div className="space-y-5 mb-8">
+              <div className="space-y-4 sm:space-y-5 mb-6 sm:mb-8">
                 {/* Feature 1 */}
                 <div className="group">
-                  <div className="flex items-start gap-3 mb-2">
-                    <CheckCircle2 className="w-5 h-5 text-white mt-1 flex-shrink-0" />
-                    <h3 className="text-base font-medium text-white">Fast onboarding</h3>
+                  <div className="flex items-start gap-2 sm:gap-3 mb-2">
+                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-white mt-0.5 sm:mt-1 flex-shrink-0" />
+                    <h3 className="text-sm sm:text-base font-medium text-white">Fast onboarding</h3>
                   </div>
-                  <p className="text-gray-400 pl-8 text-sm leading-relaxed">
+                  <p className="text-gray-400 pl-6 sm:pl-8 text-xs sm:text-sm leading-relaxed">
                     Most projects are fully staffed and ready to kick off within a week of agreement.
                   </p>
                 </div>
@@ -78,11 +78,11 @@ export function CTA({
 
                 {/* Feature 2 */}
                 <div className="group">
-                  <div className="flex items-start gap-3 mb-2">
-                    <TrendingUp className="w-5 h-5 text-white mt-1 flex-shrink-0" />
-                    <h3 className="text-base font-medium text-white">Built for scale</h3>
+                  <div className="flex items-start gap-2 sm:gap-3 mb-2">
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-white mt-0.5 sm:mt-1 flex-shrink-0" />
+                    <h3 className="text-sm sm:text-base font-medium text-white">Built for scale</h3>
                   </div>
-                  <p className="text-gray-400 pl-8 text-sm leading-relaxed">
+                  <p className="text-gray-400 pl-6 sm:pl-8 text-xs sm:text-sm leading-relaxed">
                     From MVP to enterprise-grade systems, we build with future growth in mind—no bloat, no friction.
                   </p>
                 </div>
@@ -94,10 +94,10 @@ export function CTA({
                     href="https://cal.com/nishal-pktyks"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black text-base font-medium px-7 py-3.5 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-[1.02]"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black text-sm sm:text-base font-medium px-5 sm:px-7 py-3 sm:py-3.5 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-[1.02]"
                 >
-                    <span>Get a Free Product Clarity Call</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span className="whitespace-nowrap">Get a Free Product Clarity Call</span>
+                    <ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </a>
               </div>
 

@@ -94,11 +94,18 @@ export function Navbar() {
               />
             </div>
             <span
-              className="text-[17px] font-semibold font-sans text-black tracking-normal whitespace-nowrap"
+              className="text-sm sm:text-[17px] font-semibold font-sans text-black tracking-normal whitespace-nowrap hidden min-[360px]:inline"
               style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
               itemProp="name"
             >
               Enlivo Technologies
+            </span>
+            <span
+              className="text-sm font-semibold font-sans text-black tracking-normal whitespace-nowrap min-[360px]:hidden"
+              style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+              itemProp="name"
+            >
+              Enlivo
             </span>
           </Link>
 
