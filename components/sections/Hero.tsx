@@ -60,8 +60,19 @@ export function Hero({
   }, [isHydrated]);
 
   // Intersection Observer for video lazy loading - only after hydration
+  // On mobile, load video immediately for better UX
   useEffect(() => {
-    if (!isHydrated || !imageRef.current) return;
+    if (!isHydrated) return;
+
+    // On mobile, load video immediately (no lazy loading)
+    const isMobile = window.innerWidth < 768;
+    if (isMobile && !shouldLoadVideo) {
+      setShouldLoadVideo(true);
+      return;
+    }
+
+    // On desktop, use intersection observer for lazy loading
+    if (!imageRef.current) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -174,13 +185,31 @@ export function Hero({
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
+            webkit-playsinline="true"
+            x5-playsinline="true"
             className="absolute inset-0 w-full h-full object-cover object-center opacity-80"
             onLoadedData={() => {
-              // Video loaded, ensure it plays
+              // Video loaded, ensure it plays on mobile
               if (videoRef.current) {
+                const playPromise = videoRef.current.play();
+                if (playPromise !== undefined) {
+                  playPromise
+                    .then(() => {
+                      // Video is playing
+                    })
+                    .catch((error) => {
+                      // Auto-play was prevented, try again on user interaction
+                      console.log("Autoplay prevented, will play on interaction");
+                    });
+                }
+              }
+            }}
+            onCanPlay={() => {
+              // Ensure video plays when it can
+              if (videoRef.current && videoRef.current.paused) {
                 videoRef.current.play().catch(() => {
-                  // Auto-play may fail, that's okay
+                  // Silent fail if autoplay is blocked
                 });
               }
             }}

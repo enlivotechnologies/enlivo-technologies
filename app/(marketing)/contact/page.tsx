@@ -69,10 +69,10 @@ export default function ContactPage() {
                   <p className="text-lg text-gray-600 font-light leading-relaxed flex-grow">
                     Email us at{" "}
                     <a 
-                      href="mailto:enlivotechnologies@gmail.com" 
+                      href="mailto:Info.enlivo@gmail.com" 
                       className="text-black hover:text-gray-700 underline font-medium"
                     >
-                      enlivotechnologies@gmail.com
+                     Info.enlivo@gmail.com
                     </a>{" "}
                     with your question.
                   </p>
@@ -100,10 +100,10 @@ export default function ContactPage() {
                     Connect with our sales team to request a demo or discuss pricing.
                   </p>
                 <a
-                    href="https://cal.com/nishal-pktyks"
+                    href="https://cal.com/info-enlivo-yyhgqr"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center w-full px-8 py-4 bg-[#F5F5F4] border-2 border-black/10 text-black rounded-xl font-medium hover:bg-black/5 hover:border-black/20 transition-all duration-200 text-base shadow-sm hover:shadow-md mt-auto"
+                    className="inline-flex items-center justify-center w-full px-8 py-4 bg-[#F5F5F4] border border-black/10 text-black rounded-xl font-medium hover:bg-black/5 hover:border-black/20 transition-all duration-200 text-base mt-auto"
                   >
                     Book a demo
                   </a>
@@ -125,8 +125,8 @@ export default function ContactPage() {
                     Reach out to our team for press requests or media opportunities.
                   </p>
                 <a
-                    href="mailto:enlivotechnologies@gmail.com?subject=Media Inquiry"
-                    className="inline-flex items-center justify-center w-full px-8 py-4 bg-[#FAFAFA] border-2 border-black/10 text-black rounded-xl font-medium hover:bg-black/5 hover:border-black/20 transition-all duration-200 text-base shadow-sm hover:shadow-md mt-auto"
+                    href="mailto:Info.enlivo@gmail.com?subject=Media Inquiry"
+                    className="inline-flex items-center justify-center w-full px-8 py-4 bg-[#FAFAFA] border border-black/10 text-black rounded-xl font-medium hover:bg-black/5 hover:border-black/20 transition-all duration-200 text-base mt-auto"
                 >
                     Email us
                 </a>
