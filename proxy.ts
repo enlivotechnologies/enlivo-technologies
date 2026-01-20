@@ -32,6 +32,9 @@ export default function proxy(request: NextRequest) {
       url.pathname.startsWith('/api/') ||
       url.pathname.startsWith('/_next/') ||
       url.pathname.startsWith('/_static/') ||
+      url.pathname === '/manifest.json' ||
+      url.pathname === '/sitemap.xml' ||
+      url.pathname === '/robots.txt' ||
       /\.\w+$/.test(url.pathname) // Files with extensions
     ) {
       return NextResponse.next();
