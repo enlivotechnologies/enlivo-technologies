@@ -52,8 +52,18 @@ export const metadata: Metadata = buildMetadata(HOME_SEO);
 export default function HomePage() {
   return (
     <>
-      {/* Structured Data */}
-      <JsonLd data={buildOrganizationSchema()} />
+      {/* Structured Data - Organization Schema with Logo for Google Knowledge Panel */}
+      <JsonLd 
+        data={buildOrganizationSchema({
+          // Ensure logo is properly configured for Google search
+          logo: {
+            '@type': 'ImageObject',
+            url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.enlivotechnologies.com'}/images/navbar/EnlivotechnologiesLogo.png`,
+            width: 112,
+            height: 112,
+          },
+        })} 
+      />
       <JsonLd data={buildWebSiteSchema()} />
 
       {/* Hero Section - Contains H1 */}

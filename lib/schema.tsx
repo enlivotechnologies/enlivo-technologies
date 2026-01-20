@@ -62,11 +62,12 @@ export function buildOrganizationSchema(
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
     // Use ImageObject format for better Google recognition
+    // Google requires: minimum 112x112px, accessible URL, PNG/JPG/SVG format
     logo: {
       '@type': 'ImageObject',
       url: `${SITE_CONFIG.url}/images/navbar/EnlivotechnologiesLogo.png`,
-      width: 500,
-      height: 500,
+      width: 112,  // Google minimum requirement (112x112px minimum)
+      height: 112, // Google minimum requirement
     },
     description: SITE_CONFIG.description,
     // TODO: Add when business details are finalized
