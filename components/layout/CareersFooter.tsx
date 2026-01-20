@@ -38,7 +38,7 @@ export function CareersFooter() {
                 className="text-lg font-semibold font-sans text-gray-400 hover:text-white transition-colors duration-300 tracking-tight whitespace-nowrap"
                 style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
               >
-                Enlivo Technologies
+                Enlivo
               </span>
             </Link>
           </div>

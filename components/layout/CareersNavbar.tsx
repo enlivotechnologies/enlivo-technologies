@@ -37,7 +37,7 @@ export function CareersNavbar() {
               className="text-lg font-semibold font-sans text-black tracking-tight whitespace-nowrap"
               style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
             >
-              Enlivo Technologies
+              Enlivo
             </span>
           </Link>
 
@@ -49,7 +49,7 @@ export function CareersNavbar() {
               className="text-base font-medium text-gray-700 hover:text-black transition-colors duration-200 font-sans px-3 py-1.5 rounded-md hover:bg-gray-50"
               style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
             >
-              About Enlivo
+              About
             </Link>
 
             {/* LinkedIn Icon */}
