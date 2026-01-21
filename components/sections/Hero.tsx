@@ -57,21 +57,14 @@ export function Hero({
       const isMobile = window.innerWidth < 768;
       setIsMobileDevice(isMobile);
       
-      // On mobile, wait for page to fully load before allowing video loading
+      // On mobile, wait briefly for LCP to complete, then allow video loading
       if (isMobile) {
-        const handleLoad = () => {
-          // Wait additional time after load for better LCP
-          setTimeout(() => {
-            setPageLoaded(true);
-          }, 2000); // 2 second delay after page load on mobile
-        };
+        // Reduced delay - only wait for initial render cycle
+        const timer = setTimeout(() => {
+          setPageLoaded(true);
+        }, 300); // Minimal delay just for LCP priority
         
-        if (document.readyState === 'complete') {
-          handleLoad();
-        } else {
-          window.addEventListener('load', handleLoad);
-          return () => window.removeEventListener('load', handleLoad);
-        }
+        return () => clearTimeout(timer);
       } else {
         // Desktop: Allow immediate loading
         setPageLoaded(true);
@@ -89,37 +82,30 @@ export function Hero({
     });
   }, [isHydrated]);
 
-  // Intersection Observer for video lazy loading - optimized for mobile performance
+  // Intersection Observer for video lazy loading - optimized for performance
+  // Strategy: Load video immediately when in view, poster image shows first
   useEffect(() => {
     if (!isHydrated) return;
     if (!imageRef.current) return;
     
-    // On mobile, wait for page to load before allowing video loading
+    // On mobile, wait briefly for page load to prioritize poster image LCP
     if (isMobileDevice && !pageLoaded) return;
 
-    // Use intersection observer for lazy loading
-    // On mobile: Only load when scrolled into view AFTER page load
-    // On desktop: Load slightly before it comes into view
+    // Use intersection observer - load video when section is visible
+    // Video loads in background while poster image is shown
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !shouldLoadVideo) {
-            // On mobile, add additional delay even after intersection
-            if (isMobileDevice) {
-              setTimeout(() => {
-                setShouldLoadVideo(true);
-              }, 1000); // 1 second delay on mobile even after visible
-            } else {
-              setShouldLoadVideo(true);
-            }
+            // Start loading video immediately when visible (no additional delay)
+            setShouldLoadVideo(true);
           }
         });
       },
       { 
-        // Mobile: Only start loading when actually visible (no preloading)
-        // Desktop: Start loading slightly before
-        rootMargin: isMobileDevice ? "0px" : "100px",
-        threshold: isMobileDevice ? 0.5 : 0.1 // Mobile needs 50% visible
+        // Start loading slightly before it comes into view for smoother experience
+        rootMargin: isMobileDevice ? "50px" : "100px",
+        threshold: 0.1 // Trigger when 10% visible
       }
     );
 
@@ -239,32 +225,87 @@ export function Hero({
         suppressHydrationWarning
       >
         {/* Video / Poster */}
-        {/* Mobile: Poster image priority for better LCP. Desktop: Video with poster fallback */}
+        {/* Strategy: Show poster image first (instant LCP), then transition to video when ready */}
         {!isHydrated ? (
-          // Initial loading skeleton with gradient (very brief)
+          // Initial loading skeleton (very brief)
           <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" aria-hidden="true">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 via-gray-800/50 to-gray-900/60" />
           </div>
-        ) : videoError || (isMobileDevice && !shouldLoadVideo) ? (
-          // Mobile: Show poster image initially (never load video until user scrolls)
-          // Or fallback if video fails
-          <div className="absolute inset-0 w-full h-full">
-            <Image
-              src="https://res.cloudinary.com/dqmryiyhz/image/upload/w_1200,h_800,c_fill,q_auto,f_auto/v1768641853/video123_yp9n3b.jpg"
-              alt={imageAlt}
-              fill
-              className="object-cover object-center"
-              sizes="100vw"
-              quality={85}
-              priority={isMobileDevice} // Priority on mobile for better LCP
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40" />
-          </div>
         ) : (
           <>
-            {/* Poster image shown while video loads */}
-            {!isVideoLoaded && (
-              <div className="absolute inset-0 w-full h-full z-10 transition-opacity duration-500">
+            {/* Poster Image - Always shown first for instant LCP, fades out when video ready */}
+            <div 
+              className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-out z-10 ${
+                isVideoLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+              }`}
+            >
+              <Image
+                src="https://res.cloudinary.com/dqmryiyhz/image/upload/w_1200,h_800,c_fill,q_auto,f_auto/v1768641853/video123_yp9n3b.jpg"
+                alt={imageAlt}
+                fill
+                className="object-cover object-center"
+                sizes="100vw"
+                quality={85}
+                priority={true} // Always priority for instant LCP
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40" />
+            </div>
+
+            {/* Video - Loads in background, fades in when ready, replaces poster */}
+            {shouldLoadVideo && (
+              <video
+                ref={videoRef}
+                src={
+                  isMobileDevice && imageUrl.includes('cloudinary.com')
+                    ? imageUrl.replace(
+                        '/upload/',
+                        '/upload/q_auto:low,f_auto:video,w_800,h_450,c_fill/'
+                      )
+                    : imageUrl
+                }
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata" // Load metadata for faster playback
+                aria-label={imageAlt}
+                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ease-out z-0 ${
+                  isVideoLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+                onLoadedData={() => {
+                  // Video data loaded, can start playing
+                  if (videoRef.current) {
+                    setIsVideoLoaded(true);
+                    videoRef.current.play().catch(() => {
+                      // Silent fail if autoplay is blocked - poster image remains
+                    });
+                  }
+                }}
+                onCanPlay={() => {
+                  // Video can play, switch from poster to video
+                  if (videoRef.current) {
+                    setIsVideoLoaded(true);
+                    if (videoRef.current.paused) {
+                      videoRef.current.play().catch(() => {});
+                    }
+                  }
+                }}
+                onLoadedMetadata={() => {
+                  // Metadata loaded, video is ready
+                  if (videoRef.current && videoRef.current.readyState >= 2) {
+                    setIsVideoLoaded(true);
+                  }
+                }}
+                onError={() => {
+                  // Video failed to load, keep showing poster image
+                  setVideoError(true);
+                }}
+              />
+            )}
+
+            {/* Fallback: Show poster if video fails */}
+            {videoError && (
+              <div className="absolute inset-0 w-full h-full z-10">
                 <Image
                   src="https://res.cloudinary.com/dqmryiyhz/image/upload/w_1200,h_800,c_fill,q_auto,f_auto/v1768641853/video123_yp9n3b.jpg"
                   alt={imageAlt}
@@ -276,56 +317,6 @@ export function Hero({
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40" />
               </div>
             )}
-            {/* Video with smooth fade-in */}
-            {/* On mobile: Use optimized Cloudinary video with lower quality and resolution */}
-            <video
-              ref={videoRef}
-              src={
-                isMobileDevice && imageUrl.includes('cloudinary.com')
-                  ? imageUrl.replace(
-                      '/upload/',
-                      '/upload/q_auto:low,f_auto:video,w_800,h_450,c_fill/'
-                    )
-                  : imageUrl
-              }
-              autoPlay={!isMobileDevice || shouldLoadVideo} // Only autoplay on desktop or after mobile load
-              loop
-              muted
-              playsInline
-              preload={isMobileDevice ? "none" : "metadata"} // Mobile: no preload, Desktop: metadata
-              aria-label={imageAlt}
-              className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ease-out ${
-                isVideoLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-              onLoadedData={() => {
-                if (videoRef.current) {
-                  setIsVideoLoaded(true);
-                  const playPromise = videoRef.current.play();
-                  if (playPromise !== undefined) {
-                    playPromise.catch(() => {
-                      // Silent fail if autoplay is blocked
-                    });
-                  }
-                }
-              }}
-              onCanPlay={() => {
-                if (videoRef.current) {
-                  setIsVideoLoaded(true);
-                  if (videoRef.current.paused) {
-                    videoRef.current.play().catch(() => {});
-                  }
-                }
-              }}
-              onError={() => {
-                setVideoError(true);
-              }}
-              onLoadedMetadata={() => {
-                // Video metadata loaded, ready to play
-                if (videoRef.current && videoRef.current.readyState >= 2) {
-                  setIsVideoLoaded(true);
-                }
-              }}
-            />
           </>
         )}
 
