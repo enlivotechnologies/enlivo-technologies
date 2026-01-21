@@ -44,6 +44,7 @@ export function Hero({
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [pageLoaded, setPageLoaded] = useState(false);
   const [gsap, setGsap] = useState<any>(null);
   const [isHydrated, setIsHydrated] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
@@ -53,7 +54,28 @@ export function Hero({
     setIsHydrated(true);
     // Detect mobile device
     if (typeof window !== 'undefined') {
-      setIsMobileDevice(window.innerWidth < 768);
+      const isMobile = window.innerWidth < 768;
+      setIsMobileDevice(isMobile);
+      
+      // On mobile, wait for page to fully load before allowing video loading
+      if (isMobile) {
+        const handleLoad = () => {
+          // Wait additional time after load for better LCP
+          setTimeout(() => {
+            setPageLoaded(true);
+          }, 2000); // 2 second delay after page load on mobile
+        };
+        
+        if (document.readyState === 'complete') {
+          handleLoad();
+        } else {
+          window.addEventListener('load', handleLoad);
+          return () => window.removeEventListener('load', handleLoad);
+        }
+      } else {
+        // Desktop: Allow immediate loading
+        setPageLoaded(true);
+      }
     }
   }, []);
 
@@ -67,23 +89,37 @@ export function Hero({
     });
   }, [isHydrated]);
 
-  // Intersection Observer for video lazy loading - works on both mobile and desktop
+  // Intersection Observer for video lazy loading - optimized for mobile performance
   useEffect(() => {
     if (!isHydrated) return;
     if (!imageRef.current) return;
+    
+    // On mobile, wait for page to load before allowing video loading
+    if (isMobileDevice && !pageLoaded) return;
 
-    // Use intersection observer for lazy loading on both mobile and desktop
+    // Use intersection observer for lazy loading
+    // On mobile: Only load when scrolled into view AFTER page load
+    // On desktop: Load slightly before it comes into view
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !shouldLoadVideo) {
-            setShouldLoadVideo(true);
+            // On mobile, add additional delay even after intersection
+            if (isMobileDevice) {
+              setTimeout(() => {
+                setShouldLoadVideo(true);
+              }, 1000); // 1 second delay on mobile even after visible
+            } else {
+              setShouldLoadVideo(true);
+            }
           }
         });
       },
       { 
-        rootMargin: "100px", // Start loading slightly before it comes into view
-        threshold: 0.1 // Trigger when 10% is visible
+        // Mobile: Only start loading when actually visible (no preloading)
+        // Desktop: Start loading slightly before
+        rootMargin: isMobileDevice ? "0px" : "100px",
+        threshold: isMobileDevice ? 0.5 : 0.1 // Mobile needs 50% visible
       }
     );
 
@@ -94,7 +130,7 @@ export function Hero({
         observer.unobserve(imageRef.current);
       }
     };
-  }, [isHydrated, shouldLoadVideo]);
+  }, [isHydrated, shouldLoadVideo, isMobileDevice, pageLoaded]);
 
   // GSAP animations - only run when GSAP is loaded
   // On mobile, skip animations to improve LCP (show content immediately)
@@ -203,14 +239,15 @@ export function Hero({
         suppressHydrationWarning
       >
         {/* Video / Poster */}
-        {/* Loading States: Skeleton → Poster Image → Video */}
-        {!isHydrated || !shouldLoadVideo ? (
-          // Initial loading skeleton with gradient
-          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 animate-pulse" aria-hidden="true">
+        {/* Mobile: Poster image priority for better LCP. Desktop: Video with poster fallback */}
+        {!isHydrated ? (
+          // Initial loading skeleton with gradient (very brief)
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" aria-hidden="true">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 via-gray-800/50 to-gray-900/60" />
           </div>
-        ) : videoError ? (
-          // Fallback: Poster image if video fails to load
+        ) : videoError || (isMobileDevice && !shouldLoadVideo) ? (
+          // Mobile: Show poster image initially (never load video until user scrolls)
+          // Or fallback if video fails
           <div className="absolute inset-0 w-full h-full">
             <Image
               src="https://res.cloudinary.com/dqmryiyhz/image/upload/w_1200,h_800,c_fill,q_auto,f_auto/v1768641853/video123_yp9n3b.jpg"
@@ -219,6 +256,7 @@ export function Hero({
               className="object-cover object-center"
               sizes="100vw"
               quality={85}
+              priority={isMobileDevice} // Priority on mobile for better LCP
             />
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40" />
           </div>
@@ -239,14 +277,22 @@ export function Hero({
               </div>
             )}
             {/* Video with smooth fade-in */}
+            {/* On mobile: Use optimized Cloudinary video with lower quality and resolution */}
             <video
               ref={videoRef}
-              src={imageUrl}
-              autoPlay
+              src={
+                isMobileDevice && imageUrl.includes('cloudinary.com')
+                  ? imageUrl.replace(
+                      '/upload/',
+                      '/upload/q_auto:low,f_auto:video,w_800,h_450,c_fill/'
+                    )
+                  : imageUrl
+              }
+              autoPlay={!isMobileDevice || shouldLoadVideo} // Only autoplay on desktop or after mobile load
               loop
               muted
               playsInline
-              preload="metadata"
+              preload={isMobileDevice ? "none" : "metadata"} // Mobile: no preload, Desktop: metadata
               aria-label={imageAlt}
               className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ease-out ${
                 isVideoLoaded ? 'opacity-100' : 'opacity-0'
