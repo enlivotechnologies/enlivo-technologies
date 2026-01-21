@@ -122,10 +122,15 @@ export const metadata: Metadata = {
   },
 
   // Icons configuration
+  // Next.js automatically uses app/icon.png for favicons
+  // This is a fallback configuration
   icons: {
-    icon: "/images/navbar/EnlivotechnologiesLogo.png",
-    shortcut: "/images/navbar/EnlivotechnologiesLogo.png",
-    apple: "/images/navbar/EnlivotechnologiesLogo.png",
+    icon: [
+      { url: "/icon.png", sizes: "any" },
+      { url: "/images/navbar/EnlivotechnologiesLogo.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
 
   // Manifest for PWA (Next.js 13+ uses app/manifest.ts)

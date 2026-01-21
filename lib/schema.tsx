@@ -34,6 +34,11 @@ export interface OrganizationSchema extends BaseSchema {
   };
   description: string;
   foundingDate?: string;
+  numberOfEmployees?: {
+    '@type': 'QuantitativeValue';
+    minValue?: number;
+    maxValue?: number;
+  };
   founders?: Array<{ '@type': 'Person'; name: string }>;
   address?: {
     '@type': 'PostalAddress';
@@ -63,15 +68,22 @@ export function buildOrganizationSchema(
     url: SITE_CONFIG.url,
     // Use ImageObject format for better Google recognition
     // Google requires: minimum 112x112px, accessible URL, PNG/JPG/SVG format
+    // Using app/icon.png (512x512px) - Next.js automatically serves at /icon.png
+    // This is the standard Next.js favicon/logo location, ideal for Google search
     logo: {
       '@type': 'ImageObject',
-      url: `${SITE_CONFIG.url}/images/navbar/EnlivotechnologiesLogo.png`,
-      width: 112,  // Google minimum requirement (112x112px minimum)
-      height: 112, // Google minimum requirement
+      url: `${SITE_CONFIG.url}/icon.png`,
+      width: 512,  // app/icon.png dimensions (meets Google's 112x112 minimum requirement)
+      height: 512, // app/icon.png dimensions
     },
     description: SITE_CONFIG.description,
-    // TODO: Add when business details are finalized
-    // foundingDate: '2020',
+    foundingDate: '2025',
+    // Number of employees - using QuantitativeValue format as required by schema.org
+    numberOfEmployees: {
+      '@type': 'QuantitativeValue',
+      minValue: 10,
+      maxValue: 50,
+    },
     // address: { ... },
     // contactPoint: { ... },
     sameAs: [
@@ -218,9 +230,9 @@ export function buildArticleSchema(article: {
       name: SITE_CONFIG.name,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_CONFIG.url}/images/navbar/EnlivotechnologiesLogo.png`,
-        width: 500,
-        height: 500,
+        url: `${SITE_CONFIG.url}/icon.png`, // Using app/icon.png for consistency
+        width: 512,
+        height: 512,
       },
     },
     mainEntityOfPage: {
