@@ -251,11 +251,9 @@ export function Testimonials() {
             </Marquee>
           </div>
 
-          {/* Side Fades - Matching left and right fade effects */}
-          {/* Left side fade - smooth gradient matching right side */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black via-black/80 to-transparent z-10 sm:w-24" />
-          {/* Right side fade - matching effect */}
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black via-black/80 to-transparent z-10 sm:w-24" />
+          {/* Side Fades - Mobile: Smaller width, Desktop: Original */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-black via-black/80 to-transparent z-10 sm:w-24" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-black via-black/80 to-transparent z-10 sm:w-24" />
         </div>
 
       </div>
