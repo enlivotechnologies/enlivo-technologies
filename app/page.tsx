@@ -23,34 +23,75 @@ import { HOME_SEO, HOME_HEADINGS } from "@/seo/home";
 // Components - Lazy load below-fold components for better performance
 import { Hero } from "@/components/sections/Hero";
 import dynamic from "next/dynamic";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Skeleton loader components for premium loading experience
+const SectionSkeleton = () => (
+  <div className="min-h-[400px] w-full p-6 md:p-12">
+    <div className="max-w-7xl mx-auto space-y-6">
+      <div className="space-y-3">
+        <Skeleton className="h-10 w-3/4 max-w-md mx-auto" />
+        <Skeleton className="h-6 w-1/2 max-w-xs mx-auto" />
+      </div>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
+        {[...Array(3)].map((_, i) => (
+          <div key={i} className="space-y-3">
+            <Skeleton className="h-48 w-full rounded-lg" />
+            <Skeleton className="h-6 w-full" />
+            <Skeleton className="h-4 w-4/5" />
+            <Skeleton className="h-4 w-3/5" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const CTASkeleton = () => (
+  <div className="min-h-[200px] w-full p-6 md:p-12">
+    <div className="max-w-4xl mx-auto space-y-4 text-center">
+      <Skeleton className="h-12 w-3/4 max-w-2xl mx-auto" />
+      <Skeleton className="h-6 w-1/2 max-w-md mx-auto" />
+      <Skeleton className="h-12 w-40 mx-auto mt-6 rounded-full" />
+    </div>
+  </div>
+);
+
+// Helper to add delay for testing skeleton loaders (remove in production if too slow)
+const delayLoad = <T,>(importPromise: Promise<T>, ms: number = 500): Promise<T> => {
+  return Promise.all([
+    importPromise,
+    new Promise(resolve => setTimeout(resolve, ms))
+  ]).then(([module]) => module as T);
+};
 
 // Lazy load below-fold components to reduce initial bundle size
-const TrustStatement = dynamic(() => import("@/components/sections/TrustStatement").then((mod) => ({ default: mod.TrustStatement })), {
-  loading: () => <div className="min-h-[400px]" />, // Prevent layout shift
+const TrustStatement = dynamic(() => delayLoad(import("@/components/sections/TrustStatement").then((mod) => ({ default: mod.TrustStatement }))), {
+  loading: () => <SectionSkeleton />,
 });
 
-const FounderProblem = dynamic(() => import("@/components/sections/FounderProblem").then((mod) => ({ default: mod.FounderProblem })), {
-  loading: () => <div className="min-h-[400px]" />,
+const FounderProblem = dynamic(() => delayLoad(import("@/components/sections/FounderProblem").then((mod) => ({ default: mod.FounderProblem }))), {
+  loading: () => <SectionSkeleton />,
 });
 
-const ServicesOverview = dynamic(() => import("@/components/sections/ServicesOverview").then((mod) => ({ default: mod.ServicesOverview })), {
-  loading: () => <div className="min-h-[400px]" />,
+const ServicesOverview = dynamic(() => delayLoad(import("@/components/sections/ServicesOverview").then((mod) => ({ default: mod.ServicesOverview }))), {
+  loading: () => <SectionSkeleton />,
 });
 
-const OurProcess = dynamic(() => import("@/components/sections/OurProcess").then((mod) => ({ default: mod.OurProcess })), {
-  loading: () => <div className="min-h-[400px]" />,
+const OurProcess = dynamic(() => delayLoad(import("@/components/sections/OurProcess").then((mod) => ({ default: mod.OurProcess }))), {
+  loading: () => <SectionSkeleton />,
 });
 
-const Testimonials = dynamic(() => import("@/components/sections/Testimonials").then((mod) => ({ default: mod.Testimonials })), {
-  loading: () => <div className="min-h-[400px]" />,
+const Testimonials = dynamic(() => delayLoad(import("@/components/sections/Testimonials").then((mod) => ({ default: mod.Testimonials }))), {
+  loading: () => <SectionSkeleton />,
 });
 
-const OurVision = dynamic(() => import("@/components/sections/OurVision").then((mod) => ({ default: mod.OurVision })), {
-  loading: () => <div className="min-h-[400px]" />,
+const OurVision = dynamic(() => delayLoad(import("@/components/sections/OurVision").then((mod) => ({ default: mod.OurVision }))), {
+  loading: () => <SectionSkeleton />,
 });
 
-const CTA = dynamic(() => import("@/components/sections/CTA").then((mod) => ({ default: mod.CTA })), {
-  loading: () => <div className="min-h-[200px]" />,
+const CTA = dynamic(() => delayLoad(import("@/components/sections/CTA").then((mod) => ({ default: mod.CTA }))), {
+  loading: () => <CTASkeleton />,
 });
 
 /**
