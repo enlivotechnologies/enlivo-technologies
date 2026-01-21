@@ -24,7 +24,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Founder",
     company: "Web Product",
     image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+      "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768980610/person1_ecjljf.jpg",
     text: "I had already lost time and money with freelancers before. What was different here is communication — I always knew what was happening and why. That alone made this worth it.",
   },
   {
@@ -40,7 +40,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Non-Technical Founder",
     company: "Startup MVP",
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+      "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768980610/person2_vyucjf.jpg",
     text: "Before working with Enlivo, I was completely confused about what to build first. They didn't just start coding — they helped me understand the product step by step. For the first time, I felt like someone actually took responsibility instead of pushing decisions back on me.",
   },
   {
@@ -58,7 +58,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Business Owner",
     company: "",
     image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
+      "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768980610/person3_eybqsy.jpg",
     text: "What I liked most was clarity. Timelines were realistic, progress was visible, and there were no surprises. That's rare.",
   },
   {
@@ -68,7 +68,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Project Lead",
     company: "",
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+      "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768980780/person4_fshrir.jpg",
     text: "We needed reliable execution without constant follow-ups. Work was delivered cleanly and on time, which made our job easier.",
   },
   {
@@ -78,13 +78,13 @@ const TESTIMONIALS: Testimonial[] = [
     role: "Startup Founder",
     company: "",
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
+      "https://res.cloudinary.com/dqmryiyhz/image/upload/v1768984375/person7_bdxjsz.jpg",
     text: "I'm not technical, so I was worried about being misled. Instead, everything was explained clearly and decisions were discussed before execution. I never felt out of control.",
   },
   {
     id: 8,
     type: "video", // VIDEO 3
-    name: "Olivia",
+    name: "Aaradhya",
     image: "https://res.cloudinary.com/dqmryiyhz/video/upload/v1768464308/Untitled_design_2_hxk8qe.mp4",
   },
 ];
