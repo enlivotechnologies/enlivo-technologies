@@ -44,7 +44,8 @@ export function CareersFooter() {
           </div>
 
           {/* Middle: Navigation Links - Absolutely centered */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4">
+          {/* CHANGED: Added `hidden lg:flex` to hide on mobile and show on large screens */}
+          <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-4">
             <Link
               href="https://www.enlivotechnologies.com/company/about"
               className="text-base font-medium text-gray-400 hover:text-white transition-colors duration-300 font-sans whitespace-nowrap"
