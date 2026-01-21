@@ -165,6 +165,15 @@ export function Navbar() {
             : "opacity-0 invisible pointer-events-none"
         )}
       >
+        {/* Close Button - Top Right */}
+        <button
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 flex items-center justify-center"
+          aria-label="Close menu"
+        >
+          <X size={24} className="text-gray-900" />
+        </button>
+
         <div className="flex flex-col space-y-6 text-lg font-[family-name:var(--font-geist-light)] font-light text-gray-900">
           {mainNavItems.map((item) => (
             <Link
