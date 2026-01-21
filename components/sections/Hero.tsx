@@ -240,7 +240,7 @@ export function Hero({
               }`}
             >
               <Image
-                src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768641853/video123_yp9n3b.jpg"
+                src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768974180/hero_image_nznrxw.png"
                 alt={imageAlt}
                 fill
                 className="object-cover object-center"
@@ -307,7 +307,7 @@ export function Hero({
             {videoError && (
               <div className="absolute inset-0 w-full h-full z-10">
                 <Image
-                  src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768641853/video123_yp9n3b.jpg"
+                  src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768974180/hero_image_nznrxw.png"
                   alt={imageAlt}
                   fill
                   className="object-cover object-center"
