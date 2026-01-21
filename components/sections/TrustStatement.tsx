@@ -83,20 +83,20 @@ export function TrustStatement() {
       const avatarEase = isMobileDevice ? "power2.out" : "back.out(1.2)";
 
       ctx = gsap.context(() => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
             start: isMobileDevice ? "top 80%" : "top 75%",
-            toggleActions: "play none none none",
+          toggleActions: "play none none none",
             // Mobile: Less aggressive refresh for better performance
             refreshPriority: isMobileDevice ? -1 : 0,
-          },
-        });
+        },
+      });
 
-        // Animate heading text
+      // Animate heading text
         if (headingRef.current) {
-          tl.fromTo(
-            headingRef.current,
+      tl.fromTo(
+        headingRef.current,
             { opacity: 0, y: isMobileDevice ? 20 : 30 },
             {
               opacity: 1,
@@ -104,29 +104,29 @@ export function TrustStatement() {
               duration: animationDuration,
               ease: "power3.out",
             }
-          );
+      );
         }
 
         // Animate avatar group with optimized animation for mobile
         if (avatarsRef.current) {
-          tl.fromTo(
-            avatarsRef.current,
+      tl.fromTo(
+        avatarsRef.current,
             {
               scale: isMobileDevice ? 0.8 : 0,
               opacity: 0,
               width: isMobileDevice ? "auto" : 0,
             },
-            {
-              scale: 1,
-              opacity: 1,
-              width: "auto",
+        {
+          scale: 1,
+          opacity: 1,
+          width: "auto",
               duration: isMobileDevice ? 0.5 : 0.8,
               ease: avatarEase,
-            },
+        },
             isMobileDevice ? "-=0.5" : "-=0.8"
-          );
+      );
         }
-      }, sectionRef);
+    }, sectionRef);
     });
 
     return () => {

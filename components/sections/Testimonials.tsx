@@ -100,7 +100,10 @@ function ReviewCard({ data }: { data: Testimonial }) {
   return (
     <figure
       className={cn(
-        "relative w-[360px] h-[320px] cursor-pointer overflow-hidden rounded-xl p-6",
+        // Mobile: Smaller cards that fit better on mobile screens
+        "relative w-[280px] h-auto min-h-[240px] cursor-pointer overflow-hidden rounded-lg p-4",
+        // Desktop: Original sizes maintained
+        "sm:w-[360px] sm:h-[320px] sm:rounded-xl sm:p-6",
         "bg-gradient-to-br from-[#09090b] to-[#0a0a0a] border border-white/[0.08]",
         "hover:bg-gradient-to-br hover:from-[#111113] hover:to-[#0f0f0f] hover:border-white/[0.15] hover:shadow-xl hover:shadow-black/40 transition-all duration-300",
         "flex flex-col justify-between"
@@ -113,15 +116,15 @@ function ReviewCard({ data }: { data: Testimonial }) {
     >
       <div className="flex-1">
         {/* Body Text */}
-        <blockquote className="text-sm leading-relaxed text-white/75 font-normal mb-5">
+        <blockquote className="text-xs leading-relaxed text-white/75 font-normal mb-4 sm:text-sm sm:mb-5">
           "{data.text}"
         </blockquote>
       </div>
 
       {/* Footer: Avatar, Name, Role & Company */}
-      <div className="pt-4 border-t border-white/[0.08]">
-        <div className="flex items-center gap-3">
-          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
+      <div className="pt-3 border-t border-white/[0.08] sm:pt-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/10 flex-shrink-0 sm:w-10 sm:h-10">
             <Image
               src={data.image}
               alt={data.name}
@@ -131,10 +134,10 @@ function ReviewCard({ data }: { data: Testimonial }) {
             />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-sm font-semibold text-white leading-tight truncate">
+            <div className="text-xs font-semibold text-white leading-tight truncate sm:text-sm">
               {data.name}
             </div>
-            <div className="text-xs text-white/60 mt-1">
+            <div className="text-[10px] text-white/60 mt-0.5 sm:text-xs sm:mt-1">
               {data.role}{data.company && ` • ${data.company}`}
             </div>
           </div>
@@ -151,7 +154,10 @@ function PhotoCard({ data }: { data: Testimonial }) {
   return (
     <figure
       className={cn(
-        "relative w-[360px] h-[320px] overflow-hidden rounded-xl",
+        // Mobile: Smaller cards that fit better on mobile screens
+        "relative w-[280px] h-[240px] overflow-hidden rounded-lg",
+        // Desktop: Original sizes maintained
+        "sm:w-[360px] sm:h-[320px] sm:rounded-xl",
         "border border-white/[0.08] group bg-[#09090b]",
         "hover:border-white/[0.15] hover:shadow-xl hover:shadow-black/40 transition-all duration-300"
       )}
@@ -183,9 +189,9 @@ function PhotoCard({ data }: { data: Testimonial }) {
       )}
 
       {/* Name Overlay at Bottom - Matching Text Card Style */}
-      <div className="absolute bottom-5 left-5 right-5 z-10">
-        <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-lg py-2 px-4 inline-block shadow-lg">
-          <span className="text-sm font-semibold text-white">
+      <div className="absolute bottom-3 left-3 right-3 z-10 sm:bottom-5 sm:left-5 sm:right-5">
+        <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-lg py-1.5 px-3 inline-block shadow-lg sm:py-2 sm:px-4">
+          <span className="text-xs font-semibold text-white sm:text-sm">
             {data.name}
           </span>
         </div>
@@ -196,27 +202,27 @@ function PhotoCard({ data }: { data: Testimonial }) {
 
 export function Testimonials() {
   return (
-    <section className="py-12 md:py-16 bg-black overflow-hidden relative">
+    <section className="py-8 bg-black overflow-hidden relative sm:py-12 md:py-16">
       <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-[family-name:var(--font-neue-montreal)] text-white mb-6 tracking-tight leading-[1.1]">
+        <div className="mb-8 text-center sm:mb-12">
+          <h2 className="text-3xl font-[family-name:var(--font-neue-montreal)] text-white mb-4 tracking-tight leading-[1.1] sm:text-4xl sm:mb-6 md:text-5xl lg:text-6xl">
             Trusted by founders who ship
           </h2>
-          <p className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base text-white/50 max-w-2xl mx-auto leading-relaxed font-light sm:text-lg md:text-xl">
             Real stories from entrepreneurs who built their products with Enlivo — from idea to launch, without the hiring headaches.
           </p>
         </div>
 
         {/* Marquee Container */}
-        <div className="relative flex flex-col gap-3">
+        <div className="relative flex flex-col gap-2 sm:gap-3">
           
           {/* Row 1: Moves LEFT (Normal direction) */}
           <div className="relative">
             <Marquee 
               pauseOnHover 
-              className="[--duration:45s] [--gap:0.75rem] p-0"
+              className="[--duration:45s] [--gap:0.5rem] p-0 sm:[--gap:0.75rem]"
             >
               {firstRow.map((item) =>
                 (item.type === "image" || item.type === "video") ? (
@@ -233,7 +239,7 @@ export function Testimonials() {
             <Marquee 
               reverse
               pauseOnHover 
-              className="[--duration:50s] [--gap:0.75rem] p-0"
+              className="[--duration:50s] [--gap:0.5rem] p-0 sm:[--gap:0.75rem]"
             >
               {secondRow.map((item) =>
                 (item.type === "image" || item.type === "video") ? (
@@ -245,9 +251,11 @@ export function Testimonials() {
             </Marquee>
           </div>
 
-          {/* Side Fades */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black via-black/80 to-transparent z-10" />
+          {/* Side Fades - Matching left and right fade effects */}
+          {/* Left side fade - smooth gradient matching right side */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black via-black/80 to-transparent z-10 sm:w-24" />
+          {/* Right side fade - matching effect */}
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black via-black/80 to-transparent z-10 sm:w-24" />
         </div>
 
       </div>
