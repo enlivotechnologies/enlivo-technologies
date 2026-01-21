@@ -36,7 +36,10 @@ export function Hero({
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
-  const button1Ref = useRef<HTMLAnchorElement>(null);
+  
+  // FIXED: Changed from HTMLAnchorElement to HTMLDivElement because the ref is now on the wrapper div
+  const button1Ref = useRef<HTMLDivElement>(null);
+  
   const imageRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   
@@ -49,14 +52,12 @@ export function Hero({
   // 1. Efficient Mobile Detection & Initial Setup
   useEffect(() => {
     const checkMobile = () => {
-      // Simple width check is faster and sufficient for layout decisions
       return window.innerWidth < 768;
     };
     
     setIsMobileDevice(checkMobile());
     
     // Trigger video load shortly after mount.
-    // We use a small timeout to allow the critical 'Poster Image' to paint first (LCP).
     const timer = setTimeout(() => {
       setShouldLoadVideo(true);
     }, 100); 
@@ -64,9 +65,9 @@ export function Hero({
     return () => clearTimeout(timer);
   }, []);
 
-  // 2. Load GSAP only for Desktop (Performance Win)
+  // 2. Load GSAP only for Desktop
   useEffect(() => {
-    if (isMobileDevice) return; // Skip GSAP entirely on mobile
+    if (isMobileDevice) return; 
     
     loadGSAP().then((gsapModule) => {
       setGsap(gsapModule);
@@ -80,7 +81,6 @@ export function Hero({
     
     let ctx: any = null;
     
-    // Wait for refs to be ready
     const timer = setTimeout(() => {
       if (!sectionRef.current) return;
       
@@ -112,10 +112,7 @@ export function Hero({
 
   // 4. Optimized Video Source Logic
   const getVideoSrc = () => {
-    // If on mobile and using Cloudinary, request a smaller, highly optimized version
     if (isMobileDevice && imageUrl.includes('cloudinary.com')) {
-        // q_auto:eco -> stricter quality compression
-        // w_640 -> resize to mobile width (huge bandwidth saver)
       return imageUrl.replace('/upload/', '/upload/q_auto:eco,f_auto:video,w_640,c_limit/');
     }
     return imageUrl;
@@ -129,23 +126,20 @@ export function Hero({
     >
       <figure
         ref={imageRef}
-        // Initial opacity-0 only on desktop (GSAP handles fade). On mobile, opacity-100 immediately.
         className={`relative w-full max-w-[95rem] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl bg-black aspect-[9/16] md:aspect-[16/9] min-h-[520px] md:min-h-[500px] md:max-h-[600px] ${
             isMobileDevice ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        {/* --- 1. POSTER IMAGE (LCP Critical) --- */}
-        {/* Always render this first. It gives the immediate visual. */}
+        {/* --- 1. POSTER IMAGE --- */}
         <div className={`absolute inset-0 w-full h-full z-10 transition-opacity duration-700 ${isVideoLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
             <Image
-              src={imageUrl.replace('.mp4', '.jpg').replace('/upload/', '/upload/w_1200,q_auto,f_auto/')} // Try to derive jpg from mp4 url
+              src={imageUrl.replace('.mp4', '.jpg').replace('/upload/', '/upload/w_1200,q_auto,f_auto/')}
               alt={imageAlt}
               fill
               className="object-cover object-center"
-              priority={true} // High priority for LCP
+              priority={true}
               sizes="(max-width: 768px) 100vw, 90vw"
             />
-            {/* Dark gradient overlay built into the poster container */}
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40" />
         </div>
 
@@ -154,7 +148,7 @@ export function Hero({
             <video
               ref={videoRef}
               className="absolute inset-0 w-full h-full object-cover object-center"
-              playsInline // CRITICAL for iOS autoplay
+              playsInline
               autoPlay
               muted
               loop
