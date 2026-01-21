@@ -48,7 +48,7 @@ const SERVICES_DATA: Service[] = [
   {
     title: "UI Implementation",
     description:
-      "Transform your design vision into pixel-perfect, production-ready code. We specialize in converting Figma and Sketch designs into responsive, accessible, and performant user interfaces that maintain 100% design fidelity. Our component-based approach ensures consistency, scalability, and faster time-to-market for your product.",
+      "We convert Figma and Sketch designs into responsive, accessible, and high performance user interfaces accurately matching the original design. Our component driven approach ensures visual consistency, scalability, and faster time to market.",
     href: "/services/ui-implementation",
   },
   {

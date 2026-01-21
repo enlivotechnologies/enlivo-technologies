@@ -42,6 +42,8 @@ export function Hero({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const [gsap, setGsap] = useState<any>(null);
   const [isHydrated, setIsHydrated] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
@@ -65,20 +67,12 @@ export function Hero({
     });
   }, [isHydrated]);
 
-  // Intersection Observer for video lazy loading - only after hydration
-  // On mobile, use poster image instead of video to reduce payload
+  // Intersection Observer for video lazy loading - works on both mobile and desktop
   useEffect(() => {
     if (!isHydrated) return;
-
-    // On mobile, don't load video (use poster image only) to reduce payload
-    // This reduces network payload from 24MB to ~500KB
-    if (isMobileDevice) {
-      return;
-    }
-
-    // On desktop, use intersection observer for lazy loading
     if (!imageRef.current) return;
 
+    // Use intersection observer for lazy loading on both mobile and desktop
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -87,7 +81,10 @@ export function Hero({
           }
         });
       },
-      { rootMargin: "50px" }
+      { 
+        rootMargin: "100px", // Start loading slightly before it comes into view
+        threshold: 0.1 // Trigger when 10% is visible
+      }
     );
 
     observer.observe(imageRef.current);
@@ -97,7 +94,7 @@ export function Hero({
         observer.unobserve(imageRef.current);
       }
     };
-  }, [isHydrated, shouldLoadVideo, isMobileDevice]);
+  }, [isHydrated, shouldLoadVideo]);
 
   // GSAP animations - only run when GSAP is loaded
   // On mobile, skip animations to improve LCP (show content immediately)
@@ -206,55 +203,84 @@ export function Hero({
         suppressHydrationWarning
       >
         {/* Video / Poster */}
-        {/* On mobile: Use static poster image to reduce payload. On desktop: Load video */}
-        {isMobileDevice && isHydrated ? (
-          // Mobile: Always show poster image (no video to reduce payload from 24MB to ~500KB)
+        {/* Loading States: Skeleton → Poster Image → Video */}
+        {!isHydrated || !shouldLoadVideo ? (
+          // Initial loading skeleton with gradient
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 animate-pulse" aria-hidden="true">
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 via-gray-800/50 to-gray-900/60" />
+          </div>
+        ) : videoError ? (
+          // Fallback: Poster image if video fails to load
           <div className="absolute inset-0 w-full h-full">
             <Image
               src="https://res.cloudinary.com/dqmryiyhz/image/upload/w_1200,h_800,c_fill,q_auto,f_auto/v1768641853/video123_yp9n3b.jpg"
               alt={imageAlt}
               fill
               className="object-cover object-center"
-              priority
               sizes="100vw"
               quality={85}
             />
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40" />
           </div>
-        ) : shouldLoadVideo && isHydrated ? (
-          // Desktop: Load video when ready
-          <video
-            ref={videoRef}
-            src={imageUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            aria-label={imageAlt}
-            className="absolute inset-0 w-full h-full object-cover object-center opacity-80"
-            onLoadedData={() => {
-              if (videoRef.current) {
-                const playPromise = videoRef.current.play();
-                if (playPromise !== undefined) {
-                  playPromise.catch(() => {
-                    // Silent fail if autoplay is blocked
-                  });
-                }
-              }
-            }}
-            onCanPlay={() => {
-              if (videoRef.current && videoRef.current.paused) {
-                videoRef.current.play().catch(() => {});
-              }
-            }}
-          />
         ) : (
-          // Placeholder while loading
-          <div
-            className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 to-gray-800"
-            aria-hidden="true"
-          />
+          <>
+            {/* Poster image shown while video loads */}
+            {!isVideoLoaded && (
+              <div className="absolute inset-0 w-full h-full z-10 transition-opacity duration-500">
+                <Image
+                  src="https://res.cloudinary.com/dqmryiyhz/image/upload/w_1200,h_800,c_fill,q_auto,f_auto/v1768641853/video123_yp9n3b.jpg"
+                  alt={imageAlt}
+                  fill
+                  className="object-cover object-center"
+                  sizes="100vw"
+                  quality={85}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40" />
+              </div>
+            )}
+            {/* Video with smooth fade-in */}
+            <video
+              ref={videoRef}
+              src={imageUrl}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              aria-label={imageAlt}
+              className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ease-out ${
+                isVideoLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              onLoadedData={() => {
+                if (videoRef.current) {
+                  setIsVideoLoaded(true);
+                  const playPromise = videoRef.current.play();
+                  if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                      // Silent fail if autoplay is blocked
+                    });
+                  }
+                }
+              }}
+              onCanPlay={() => {
+                if (videoRef.current) {
+                  setIsVideoLoaded(true);
+                  if (videoRef.current.paused) {
+                    videoRef.current.play().catch(() => {});
+                  }
+                }
+              }}
+              onError={() => {
+                setVideoError(true);
+              }}
+              onLoadedMetadata={() => {
+                // Video metadata loaded, ready to play
+                if (videoRef.current && videoRef.current.readyState >= 2) {
+                  setIsVideoLoaded(true);
+                }
+              }}
+            />
+          </>
         )}
 
         {/* Light Black Overlay for Text Readability */}
