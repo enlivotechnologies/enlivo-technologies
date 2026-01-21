@@ -3,6 +3,7 @@
  *
  * PURPOSE: Hero section with centered content and premium animations.
  * STYLE: Replicating "Windaro/Vectura" UI (Centered text, pill buttons, dark aesthetic).
+ * MOBILE CHANGE: Video is now full-width on mobile with no padding or rounded corners.
  */
 
 "use client";
@@ -121,12 +122,16 @@ export function Hero({
   return (
     <section
       ref={sectionRef}
-      className="relative flex items-center justify-center overflow-hidden pt-18 pb-4 px-4 sm:px-6 lg:px-8 bg-[#FFFFFF]"
+      // CHANGED: Removed padding on mobile (px-0, pt-0, pb-0) to make it full width.
+      // Desktop padding (sm:px-6, etc.) remains.
+      className="relative flex items-center justify-center overflow-hidden pt-0 sm:pt-18 pb-0 sm:pb-4 px-0 sm:px-6 lg:px-8 bg-[#FFFFFF]"
       aria-labelledby="hero-heading"
     >
       <figure
         ref={imageRef}
-        className={`relative w-full max-w-[95rem] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl bg-black aspect-[9/16] md:aspect-[16/9] min-h-[520px] md:min-h-[500px] md:max-h-[600px] ${
+        // CHANGED: Changed rounded-2xl to rounded-none for mobile.
+        // sm:rounded-3xl ensures desktop still has rounded corners.
+        className={`relative w-full max-w-[95rem] rounded-none sm:rounded-3xl overflow-hidden shadow-2xl bg-black aspect-[9/16] md:aspect-[16/9] min-h-[520px] md:min-h-[500px] md:max-h-[600px] ${
             isMobileDevice ? 'opacity-100' : 'opacity-0'
         }`}
       >
