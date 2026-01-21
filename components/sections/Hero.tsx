@@ -1,8 +1,8 @@
 /**
  * components/sections/Hero.tsx
- * * FIXES:
- * 1. Mobile Autoplay: Added programmatic .play() trigger to bypass iOS/Android restrictions.
- * 2. Layout: Full width (no padding) on mobile, Standard on desktop.
+ *
+ * PURPOSE: Hero section with centered content and premium animations.
+ * STYLE: Replicating "Windaro/Vectura" UI (Centered text, pill buttons, dark aesthetic).
  */
 
 "use client";
@@ -10,8 +10,9 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-// Lazy load GSAP
+// Lazy load GSAP to reduce initial bundle size
 let gsapPromise: Promise<any> | null = null;
+
 function loadGSAP() {
   if (!gsapPromise) {
     gsapPromise = import("gsap").then((mod) => mod.gsap);
@@ -35,174 +36,332 @@ export function Hero({
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
-  const button1Ref = useRef<HTMLDivElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const button1Ref = useRef<HTMLAnchorElement>(null);
   const imageRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  
   const [isMounted, setIsMounted] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+  const [pageLoaded, setPageLoaded] = useState(false);
   const [gsap, setGsap] = useState<any>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
-  // 1. Mobile Detection & Video Load Trigger
+  // Mark as hydrated after first render to prevent hydration mismatches
   useEffect(() => {
-    const checkMobile = () => window.innerWidth < 768;
-    setIsMobileDevice(checkMobile());
-    
-    // Load video immediately for autoplay
-    const timer = setTimeout(() => {
-      setShouldLoadVideo(true);
-    }, 100); 
-
-    return () => clearTimeout(timer);
+    setIsHydrated(true);
+    // Detect mobile device
+    if (typeof window !== 'undefined') {
+      const isMobile = window.innerWidth < 768;
+      setIsMobileDevice(isMobile);
+      
+      // On mobile, wait for page to fully load before allowing video loading
+      if (isMobile) {
+        const handleLoad = () => {
+          // Wait additional time after load for better LCP
+          setTimeout(() => {
+            setPageLoaded(true);
+          }, 2000); // 2 second delay after page load on mobile
+        };
+        
+        if (document.readyState === 'complete') {
+          handleLoad();
+        } else {
+          window.addEventListener('load', handleLoad);
+          return () => window.removeEventListener('load', handleLoad);
+        }
+      } else {
+        // Desktop: Allow immediate loading
+        setPageLoaded(true);
+      }
+    }
   }, []);
 
-  // 2. FORCE AUTOPLAY LOGIC (The Fix)
-  // This watches for when the video element appears and forces it to play.
+  // Load GSAP only when needed (after component mounts)
   useEffect(() => {
-    if (shouldLoadVideo && videoRef.current) {
-      const video = videoRef.current;
-      
-      // Ensure these are set
-      video.muted = true;
-      video.playsInline = true;
-
-      const attemptPlay = async () => {
-        try {
-          await video.play();
-          setIsVideoLoaded(true);
-        } catch (error) {
-          console.log("Autoplay prevented:", error);
-          // If failed (Low Power Mode), we just keep the poster image
-        }
-      };
-
-      // Try immediately
-      if (video.readyState >= 2) {
-        attemptPlay();
-      } else {
-        // Or wait for data
-        video.addEventListener("loadeddata", attemptPlay);
-        video.addEventListener("canplay", attemptPlay);
-      }
-
-      return () => {
-        video.removeEventListener("loadeddata", attemptPlay);
-        video.removeEventListener("canplay", attemptPlay);
-      };
-    }
-  }, [shouldLoadVideo]);
-
-  // 3. GSAP (Desktop Only)
-  useEffect(() => {
-    if (isMobileDevice) return; 
+    if (!isHydrated) return;
+    
     loadGSAP().then((gsapModule) => {
       setGsap(gsapModule);
       setIsMounted(true);
     });
-  }, [isMobileDevice]);
+  }, [isHydrated]);
 
-  // 4. GSAP Animations
+  // Intersection Observer for video lazy loading - optimized for mobile performance
   useEffect(() => {
-    if (!isMounted || !gsap || isMobileDevice) return;
+    if (!isHydrated) return;
+    if (!imageRef.current) return;
     
+    // On mobile, wait for page to load before allowing video loading
+    if (isMobileDevice && !pageLoaded) return;
+
+    // Use intersection observer for lazy loading
+    // On mobile: Only load when scrolled into view AFTER page load
+    // On desktop: Load slightly before it comes into view
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !shouldLoadVideo) {
+            // On mobile, add additional delay even after intersection
+            if (isMobileDevice) {
+              setTimeout(() => {
+                setShouldLoadVideo(true);
+              }, 1000); // 1 second delay on mobile even after visible
+            } else {
+              setShouldLoadVideo(true);
+            }
+          }
+        });
+      },
+      { 
+        // Mobile: Only start loading when actually visible (no preloading)
+        // Desktop: Start loading slightly before
+        rootMargin: isMobileDevice ? "0px" : "100px",
+        threshold: isMobileDevice ? 0.5 : 0.1 // Mobile needs 50% visible
+      }
+    );
+
+    observer.observe(imageRef.current);
+
+    return () => {
+      if (imageRef.current) {
+        observer.unobserve(imageRef.current);
+      }
+    };
+  }, [isHydrated, shouldLoadVideo, isMobileDevice, pageLoaded]);
+
+  // GSAP animations - only run when GSAP is loaded
+  // On mobile, skip animations to improve LCP (show content immediately)
+  useEffect(() => {
+    if (!isMounted || !gsap) return;
+    
+    // On mobile, show content immediately without animation to improve LCP
+    if (isMobileDevice) {
+      if (imageRef.current) {
+        imageRef.current.style.opacity = "1";
+      }
+      if (headingRef.current) {
+        headingRef.current.style.opacity = "1";
+        headingRef.current.style.transform = "none";
+        headingRef.current.style.filter = "none";
+      }
+      if (descriptionRef.current) {
+        descriptionRef.current.style.opacity = "1";
+        descriptionRef.current.style.transform = "none";
+        descriptionRef.current.style.filter = "none";
+      }
+      if (button1Ref.current) {
+        button1Ref.current.style.opacity = "1";
+        button1Ref.current.style.transform = "none";
+      }
+      return;
+    }
+    
+    // Desktop: Use GSAP animations
     let ctx: any = null;
-    const timer = setTimeout(() => {
+    let timer: NodeJS.Timeout | null = null;
+    
+    timer = setTimeout(() => {
       if (!sectionRef.current) return;
+      
       ctx = gsap.context(() => {
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-        if (imageRef.current) tl.fromTo(imageRef.current, { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" });
-        if (headingRef.current) tl.fromTo(headingRef.current, { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 }, "-=0.6");
-        if (descriptionRef.current) tl.fromTo(descriptionRef.current, { opacity: 0, y: 20, filter: "blur(4px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7 }, "-=0.4");
-        if (button1Ref.current) tl.fromTo(button1Ref.current, { opacity: 0, y: 20, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.6 }, "-=0.2");
+        const tl = gsap.timeline({
+          defaults: { ease: "power3.out" },
+        });
+
+        // 1. Image fade in
+        if (imageRef.current) {
+          tl.fromTo(
+            imageRef.current,
+            { opacity: 0, scale: 1.05 },
+            { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }
+          );
+        }
+
+        // 2. Heading fade up
+        if (headingRef.current) {
+          tl.fromTo(
+            headingRef.current,
+            { opacity: 0, y: 30, filter: "blur(8px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
+            "-=0.6"
+          );
+        }
+
+        // 3. Description fade up
+        if (descriptionRef.current) {
+          tl.fromTo(
+            descriptionRef.current,
+            { opacity: 0, y: 20, filter: "blur(4px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7 },
+            "-=0.4"
+          );
+        }
+
+        // 4. Button pop in
+        if (button1Ref.current) {
+          tl.fromTo(
+            button1Ref.current,
+            { opacity: 0, y: 20, scale: 0.95 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.6 },
+            "-=0.2"
+          );
+        }
       }, sectionRef);
     }, 50);
+
     return () => {
-      clearTimeout(timer);
-      if (ctx) ctx.revert();
+      if (timer) clearTimeout(timer);
+      if (ctx) {
+        try {
+          ctx.revert();
+        } catch (error) {
+          // Silently handle cleanup errors
+        }
+      }
     };
   }, [isMounted, gsap, isMobileDevice]);
-
-  const getVideoSrc = () => {
-    if (isMobileDevice && imageUrl.includes('cloudinary.com')) {
-      return imageUrl.replace('/upload/', '/upload/q_auto:eco,f_auto:video,w_640,c_limit/');
-    }
-    return imageUrl;
-  };
 
   return (
     <section
       ref={sectionRef}
-      // MOBILE: padding 0 (Full width)
-      // DESKTOP: padding normal
-      className="relative flex items-center justify-center overflow-hidden pt-0 sm:pt-18 pb-0 sm:pb-4 px-0 sm:px-6 lg:px-8 bg-[#FFFFFF]"
+      className="relative flex items-center justify-center overflow-hidden pt-18  pb-4 px-4 sm:px-6 lg:px-8 bg-[#FFFFFF]"
+     
       aria-labelledby="hero-heading"
+      suppressHydrationWarning
     >
+      {/* Background Container (Video + Content) */}
       <figure
         ref={imageRef}
-        // MOBILE: rounded-none
-        // DESKTOP: rounded-3xl
-        className={`relative w-full max-w-[95rem] rounded-none sm:rounded-3xl overflow-hidden shadow-2xl bg-black aspect-[9/16] md:aspect-[16/9] min-h-[100vh] sm:min-h-[520px] md:min-h-[500px] md:max-h-[600px] ${
-            isMobileDevice ? 'opacity-100' : 'opacity-0'
-        }`}
+        className="relative w-full max-w-[95rem] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl opacity-0 bg-black aspect-[9/16] md:aspect-[16/9] min-h-[520px] md:min-h-[500px] md:max-h-[600px]"
+        suppressHydrationWarning
       >
-        {/* Poster Image (LCP) */}
-        <div className={`absolute inset-0 w-full h-full z-10 transition-opacity duration-700 ${isVideoLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        {/* Video / Poster */}
+        {/* Mobile: Poster image priority for better LCP. Desktop: Video with poster fallback */}
+        {!isHydrated ? (
+          // Initial loading skeleton with gradient (very brief)
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" aria-hidden="true">
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 via-gray-800/50 to-gray-900/60" />
+          </div>
+        ) : videoError || (isMobileDevice && !shouldLoadVideo) ? (
+          // Mobile: Show poster image initially (never load video until user scrolls)
+          // Or fallback if video fails
+          <div className="absolute inset-0 w-full h-full">
             <Image
-              src={imageUrl.replace('.mp4', '.jpg').replace('/upload/', '/upload/w_1200,q_auto,f_auto/')}
+              src="https://res.cloudinary.com/dqmryiyhz/image/upload/w_1200,h_800,c_fill,q_auto,f_auto/v1768641853/video123_yp9n3b.jpg"
               alt={imageAlt}
               fill
               className="object-cover object-center"
-              priority={true}
-              sizes="(max-width: 768px) 100vw, 90vw"
+              sizes="100vw"
+              quality={85}
+              priority={isMobileDevice} // Priority on mobile for better LCP
             />
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40" />
-        </div>
-
-        {/* Video Element */}
-        {shouldLoadVideo && (
+          </div>
+        ) : (
+          <>
+            {/* Poster image shown while video loads */}
+            {!isVideoLoaded && (
+              <div className="absolute inset-0 w-full h-full z-10 transition-opacity duration-500">
+                <Image
+                  src="https://res.cloudinary.com/dqmryiyhz/image/upload/w_1200,h_800,c_fill,q_auto,f_auto/v1768641853/video123_yp9n3b.jpg"
+                  alt={imageAlt}
+                  fill
+                  className="object-cover object-center"
+                  sizes="100vw"
+                  quality={85}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40" />
+              </div>
+            )}
+            {/* Video with smooth fade-in */}
+            {/* On mobile: Use optimized Cloudinary video with lower quality and resolution */}
             <video
               ref={videoRef}
-              className="absolute inset-0 w-full h-full object-cover object-center"
-              // ESSENTIAL ATTRIBUTES FOR MOBILE AUTOPLAY:
-              playsInline={true}
-              webkit-playsinline="true" // Old iOS support
-              x5-playsinline="true"     // Android WeChat support
-              autoPlay={true}
-              muted={true}
-              loop={true}
-              preload="metadata"
-            >
-              <source src={getVideoSrc()} type="video/mp4" />
-            </video>
+              src={
+                isMobileDevice && imageUrl.includes('cloudinary.com')
+                  ? imageUrl.replace(
+                      '/upload/',
+                      '/upload/q_auto:low,f_auto:video,w_800,h_450,c_fill/'
+                    )
+                  : imageUrl
+              }
+              autoPlay={!isMobileDevice || shouldLoadVideo} // Only autoplay on desktop or after mobile load
+              loop
+              muted
+              playsInline
+              preload={isMobileDevice ? "none" : "metadata"} // Mobile: no preload, Desktop: metadata
+              aria-label={imageAlt}
+              className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ease-out ${
+                isVideoLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              onLoadedData={() => {
+                if (videoRef.current) {
+                  setIsVideoLoaded(true);
+                  const playPromise = videoRef.current.play();
+                  if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                      // Silent fail if autoplay is blocked
+                    });
+                  }
+                }
+              }}
+              onCanPlay={() => {
+                if (videoRef.current) {
+                  setIsVideoLoaded(true);
+                  if (videoRef.current.paused) {
+                    videoRef.current.play().catch(() => {});
+                  }
+                }
+              }}
+              onError={() => {
+                setVideoError(true);
+              }}
+              onLoadedMetadata={() => {
+                // Video metadata loaded, ready to play
+                if (videoRef.current && videoRef.current.readyState >= 2) {
+                  setIsVideoLoaded(true);
+                }
+              }}
+            />
+          </>
         )}
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/30 z-20 pointer-events-none" />
+        {/* Light Black Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-black/30" />
 
-        {/* Content */}
-        {/* pt-24 on mobile ensures text clears the logo/menu area */}
-        <div className="relative z-30 flex h-full w-full items-center justify-center pointer-events-auto pt-24 sm:pt-0">
+        {/* Content Overlay */}
+        <div className="relative z-10 flex h-full w-full items-center justify-center">
           <div className="max-w-3xl mx-auto text-center px-4 sm:px-8">
+            {/* H1 Heading */}
+            {/* On mobile: Show immediately (no opacity-0) to improve LCP */}
             <h1
               ref={headingRef}
-              className={`text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-white tracking-tight leading-[1.15] sm:leading-[1.1] mb-4 sm:mb-6 ${isMobileDevice ? 'opacity-100' : 'opacity-0'}`}
+              id="hero-heading"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-white tracking-tight leading-[1.15] sm:leading-[1.1] mb-4 sm:mb-6 opacity-100 md:opacity-0"
             >
               {heading}
             </h1>
 
+            {/* Description Text */}
             <p
               ref={descriptionRef}
-              className={`text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed max-w-xl mx-auto mb-8 sm:mb-8 font-light ${isMobileDevice ? 'opacity-100' : 'opacity-0'}`}
+              className="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed max-w-xl mx-auto mb-6 sm:mb-8 opacity-100 md:opacity-0 font-light"
             >
               {description}
             </p>
 
-            <div className={`flex items-center justify-center ${isMobileDevice ? 'opacity-100' : 'opacity-0'}`} ref={button1Ref}>
+            {/* Button: See How It Works */}
+            <div
+              ref={buttonsRef}
+              className="flex items-center justify-center"
+            >
               <a
+                ref={button1Ref}
                 href="#footer"
-                className="bg-white text-black text-[15px] font-medium px-8 py-3.5 rounded-full hover:bg-gray-100 transition-all duration-200 w-full sm:w-auto min-w-[200px] text-center"
+                className="bg-white text-black text-sm sm:text-[15px] font-medium px-6 sm:px-8 py-3 sm:py-3.5 rounded-full hover:bg-gray-100 transition-all duration-200 w-full sm:w-auto sm:min-w-[180px] text-center opacity-100 md:opacity-0"
               >
                 See How It Works
               </a>
