@@ -33,7 +33,7 @@ export default function AboutPage() {
   const headings = COMPANY_HEADINGS.about;
 
   return (
-    <main className="bg-[#F9FAF8] min-h-screen">
+    <main className="bg-[#FFFFFF] min-h-screen">
       {/* Structured Data */}
       <JsonLd data={ORGANIZATION_SCHEMA} />
       <JsonLd
