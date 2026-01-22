@@ -20,12 +20,15 @@ export const ORGANIZATION_SCHEMA = buildOrganizationSchema({
     "Enlivo architects the secure digital backbone for modern global business. Precision engineering for mission critical platforms, cloud infrastructure, and AI.",
 
   // Contact information
+  // Note: Phone number removed for privacy - using email only
+  // Phone number available via contact page and WhatsApp link in footer
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+91-89713-63921", // WhatsApp number
     contactType: "customer service",
     email: "Info.enlivo@gmail.com",
     availableLanguage: ["English"],
+    // Optional: Add contact form URL instead
+    // url: "https://www.enlivotechnologies.com/contact",
   },
 
   // Social media profiles - helps Google build Knowledge Panel

@@ -128,12 +128,14 @@ export default function HomePage() {
           // Founding date
           foundingDate: '2025',
           // Contact information for Knowledge Panel
+          // Note: Phone number removed for privacy - using email only
           contactPoint: {
             '@type': 'ContactPoint',
-            telephone: '+91-89713-63921',
             contactType: 'customer service',
             email: 'Info.enlivo@gmail.com',
             availableLanguage: ['English'],
+            // Optional: Add contact form URL instead
+            // url: 'https://www.enlivotechnologies.com/contact',
           },
         })} 
       />
