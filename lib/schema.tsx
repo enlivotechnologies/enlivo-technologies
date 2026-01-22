@@ -50,7 +50,7 @@ export interface OrganizationSchema extends BaseSchema {
   };
   contactPoint?: {
     '@type': 'ContactPoint';
-    telephone: string;
+    telephone?: string;
     contactType: string;
     email?: string;
     availableLanguage?: string[];
