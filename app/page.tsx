@@ -116,14 +116,14 @@ export default function HomePage() {
       {/* Structured Data - Organization Schema with Logo for Google Knowledge Panel */}
       <JsonLd 
         data={buildOrganizationSchema({
-          // Logo for Google Knowledge Panel - using app/icon.png
-          // Next.js automatically serves app/icon.png at /icon.png
-          // Google requires: minimum 112x112px (our icon is 512x512px - exceeds requirement)
+          // Logo for Google Knowledge Panel - using EnlivoLogo.png (1024x1024px)
+          // Larger size ensures better display quality in Google search results and Knowledge Panel
+          // Google requires: minimum 112x112px (our logo is 1024x1024px - exceeds requirement)
           logo: {
             '@type': 'ImageObject',
-            url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.enlivotechnologies.com'}/icon.png`,
-            width: 512,
-            height: 512,
+            url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.enlivotechnologies.com'}/images/navbar/EnlivoLogo.png`,
+            width: 1024,
+            height: 1024,
           },
           // Founding date
           foundingDate: '2025',

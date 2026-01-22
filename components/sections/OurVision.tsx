@@ -141,7 +141,7 @@ export function OurVision() {
       <meta itemProp="url" content="https://www.enlivotechnologies.com" />
       <meta
         itemProp="logo"
-        content="https://www.enlivotechnologies.com/icon.png"
+        content="https://www.enlivotechnologies.com/images/navbar/EnlivoLogo.png"
       />
       <meta itemProp="foundingDate" content="2025" />
       {/* numberOfEmployees removed from meta tags - must use QuantitativeValue object in JSON-LD schema */}

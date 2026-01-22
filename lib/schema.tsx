@@ -68,13 +68,13 @@ export function buildOrganizationSchema(
     url: SITE_CONFIG.url,
     // Use ImageObject format for better Google recognition
     // Google requires: minimum 112x112px, accessible URL, PNG/JPG/SVG format
-    // Using app/icon.png (512x512px) - Next.js automatically serves at /icon.png
-    // This is the standard Next.js favicon/logo location, ideal for Google search
+    // Using EnlivoLogo.png (1024x1024px) - larger size for better display in Google search results
+    // This provides better quality and visibility in Knowledge Panel and search results
     logo: {
       '@type': 'ImageObject',
-      url: `${SITE_CONFIG.url}/icon.png`,
-      width: 512,  // app/icon.png dimensions (meets Google's 112x112 minimum requirement)
-      height: 512, // app/icon.png dimensions
+      url: `${SITE_CONFIG.url}/images/navbar/EnlivoLogo.png`,
+      width: 1024,  // EnlivoLogo.png dimensions (exceeds Google's 112x112 minimum requirement)
+      height: 1024, // Larger size ensures better display quality in search results
     },
     description: SITE_CONFIG.description,
     foundingDate: '2025',
@@ -230,9 +230,9 @@ export function buildArticleSchema(article: {
       name: SITE_CONFIG.name,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_CONFIG.url}/icon.png`, // Using app/icon.png for consistency
-        width: 512,
-        height: 512,
+        url: `${SITE_CONFIG.url}/images/navbar/EnlivoLogo.png`, // Using larger logo for better quality
+        width: 1024,
+        height: 1024,
       },
     },
     mainEntityOfPage: {
