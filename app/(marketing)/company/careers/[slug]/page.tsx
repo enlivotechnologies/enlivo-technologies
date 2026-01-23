@@ -69,7 +69,6 @@ export default async function JobDetailPage({
       <JsonLd
         data={buildBreadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Company", path: "/company" },
           { name: "Careers", path: "/company/careers" },
           { name: job.title },
         ])}

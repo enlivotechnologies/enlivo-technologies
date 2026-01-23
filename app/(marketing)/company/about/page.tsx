@@ -39,7 +39,6 @@ export default function AboutPage() {
       <JsonLd
         data={buildBreadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Company", path: "/company" },
           { name: "About" },
         ])}
       />

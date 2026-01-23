@@ -68,7 +68,6 @@ export default function FullStackDeveloperPage() {
       <JsonLd
         data={buildBreadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Company", path: "/company" },
           { name: "Internships", path: "/company/internships" },
           { name: "Full Stack Developer Internship" },
         ])}

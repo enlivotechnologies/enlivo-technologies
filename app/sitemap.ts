@@ -103,13 +103,6 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
     priority: 0.7,
   },
   
-  // Company index page
-  {
-    url: `${BASE_URL}/company`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  },
   
   // Legal pages
   {
