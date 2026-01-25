@@ -43,79 +43,84 @@ const ACTUAL_SERVICES = [
 ] as const;
 
 /**
+ * Lastmod from sitemap generator: 2026-01-25T10:39:56+00:00
+ * Update this when you regenerate the sitemap or when pages are meaningfully updated.
+ */
+const SITEMAP_LASTMOD = new Date("2026-01-25T10:39:56+00:00");
+
+/**
  * Static pages that are always included
- * PRIORITY: Based on business value and conversion potential
+ * Priorities and lastmod for core pages from generated sitemap; rest kept for full coverage.
  */
 const STATIC_PAGES: MetadataRoute.Sitemap = [
-  // Homepage - Highest priority
+  // Homepage - priority 1.00 (from generated sitemap)
   {
     url: BASE_URL,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "weekly",
     priority: 1.0,
   },
-  
-  // Services index
+
+  // Services index (not in user's list; kept for SEO)
   {
     url: `${BASE_URL}/services`,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.9,
   },
-  
-  // Company pages
+
+  // Company pages (priorities from generated sitemap)
   {
     url: `${BASE_URL}/company/about`,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.8,
   },
   {
     url: `${BASE_URL}/company/internships`,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.8,
   },
   {
     url: `${BASE_URL}/company/internships/full-stack-developer`,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "monthly",
-    priority: 0.7,
+    priority: 0.64,
   },
   {
     url: `${BASE_URL}/company/careers`,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "weekly",
     priority: 0.7,
   },
-  
-  // Contact - High conversion value
+
+  // Contact (priorities from generated sitemap)
   {
     url: `${BASE_URL}/contact`,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.8,
   },
   {
     url: `${BASE_URL}/contact/support`,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "monthly",
-    priority: 0.7,
+    priority: 0.64,
   },
-  
-  
-  // Legal pages
+
+  // Legal pages (priorities 0.80 from generated sitemap)
   {
     url: `${BASE_URL}/privacy`,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "yearly",
-    priority: 0.3,
+    priority: 0.8,
   },
   {
     url: `${BASE_URL}/terms`,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "yearly",
-    priority: 0.3,
+    priority: 0.8,
   },
 ];
 
