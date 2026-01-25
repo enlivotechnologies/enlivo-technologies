@@ -131,7 +131,7 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
 function getServicePages(): MetadataRoute.Sitemap {
   return ACTUAL_SERVICES.map((service) => ({
     url: `${BASE_URL}/services/${service.slug}`,
-    lastModified: new Date(),
+    lastModified: SITEMAP_LASTMOD,
     changeFrequency: "monthly" as const,
     priority: service.priority,
   }));
