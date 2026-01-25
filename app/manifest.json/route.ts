@@ -19,24 +19,9 @@ export async function GET() {
     theme_color: SITE_CONFIG.themeColor,
     orientation: "portrait-primary",
     icons: [
-      {
-        src: "/images/navbar/EnlivotechnologiesLogo.png",
-        sizes: "any",
-        type: "image/png",
-        purpose: "maskable",
-      },
-      {
-        src: "/images/navbar/EnlivotechnologiesLogo.png",
-        sizes: "192x192",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "/images/navbar/EnlivotechnologiesLogo.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "any",
-      },
+      { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
     ],
     categories: ["business", "technology", "software"],
     lang: SITE_CONFIG.language,

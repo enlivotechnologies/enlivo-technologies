@@ -68,13 +68,12 @@ export function buildOrganizationSchema(
     url: SITE_CONFIG.url,
     // Use ImageObject format for better Google recognition
     // Google requires: minimum 112x112px, accessible URL, PNG/JPG/SVG format
-    // Using EnlivoLogo.png (1024x1024px) - larger size for better display in Google search results
-    // This provides better quality and visibility in Knowledge Panel and search results
+    // Using icon-512.png: EnlivotechnologiesLogo on black background for proper display in Knowledge Panel and search
     logo: {
       '@type': 'ImageObject',
-      url: `${SITE_CONFIG.url}/images/navbar/EnlivoLogo.png`,
-      width: 1024,  // EnlivoLogo.png dimensions (exceeds Google's 112x112 minimum requirement)
-      height: 1024, // Larger size ensures better display quality in search results
+      url: `${SITE_CONFIG.url}/icon-512.png`,
+      width: 512,
+      height: 512,
     },
     description: SITE_CONFIG.description,
     foundingDate: '2025',
@@ -230,9 +229,9 @@ export function buildArticleSchema(article: {
       name: SITE_CONFIG.name,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_CONFIG.url}/images/navbar/EnlivoLogo.png`, // Using larger logo for better quality
-        width: 1024,
-        height: 1024,
+        url: `${SITE_CONFIG.url}/icon-512.png`,
+        width: 512,
+        height: 512,
       },
     },
     mainEntityOfPage: {

@@ -33,25 +33,11 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     background_color: "#FFFFFF",
     theme_color: SITE_CONFIG.themeColor,
     orientation: "portrait-primary",
+    // Use icon-512.png / icon-192.png (EnlivotechnologiesLogo on black bg) for consistent display in PWA and Google
     icons: [
-      {
-        src: "/images/navbar/EnlivotechnologiesLogo.png",
-        sizes: "any",
-        type: "image/png",
-        purpose: "maskable",
-      },
-      {
-        src: "/images/navbar/EnlivotechnologiesLogo.png",
-        sizes: "192x192",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "/images/navbar/EnlivotechnologiesLogo.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "any",
-      },
+      { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
     ],
     categories: ["business", "technology", "software"],
     lang: SITE_CONFIG.language,

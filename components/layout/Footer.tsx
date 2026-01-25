@@ -107,7 +107,7 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-3 mb-6 group">
               <div className="w-7 h-7 relative flex items-center justify-center flex-shrink-0">
                 <Image
-                  src="https://res.cloudinary.com/dqmryiyhz/image/upload/v1768460030/EnlivotechnologiesLogo_kzklhg.png"
+                  src="/images/navbar/EnlivotechnologiesLogo.png"
                   width={28}
                   height={28}
                   className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity"

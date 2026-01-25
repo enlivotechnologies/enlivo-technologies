@@ -53,7 +53,7 @@ export function buildMetadata(pageSEO: PageSEO): Metadata {
   // Default OG image if not provided
   const ogImageUrl = ogImage
     ? `${SITE_CONFIG.url}${ogImage}`
-    : `${SITE_CONFIG.url}/images/og/default.png`;
+    : `${SITE_CONFIG.url}/images/og/enlivo-technologies.png`;
 
   // Construct full title with brand suffix
   // For homepage, use title as-is if it already contains brand name
