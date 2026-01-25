@@ -13,21 +13,6 @@ import { SERVICES } from "./constants";
 /**
  * Content types
  */
-export interface CaseStudy {
-  slug: string;
-  title: string;
-  description: string;
-  client: string;
-  industry: string;
-  services: string[];
-  challenge: string;
-  solution: string;
-  results: string[];
-  image: string;
-  publishedAt: string;
-  updatedAt?: string;
-}
-
 export interface Insight {
   slug: string;
   title: string;
@@ -70,45 +55,6 @@ export interface JobPosting {
  * Mock data for development
  * TODO: Replace with actual CMS queries
  */
-
-// Mock case studies
-const MOCK_CASE_STUDIES: CaseStudy[] = [
-  {
-    slug: "enterprise-digital-transformation",
-    title: "Enterprise Digital Transformation",
-    description:
-      "How we helped a Fortune 500 company modernize their legacy systems.",
-    client: "Global Manufacturing Corp",
-    industry: "Manufacturing",
-    services: ["enterprise-systems", "cloud-platforms"],
-    challenge: "TODO: Add challenge description",
-    solution: "TODO: Add solution description",
-    results: [
-      "50% reduction in operational costs",
-      "3x faster deployment cycles",
-    ],
-    image: "",
-    publishedAt: "2024-01-15",
-  },
-  {
-    slug: "ai-powered-customer-service",
-    title: "AI-Powered Customer Service Platform",
-    description:
-      "Building an intelligent customer service solution that reduced response times by 80%.",
-    client: "Leading Retail Brand",
-    industry: "Retail",
-    services: ["ai-automation", "product-engineering"],
-    challenge: "TODO: Add challenge description",
-    solution: "TODO: Add solution description",
-    results: [
-      "80% faster response times",
-      "45% increase in customer satisfaction",
-    ],
-    image: "",
-    publishedAt: "2024-02-20",
-  },
-  // TODO: Add more case studies
-];
 
 // Mock insights
 const MOCK_INSIGHTS: Insight[] = [
@@ -154,20 +100,6 @@ const MOCK_JOBS: JobPosting[] = [
  * These will be replaced with actual CMS queries
  */
 
-export async function getAllCaseStudies(): Promise<CaseStudy[]> {
-  // TODO: Replace with actual CMS query
-  // Example: return await sanityClient.fetch(`*[_type == "caseStudy"]`);
-  return MOCK_CASE_STUDIES;
-}
-
-export async function getCaseStudyBySlug(
-  slug: string
-): Promise<CaseStudy | null> {
-  // TODO: Replace with actual CMS query
-  const caseStudy = MOCK_CASE_STUDIES.find((cs) => cs.slug === slug);
-  return caseStudy || null;
-}
-
 export async function getAllInsights(): Promise<Insight[]> {
   // TODO: Replace with actual CMS query
   return MOCK_INSIGHTS;
@@ -200,11 +132,6 @@ export async function getServiceBySlug(slug: string) {
  * Generate static params for dynamic routes
  * WHY: Required for static generation of dynamic pages
  */
-export async function getCaseStudySlugs(): Promise<string[]> {
-  const caseStudies = await getAllCaseStudies();
-  return caseStudies.map((cs) => cs.slug);
-}
-
 export async function getInsightSlugs(): Promise<string[]> {
   const insights = await getAllInsights();
   return insights.map((i) => i.slug);

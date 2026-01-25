@@ -88,10 +88,6 @@ export const NAVIGATION = {
       ],
     },
     {
-      label: "Case Studies",
-      href: "/case-studies",
-    },
-    {
       label: "Insights",
       href: "/insights",
     },
@@ -141,8 +137,8 @@ export const CTA_CONFIG = {
     href: "/contact",
   },
   secondary: {
-    label: "View Case Studies",
-    href: "/case-studies",
+    label: "View Services",
+    href: "/services",
   },
 } as const;
 

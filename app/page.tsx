@@ -176,14 +176,6 @@ export default function HomePage() {
         <Stats />
       </section> */}
 
-      {/* Case Studies Preview - More Social Proof + Internal Links */}
-      {/* <section aria-labelledby="case-studies-heading">
-        <h2 id="case-studies-heading" className="sr-only">
-          {HOME_HEADINGS.sections.caseStudies}
-        </h2>
-        <CaseStudiesPreview />
-      </section> */}
-
       {/* Call to Action */}
       <CTA
         heading={HOME_HEADINGS.sections.cta}

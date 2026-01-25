@@ -206,7 +206,7 @@ export function buildArticleSchema(article: {
   type?: 'Article' | 'TechArticle' | 'NewsArticle';
   basePath?: string;
 }): ArticleSchema {
-  const url = `${SITE_CONFIG.url}${article.basePath || '/case-studies'}/${article.slug}`;
+  const url = `${SITE_CONFIG.url}${article.basePath || '/insights'}/${article.slug}`;
   
   return {
     '@context': 'https://schema.org',

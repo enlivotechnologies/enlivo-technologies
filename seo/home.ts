@@ -139,7 +139,6 @@ export const HOME_HEADINGS = {
 
   sections: {
     services: "Our Expertise",     // Professional
-    caseStudies: "Global Impact",  // Shows scale
     process: "Our Approach",       // Shows methodology
     trust: "Our Team",
     cta: "Let's Make This Simple",    // Focus on result

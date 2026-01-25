@@ -5,5 +5,4 @@
  */
 
 export { ServiceCard } from "./ServiceCard";
-export { CaseStudyCard } from "./CaseStudyCard";
 export { InsightCard } from "./InsightCard";

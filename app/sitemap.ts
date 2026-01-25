@@ -17,7 +17,7 @@
 
 import type { MetadataRoute } from "next";
 import { SITE_CONFIG } from "@/lib/constants";
-import { getAllCaseStudies, getAllInsights, getAllJobs } from "@/lib/cms";
+import { getAllInsights, getAllJobs } from "@/lib/cms";
 
 /**
  * Sitemap Configuration
@@ -138,33 +138,6 @@ function getServicePages(): MetadataRoute.Sitemap {
 }
 
 /**
- * Generate case study pages
- * Includes both index and individual case study pages
- */
-async function getCaseStudyPages(): Promise<MetadataRoute.Sitemap> {
-  const caseStudies = await getAllCaseStudies();
-  
-  return [
-    // Case studies index page
-    {
-      url: `${BASE_URL}/case-studies`,
-      lastModified: caseStudies.length > 0 
-        ? new Date(Math.max(...caseStudies.map(cs => new Date(cs.updatedAt || cs.publishedAt).getTime())))
-        : new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    },
-    // Individual case study pages
-    ...caseStudies.map((study) => ({
-      url: `${BASE_URL}/case-studies/${study.slug}`,
-      lastModified: new Date(study.updatedAt || study.publishedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-  ];
-}
-
-/**
  * Generate insight/blog pages
  * Includes both index and individual insight pages
  */
@@ -225,8 +198,7 @@ async function getJobPages(): Promise<MetadataRoute.Sitemap> {
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch dynamic content in parallel for better performance
-  const [caseStudyPages, insightPages, jobPages] = await Promise.all([
-    getCaseStudyPages(),
+  const [insightPages, jobPages] = await Promise.all([
     getInsightPages(),
     getJobPages(),
   ]);
@@ -235,7 +207,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...STATIC_PAGES,
     ...getServicePages(),
-    ...caseStudyPages,
     ...insightPages,
     ...jobPages,
   ];
