@@ -246,7 +246,6 @@ export function Footer() {
           </p>
           
           <div className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
             <span className="text-gray-500 text-xs font-medium font-sans" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>#31 Srusthti police colony kengeri, Bangalore - 560060, India</span>
           </div>
         </div>
