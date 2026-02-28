@@ -66,13 +66,13 @@ export default function ContactPage() {
                       Support
             </h2>
                   </div>
-                  <p className="text-lg text-gray-600 font-light leading-relaxed flex-grow">
+                  <p className="text-[16px] text-black/70 font-light leading-relaxed flex-grow">
                     Email us at{" "}
                     <a 
-                      href="mailto:Info.enlivo@gmail.com" 
-                      className="text-black hover:text-gray-700 underline font-medium"
+                      href="mailto:contact@enlivotechnologies.com" 
+                      className="text-black hover:text-gray-700 font-medium"
                     >
-                     Info.enlivo@gmail.com
+                     contact@enlivotechnologies.com
                     </a>{" "}
                     with your question.
                   </p>
@@ -125,7 +125,7 @@ export default function ContactPage() {
                     Reach out to our team for press requests or media opportunities.
                   </p>
                 <a
-                    href="mailto:Info.enlivo@gmail.com?subject=Media Inquiry"
+                    href="mailto:contact@enlivotechnologies.com?subject=Media Inquiry"
                     className="inline-flex items-center justify-center w-full px-8 py-4 bg-[#FAFAFA] border border-black/10 text-black rounded-xl font-medium hover:bg-black/5 hover:border-black/20 transition-all duration-200 text-base mt-auto"
                 >
                     Email us

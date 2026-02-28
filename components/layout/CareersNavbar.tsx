@@ -129,7 +129,7 @@ export function CareersNavbar() {
           {/* Desktop CTA (Right) */}
           <div className="hidden lg:flex flex-shrink-0 z-20 items-center gap-4">
             <a
-              href="mailto:Info.enlivo@gmail.com"
+              href="mailto:contact@enlivotechnologies.com"
               className="bg-black text-white text-[15px] font-medium px-6 py-2.5 rounded-full hover:bg-gray-900 transition-colors duration-200 whitespace-nowrap"
             >
               Get in Touch
@@ -185,7 +185,7 @@ export function CareersNavbar() {
           })}
 
           <a
-            href="mailto:Info.enlivo@gmail.com"
+            href="mailto:contact@enlivotechnologies.com"
             className="w-full bg-black text-white py-4 rounded-full font-medium text-center mt-8 hover:bg-gray-900 transition-colors duration-200"
           >
             Get in Touch

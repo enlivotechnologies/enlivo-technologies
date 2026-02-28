@@ -322,7 +322,7 @@ export function CareersPageClient() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="mailto:Info.enlivo@gmail.com"
+                href="mailto:contact@enlivotechnologies.com"
                 className="inline-flex items-center gap-2 bg-black text-white px-7 py-3.5 rounded-full font-medium text-sm hover:bg-gray-900 transition-colors duration-200"
               >
                 Send your resume
