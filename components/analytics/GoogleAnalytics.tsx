@@ -26,7 +26,7 @@ import { clientEnv } from "@/lib/env";
  * Uses "afterInteractive" strategy to not block page rendering.
  */
 export function GoogleAnalytics() {
-  const measurementId = clientEnv.GA_MEASUREMENT_ID;
+  const measurementId = clientEnv.GA_MEASUREMENT_ID || "G-B3F2KGNE2H";
 
   // Don't render if Measurement ID is not set
   if (!measurementId) {
