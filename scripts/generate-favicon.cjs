@@ -1,9 +1,7 @@
 /**
- * Generate favicon and icon set from EnlivotechnologiesLogo.png
- * Composites the logo onto a black background for proper display in:
- * - Google Search (favicon in results)
- * - Browser tabs
- * - PWA / manifest (maskable)
+ * Generate circular favicon and icon set from EnlivotechnologiesLogo.png
+ * Creates a dark circular coin with gold logo and transparent background.
+ * Icons display as fully rounded in browser tabs, Google Search, and PWA.
  *
  * Run: node scripts/generate-favicon.cjs
  */
@@ -16,53 +14,72 @@ const ROOT = path.join(__dirname, "..");
 const LOGO = path.join(ROOT, "public/images/navbar/EnlivotechnologiesLogo.png");
 
 async function main() {
-  const logo = await sharp(LOGO);
-  const meta = await logo.metadata();
-  const srcSize = Math.min(meta.width || 500, meta.height || 500);
+  const CANVAS = 512;
+  const PADDING = Math.round(CANVAS * 0.08); // 8% padding for clear circle
+  const RADIUS = (CANVAS / 2) - PADDING;
+  const CENTER = CANVAS / 2;
 
-  // Target size for logo on 512 canvas (leaves 16px black border)
-  const logoSize = 480;
-  const pad = (512 - logoSize) / 2;
+  // Step 1: Resize logo to fit inside the circle
+  const logoSize = Math.round(RADIUS * 2 * 0.94); // 94% of circle diameter
+  const logoResized = await sharp(LOGO)
+    .resize(logoSize, logoSize, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .toBuffer();
 
-  const logoResized = await logo.resize(logoSize, logoSize).toBuffer();
+  // Step 2: Create circular mask (white circle on black = mask)
+  const circleSvg = Buffer.from(`
+    <svg width="${CANVAS}" height="${CANVAS}" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="${CENTER}" cy="${CENTER}" r="${RADIUS}" fill="white"/>
+    </svg>
+  `);
 
-  // 512x512 black background, composite logo on top (transparent → black)
+  // Step 3: Create dark background, composite logo, apply circular mask
+  const logoPad = Math.round((CANVAS - logoSize) / 2);
+
   const canvas512 = await sharp({
     create: {
-      width: 512,
-      height: 512,
-      channels: 3,
-      background: { r: 0, g: 0, b: 0 },
+      width: CANVAS,
+      height: CANVAS,
+      channels: 4,
+      background: { r: 18, g: 18, b: 22, alpha: 255 },
     },
   })
-    .composite([{ input: logoResized, left: Math.round(pad), top: Math.round(pad) }])
+    .composite([{ input: logoResized, left: logoPad, top: logoPad }])
     .png()
     .toBuffer();
 
-  // app/icon.png – Next.js uses this as /icon.png and default favicon
-  await fs.promises.writeFile(path.join(ROOT, "app/icon.png"), canvas512);
-  console.log("Wrote app/icon.png");
+  // Apply circular mask for transparent corners
+  const masked512 = await sharp(canvas512)
+    .composite([{
+      input: await sharp(circleSvg).resize(CANVAS, CANVAS).png().toBuffer(),
+      blend: "dest-in",
+    }])
+    .png()
+    .toBuffer();
 
-  // public/icon-512.png – for metadata icons, manifest, schema
-  await fs.promises.writeFile(path.join(ROOT, "public/icon-512.png"), canvas512);
-  console.log("Wrote public/icon-512.png");
+  // Write all sizes
+  const sizes = [
+    { size: 512, name: "app/icon.png" },
+    { size: 512, name: "public/icon-512.png" },
+    { size: 192, name: "public/icon-192.png" },
+    { size: 48, name: "public/icon-48.png" },
+    { size: 32, name: "public/icon-32.png" },
+    { size: 16, name: "public/icon-16.png" },
+  ];
 
-  // 192x192 – PWA, Apple touch
-  const buf192 = await sharp(canvas512).resize(192, 192).png().toBuffer();
-  await fs.promises.writeFile(path.join(ROOT, "public/icon-192.png"), buf192);
-  console.log("Wrote public/icon-192.png");
+  for (const { size, name } of sizes) {
+    const buf = size === 512
+      ? masked512
+      : await sharp(masked512).resize(size, size).png().toBuffer();
+    await fs.promises.writeFile(path.join(ROOT, name), buf);
+    console.log(`Wrote ${name} (${size}x${size})`);
+  }
 
-  // 32x32 – small favicon for tabs
-  const buf32 = await sharp(canvas512).resize(32, 32).png().toBuffer();
-  await fs.promises.writeFile(path.join(ROOT, "public/icon-32.png"), buf32);
-  console.log("Wrote public/icon-32.png");
+  // Create favicon.ico (32x32 PNG in ICO container)
+  const buf32 = await sharp(masked512).resize(32, 32).png().toBuffer();
+  await fs.promises.writeFile(path.join(ROOT, "public/favicon.ico"), buf32);
+  console.log("Wrote public/favicon.ico");
 
-  // 48x48 – common favicon size for search
-  const buf48 = await sharp(canvas512).resize(48, 48).png().toBuffer();
-  await fs.promises.writeFile(path.join(ROOT, "public/icon-48.png"), buf48);
-  console.log("Wrote public/icon-48.png");
-
-  console.log("Favicon generation done. Logo is on black background for Google/search.");
+  console.log("\n✅ Circular favicon generation complete.");
 }
 
 main().catch((e) => {

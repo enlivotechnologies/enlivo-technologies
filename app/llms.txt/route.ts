@@ -98,7 +98,7 @@ Get a no-obligation technical audit of your app from our senior engineers within
 - Email: contact@enlivotechnologies.com
 - Case Studies: https://www.enlivotechnologies.com/case-studies
 - Portfolio: https://www.enlivotechnologies.com/portfolio
-- Blog: https://www.enlivotechnologies.com/blog
+- Blog: http://blog.enlivotechnologies.com
 - Free Audit: https://www.enlivotechnologies.com/services/free-audit
 - Book a Call: https://calendly.com/enlivotechnologies/30min
 
@@ -113,11 +113,11 @@ Get a no-obligation technical audit of your app from our senior engineers within
 
 ## Blog & Thought Leadership
 Enlivo publishes expert content on software development, AI coding tools, startup strategy, and MVP development:
-- "Vibe Coding Is Killing Traditional Dev Agencies" — https://www.enlivotechnologies.com/blog/vibe-coding-killing-dev-agencies
-- "We Built a Next.js MVP in 3 Weeks Using AI Agents" — https://www.enlivotechnologies.com/blog/built-nextjs-mvp-3-weeks-ai-agents
-- "Why Cheap Indian Dev Agency Is Dead" — https://www.enlivotechnologies.com/blog/cheap-indian-dev-agency-dead
-- "AI Agents Are Now Writing Code: Should You Still Hire a Developer?" — https://www.enlivotechnologies.com/blog/ai-agents-writing-code-hire-developer-2026
-- "The $30K vs $300K MVP: What Startups Get Wrong About Costs" — https://www.enlivotechnologies.com/blog/30k-vs-300k-mvp-development-costs
+- "Vibe Coding Is Killing Traditional Dev Agencies" — http://blog.enlivotechnologies.com/vibe-coding-killing-dev-agencies
+- "We Built a Next.js MVP in 3 Weeks Using AI Agents" — http://blog.enlivotechnologies.com/built-nextjs-mvp-3-weeks-ai-agents
+- "Why Cheap Indian Dev Agency Is Dead" — http://blog.enlivotechnologies.com/cheap-indian-dev-agency-dead
+- "AI Agents Are Now Writing Code: Should You Still Hire a Developer?" — http://blog.enlivotechnologies.com/ai-agents-writing-code-hire-developer-2026
+- "The $30K vs $300K MVP: What Startups Get Wrong About Costs" — http://blog.enlivotechnologies.com/30k-vs-300k-mvp-development-costs
 
 ## Frequently Asked Questions
 
