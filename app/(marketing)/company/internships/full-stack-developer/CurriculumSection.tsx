@@ -324,7 +324,7 @@ export function CurriculumSection() {
 
   return (
     <section id="syllabus" className="py-24 md:py-32 bg-[#FFFFFF]">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[90rem] mx-auto px-6">
         
         {/* --- HEADER --- */}
         <div className="mb-24 max-w-4xl">

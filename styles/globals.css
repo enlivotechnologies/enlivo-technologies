@@ -56,9 +56,32 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* ═══════════════════════════════════════════════
+   Lenis Smooth Scroll — Required Styles
+   Lenis takes over scroll interpolation, so
+   CSS scroll-behavior: smooth MUST be removed.
+   ═══════════════════════════════════════════════ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto; /* Lenis owns scrolling — disable native smooth */
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain; /* Nested scrollable areas */
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden; /* When Lenis is paused (modals, etc.) */
+}
+
 /* Base styles */
 html {
-  scroll-behavior: smooth;
+  /* IMPORTANT: Do NOT set scroll-behavior: smooth — it conflicts with Lenis
+     and causes double-interpolation (laggy, janky feel). Lenis handles it. */
   overscroll-behavior: none;
   background-color: #f5f5f0;
 }
@@ -68,6 +91,25 @@ body {
   overscroll-behavior: none;
   background-color: #f5f5f0;
   -webkit-overflow-scrolling: touch;
+}
+
+/* ═══════════════════════════════════════════════
+   GPU Acceleration Hints — Premium Performance
+   Forces compositing on animated elements to
+   prevent main-thread layout thrashing.
+   ═══════════════════════════════════════════════ */
+[data-parallax-img],
+.will-change-transform {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Reduce paint areas on scroll-heavy sections */
+.sticky {
+  will-change: auto; /* Sticky doesn't need will-change — browser handles it */
+  contain: layout style; /* Contain repaints within the sticky container */
 }
 
 /* Focus styles for accessibility */
@@ -137,6 +179,15 @@ body {
 
 .prose pre {
   @apply bg-gray-900 text-white p-4 rounded-lg overflow-x-auto;
+}
+
+/* Hide scrollbar utility — all browsers */
+.scrollbar-hidden {
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;             /* Chrome/Safari/Opera */
 }
 
 /* Line clamp utility */
@@ -285,6 +336,35 @@ body {
   backface-visibility: hidden;
   perspective: 1000px;
   transform: translate3d(0, 0, 0);
+}
+
+/* TrustedBy section — smooth infinite marquee */
+@keyframes trustedby-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Services section — vertical image marquee (up & down) */
+@keyframes services-marquee-up {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+@keyframes services-marquee-down {
+  0% {
+    transform: translate3d(0, -50%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 /* Floating animation for cards */

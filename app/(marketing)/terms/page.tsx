@@ -40,7 +40,7 @@ export default function TermsPage() {
       <main className="min-h-screen bg-white text-black">
         {/* Hero Header */}
         <section>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16 py-12 md:py-16">
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight leading-[1.1]">
                 Terms of Service
@@ -54,7 +54,7 @@ export default function TermsPage() {
 
         {/* Content */}
         <section className="py-8 md:py-10">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
             <div className="prose prose-lg max-w-none space-y-6">
               
               {/* Introduction */}
@@ -176,7 +176,7 @@ export default function TermsPage() {
 
         {/* Footer CTA */}
         <section className="py-12">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16 text-center">
             <p className="text-base text-gray-600 font-light mb-6">
               Have questions about our terms?
             </p>

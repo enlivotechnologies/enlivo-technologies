@@ -44,9 +44,9 @@ export const SITE_CONFIG = {
   name: "Enlivo Technologies",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.enlivotechnologies.com",
   description:
-    "Enlivo architects the secure digital backbone for modern global business. Precision engineering for mission critical platforms, cloud infrastructure, and AI.",
+    "Enlivo Technologies helps funded startups ship production-ready software in weeks. MVP development, product rebuilds, and dedicated engineering teams trusted by founders across the US, UK, EU, and Australia.",
 
-  // Localization
+  // Localization — primary English, serving global markets
   locale: "en_US",
   language: "en",
 
@@ -57,16 +57,22 @@ export const SITE_CONFIG = {
   themeColor: "#2563EB",
 
   // Default SEO keywords (merged with page-specific)
+  // Optimized for Google SERP + AI search (ChatGPT, Gemini, Claude, Perplexity)
   defaultKeywords: [
-    "Envilo Global Tech Solutions",
-    "Envilo Technologies",
-    "enterprise software development",
-    "digital product engineering",
-    "secure digital systems",
-    "scalable software solutions",
-    "AI automation services",
-    "cloud platform development",
-    "enterprise technology partner",
+    "Enlivo Technologies",
+    "Enlivo Global Tech Solutions",
+    "enlivotechnologies.com",
+    "software development company",
+    "MVP development company",
+    "startup software development",
+    "hire dedicated developers",
+    "product development agency",
+    "software development India",
+    "offshore development team",
+    "custom software development",
+    "best software development company for startups",
+    "app development company Bangalore",
+    "SaaS development agency",
   ],
 } as const;
 
@@ -81,21 +87,21 @@ export const NAVIGATION = {
       href: "/services",
       children: [
         { label: "MVP & Product Development", href: "/services/mvp-development" },
-        { label: "Backend Systems & APIs", href: "/services/backend-systems" },
-        { label: "Frontend Web Applications", href: "/services/frontend-applications" },
-        { label: "UI Implementation", href: "/services/ui-implementation" },
-        { label: "Ongoing Development & Support", href: "/services/ongoing-support" },
+        { label: "Product Rebuild", href: "/services/product-rebuild" },
+        { label: "Dedicated Team", href: "/services/dedicated-team" },
+        { label: "Free Audit", href: "/services/free-audit" },
       ],
     },
     {
-      label: "Insights",
-      href: "/insights",
+      label: "Blog",
+      href: "/blog",
     },
     {
       label: "Company",
       href: "/company",
       children: [
         { label: "About", href: "/company/about" },
+        { label: "Team", href: "/company/team" },
         // Note: Careers URL should use getCareersUrl() in components for dynamic behavior
         { label: "Careers", href: "/company/careers" },
         { label: "Internships", href: "/company/internships" },
@@ -108,22 +114,27 @@ export const NAVIGATION = {
   ],
   footer: {
     services: [
-      { label: "MVP & Product Development", href: "/services/mvp-development" },
-      { label: "Backend Systems & APIs", href: "/services/backend-systems" },
-      { label: "Frontend Web Applications", href: "/services/frontend-applications" },
-      { label: "UI Implementation", href: "/services/ui-implementation" },
-      { label: "Ongoing Development & Support", href: "/services/ongoing-support" },
+      { label: "MVP Development", href: "/services/mvp-development" },
+      { label: "Product Rebuild", href: "/services/product-rebuild" },
+      { label: "Dedicated Team", href: "/services/dedicated-team" },
+      { label: "Free Audit", href: "/services/free-audit" },
     ],
     company: [
       { label: "About", href: "/company/about" },
-      // Note: Careers URL should use getCareersUrl() in components for dynamic behavior
+      { label: "Team", href: "/company/team" },
       { label: "Careers", href: "/company/careers" },
-      { label: "Internships", href: "/company/internships" },
-      { label: "Contact", href: "/contact" },
+      { label: "Blog", href: "/blog" },
+    ],
+    trust: [
+      { label: "Portfolio", href: "/portfolio" },
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "Testimonials", href: "/#testimonials" },
+      { label: "FAQs", href: "/#faq" },
     ],
     legal: [
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
+      { label: "Refund Policy", href: "/refund-policy" },
     ],
   },
 } as const;
@@ -154,24 +165,19 @@ export const SERVICES = [
     shortDescription: "Turn your startup idea into a validated, market-ready product in weeks—not months.",
   },
   {
-    slug: "backend-systems",
-    name: "Backend Systems & APIs",
-    shortDescription: "Enterprise-grade backend infrastructure that scales with your business.",
+    slug: "product-rebuild",
+    name: "Product Rebuild & Modernization",
+    shortDescription: "Rebuild your legacy product with modern tech. Zero downtime, clean architecture, 10x performance.",
   },
   {
-    slug: "frontend-applications",
-    name: "Frontend Web Applications",
-    shortDescription: "Beautiful, lightning-fast web applications that convert visitors into customers.",
+    slug: "dedicated-team",
+    name: "Dedicated Development Team",
+    shortDescription: "Hire a dedicated team of senior engineers who work as an extension of your startup.",
   },
   {
-    slug: "ui-implementation",
-    name: "UI Implementation",
-    shortDescription: "Transform your design vision into pixel-perfect, production-ready code.",
-  },
-  {
-    slug: "ongoing-support",
-    name: "Ongoing Development & Support",
-    shortDescription: "Keep your product competitive with continuous development and 24/7 technical support.",
+    slug: "free-audit",
+    name: "Free Technical Audit",
+    shortDescription: "Get a free, no-obligation technical audit of your app from our senior engineers.",
   },
 ] as const;
 
@@ -188,10 +194,12 @@ export const COMPANY_STATS = [
 
 /**
  * Social media links
- * TODO: Add actual URLs
+ * UPDATED: Real company profiles for SEO and schema.org sameAs
  */
 export const SOCIAL_LINKS = {
-  linkedin: "https://linkedin.com/company/your-company",
-  twitter: "https://twitter.com/your-company",
-  github: "https://github.com/your-company",
+  linkedin: "https://www.linkedin.com/company/enlivo-global-technology-private-limited/",
+  instagram: "https://www.instagram.com/enlivo_globalsolutions_techpvt",
+  email: "contact@enlivotechnologies.com",
+  website: "https://www.enlivotechnologies.com",
+  calendly: "https://calendly.com/enlivotechnologies/30min",
 } as const;

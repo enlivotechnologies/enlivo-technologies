@@ -1,84 +1,114 @@
 /**
  * app/robots.ts
  *
- * PURPOSE: Dynamic robots.txt generation.
- * WHY: Controls how search engines crawl your site.
- *      Prevents indexing of sensitive or duplicate content.
+ * PURPOSE: Dynamic robots.txt generation — MAXIMUM crawl coverage.
+ * WHY: We WANT search engines AND AI crawlers to index our content.
+ *      More indexing = more visibility on Google, ChatGPT, Gemini, Perplexity, Claude.
  *
- * SEO CRITICAL:
- * - Allow crawling of all public content
- * - Block admin/API routes
- * - Point to sitemap
- * - Consider crawl-delay for high-traffic sites
- *
- * URL: /robots.txt
+ * STRATEGY:
+ * - Allow ALL search engines (Google, Bing, Yahoo, Yandex, Baidu, DuckDuckGo)
+ * - Allow ALL AI crawlers (GPTBot, ChatGPT-User, Google-Extended, Anthropic, Perplexity, Cohere, Meta)
+ * - Block only internal/API routes
+ * - Point to sitemap.xml + llms.txt for AI discoverability
  */
 
 import type { MetadataRoute } from "next";
 import { SITE_CONFIG } from "@/lib/constants";
 
-/**
- * Robots.txt Configuration
- *
- * SECURITY NOTE:
- * - robots.txt is NOT a security measure
- * - It's a guideline that respectful crawlers follow
- * - Don't rely on it to hide sensitive content
- */
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = SITE_CONFIG.url;
 
   return {
     rules: [
       {
-        // Default rule for all crawlers
+        // Default: allow everything for all crawlers
         userAgent: "*",
         allow: "/",
         disallow: [
-          // Block API routes from indexing
           "/api/",
-
-          // Block preview/draft pages
           "/preview/",
           "/draft/",
-
-          // Block search results (if implemented)
-          "/search?",
-
-          // Block internal pages
           "/_next/",
           "/admin/",
-
-          // Block utility pages that shouldn't be indexed
-          // TODO: Add any additional paths to block
         ],
       },
+      // --- SEARCH ENGINE CRAWLERS ---
       {
-        // Specific rules for Googlebot (if needed)
         userAgent: "Googlebot",
         allow: "/",
-        // Googlebot-specific disallows (if any)
       },
-      // {
-      //   // Block AI training crawlers (optional - uncomment if desired)
-      //   userAgent: 'GPTBot',
-      //   disallow: '/',
-      // },
-      // {
-      //   userAgent: 'ChatGPT-User',
-      //   disallow: '/',
-      // },
-      // {
-      //   userAgent: 'CCBot',
-      //   disallow: '/',
-      // },
+      {
+        userAgent: "Bingbot",
+        allow: "/",
+      },
+      {
+        userAgent: "Applebot",
+        allow: "/",
+      },
+      {
+        userAgent: "Yandex",
+        allow: "/",
+      },
+      {
+        userAgent: "DuckDuckBot",
+        allow: "/",
+      },
+      {
+        userAgent: "Baiduspider",
+        allow: "/",
+      },
+      // --- AI CRAWLERS (Critical for LLM discoverability) ---
+      {
+        // Google's AI training crawler — feeds Gemini
+        userAgent: "Google-Extended",
+        allow: "/",
+      },
+      {
+        // OpenAI's crawler — feeds ChatGPT recommendations
+        userAgent: "GPTBot",
+        allow: "/",
+      },
+      {
+        // ChatGPT browsing — when users ask ChatGPT to visit our site
+        userAgent: "ChatGPT-User",
+        allow: "/",
+      },
+      {
+        // Anthropic's crawler — feeds Claude recommendations
+        userAgent: "anthropic-ai",
+        allow: "/",
+      },
+      {
+        // Claude's web search tool
+        userAgent: "ClaudeBot",
+        allow: "/",
+      },
+      {
+        // Perplexity AI crawler
+        userAgent: "PerplexityBot",
+        allow: "/",
+      },
+      {
+        // Cohere AI crawler
+        userAgent: "cohere-ai",
+        allow: "/",
+      },
+      {
+        // Meta AI crawler
+        userAgent: "FacebookBot",
+        allow: "/",
+      },
+      {
+        // Microsoft Copilot / Bing Chat
+        userAgent: "BingPreview",
+        allow: "/",
+      },
     ],
 
-    // Point to sitemap (CRITICAL for SEO)
+    // Sitemap — CRITICAL for all search engines
     sitemap: `${baseUrl}/sitemap.xml`,
 
-    // Host declaration (helps with domain canonicalization)
-    // This ensures Google knows the preferred domain (www vs non-www)
-    host: baseUrl.replace(/^https?:\/\//, '').replace(/\/$/, ''),
+    // Host declaration for domain canonicalization
+    host: baseUrl.replace(/^https?:\/\//, "").replace(/\/$/, ""),
   };
 }

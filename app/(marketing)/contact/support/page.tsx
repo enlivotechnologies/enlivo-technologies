@@ -42,7 +42,7 @@ export default function SupportPage() {
       <main className="min-h-screen bg-[#F9FAFB]">
         {/* Back Link */}
         <section className="pt-8 pb-4 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-[90rem] mx-auto">
             <Link
               href="/contact"
               className="group inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors duration-200 text-sm"
@@ -55,7 +55,7 @@ export default function SupportPage() {
 
         {/* Main Content */}
         <section className="py-8 md:py-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-[90rem] mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
               
               {/* Left Section - Information */}

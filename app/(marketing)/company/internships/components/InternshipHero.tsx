@@ -15,7 +15,7 @@ import { ArrowRight } from "lucide-react";
 export function InternshipHero() {
   return (
     <section className="relative pt-6 pb-16 md:pt-8 md:pb-24">
-      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8 pt-6 md:pt-8">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 pt-6 md:pt-8">
         <div className="relative rounded-3xl overflow-hidden px-8 sm:px-10 lg:px-12 pt-10 md:pt-12 pb-16 md:pb-20 text-center min-h-[500px] md:min-h-[600px]">
           {/* Background Image */}
           <div className="absolute inset-0">

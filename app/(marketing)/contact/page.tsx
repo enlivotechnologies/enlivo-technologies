@@ -35,7 +35,7 @@ export default function ContactPage() {
       <main className="min-h-screen bg-white">
       {/* Hero Section */}
         <section className="py-16 md:py-24">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16 text-center">
             <div className="space-y-4">
               <p className="text-sm md:text-base font-medium text-gray-600 uppercase tracking-wider">
                 CONTACT
@@ -52,7 +52,7 @@ export default function ContactPage() {
 
         {/* Contact Cards Section */}
         <section className="py-12 md:py-16 lg:py-20 bg-[#FBFAF9]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
             <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
               
               {/* Support Card */}
@@ -140,7 +140,7 @@ export default function ContactPage() {
         {/* FAQ Section */}
         {CONTACT_FAQS && CONTACT_FAQS.length > 0 && (
           <section className="py-16 md:py-24">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
               <h2 className="text-3xl md:text-4xl font-medium text-black tracking-tight mb-12 text-center">
                 Frequently asked questions
           </h2>

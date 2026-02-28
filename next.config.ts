@@ -22,6 +22,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      // Added Supabase domain to fix the error
+      {
+        protocol: "https",
+        hostname: "cjlpsqzjtchvpckpyllb.supabase.co",
+      },
       // TODO: Add CMS image domains when integrated
       // {
       //   protocol: 'https',

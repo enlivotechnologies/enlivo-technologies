@@ -66,9 +66,6 @@ export function buildOrganizationSchema(
     '@type': 'Organization',
     name: SITE_CONFIG.name,
     url: SITE_CONFIG.url,
-    // Use ImageObject format for better Google recognition
-    // Google requires: minimum 112x112px, accessible URL, PNG/JPG/SVG format
-    // Using icon-512.png: EnlivotechnologiesLogo on black background for proper display in Knowledge Panel and search
     logo: {
       '@type': 'ImageObject',
       url: `${SITE_CONFIG.url}/icon-512.png`,
@@ -77,18 +74,23 @@ export function buildOrganizationSchema(
     },
     description: SITE_CONFIG.description,
     foundingDate: '2025',
-    // Number of employees - using QuantitativeValue format as required by schema.org
     numberOfEmployees: {
       '@type': 'QuantitativeValue',
       minValue: 10,
       maxValue: 50,
     },
-    // address: { ... },
-    // contactPoint: { ... },
+    // Physical address — CRITICAL for local SEO and trust
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '#31 Srusthti Police Colony, Kengeri',
+      addressLocality: 'Bangalore',
+      addressRegion: 'Karnataka',
+      postalCode: '560060',
+      addressCountry: 'IN',
+    },
     sameAs: [
-      'https://www.linkedin.com/company/enlivo-global-tech-solutions-pvt-ltd/',
+      'https://www.linkedin.com/company/enlivo-global-technology-private-limited/',
       'https://www.instagram.com/enlivo_globalsolutions_techpvt',
-      // Add other social profiles as needed
     ],
     ...overrides,
   };
@@ -220,7 +222,7 @@ export function buildArticleSchema(article: {
     datePublished: article.publishedAt,
     dateModified: article.updatedAt || article.publishedAt,
     author: {
-      '@type': 'Organization',
+      '@type': article.authorName ? 'Person' : 'Organization',
       name: article.authorName || SITE_CONFIG.name,
       url: SITE_CONFIG.url,
     },

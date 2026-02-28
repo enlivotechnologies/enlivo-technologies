@@ -1,147 +1,129 @@
 /**
  * seo/home.ts
  *
- * PURPOSE: Global Enterprise SEO Configuration.
- * STRATEGY: Targeting high-value commercial intent keywords used by Fortune 500 decision-makers.
- * GOAL: Rank for specific "solution" terms rather than just generic "development" terms.
+ * PURPOSE: Homepage SEO — the highest-authority page on the site.
+ * STRATEGY: Target high-volume commercial intent + startup-specific keywords.
+ *           Optimized for Google, Bing, ChatGPT, Gemini, Perplexity, and AI search.
+ *
+ * E-E-A-T SIGNALS:
+ * - Title includes brand name and core value proposition
+ * - Description mentions specific outcomes (weeks, not months)
+ * - Keywords target what real founders actually search for
+ * - Geographic signals for international trust (US, UK, EU, Australia)
  */
 
 import type { PageSEO } from "@/lib/seo";
 
 export const HOME_SEO: PageSEO = {
-  // 1. TITLE (Authority & Scale)
-  // Combines the Brand Name with the two most valuable service categories.
-  title: "Enlivo Technologies | Global Digital Transformation & Strategy",
+  // TITLE — Brand + Core Promise + Trust Signal
+  // Under 60 chars for full SERP display
+  title: "Enlivo Technologies | Ship Software Faster for Startups",
 
-  // 2. DESCRIPTION (Global & Strategic)
-  // Includes "Enlivo Global Tech Solutions" naturally to help rank for that variation too.
+  // DESCRIPTION — Value prop + specifics + geographic trust
+  // 150-160 chars for full SERP display
   description:
-    "Enlivo architects the secure digital backbone for modern global business. Precision engineering for mission critical platforms, cloud infrastructure, and AI.",
+    "Enlivo Technologies helps funded startups ship production-ready software in weeks. MVP development, product rebuilds, dedicated teams. Trusted by founders in US, UK, EU & Australia.",
 
-  // 3. KEYWORDS (User-Focused Search Strategy)
-  // Targeting what people actually type in search engines
+  // KEYWORDS — Organized by search intent for maximum coverage
   keywords: [
-    // --- BRAND VARIATIONS ---
+    // --- BRAND (People searching for us directly) ---
     "Enlivo Technologies",
     "Enlivo Global Tech Solutions",
+    "Enlivo Global Tech Solutions Pvt Ltd",
+    "enlivotechnologies.com",
     "Enlivo",
-    
-    // --- HIGH-VOLUME USER SEARCHES (What people actually type) ---
+
+    // --- HIGH-VOLUME COMMERCIAL INTENT (People ready to hire) ---
     "software development company",
-    "web development services",
+    "hire software developers",
     "custom software development",
     "software development agency",
+    "web development company",
     "app development company",
-    "website development services",
-    "software engineering services",
-    "tech consulting",
-    "IT services company",
-    "software solutions provider",
-    
-    // --- COMMERCIAL INTENT (People ready to buy) ---
-    "hire software developers",
+    "software development services",
     "outsource software development",
-    "software development outsourcing",
     "offshore software development",
-    "software development team",
-    "custom software development services",
-    "enterprise software development",
-    "startup software development",
-    
-    // --- PROBLEM-SOLVING (What users search when they have problems) ---
-    "build an app",
-    "create a website",
-    "develop software",
-    "software development help",
-    "need a developer",
-    "software development company near me",
-    "best software development company",
-    "affordable software development",
-    
-    // --- TECHNOLOGY-SPECIFIC (High search volume) ---
-    "React development services",
-    "Next.js development",
-    "Node.js development",
-    "full stack development",
-    "backend development services",
-    "frontend development services",
-    "API development",
-    "cloud development services",
-    
-    // --- INDUSTRY-SPECIFIC (Targeted searches) ---
-    "startup development services",
-    "SaaS development",
-    "enterprise software solutions",
-    "digital transformation services",
-    "software modernization",
+
+    // --- STARTUP-SPECIFIC (Our exact audience) ---
+    "MVP development company",
     "MVP development services",
-    "product development company",
-    
-    // --- LOCATION-BASED (If targeting specific regions) ---
-    "software development company India",
-    "software development services India",
-    "best software company Bangalore",
-    
-    // --- LONG-TAIL (Specific use cases) ---
+    "startup software development",
     "build MVP for startup",
-    "custom web application development",
+    "startup app development",
     "software development for startups",
-    "enterprise application development",
-    "scalable software development",
-    "rapid prototyping services",
-    "minimum viable product development",
-    
-    // --- HIGH-LEVEL STRATEGIC (What CEOs search for) ---
-    "enterprise digital transformation services",
-    "global IT consulting firms",
-    "strategic technology partners",
-    "digital product engineering",
-    "business process modernization",
-    "future-ready technology architecture",
-    
-    // --- CORE ENGINEERING (What CTOs search for) ---
-    "custom enterprise software development",
-    "secure software engineering company",
-    "cloud-native application development",
-    "legacy system modernization services",
-    "scalable microservices architecture",
-    "enterprise mobile app development",
-    "SaaS platform engineering",
-    
-    // --- AI & INNOVATION (What Innovation VPs search for) ---
-    "enterprise AI solutions provider",
-    "intelligent process automation",
-    "generative AI for business",
-    "machine learning integration services",
-    "data-driven digital platforms",
-    
-    // --- GLOBAL/RELIABILITY (Trust Signals) ---
-    "top software engineering firms worldwide",
-    "secure fintech software solutions",
-    "HIPAA compliant software development",
-    "reliable offshore development partners",
-    "end-to-end software delivery",
+    "startup CTO as a service",
+    "technical co-founder alternative",
+
+    // --- SERVICE-SPECIFIC (Matching our 4 services) ---
+    "product rebuild services",
+    "legacy software modernization",
+    "dedicated development team",
+    "hire dedicated developers",
+    "staff augmentation",
+    "free technical audit",
+    "code review services",
+    "app performance audit",
+
+    // --- TECHNOLOGY (What CTOs search) ---
+    "React development company",
+    "Next.js development services",
+    "Node.js development company",
+    "full stack development services",
+    "TypeScript development",
+    "cloud native development",
+
+    // --- INDUSTRY (Vertical targeting) ---
+    "SaaS development company",
+    "HealthTech software development",
+    "FinTech app development",
+    "EdTech software development",
+    "B2B SaaS development",
+
+    // --- GEOGRAPHIC (International trust + local SEO) ---
+    "software development company India",
+    "software development company Bangalore",
+    "best software company India",
+    "offshore development India",
+    "software development company for US startups",
+    "software development company for UK startups",
+    "software development partner Europe",
+    "software development company Australia",
+
+    // --- PROBLEM-SOLVING (What frustrated founders search) ---
+    "best software development company",
+    "reliable software development partner",
+    "affordable software development",
+    "fast software development",
+    "software development company reviews",
+    "trusted software development agency",
+
+    // --- LONG-TAIL HIGH-INTENT (Specific use cases) ---
+    "build an app for my startup",
+    "how to build an MVP fast",
+    "hire developers for startup",
+    "outsource app development India",
+    "dedicated team for SaaS development",
+    "rebuild my app with modern tech",
+    "HIPAA compliant app development",
+    "minimum viable product development cost",
   ],
 
   pathname: "/",
-
-  // Your premium OG image
   ogImage: "/images/og/home.png",
 };
 
 /**
- * Headings Structure
- * Aligned with the "Global Giant" persona.
+ * Homepage Headings — semantic H1/H2 structure
  */
 export const HOME_HEADINGS = {
-  // H1: The core promise
-  h1: "We build secure software systems for modern businesses.",
+  h1: "We help funded startups ship production-ready software in weeks.",
 
   sections: {
-    services: "Our Expertise",     // Professional
-    process: "Our Approach",       // Shows methodology
-    trust: "Our Team",
-    cta: "Let's Make This Simple",    // Focus on result
+    services: "Our Services",
+    process: "How We Work",
+    trust: "Why Founders Trust Us",
+    stats: "Results That Speak",
+    cta: "Let's Build Something Great",
   },
 } as const;
 
@@ -149,4 +131,5 @@ export const HOME_SCHEMA_CONFIG = {
   includeOrganization: true,
   includeWebSite: true,
   includeBreadcrumb: false,
+  includeFAQ: true,
 } as const;

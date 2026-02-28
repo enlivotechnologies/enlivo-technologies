@@ -52,7 +52,7 @@ export function FAQ() {
 
   return (
     <section className="py-24 md:py-32 bg-white">
-      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center mb-16">

@@ -3,6 +3,9 @@
  *
  * PURPOSE: Conditionally render navbar based on route.
  * WHY: Careers pages use a different navbar.
+ * FIX: Removed `typeof window !== 'undefined'` check which caused hydration
+ *      mismatch (server renders false, client renders true). usePathname() is
+ *      SSR-safe and sufficient for path-based routing.
  */
 
 "use client";
@@ -13,18 +16,13 @@ import { CareersNavbar } from "./CareersNavbar";
 
 export function ConditionalNavbar() {
   const pathname = usePathname();
-  
-  // Check if we're on careers subdomain or careers path
-  const isCareersPage = 
-    typeof window !== 'undefined' && 
-    (window.location.hostname.startsWith('careers.') || 
-     pathname?.startsWith("/company/careers"));
-  
-  // Use CareersNavbar for careers pages
+
+  // Use pathname only — it's SSR-safe and avoids hydration mismatch
+  const isCareersPage = pathname?.startsWith("/company/careers");
+
   if (isCareersPage) {
     return <CareersNavbar />;
   }
-  
-  // Use default Navbar for all other pages
+
   return <Navbar />;
 }

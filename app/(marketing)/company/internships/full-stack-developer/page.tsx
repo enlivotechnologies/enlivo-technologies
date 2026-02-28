@@ -77,7 +77,7 @@ export default function FullStackDeveloperPage() {
       <main className="min-h-screen bg-white">
         {/* Hero Banner Section - Premium Design */}
         <section className="relative pt-6 pb-16 md:pt-8 md:pb-24">
-          <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8 pt-6 md:pt-8">
+          <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 pt-6 md:pt-8">
             <div 
               className="relative min-h-[600px] md:min-h-[700px] flex items-center justify-center rounded-3xl overflow-hidden px-8 sm:px-10 lg:px-12 pt-10 md:pt-12 pb-16 md:pb-24 bg-black"
             >

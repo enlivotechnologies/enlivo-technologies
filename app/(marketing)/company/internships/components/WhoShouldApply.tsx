@@ -28,7 +28,7 @@ const NON_TARGET_PROFILE = [
 export function WhoShouldApply() {
   return (
     <section className="py-24 md:py-32 bg-[#050505] border-t border-white/5">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-[90rem] mx-auto px-6">
         
         {/* --- SECTION HEADER --- */}
         <div className="text-center mb-20">

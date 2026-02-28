@@ -1,82 +1,122 @@
 /**
  * components/providers/SmoothScrollProvider.tsx
  *
- * PURPOSE: Lenis smooth scrolling provider for the entire application.
- * WHY: Premium, buttery smooth scrolling experience like top-tier websites.
+ * PURPOSE: Lenis smooth scrolling provider — premium, buttery scroll feel.
+ * WHY: Smooth inertia scrolling like Apple, Stripe, Linear. GSAP-synced.
  *
- * FEATURES:
- * - Smooth, momentum-based scrolling
- * - Works with GSAP ScrollTrigger
- * - Customizable scroll speed and smoothness
- * - Mobile-friendly with touch support
+ * KEY DESIGN DECISIONS:
+ * - autoRaf: false → GSAP ticker drives Lenis for perfect ScrollTrigger sync
+ * - lerp: 0.08 → smoother interpolation for premium feel
+ * - duration: 1.2 → balanced weight
+ * - lagSmoothing(0) → prevents GSAP from "catching up" and breaking Lenis flow
+ * - Lenis instance stored on window + React context for global access
+ *
+ * PERFORMANCE FIXES:
+ * - Use state instead of ref for context value (triggers re-render so children get Lenis)
+ * - ScrollTrigger.update called directly (no extra scroll listeners)
+ * - Single RAF loop prevents competing animation frames
  */
 
 "use client";
 
-import { useEffect, useRef, ReactNode } from "react";
+import {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  ReactNode,
+} from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register GSAP plugins
+// Register GSAP plugins once at module level
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
+
+// --- Context for clean hook access ---
+const LenisContext = createContext<Lenis | null>(null);
 
 interface SmoothScrollProviderProps {
   children: ReactNode;
 }
 
 export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
-  const lenisRef = useRef<Lenis | null>(null);
+  const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
-    // Initialize Lenis
-    const lenis = new Lenis({
-      duration: 1.2, // Scroll duration (higher = smoother/slower)
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Smooth easing
+    // Initialize Lenis with optimized config
+    const lenisInstance = new Lenis({
+      // --- Feel & Weight ---
+      lerp: 0.08,            // Slightly smoother for premium feel (0.06 ultra-smooth, 0.12 snappy)
+      duration: 1.2,          // Balanced scroll weight
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease-out
+
+      // --- Scroll Behaviour ---
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: 0.85,  // Slightly dampened for controlled feel
+      touchMultiplier: 1.8,   // Touch needs more sensitivity
+
+      // --- Advanced ---
+      autoRaf: false,         // CRITICAL: GSAP ticker drives Lenis for perfect sync
       infinite: false,
+      syncTouch: false,       // Let native touch feel natural on mobile
+      syncTouchLerp: 0.075,
     });
 
-    lenisRef.current = lenis;
+    // Expose on window for programmatic access (navbar, etc.)
+    (window as unknown as { lenis: Lenis }).lenis = lenisInstance;
 
-    // Connect Lenis to GSAP ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update);
+    // --- GSAP ↔ Lenis Bridge ---
+    // 1. When Lenis scrolls, tell ScrollTrigger to recalculate
+    lenisInstance.on("scroll", ScrollTrigger.update);
 
-    // Use GSAP ticker for smooth animation frame updates
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    // 2. Drive Lenis RAF from GSAP ticker (single unified loop = no jank)
+    const onTick = (time: number) => {
+      lenisInstance.raf(time * 1000);
+    };
+    gsap.ticker.add(onTick);
 
-    // Disable GSAP's default lag smoothing for better Lenis integration
+    // 3. Disable GSAP lag smoothing — conflicts with Lenis interpolation
     gsap.ticker.lagSmoothing(0);
 
-    // Cleanup on unmount
+    // Set state to trigger re-render with Lenis instance in context
+    setLenis(lenisInstance);
+
+    // Cleanup
     return () => {
-      lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
-      lenisRef.current = null;
+      gsap.ticker.remove(onTick);
+      lenisInstance.destroy();
+      setLenis(null);
+      delete (window as unknown as { lenis?: Lenis }).lenis;
     };
   }, []);
 
-  return <>{children}</>;
+  return (
+    <LenisContext.Provider value={lenis}>
+      {children}
+    </LenisContext.Provider>
+  );
 }
 
 /**
- * Hook to access Lenis instance for programmatic scrolling
- * Usage: const lenis = useLenis();
- *        lenis?.scrollTo('#section-id');
+ * Hook to access the Lenis instance for programmatic scroll.
+ *
+ * Usage:
+ *   const lenis = useLenis();
+ *   lenis?.scrollTo('#portfolio', { offset: -100, duration: 1.2 });
  */
-export function useLenis() {
-  // This would need context for proper implementation
-  // For now, access via window
+export function useLenis(): Lenis | null {
+  // Try context first (inside provider tree)
+  const ctx = useContext(LenisContext);
+  if (ctx) return ctx;
+
+  // Fallback to window (always available after mount)
   if (typeof window !== "undefined") {
-    return (window as unknown as { lenis?: Lenis }).lenis;
+    return (window as unknown as { lenis?: Lenis }).lenis ?? null;
   }
   return null;
 }

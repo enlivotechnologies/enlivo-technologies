@@ -1,13 +1,12 @@
 /**
  * app/sitemap.ts
  *
- * PURPOSE: Dynamic XML sitemap generation for search engines.
- * WHY: Sitemaps help search engines discover and index all pages.
- *      Next.js generates this at build time for static pages
- *      and on-demand for dynamic routes.
+ * PURPOSE: Dynamic XML sitemap generation for search engines + AI crawlers.
+ * WHY: Sitemaps help search engines AND AI systems discover and index all pages.
+ *      Includes blog posts, service pages, and all static routes.
  *
  * SEO CRITICAL:
- * - Include all indexable pages
+ * - Include all indexable pages (especially blog posts for organic traffic)
  * - Set appropriate changefreq and priority
  * - Update lastModified dates accurately
  * - Exclude noindex pages
@@ -18,6 +17,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_CONFIG } from "@/lib/constants";
 import { getAllInsights, getAllJobs } from "@/lib/cms";
+import { BLOG_POSTS } from "@/app/(marketing)/blog/data";
 
 /**
  * Sitemap Configuration
@@ -36,24 +36,21 @@ export const revalidate = 86400; // 24 hours in seconds
  */
 const ACTUAL_SERVICES = [
   { slug: "mvp-development", priority: 0.9 },
-  { slug: "backend-systems", priority: 0.9 },
-  { slug: "frontend-applications", priority: 0.9 },
-  { slug: "ui-implementation", priority: 0.9 },
-  { slug: "ongoing-support", priority: 0.9 },
+  { slug: "product-rebuild", priority: 0.9 },
+  { slug: "dedicated-team", priority: 0.9 },
+  { slug: "free-audit", priority: 0.9 },
 ] as const;
 
 /**
- * Lastmod from sitemap generator: 2026-01-25T10:39:56+00:00
- * Update this when you regenerate the sitemap or when pages are meaningfully updated.
+ * Lastmod — updated to reflect latest content changes
  */
-const SITEMAP_LASTMOD = new Date("2026-01-25T10:39:56+00:00");
+const SITEMAP_LASTMOD = new Date("2026-02-27T00:00:00+00:00");
 
 /**
  * Static pages that are always included
- * Priorities and lastmod for core pages from generated sitemap; rest kept for full coverage.
  */
 const STATIC_PAGES: MetadataRoute.Sitemap = [
-  // Homepage - priority 1.00 (from generated sitemap)
+  // Homepage — highest priority
   {
     url: BASE_URL,
     lastModified: SITEMAP_LASTMOD,
@@ -61,7 +58,7 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
     priority: 1.0,
   },
 
-  // Services index (not in user's list; kept for SEO)
+  // Services index
   {
     url: `${BASE_URL}/services`,
     lastModified: SITEMAP_LASTMOD,
@@ -69,7 +66,7 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
     priority: 0.9,
   },
 
-  // Company pages (priorities from generated sitemap)
+  // Company pages
   {
     url: `${BASE_URL}/company/about`,
     lastModified: SITEMAP_LASTMOD,
@@ -95,7 +92,7 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
     priority: 0.7,
   },
 
-  // Contact (priorities from generated sitemap)
+  // Contact
   {
     url: `${BASE_URL}/contact`,
     lastModified: SITEMAP_LASTMOD,
@@ -109,24 +106,61 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
     priority: 0.64,
   },
 
-  // Legal pages (priorities 0.80 from generated sitemap)
+  // Team page
+  {
+    url: `${BASE_URL}/company/team`,
+    lastModified: SITEMAP_LASTMOD,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  },
+
+  // Portfolio
+  {
+    url: `${BASE_URL}/portfolio`,
+    lastModified: SITEMAP_LASTMOD,
+    changeFrequency: "monthly",
+    priority: 0.85,
+  },
+
+  // Case Studies
+  {
+    url: `${BASE_URL}/case-studies`,
+    lastModified: SITEMAP_LASTMOD,
+    changeFrequency: "monthly",
+    priority: 0.85,
+  },
+
+  // Blog index — high priority for organic traffic
+  {
+    url: `${BASE_URL}/blog`,
+    lastModified: SITEMAP_LASTMOD,
+    changeFrequency: "weekly",
+    priority: 0.9,
+  },
+
+  // Legal pages
   {
     url: `${BASE_URL}/privacy`,
     lastModified: SITEMAP_LASTMOD,
     changeFrequency: "yearly",
-    priority: 0.8,
+    priority: 0.3,
   },
   {
     url: `${BASE_URL}/terms`,
     lastModified: SITEMAP_LASTMOD,
     changeFrequency: "yearly",
-    priority: 0.8,
+    priority: 0.3,
+  },
+  {
+    url: `${BASE_URL}/refund-policy`,
+    lastModified: SITEMAP_LASTMOD,
+    changeFrequency: "yearly",
+    priority: 0.3,
   },
 ];
 
 /**
  * Generate service page URLs
- * Only includes pages that actually exist
  */
 function getServicePages(): MetadataRoute.Sitemap {
   return ACTUAL_SERVICES.map((service) => ({
@@ -138,35 +172,37 @@ function getServicePages(): MetadataRoute.Sitemap {
 }
 
 /**
- * Generate insight/blog pages
- * Includes both index and individual insight pages
+ * Generate blog post pages from local data
+ * HIGH PRIORITY: Blog posts drive organic traffic and AI discoverability
  */
-async function getInsightPages(): Promise<MetadataRoute.Sitemap> {
-  const insights = await getAllInsights();
-  
-  return [
-    // Insights index page (if it exists as a route)
-    // Note: Add this only if you have an /insights index page
-    // {
-    //   url: `${BASE_URL}/insights`,
-    //   lastModified: insights.length > 0 
-    //     ? new Date(Math.max(...insights.map(i => new Date(i.updatedAt || i.publishedAt).getTime())))
-    //     : new Date(),
-    //   changeFrequency: "weekly" as const,
-    //   priority: 0.7,
-    // },
-    // Individual insight pages
-    ...insights.map((insight) => ({
-      url: `${BASE_URL}/insights/${insight.slug}`,
-      lastModified: new Date(insight.updatedAt || insight.publishedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    })),
-  ];
+function getBlogPages(): MetadataRoute.Sitemap {
+  return BLOG_POSTS.map((post) => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
 }
 
 /**
- * Generate job posting pages (if dynamic)
+ * Generate insight/blog pages from CMS
+ */
+async function getInsightPages(): Promise<MetadataRoute.Sitemap> {
+  try {
+    const insights = await getAllInsights();
+    return insights.map((insight) => ({
+      url: `${BASE_URL}/insights/${insight.slug}`,
+      lastModified: new Date(insight.updatedAt || insight.publishedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Generate job posting pages
  */
 async function getJobPages(): Promise<MetadataRoute.Sitemap> {
   try {
@@ -177,36 +213,25 @@ async function getJobPages(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.6,
     }));
-  } catch (error) {
-    // If jobs are not available, return empty array
+  } catch {
     return [];
   }
 }
 
 /**
  * Sitemap Generation Function
- * 
- * This function is called by Next.js to generate the sitemap.
- * It runs at build time for static routes and can be revalidated.
- * 
- * SEO BEST PRACTICES:
- * - Include all indexable pages
- * - Use accurate lastModified dates
- * - Set appropriate priorities (0.0-1.0)
- * - Set realistic changeFrequency
- * - Revalidate regularly to include new content
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Fetch dynamic content in parallel for better performance
+  // Fetch dynamic content in parallel
   const [insightPages, jobPages] = await Promise.all([
     getInsightPages(),
     getJobPages(),
   ]);
 
-  // Combine all pages
   return [
     ...STATIC_PAGES,
     ...getServicePages(),
+    ...getBlogPages(),
     ...insightPages,
     ...jobPages,
   ];

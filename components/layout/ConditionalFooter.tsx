@@ -3,6 +3,8 @@
  *
  * PURPOSE: Conditionally render CareersFooter for careers pages, Footer for all other pages.
  * WHY: Careers pages need a different footer design.
+ * FIX: Removed `typeof window !== 'undefined'` check which caused hydration
+ *      mismatch. usePathname() is SSR-safe.
  */
 
 "use client";
@@ -13,12 +15,9 @@ import { CareersFooter } from "./CareersFooter";
 
 export function ConditionalFooter() {
   const pathname = usePathname();
-  
-  // Check if we're on careers subdomain or careers path
-  const isCareersPage = 
-    typeof window !== 'undefined' && 
-    (window.location.hostname.startsWith('careers.') || 
-     pathname?.startsWith("/company/careers"));
+
+  // Use pathname only — it's SSR-safe and avoids hydration mismatch
+  const isCareersPage = pathname?.startsWith("/company/careers");
 
   if (isCareersPage) {
     return <CareersFooter />;

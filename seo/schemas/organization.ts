@@ -5,10 +5,13 @@
  * WHY: Organization schema helps Google build Knowledge Panel
  *      and understand your brand entity.
  *
- * TODO: Fill in actual business details before launch
+ * SEO CRITICAL: Correct social links and email are essential for
+ *   Google Knowledge Panel, AI search (ChatGPT, Gemini, Claude),
+ *   and brand entity recognition.
  */
 
 import { buildOrganizationSchema } from "@/lib/schema";
+import { SOCIAL_LINKS } from "@/lib/constants";
 
 /**
  * Full organization schema with all details
@@ -17,25 +20,20 @@ import { buildOrganizationSchema } from "@/lib/schema";
 export const ORGANIZATION_SCHEMA = buildOrganizationSchema({
   name: "Enlivo Technologies",
   description:
-    "Enlivo architects the secure digital backbone for modern global business. Precision engineering for mission critical platforms, cloud infrastructure, and AI.",
+    "Enlivo Technologies is a premium software development company based in Bangalore, India that helps funded startups ship production-ready software in weeks. Specializing in MVP development, product rebuilds, and dedicated engineering teams for startup founders across the US, UK, EU, and Australia.",
 
-  // Contact information
-  // Note: Phone number removed for privacy - using email only
-  // Phone number available via contact page and WhatsApp link in footer
+  // Contact information — using official business email
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
-    email: "Info.enlivo@gmail.com",
+    email: SOCIAL_LINKS.email,
     availableLanguage: ["English"],
-    // Optional: Add contact form URL instead
-    // url: "https://www.enlivotechnologies.com/contact",
   },
 
-  // Social media profiles - helps Google build Knowledge Panel
+  // Social media profiles — CRITICAL for Google Knowledge Panel + AI recognition
   sameAs: [
-    "https://www.linkedin.com/company/enlivo-global-tech-solutions-pvt-ltd/",
-    "https://www.instagram.com/enlivo_globalsolutions_techpvt",
-    // Add other social profiles as needed
+    SOCIAL_LINKS.linkedin,
+    SOCIAL_LINKS.instagram,
   ],
 });
 

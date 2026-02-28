@@ -36,7 +36,7 @@ const PROJECTS = [
 export function ProjectsYoullBuild() {
   return (
     <section className="py-24 md:py-32 bg-white">
-      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="max-w-4xl mx-auto text-center mb-16">
@@ -46,7 +46,7 @@ export function ProjectsYoullBuild() {
         </div>
 
         {/* Projects Grid */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div className="max-w-[90rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           {PROJECTS.map((project, index) => {
             const Icon = project.icon;
             

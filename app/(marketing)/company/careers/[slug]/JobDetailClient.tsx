@@ -23,7 +23,7 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
       
       {/* Dark Header Section */}
       <section className="bg-[#1A1A1A] text-white pt-20 lg:pt-28">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+        <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16 py-16 lg:py-20">
           {/* Job Title */}
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-[-0.02em] leading-[1.1]">
             {job.title}
@@ -50,7 +50,7 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
 
       {/* Tab Navigation */}
       <div className="border-b border-[#E5E5E0] bg-white sticky top-0 z-10 backdrop-blur-sm bg-white/95">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
           <div className="flex items-center gap-8">
             <button
               onClick={() => setActiveTab("details")}
@@ -77,7 +77,7 @@ export function JobDetailClient({ job }: JobDetailClientProps) {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16 py-12 lg:py-16">
         {activeTab === "details" ? (
           <div>
             

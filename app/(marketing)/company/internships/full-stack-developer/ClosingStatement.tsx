@@ -14,8 +14,8 @@ import { ArrowUpRight } from "lucide-react";
 export function ClosingStatement() {
   return (
     <section className="py-24 md:py-32 bg-[#FFFFFF]">
-      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[90rem] mx-auto">
           {/* Dark Card with Rounded Corners */}
           <div className="relative bg-black rounded-3xl p-10 md:p-14 lg:p-16 overflow-hidden shadow-2xl">
             {/* Subtle Texture Overlay */}

@@ -4,6 +4,12 @@
  * PURPOSE: Centralized SEO content for all service pages.
  * WHY: Service pages are high-intent pages that should rank for
  *      commercial keywords. Centralized management ensures consistency.
+ *
+ * SERVICES (4 total):
+ * 1. MVP Development — for founders who need to ship fast
+ * 2. Product Rebuild — for startups with legacy tech debt
+ * 3. Dedicated Team — for scaling engineering capacity
+ * 4. Free Audit — top-of-funnel lead generation
  */
 
 import type { PageSEO } from "@/lib/seo";
@@ -12,14 +18,18 @@ import type { PageSEO } from "@/lib/seo";
  * Services index page SEO
  */
 export const SERVICES_INDEX_SEO: PageSEO = {
-  title: "Enterprise Technology Services",
+  title: "Software Development Services for Funded Startups",
   description:
-    "Comprehensive technology services including product engineering, enterprise systems, AI automation, cloud platforms, and cybersecurity. Partner with us for digital excellence.",
+    "MVP development, product rebuilds, dedicated engineering teams, and free technical audits. Enlivo Technologies helps funded startups across the US, UK, EU, and Australia ship production-ready software in weeks.",
   keywords: [
-    "enterprise technology services",
     "software development services",
-    "digital transformation services",
-    "IT consulting",
+    "startup development services",
+    "MVP development company",
+    "product rebuild services",
+    "dedicated development team",
+    "free technical audit",
+    "software development for startups",
+    "hire software developers",
   ],
   pathname: "/services",
   ogImage: "/images/og/services.png",
@@ -27,88 +37,102 @@ export const SERVICES_INDEX_SEO: PageSEO = {
 
 /**
  * Individual service page SEO configurations
- *
- * SEO STRATEGY:
- * - Each service page targets specific commercial intent keywords
- * - Title format: [Service] Services | [Company]
- * - Description should address pain points + solutions
  */
 export const SERVICE_PAGES_SEO: Record<string, PageSEO> = {
-  "product-engineering": {
-    // TODO: Research competitor titles, optimize for CTR
-    title: "Product Engineering Services",
+  "mvp-development": {
+    title: "MVP Development Services | Build Your Startup App Fast",
     description:
-      "Build scalable digital products from concept to launch. Our product engineering team delivers custom software, MVPs, and enterprise applications using modern technologies.",
+      "Build your MVP in weeks, not months. Expert MVP development services for startups. Rapid prototyping, validated products, faster funding. Trusted by founders in US, UK, EU.",
     keywords: [
-      "product engineering services",
-      "custom software development",
       "MVP development",
-      "software product development",
-      "agile product development",
+      "MVP development services",
+      "build MVP",
+      "startup MVP development",
+      "minimum viable product",
+      "rapid MVP development",
+      "MVP development company",
+      "startup app development",
+      "prototype development",
+      "MVP for startups",
+      "lean product development",
+      "rapid prototyping",
+      "startup product development",
+      "MVP development cost",
+      "how to build an MVP",
     ],
-    pathname: "/services/product-engineering",
-    ogImage: "/images/og/product-engineering.png",
+    pathname: "/services/mvp-development",
+    ogImage: "/images/og/services.png",
   },
 
-  "enterprise-systems": {
-    title: "Enterprise Systems Integration & Modernization",
+  "product-rebuild": {
+    title: "Product Rebuild Services | Rewrite & Modernize Your App",
     description:
-      "Modernize legacy systems and integrate enterprise applications. We specialize in ERP implementation, system integration, and digital transformation for large organizations.",
+      "Rebuild your legacy product with modern technology. Zero-downtime migration, clean architecture, and 10x performance. Trusted by funded startups across US, UK, and EU.",
     keywords: [
-      "enterprise systems integration",
-      "legacy system modernization",
-      "ERP implementation",
-      "enterprise application integration",
-      "digital transformation",
+      "product rebuild",
+      "app rewrite",
+      "legacy modernization",
+      "software rebuild",
+      "code refactoring",
+      "legacy code modernization",
+      "product rewrite services",
+      "rebuild app from scratch",
+      "modernize legacy software",
+      "tech debt cleanup",
+      "zero downtime migration",
+      "app migration services",
+      "software modernization company",
+      "product rebuild cost",
     ],
-    pathname: "/services/enterprise-systems",
-    ogImage: "/images/og/enterprise-systems.png",
+    pathname: "/services/product-rebuild",
+    ogImage: "/images/og/services.png",
   },
 
-  "ai-automation": {
-    title: "AI & Automation Solutions",
+  "dedicated-team": {
+    title: "Dedicated Development Team | Hire Engineers on Demand",
     description:
-      "Leverage artificial intelligence and machine learning to automate business processes. We build intelligent systems that drive efficiency and innovation.",
+      "Hire a dedicated development team that works as an extension of your startup. Senior engineers, transparent pricing, weekly demos. Scale up or down as you grow.",
     keywords: [
-      "AI automation solutions",
-      "machine learning services",
-      "business process automation",
-      "intelligent automation",
-      "AI consulting",
+      "dedicated development team",
+      "hire development team",
+      "dedicated software team",
+      "offshore development team",
+      "remote development team",
+      "staff augmentation",
+      "hire remote developers",
+      "dedicated engineering team",
+      "outsource development team",
+      "hire software engineers",
+      "team augmentation services",
+      "dedicated developers India",
+      "extended development team",
+      "hire full stack developers",
     ],
-    pathname: "/services/ai-automation",
-    ogImage: "/images/og/ai-automation.png",
+    pathname: "/services/dedicated-team",
+    ogImage: "/images/og/services.png",
   },
 
-  "cloud-platforms": {
-    title: "Cloud Platform Engineering & Migration",
+  "free-audit": {
+    title: "Free Technical Audit | Get Your App Assessed by Senior Engineers",
     description:
-      "Design and implement cloud-native architectures on AWS, Azure, and GCP. Expert cloud migration, DevOps, and infrastructure optimization services.",
+      "Get a free, no-obligation technical audit of your app or codebase. Our senior engineers will identify performance bottlenecks, security risks, and architecture improvements.",
     keywords: [
-      "cloud platform engineering",
-      "cloud migration services",
-      "AWS consulting",
-      "Azure services",
-      "cloud architecture",
-      "DevOps services",
+      "free technical audit",
+      "free code review",
+      "app audit",
+      "software audit",
+      "technical assessment",
+      "code quality review",
+      "free app assessment",
+      "performance audit",
+      "security audit software",
+      "codebase review",
+      "technical debt assessment",
+      "free consultation software development",
+      "architecture review",
     ],
-    pathname: "/services/cloud-platforms",
-    ogImage: "/images/og/cloud-platforms.png",
-  },
-
-  cybersecurity: {
-    title: "Enterprise Cybersecurity Services",
-    description:
-      "Protect your digital assets with comprehensive security solutions. From security assessments to SOC services, we deliver enterprise-grade protection.",
-    keywords: [
-      "enterprise cybersecurity",
-      "security assessment",
-      "penetration testing",
-      "SOC services",
-      "cybersecurity consulting",
-    ],
-    pathname: "/services/cybersecurity",
-    ogImage: "/images/og/cybersecurity.png",
+    pathname: "/services/free-audit",
+    ogImage: "/images/og/services.png",
   },
 };
 
@@ -119,54 +143,40 @@ export const SERVICE_HEADINGS: Record<
   string,
   { h1: string; sections: Record<string, string> }
 > = {
-  "product-engineering": {
-    h1: "Product Engineering Services",
+  "mvp-development": {
+    h1: "MVP & Product Development",
     sections: {
-      overview: "Build Products That Scale",
-      capabilities: "Our Capabilities",
-      process: "Our Development Process",
-      technologies: "Technologies We Use",
-      cta: "Start Your Product Journey",
+      overview: "Build Products That Users Love",
+      capabilities: "Why Choose Our MVP Development",
+      process: "Our MVP Process",
+      cta: "Ready to Build Your MVP?",
     },
   },
-  "enterprise-systems": {
-    h1: "Enterprise Systems Integration & Modernization",
+  "product-rebuild": {
+    h1: "Product Rebuild & Modernization",
     sections: {
-      overview: "Transform Your Enterprise Infrastructure",
-      capabilities: "Our Capabilities",
-      process: "Our Approach",
-      technologies: "Technologies & Platforms",
-      cta: "Modernize Your Systems",
+      overview: "Rebuild for the Next 3 Years of Growth",
+      capabilities: "Why Choose Our Product Rebuild",
+      process: "Our Rebuild Process",
+      cta: "Ready to Rebuild Your Product?",
     },
   },
-  "ai-automation": {
-    h1: "AI & Automation Solutions",
+  "dedicated-team": {
+    h1: "Dedicated Development Team",
     sections: {
-      overview: "Intelligent Automation for Your Business",
-      capabilities: "Our AI Capabilities",
-      process: "Our AI Development Process",
-      technologies: "AI Technologies",
-      cta: "Explore AI Solutions",
+      overview: "Your Team, Your Way",
+      capabilities: "Why Choose a Dedicated Team",
+      process: "How It Works",
+      cta: "Ready to Build Your Team?",
     },
   },
-  "cloud-platforms": {
-    h1: "Cloud Platform Engineering",
+  "free-audit": {
+    h1: "Free Technical Audit",
     sections: {
-      overview: "Cloud-Native Architecture Excellence",
-      capabilities: "Our Cloud Capabilities",
-      process: "Our Cloud Journey",
-      technologies: "Cloud Platforms",
-      cta: "Start Your Cloud Journey",
-    },
-  },
-  cybersecurity: {
-    h1: "Enterprise Cybersecurity Services",
-    sections: {
-      overview: "Comprehensive Security Solutions",
-      capabilities: "Our Security Services",
-      process: "Our Security Approach",
-      technologies: "Security Technologies",
-      cta: "Secure Your Business",
+      overview: "Know Exactly Where Your App Stands",
+      capabilities: "What's Included",
+      process: "How It Works",
+      cta: "Get Your Free Audit Today",
     },
   },
 };

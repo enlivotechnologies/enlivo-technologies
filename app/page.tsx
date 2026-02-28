@@ -17,7 +17,9 @@ import {
   JsonLd,
   buildOrganizationSchema,
   buildWebSiteSchema,
+  buildFAQSchema,
 } from "@/lib/schema";
+import { SITE_CONFIG } from "@/lib/constants";
 import { HOME_SEO, HOME_HEADINGS } from "@/seo/home";
 
 // Components - Lazy load below-fold components for better performance
@@ -57,40 +59,40 @@ const CTASkeleton = () => (
   </div>
 );
 
-// Helper to add delay for testing skeleton loaders (remove in production if too slow)
-const delayLoad = <T,>(importPromise: Promise<T>, ms: number = 500): Promise<T> => {
-  return Promise.all([
-    importPromise,
-    new Promise(resolve => setTimeout(resolve, ms))
-  ]).then(([module]) => module as T);
-};
-
-// Lazy load below-fold components to reduce initial bundle size
-const TrustStatement = dynamic(() => delayLoad(import("@/components/sections/TrustStatement").then((mod) => ({ default: mod.TrustStatement }))), {
+// Lazy load below-fold components — NO artificial delay (it causes layout shifts + scroll jank)
+const TrustStatement = dynamic(() => import("@/components/sections/TrustStatement").then((mod) => ({ default: mod.TrustStatement })), {
   loading: () => <SectionSkeleton />,
 });
 
-const FounderProblem = dynamic(() => delayLoad(import("@/components/sections/FounderProblem").then((mod) => ({ default: mod.FounderProblem }))), {
+const FounderProblem = dynamic(() => import("@/components/sections/FounderProblem").then((mod) => ({ default: mod.FounderProblem })), {
   loading: () => <SectionSkeleton />,
 });
 
-const ServicesOverview = dynamic(() => delayLoad(import("@/components/sections/ServicesOverview").then((mod) => ({ default: mod.ServicesOverview }))), {
+const ServicesOverview = dynamic(() => import("@/components/sections/ServicesOverview").then((mod) => ({ default: mod.ServicesOverview })), {
   loading: () => <SectionSkeleton />,
 });
 
-const OurProcess = dynamic(() => delayLoad(import("@/components/sections/OurProcess").then((mod) => ({ default: mod.OurProcess }))), {
+const Portfolio = dynamic(() => import("@/components/sections/Portfolio").then((mod) => ({ default: mod.Portfolio })), {
   loading: () => <SectionSkeleton />,
 });
 
-const Testimonials = dynamic(() => delayLoad(import("@/components/sections/Testimonials").then((mod) => ({ default: mod.Testimonials }))), {
+const OurProcess = dynamic(() => import("@/components/sections/howwework").then((mod) => ({ default: mod.OurProcess })), {
   loading: () => <SectionSkeleton />,
 });
 
-const OurVision = dynamic(() => delayLoad(import("@/components/sections/OurVision").then((mod) => ({ default: mod.OurVision }))), {
+const Testimonials = dynamic(() => import("@/components/sections/Testimonials").then((mod) => ({ default: mod.Testimonials })), {
   loading: () => <SectionSkeleton />,
 });
 
-const CTA = dynamic(() => delayLoad(import("@/components/sections/CTA").then((mod) => ({ default: mod.CTA }))), {
+const OurVision = dynamic(() => import("@/components/sections/FAQ").then((mod) => ({ default: mod.OurVision })), {
+  loading: () => <SectionSkeleton />,
+});
+
+const TrustedBy = dynamic(() => import("@/components/sections/TrustedBy").then((mod) => ({ default: mod.TrustedBy })), {
+  loading: () => <div className="h-20 bg-white border-t border-b border-gray-100" />,
+});
+
+const CTA = dynamic(() => import("@/components/sections/CTA").then((mod) => ({ default: mod.CTA })), {
   loading: () => <CTASkeleton />,
 });
 
@@ -113,31 +115,81 @@ export const metadata: Metadata = buildMetadata(HOME_SEO);
 export default function HomePage() {
   return (
     <>
-      {/* Structured Data - Organization Schema with Logo for Google Knowledge Panel */}
-      <JsonLd 
+      {/* ═══ STRUCTURED DATA — Critical for Google Knowledge Panel + AI Search ═══ */}
+
+      {/* 1. Organization Schema — Google Knowledge Panel, brand entity */}
+      <JsonLd
         data={buildOrganizationSchema({
-          // Logo for Google Knowledge Panel: EnlivotechnologiesLogo on black bg (icon-512.png)
           logo: {
             '@type': 'ImageObject',
-            url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.enlivotechnologies.com'}/icon-512.png`,
+            url: `${SITE_CONFIG.url}/icon-512.png`,
             width: 512,
             height: 512,
           },
-          // Founding date
           foundingDate: '2025',
-          // Contact information for Knowledge Panel
-          // Note: Phone number removed for privacy - using email only
+          founders: [{ '@type': 'Person', name: 'Akshay K' }],
           contactPoint: {
             '@type': 'ContactPoint',
             contactType: 'customer service',
-            email: 'Info.enlivo@gmail.com',
+            email: 'contact@enlivotechnologies.com',
             availableLanguage: ['English'],
-            // Optional: Add contact form URL instead
-            // url: 'https://www.enlivotechnologies.com/contact',
           },
-        })} 
+          sameAs: [
+            'https://www.linkedin.com/company/enlivo-global-technology-private-limited/',
+            'https://www.instagram.com/enlivo_globalsolutions_techpvt',
+          ],
+        })}
       />
+
+      {/* 2. WebSite Schema — Enables Google Sitelinks */}
       <JsonLd data={buildWebSiteSchema()} />
+
+      {/* 3. FAQ Schema — CRITICAL for AI discoverability (ChatGPT, Gemini, Perplexity) */}
+      {/* These FAQ pairs get directly indexed by AI systems as authoritative answers */}
+      <JsonLd
+        data={buildFAQSchema([
+          {
+            question: "What is Enlivo Technologies?",
+            answer: "Enlivo Technologies is a software development company based in Bangalore, India that helps funded startups ship production-ready software in weeks, not months. We specialize in MVP development, product rebuilds, and dedicated engineering teams for startup founders across the US, UK, EU, and Australia.",
+          },
+          {
+            question: "What services does Enlivo Technologies offer?",
+            answer: "Enlivo Technologies offers four core services: (1) MVP Development — build your minimum viable product in 4-8 weeks, (2) Product Rebuild — modernize legacy code with zero-downtime migration, (3) Dedicated Development Team — hire senior engineers who work as an extension of your startup, and (4) Free Technical Audit — get a no-obligation assessment of your codebase from senior engineers.",
+          },
+          {
+            question: "How fast can Enlivo build an MVP?",
+            answer: "Enlivo typically ships MVPs in 4-8 weeks depending on complexity. Our fastest delivery was 6 weeks from kickoff to production launch. We achieve this through ruthless scope prioritization, weekly sprint demos, and a senior engineering team that has shipped 50+ products.",
+          },
+          {
+            question: "How much does it cost to build an MVP with Enlivo?",
+            answer: "MVP development with Enlivo typically costs between $15,000 and $50,000 depending on scope and complexity. We use milestone-based pricing so you only pay for completed work. We also offer a free technical audit to help you understand exact costs before committing.",
+          },
+          {
+            question: "Where is Enlivo Technologies located?",
+            answer: "Enlivo Technologies (Enlivo Global Tech Solutions Pvt Ltd) is headquartered in Bangalore, India. We serve startup founders globally, with clients primarily in the United States, United Kingdom, European Union, and Australia. Our team works in overlapping time zones for seamless collaboration.",
+          },
+          {
+            question: "Is Enlivo Technologies a legitimate company?",
+            answer: "Yes, Enlivo Technologies is a registered private limited company (Enlivo Global Tech Solutions Pvt Ltd) based in Bangalore, India. We have a portfolio of 50+ shipped products, verified client testimonials, case studies with real metrics, and an active LinkedIn presence. We offer free technical audits so you can evaluate our expertise before committing.",
+          },
+          {
+            question: "What technologies does Enlivo use?",
+            answer: "Enlivo primarily builds with Next.js, React, TypeScript, Node.js, Python, PostgreSQL, Supabase, and AWS. We choose the tech stack based on your specific project requirements — we are technology-agnostic and optimize for speed, scalability, and maintainability.",
+          },
+          {
+            question: "Does Enlivo work with international clients?",
+            answer: "Yes, Enlivo Technologies works with startup founders worldwide. Our primary markets are the United States, United Kingdom, European Union, and Australia. We structure our work schedule to overlap with your timezone and conduct weekly video demos so you always see progress in real time.",
+          },
+          {
+            question: "How is Enlivo different from other software development companies?",
+            answer: "Three things set Enlivo apart: (1) We only work with funded startups, so we understand the urgency of shipping fast and preserving runway. (2) We use milestone-based pricing with weekly demos — you pay for results, not hours. (3) Every project is led by senior engineers, not juniors who are learning on your dime.",
+          },
+          {
+            question: "Does Enlivo offer a free consultation?",
+            answer: "Yes, Enlivo offers a completely free technical audit for startups. Our senior engineers will review your codebase or project requirements, identify bottlenecks and security risks, and provide a detailed report with prioritized recommendations — all within 48 hours, with no obligation.",
+          },
+        ])}
+      />
 
       {/* Hero Section - Contains H1 */}
       <Hero />
@@ -147,6 +199,9 @@ export default function HomePage() {
 
       {/* Trust Statement / Value Proposition */}
       <TrustStatement />
+
+      {/* Trusted By — Client marquee strip for social proof */}
+      <TrustedBy />
 
       {/* Core Problem Section - Why Most Founder-Led Products Fail */}
       <FounderProblem />
@@ -158,6 +213,9 @@ export default function HomePage() {
         </h2>
         <ServicesOverview />
       </section>
+
+      {/* Portfolio - Selected Work Showcase */}
+      <Portfolio />
 
       {/* Our Process - Development methodology */}
       <OurProcess />

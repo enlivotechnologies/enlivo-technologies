@@ -6,8 +6,8 @@ import { CAREERS_SEO } from "@/seo/company";
 
 export const metadata: Metadata = buildMetadata({
   ...CAREERS_SEO,
-  title: "Careers at Enlivo - Join our India Team",
-  description: "Explore internships and full-time positions in Design and Engineering at our India hubs.",
+  title: "Careers at Enlivo | Join Our Global Team | Remote Worldwide",
+  description: "Join Enlivo Technologies — explore open positions in Engineering, Design, Product, Operations, and Sales. Remote-first, worldwide hiring. Build premium software with us.",
 });
 
 export default function CareersPage() {

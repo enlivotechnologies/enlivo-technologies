@@ -103,7 +103,7 @@ export function QuoteSection({
       aria-label="Quote section"
     >
       {/* Main Container - Matching OurVision width */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
         <div>
           {/* Eyebrow Text - Top Left */}
           <p
