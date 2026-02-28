@@ -1,13 +1,30 @@
 /**
  * proxy.ts
  *
- * PURPOSE: Handle subdomain routing for careers.enlivotechnologies.com
- * WHY: Routes careers subdomain to careers pages while maintaining SEO-friendly URLs
- * 
+ * PURPOSE: Handle subdomain routing for careers & blog subdomains
+ * WHY: Routes subdomains to internal pages while maintaining SEO-friendly URLs
+ *
+ * Subdomains handled:
+ * - careers.enlivotechnologies.com → /company/careers/*
+ * - blog.enlivotechnologies.com → /blog/*
+ *
  * NOTE: Next.js 16.1.1+ uses "proxy" instead of deprecated "middleware"
  */
 
 import { NextRequest, NextResponse } from "next/server";
+
+/** Paths that should never be rewritten (static assets, API, etc.) */
+function isStaticPath(pathname: string): boolean {
+  return (
+    pathname.startsWith('/api/') ||
+    pathname.startsWith('/_next/') ||
+    pathname.startsWith('/_static/') ||
+    pathname === '/manifest.json' ||
+    pathname === '/sitemap.xml' ||
+    pathname === '/robots.txt' ||
+    /\.\w+$/.test(pathname) // Files with extensions
+  );
+}
 
 export default function proxy(request: NextRequest) {
   const url = request.nextUrl.clone();
@@ -16,39 +33,37 @@ export default function proxy(request: NextRequest) {
   // Normalize hostname (remove port for comparison)
   const normalizedHostname = hostname.split(':')[0];
 
-  // Check if request is coming from careers subdomain
-  // Handles: 
-  // - careers.enlivotechnologies.com (production)
-  // - careers.localhost (local development)
-  // - careers.www.enlivotechnologies.com, etc.
+  // ── Careers subdomain ──
+  // careers.enlivotechnologies.com → /company/careers/*
   if (normalizedHostname.startsWith('careers.')) {
-    // Skip rewriting if already on /company/careers path (to avoid double rewriting)
-    if (url.pathname.startsWith('/company/careers')) {
+    if (url.pathname.startsWith('/company/careers') || isStaticPath(url.pathname)) {
       return NextResponse.next();
     }
 
-    // Skip API routes, static files, and public assets
-    if (
-      url.pathname.startsWith('/api/') ||
-      url.pathname.startsWith('/_next/') ||
-      url.pathname.startsWith('/_static/') ||
-      url.pathname === '/manifest.json' ||
-      url.pathname === '/sitemap.xml' ||
-      url.pathname === '/robots.txt' ||
-      /\.\w+$/.test(url.pathname) // Files with extensions
-    ) {
-      return NextResponse.next();
-    }
-
-    // Handle root path - rewrite to careers listing page
     if (url.pathname === '/') {
       url.pathname = '/company/careers';
       return NextResponse.rewrite(url);
     }
 
-    // Handle job detail pages (e.g., /senior-product-designer)
-    // Rewrite any path to /company/careers/[path]
     url.pathname = `/company/careers${url.pathname}`;
+    return NextResponse.rewrite(url);
+  }
+
+  // ── Blog subdomain ──
+  // blog.enlivotechnologies.com → /blog/*
+  // blog.enlivotechnologies.com/vibe-coding-killing-dev-agencies → /blog/vibe-coding-killing-dev-agencies
+  if (normalizedHostname.startsWith('blog.')) {
+    if (url.pathname.startsWith('/blog') || isStaticPath(url.pathname)) {
+      return NextResponse.next();
+    }
+
+    if (url.pathname === '/') {
+      url.pathname = '/blog';
+      return NextResponse.rewrite(url);
+    }
+
+    // Handle blog post slugs (e.g., /vibe-coding-killing-dev-agencies → /blog/vibe-coding-killing-dev-agencies)
+    url.pathname = `/blog${url.pathname}`;
     return NextResponse.rewrite(url);
   }
 

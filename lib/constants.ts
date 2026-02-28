@@ -36,6 +36,35 @@ export function getCareersUrl(): string {
 export const CAREERS_URL = 'https://careers.enlivotechnologies.com';
 
 /**
+ * Get Blog URL - Environment aware
+ * WHY: Use subdomain in production, normal route on localhost
+ *
+ * @returns Blog URL based on environment
+ */
+export function getBlogUrl(): string {
+  // Client-side: check if we're on localhost
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('192.168.')) {
+      return '/blog';
+    }
+    return 'https://blog.enlivotechnologies.com';
+  }
+
+  // Server-side: use environment variable or default to production
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://blog.enlivotechnologies.com';
+  }
+  return '/blog';
+}
+
+/**
+ * Blog URL constant for backward compatibility
+ * NOTE: Use getBlogUrl() for dynamic environment detection
+ */
+export const BLOG_URL = 'https://blog.enlivotechnologies.com';
+
+/**
  * Site-wide configuration
  * TODO: Update with actual business details before launch
  */
@@ -94,7 +123,7 @@ export const NAVIGATION = {
     },
     {
       label: "Blog",
-      href: "/blog",
+      href: BLOG_URL,
     },
     {
       label: "Company",
@@ -123,7 +152,7 @@ export const NAVIGATION = {
       { label: "About", href: "/company/about" },
       { label: "Team", href: "/company/team" },
       { label: "Careers", href: "/company/careers" },
-      { label: "Blog", href: "/blog" },
+      { label: "Blog", href: BLOG_URL },
     ],
     trust: [
       { label: "Portfolio", href: "/portfolio" },

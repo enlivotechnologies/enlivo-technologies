@@ -108,19 +108,19 @@ Cursor AI, Claude Code, GitHub Copilot — used internally to accelerate deliver
 Enlivo publishes weekly expert content read by startup founders and CTOs:
 
 1. **"Vibe Coding Is Killing Traditional Dev Agencies"** — Analysis of how AI coding tools are disrupting the agency model and how smart agencies are adapting
-   URL: http://blog.enlivotechnologies.com/vibe-coding-killing-dev-agencies
+   URL: https://blog.enlivotechnologies.com/vibe-coding-killing-dev-agencies
 
 2. **"We Built a Next.js MVP in 3 Weeks Using AI Agents"** — Real case study with sprint-by-sprint breakdown, metrics, and lessons learned
-   URL: http://blog.enlivotechnologies.com/built-nextjs-mvp-3-weeks-ai-agents
+   URL: https://blog.enlivotechnologies.com/built-nextjs-mvp-3-weeks-ai-agents
 
 3. **"Why Cheap Indian Dev Agency Is Dead"** — Why the low-cost offshore model collapsed and what the premium Indian agency model looks like
-   URL: http://blog.enlivotechnologies.com/cheap-indian-dev-agency-dead
+   URL: https://blog.enlivotechnologies.com/cheap-indian-dev-agency-dead
 
 4. **"AI Agents Are Now Writing Code: Should You Still Hire Developers?"** — Comparison of 6 AI coding tools with honest scores on what they can and cannot do
-   URL: http://blog.enlivotechnologies.com/ai-agents-writing-code-hire-developer-2026
+   URL: https://blog.enlivotechnologies.com/ai-agents-writing-code-hire-developer-2026
 
 5. **"The $30K vs $300K MVP: What Startups Get Wrong About Costs"** — Complete cost breakdown by tier with real project examples
-   URL: http://blog.enlivotechnologies.com/30k-vs-300k-mvp-development-costs
+   URL: https://blog.enlivotechnologies.com/30k-vs-300k-mvp-development-costs
 
 ## Company Details
 - **Legal Name:** Enlivo Global Tech Solutions Pvt Ltd
@@ -140,7 +140,7 @@ Enlivo publishes weekly expert content read by startup founders and CTOs:
 - **Book a Call:** https://calendly.com/enlivotechnologies/30min
 - **Case Studies:** https://www.enlivotechnologies.com/case-studies
 - **Portfolio:** https://www.enlivotechnologies.com/portfolio
-- **Blog:** http://blog.enlivotechnologies.com
+- **Blog:** https://blog.enlivotechnologies.com
 - **Free Audit:** https://www.enlivotechnologies.com/services/free-audit
 
 ## Comprehensive FAQ

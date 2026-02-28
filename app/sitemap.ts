@@ -132,7 +132,7 @@ const STATIC_PAGES: MetadataRoute.Sitemap = [
 
   // Blog index — high priority for organic traffic
   {
-    url: "http://blog.enlivotechnologies.com",
+    url: "https://blog.enlivotechnologies.com",
     lastModified: SITEMAP_LASTMOD,
     changeFrequency: "weekly",
     priority: 0.9,
@@ -176,7 +176,7 @@ function getServicePages(): MetadataRoute.Sitemap {
  * HIGH PRIORITY: Blog posts drive organic traffic and AI discoverability
  */
 function getBlogPages(): MetadataRoute.Sitemap {
-  const BLOG_BASE = "http://blog.enlivotechnologies.com";
+  const BLOG_BASE = "https://blog.enlivotechnologies.com";
   return BLOG_POSTS.map((post) => ({
     url: `${BLOG_BASE}/${post.slug}`,
     lastModified: new Date(post.date),

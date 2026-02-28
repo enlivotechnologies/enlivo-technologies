@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import { getCareersUrl } from "@/lib/constants";
+import { getCareersUrl, getBlogUrl } from "@/lib/constants";
 
 // --- COMPONENTS: ICONS ---
 
@@ -27,7 +27,7 @@ const FOOTER_NAV = [
       { label: "About Us", href: "/company/about" },
       { label: "Team", href: "/company/team" },
       { label: "Careers", href: getCareersUrl() },
-      { label: "Blog", href: "/blog" },
+      { label: "Blog", href: getBlogUrl() },
     ],
     // Nested Legal Section for Column 1
     legalGroup: {
