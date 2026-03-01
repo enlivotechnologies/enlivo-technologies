@@ -7,7 +7,7 @@
  *
  * DESIGN:
  * - Hero with blue accent tag, bold headline, last-updated badge
- * - Two-column layout: sticky sidebar nav + scrollable content cards
+ * - Two-column layout: gray sidebar nav (scroll-tracked) + white content cards
  * - Numbered sections with clean typography
  * - Bottom CTA to contact
  */
@@ -17,6 +17,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { JsonLd, buildBreadcrumbSchema } from "@/lib/schema";
 import { ArrowUpRight, FileText, Mail } from "lucide-react";
+import { LegalSidebar } from "@/components/legal/LegalSidebar";
 
 export const metadata: Metadata = buildMetadata({
   title: "Refund Policy | Enlivo Technologies",
@@ -32,118 +33,19 @@ export const metadata: Metadata = buildMetadata({
   pathname: "/refund-policy",
 });
 
-const SECTIONS = [
-  {
-    id: "overview",
-    title: "Overview",
-    content: (
-      <p>
-        At Enlivo Technologies, we believe in transparent, fair billing. Our
-        projects are structured around milestone-based payments — you pay for
-        completed work, not promises. This policy outlines the terms under which
-        refunds may be issued.
-      </p>
-    ),
-  },
-  {
-    id: "milestones",
-    title: "Milestone-Based Payments",
-    content: (
-      <p>
-        All projects are divided into clearly defined milestones, each with
-        specific deliverables and acceptance criteria. Payment for each milestone
-        is due upon successful delivery and client approval of the corresponding
-        deliverables.
-      </p>
-    ),
-  },
-  {
-    id: "eligibility",
-    title: "Refund Eligibility",
-    content: (
-      <>
-        <p>Refunds may be issued under the following circumstances:</p>
-        <ul>
-          <li>
-            Milestone deliverables do not meet the agreed-upon acceptance
-            criteria after two revision cycles
-          </li>
-          <li>
-            Project is cancelled before any development work has begun
-            (discovery/planning fees may still apply)
-          </li>
-          <li>
-            Significant delays caused by Enlivo that exceed the agreed timeline
-            by more than 30%
-          </li>
-          <li>Material breach of the Service Agreement by Enlivo</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    id: "non-refundable",
-    title: "Non-Refundable Items",
-    content: (
-      <>
-        <p>The following are generally non-refundable:</p>
-        <ul>
-          <li>Work already completed and approved by the client</li>
-          <li>
-            Third-party licenses, hosting costs, or domain registrations
-            purchased on behalf of the client
-          </li>
-          <li>
-            Discovery and planning phase fees once the phase is completed
-          </li>
-          <li>Rush or expedited delivery premiums</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    id: "cancellation",
-    title: "Cancellation Policy",
-    content: (
-      <p>
-        Either party may terminate the engagement with 14 days written notice.
-        Upon cancellation, the client is responsible for payment of all completed
-        milestones and any work-in-progress at the pro-rata rate. All completed
-        deliverables and source code will be transferred to the client upon final
-        payment.
-      </p>
-    ),
-  },
-  {
-    id: "how-to",
-    title: "How to Request a Refund",
-    content: (
-      <p>
-        To request a refund, please email us at{" "}
-        <a
-          href="mailto:contact@enlivotechnologies.com"
-          className="text-[#2563EB] hover:underline"
-        >
-          contact@enlivotechnologies.com
-        </a>{" "}
-        with your project details, the milestone in question, and a description
-        of the issue. We aim to respond to all refund requests within 3 business
-        days.
-      </p>
-    ),
-  },
-  {
-    id: "disputes",
-    title: "Dispute Resolution",
-    content: (
-      <p>
-        In the event of a payment dispute, both parties agree to engage in
-        good-faith negotiations before pursuing any legal remedies. If a
-        resolution cannot be reached, disputes shall be resolved in accordance
-        with the terms outlined in the Service Agreement.
-      </p>
-    ),
-  },
+const SIDEBAR_SECTIONS = [
+  { id: "overview", title: "Overview" },
+  { id: "milestones", title: "Milestone-Based Payments" },
+  { id: "eligibility", title: "Refund Eligibility" },
+  { id: "non-refundable", title: "Non-Refundable Items" },
+  { id: "cancellation", title: "Cancellation Policy" },
+  { id: "how-to", title: "How to Request a Refund" },
+  { id: "disputes", title: "Dispute Resolution" },
+];
+
+const RELATED_LINKS = [
+  { href: "/terms", label: "Terms of Service" },
+  { href: "/privacy", label: "Privacy Policy" },
 ];
 
 export default function RefundPolicyPage() {
@@ -185,81 +87,236 @@ export default function RefundPolicyPage() {
         {/* ── Content ── */}
         <section className="py-16 md:py-24">
           <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 xl:gap-28">
-              {/* Sidebar Nav (sticky) */}
-              <aside className="lg:w-[28%] lg:sticky lg:top-32 lg:self-start h-fit hidden lg:block">
-                <p className="text-xs font-medium text-black/35 uppercase tracking-wider mb-5">
-                  On this page
-                </p>
-                <nav className="space-y-1">
-                  {SECTIONS.map((section, i) => (
-                    <a
-                      key={section.id}
-                      href={`#${section.id}`}
-                      className="flex items-center gap-3 py-2 text-sm text-black/45 hover:text-black transition-colors duration-200 group"
-                    >
-                      <span className="text-[11px] tabular-nums text-black/25 group-hover:text-black/50 transition-colors">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span>{section.title}</span>
-                    </a>
-                  ))}
-                </nav>
-
-                {/* Related links */}
-                <div className="mt-10 pt-8 border-t border-black/[0.06] space-y-3">
-                  <p className="text-xs font-medium text-black/35 uppercase tracking-wider mb-4">
-                    Related
-                  </p>
-                  <Link
-                    href="/terms"
-                    className="flex items-center gap-2 text-sm text-black/45 hover:text-black transition-colors"
-                  >
-                    Terms of Service
-                  </Link>
-                  <Link
-                    href="/privacy"
-                    className="flex items-center gap-2 text-sm text-black/45 hover:text-black transition-colors"
-                  >
-                    Privacy Policy
-                  </Link>
-                </div>
-
-                {/* Note card */}
-                <div className="mt-8 p-5 rounded-xl bg-black/[0.03] border border-black/[0.05]">
-                  <p className="text-xs font-medium text-black/50 mb-1.5">
-                    Note
-                  </p>
-                  <p className="text-[13px] text-black/40 leading-relaxed">
-                    This refund policy is part of the Enlivo Technologies Service
-                    Agreement.
-                  </p>
-                </div>
-              </aside>
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 xl:gap-20">
+              {/* Sidebar with scroll tracking */}
+              <LegalSidebar
+                sections={SIDEBAR_SECTIONS}
+                relatedLinks={RELATED_LINKS}
+                note="This refund policy is part of the Enlivo Technologies Service Agreement."
+              />
 
               {/* Main Content */}
-              <div className="lg:w-[72%]">
-                {/* Sections */}
-                <div className="space-y-6">
-                  {SECTIONS.map((section, i) => (
-                    <div
-                      key={section.id}
-                      id={section.id}
-                      className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
-                    >
-                      <div className="flex items-start gap-4 mb-5">
-                        <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
-                          {section.title}
-                        </h2>
-                      </div>
-                      <div className="legal-content pl-12 text-[15px] text-black/55 leading-relaxed space-y-4 [&_ul]:space-y-2.5 [&_ul]:mt-3 [&_li]:flex [&_li]:items-start [&_li]:gap-3 [&_li]:text-[15px] [&_li]:text-black/55 [&_li]:leading-relaxed [&_li]:before:content-[''] [&_li]:before:w-1.5 [&_li]:before:h-1.5 [&_li]:before:rounded-full [&_li]:before:bg-black/20 [&_li]:before:flex-shrink-0 [&_li]:before:mt-2">
-                        {section.content}
-                      </div>
+              <div className="lg:w-[70%]">
+                {/* Section Cards */}
+                <div className="space-y-5">
+                  {/* 01 — Overview */}
+                  <div
+                    id="overview"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        01
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Overview
+                      </h2>
                     </div>
-                  ))}
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        At Enlivo Technologies, we believe in transparent, fair
+                        billing. Our projects are structured around
+                        milestone-based payments — you pay for completed work,
+                        not promises. This policy outlines the terms under which
+                        refunds may be issued.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 02 — Milestone-Based Payments */}
+                  <div
+                    id="milestones"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        02
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Milestone-Based Payments
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        All projects are divided into clearly defined milestones,
+                        each with specific deliverables and acceptance criteria.
+                        Payment for each milestone is due upon successful
+                        delivery and client approval of the corresponding
+                        deliverables.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 03 — Refund Eligibility */}
+                  <div
+                    id="eligibility"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        03
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Refund Eligibility
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        Refunds may be issued under the following circumstances:
+                      </p>
+                      <ul className="space-y-2.5 mt-3">
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Milestone deliverables do not meet the agreed-upon
+                            acceptance criteria after two revision cycles
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Project is cancelled before any development work has
+                            begun (discovery/planning fees may still apply)
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Significant delays caused by Enlivo that exceed the
+                            agreed timeline by more than 30%
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Material breach of the Service Agreement by Enlivo
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* 04 — Non-Refundable Items */}
+                  <div
+                    id="non-refundable"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        04
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Non-Refundable Items
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>The following are generally non-refundable:</p>
+                      <ul className="space-y-2.5 mt-3">
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Work already completed and approved by the client
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Third-party licenses, hosting costs, or domain
+                            registrations purchased on behalf of the client
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Discovery and planning phase fees once the phase is
+                            completed
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>Rush or expedited delivery premiums</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* 05 — Cancellation Policy */}
+                  <div
+                    id="cancellation"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        05
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Cancellation Policy
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        Either party may terminate the engagement with 14 days
+                        written notice. Upon cancellation, the client is
+                        responsible for payment of all completed milestones and
+                        any work-in-progress at the pro-rata rate. All completed
+                        deliverables and source code will be transferred to the
+                        client upon final payment.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 06 — How to Request a Refund */}
+                  <div
+                    id="how-to"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        06
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        How to Request a Refund
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        To request a refund, please email us at{" "}
+                        <a
+                          href="mailto:contact@enlivotechnologies.com"
+                          className="text-[#2563EB] hover:underline"
+                        >
+                          contact@enlivotechnologies.com
+                        </a>{" "}
+                        with your project details, the milestone in question, and
+                        a description of the issue. We aim to respond to all
+                        refund requests within 3 business days.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 07 — Dispute Resolution */}
+                  <div
+                    id="disputes"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        07
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Dispute Resolution
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        In the event of a payment dispute, both parties agree to
+                        engage in good-faith negotiations before pursuing any
+                        legal remedies. If a resolution cannot be reached,
+                        disputes shall be resolved in accordance with the terms
+                        outlined in the Service Agreement.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

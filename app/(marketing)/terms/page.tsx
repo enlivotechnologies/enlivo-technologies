@@ -6,7 +6,7 @@
  *
  * DESIGN:
  * - Hero with blue accent tag, bold headline, last-updated badge
- * - Two-column layout: sticky sidebar nav + scrollable content
+ * - Two-column layout: gray sidebar nav (scroll-tracked) + white content cards
  * - Numbered sections with clean typography
  * - Bottom CTA to contact
  */
@@ -16,6 +16,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { JsonLd, buildBreadcrumbSchema } from "@/lib/schema";
 import { ArrowUpRight, FileText, Mail } from "lucide-react";
+import { LegalSidebar } from "@/components/legal/LegalSidebar";
 
 export const metadata: Metadata = buildMetadata({
   title: "Terms of Service | Enlivo Technologies",
@@ -32,129 +33,20 @@ export const metadata: Metadata = buildMetadata({
   ogImage: "/images/og/default.png",
 });
 
-const SECTIONS = [
-  {
-    id: "acceptance",
-    title: "Acceptance of Terms",
-    content: (
-      <p>
-        By accessing this website and using our services, you acknowledge that
-        you have read, understood, and agree to be bound by these Terms and our
-        Privacy Policy. If you do not agree with any part of these Terms, you may
-        not access or use our services.
-      </p>
-    ),
-  },
-  {
-    id: "use",
-    title: "Use of Our Services",
-    content: (
-      <>
-        <p>
-          You agree to use our services only for lawful purposes and in
-          accordance with these Terms. You agree not to:
-        </p>
-        <ul>
-          <li>
-            Use our services in any way that violates applicable laws or
-            regulations
-          </li>
-          <li>
-            Attempt to gain unauthorized access to any portion of our website or
-            services
-          </li>
-          <li>
-            Interfere with or disrupt the integrity or performance of our
-            services
-          </li>
-          <li>Transmit any malicious code, viruses, or harmful data</li>
-          <li>
-            Use automated systems to access our services without permission
-          </li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    id: "ip",
-    title: "Intellectual Property Rights",
-    content: (
-      <>
-        <p>
-          All content, features, and functionality of our website and services,
-          including but not limited to text, graphics, logos, and software, are
-          owned by Enlivo Technologies and are protected by international
-          copyright, trademark, and other intellectual property laws.
-        </p>
-        <p>
-          You may not reproduce, distribute, modify, or create derivative works
-          of any content from our website without our express written permission.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "availability",
-    title: "Service Availability",
-    content: (
-      <p>
-        We strive to ensure our services are available and reliable, but we do
-        not guarantee that our website or services will be uninterrupted, secure,
-        or error-free. We reserve the right to modify, suspend, or discontinue
-        any part of our services at any time without prior notice.
-      </p>
-    ),
-  },
-  {
-    id: "liability",
-    title: "Limitation of Liability",
-    content: (
-      <p>
-        To the maximum extent permitted by law, Enlivo Technologies shall not be
-        liable for any indirect, incidental, special, consequential, or punitive
-        damages, or any loss of profits or revenues, whether incurred directly or
-        indirectly, or any loss of data, use, goodwill, or other intangible
-        losses resulting from your use of our services.
-      </p>
-    ),
-  },
-  {
-    id: "indemnification",
-    title: "Indemnification",
-    content: (
-      <p>
-        You agree to defend, indemnify, and hold harmless Enlivo Technologies
-        and its officers, directors, employees, and agents from and against any
-        claims, liabilities, damages, losses, and expenses, including reasonable
-        attorneys&apos; fees, arising out of or in any way connected with your use of
-        our services or violation of these Terms.
-      </p>
-    ),
-  },
-  {
-    id: "governing-law",
-    title: "Governing Law",
-    content: (
-      <p>
-        These Terms shall be governed by and construed in accordance with
-        applicable laws, without regard to its conflict of law provisions. Any
-        disputes arising from these Terms shall be subject to the exclusive
-        jurisdiction of the appropriate courts.
-      </p>
-    ),
-  },
-  {
-    id: "changes",
-    title: "Changes to These Terms",
-    content: (
-      <p>
-        We reserve the right to modify these Terms at any time. We will notify
-        you of any material changes by posting the updated Terms on this page and
-        updating the &ldquo;Last updated&rdquo; date. Your continued use of our services
-        after such modifications constitutes acceptance of the updated Terms.
-      </p>
-    ),
-  },
+const SIDEBAR_SECTIONS = [
+  { id: "acceptance", title: "Acceptance of Terms" },
+  { id: "use", title: "Use of Our Services" },
+  { id: "ip", title: "Intellectual Property Rights" },
+  { id: "availability", title: "Service Availability" },
+  { id: "liability", title: "Limitation of Liability" },
+  { id: "indemnification", title: "Indemnification" },
+  { id: "governing-law", title: "Governing Law" },
+  { id: "changes", title: "Changes to These Terms" },
+];
+
+const RELATED_LINKS = [
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/refund-policy", label: "Refund Policy" },
 ];
 
 export default function TermsPage() {
@@ -196,80 +88,262 @@ export default function TermsPage() {
         {/* ── Content ── */}
         <section className="py-16 md:py-24">
           <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 xl:gap-28">
-              {/* Sidebar Nav (sticky) */}
-              <aside className="lg:w-[28%] lg:sticky lg:top-32 lg:self-start h-fit hidden lg:block">
-                <p className="text-xs font-medium text-black/35 uppercase tracking-wider mb-5">
-                  On this page
-                </p>
-                <nav className="space-y-1">
-                  {SECTIONS.map((section, i) => (
-                    <a
-                      key={section.id}
-                      href={`#${section.id}`}
-                      className="flex items-center gap-3 py-2 text-sm text-black/45 hover:text-black transition-colors duration-200 group"
-                    >
-                      <span className="text-[11px] tabular-nums text-black/25 group-hover:text-black/50 transition-colors">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span>{section.title}</span>
-                    </a>
-                  ))}
-                </nav>
-
-                {/* Related links */}
-                <div className="mt-10 pt-8 border-t border-black/[0.06] space-y-3">
-                  <p className="text-xs font-medium text-black/35 uppercase tracking-wider mb-4">
-                    Related
-                  </p>
-                  <Link
-                    href="/privacy"
-                    className="flex items-center gap-2 text-sm text-black/45 hover:text-black transition-colors"
-                  >
-                    Privacy Policy
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100" />
-                  </Link>
-                  <Link
-                    href="/refund-policy"
-                    className="flex items-center gap-2 text-sm text-black/45 hover:text-black transition-colors"
-                  >
-                    Refund Policy
-                  </Link>
-                </div>
-              </aside>
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 xl:gap-20">
+              {/* Sidebar with scroll tracking */}
+              <LegalSidebar
+                sections={SIDEBAR_SECTIONS}
+                relatedLinks={RELATED_LINKS}
+              />
 
               {/* Main Content */}
-              <div className="lg:w-[72%]">
+              <div className="lg:w-[70%]">
                 {/* Intro */}
-                <div className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 mb-8">
+                <div className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 mb-6">
                   <p className="text-[15px] md:text-base text-black/55 leading-relaxed">
-                    These Terms of Service (&ldquo;Terms&rdquo;) govern your access to and
-                    use of Enlivo Technologies&apos; website and services. By accessing
-                    or using our services, you agree to be bound by these Terms.
+                    These Terms of Service (&ldquo;Terms&rdquo;) govern your
+                    access to and use of Enlivo Technologies&apos; website and
+                    services. By accessing or using our services, you agree to be
+                    bound by these Terms.
                   </p>
                 </div>
 
-                {/* Sections */}
-                <div className="space-y-6">
-                  {SECTIONS.map((section, i) => (
-                    <div
-                      key={section.id}
-                      id={section.id}
-                      className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
-                    >
-                      <div className="flex items-start gap-4 mb-5">
-                        <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
-                          {section.title}
-                        </h2>
-                      </div>
-                      <div className="legal-content pl-12 text-[15px] text-black/55 leading-relaxed space-y-4 [&_ul]:space-y-2.5 [&_ul]:mt-3 [&_li]:flex [&_li]:items-start [&_li]:gap-3 [&_li]:text-[15px] [&_li]:text-black/55 [&_li]:leading-relaxed [&_li]:before:content-[''] [&_li]:before:w-1.5 [&_li]:before:h-1.5 [&_li]:before:rounded-full [&_li]:before:bg-black/20 [&_li]:before:flex-shrink-0 [&_li]:before:mt-2">
-                        {section.content}
-                      </div>
+                {/* Section Cards */}
+                <div className="space-y-5">
+                  {/* 01 — Acceptance of Terms */}
+                  <div
+                    id="acceptance"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        01
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Acceptance of Terms
+                      </h2>
                     </div>
-                  ))}
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        By accessing this website and using our services, you
+                        acknowledge that you have read, understood, and agree to
+                        be bound by these Terms and our Privacy Policy. If you do
+                        not agree with any part of these Terms, you may not
+                        access or use our services.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 02 — Use of Our Services */}
+                  <div
+                    id="use"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        02
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Use of Our Services
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        You agree to use our services only for lawful purposes
+                        and in accordance with these Terms. You agree not to:
+                      </p>
+                      <ul className="space-y-2.5 mt-3">
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Use our services in any way that violates applicable
+                            laws or regulations
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Attempt to gain unauthorized access to any portion of
+                            our website or services
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Interfere with or disrupt the integrity or
+                            performance of our services
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Transmit any malicious code, viruses, or harmful data
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/20 flex-shrink-0 mt-2" />
+                          <span>
+                            Use automated systems to access our services without
+                            permission
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* 03 — Intellectual Property Rights */}
+                  <div
+                    id="ip"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        03
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Intellectual Property Rights
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        All content, features, and functionality of our website
+                        and services, including but not limited to text,
+                        graphics, logos, and software, are owned by Enlivo
+                        Technologies and are protected by international
+                        copyright, trademark, and other intellectual property
+                        laws.
+                      </p>
+                      <p>
+                        You may not reproduce, distribute, modify, or create
+                        derivative works of any content from our website without
+                        our express written permission.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 04 — Service Availability */}
+                  <div
+                    id="availability"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        04
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Service Availability
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        We strive to ensure our services are available and
+                        reliable, but we do not guarantee that our website or
+                        services will be uninterrupted, secure, or error-free. We
+                        reserve the right to modify, suspend, or discontinue any
+                        part of our services at any time without prior notice.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 05 — Limitation of Liability */}
+                  <div
+                    id="liability"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        05
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Limitation of Liability
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        To the maximum extent permitted by law, Enlivo
+                        Technologies shall not be liable for any indirect,
+                        incidental, special, consequential, or punitive damages,
+                        or any loss of profits or revenues, whether incurred
+                        directly or indirectly, or any loss of data, use,
+                        goodwill, or other intangible losses resulting from your
+                        use of our services.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 06 — Indemnification */}
+                  <div
+                    id="indemnification"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        06
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Indemnification
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        You agree to defend, indemnify, and hold harmless Enlivo
+                        Technologies and its officers, directors, employees, and
+                        agents from and against any claims, liabilities, damages,
+                        losses, and expenses, including reasonable attorneys&apos;
+                        fees, arising out of or in any way connected with your
+                        use of our services or violation of these Terms.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 07 — Governing Law */}
+                  <div
+                    id="governing-law"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        07
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Governing Law
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        These Terms shall be governed by and construed in
+                        accordance with the laws of India, without regard to its
+                        conflict of law provisions. Any disputes arising from
+                        these Terms shall be subject to the exclusive
+                        jurisdiction of the courts in Bangalore, Karnataka,
+                        India.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 08 — Changes to These Terms */}
+                  <div
+                    id="changes"
+                    className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                        08
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                        Changes to These Terms
+                      </h2>
+                    </div>
+                    <div className="pl-12 text-[15px] text-black/55 leading-relaxed space-y-4">
+                      <p>
+                        We reserve the right to modify these Terms at any time.
+                        We will notify you of any material changes by posting the
+                        updated Terms on this page and updating the &ldquo;Last
+                        updated&rdquo; date. Your continued use of our services
+                        after such modifications constitutes acceptance of the
+                        updated Terms.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
