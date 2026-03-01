@@ -215,19 +215,32 @@ export function Hero({
             >
               {/* Primary Button */}
               <a
-                href="#audit"
+                href="https://cal.com/info-enlivo-yyhgqr"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 transition-all duration-300 px-8 py-3.5 rounded-full text-[15px] font-semibold min-w-[180px] shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]"
               >
-                Book Free 30-Min Audit 
+                Book Free 30-Min Audit
                 <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
               </a>
 
               {/* Secondary Button */}
               <a
-                href="#how-we-work"
+                href="#our-process"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.getElementById("our-process");
+                  if (!el) return;
+                  const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement, opts?: Record<string, unknown>) => void } }).lenis;
+                  if (lenis) {
+                    lenis.scrollTo(el, { offset: -120, duration: 1.4 });
+                  } else {
+                    el.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
                 className="group flex items-center justify-center gap-2 bg-white/[0.03] border border-white/10 text-white hover:bg-white/[0.08] hover:border-white/20 backdrop-blur-sm transition-all duration-300 px-8 py-3.5 rounded-full text-[15px] font-medium min-w-[180px]"
               >
-                See How We Work 
+                See How We Work
                 <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
               </a>
             </div>

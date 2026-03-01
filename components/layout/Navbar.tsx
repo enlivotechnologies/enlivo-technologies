@@ -81,19 +81,27 @@ export function Navbar() {
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-      if (pathname === "/" && href.startsWith("/#")) {
-        e.preventDefault();
+      if (href.startsWith("/#")) {
         const id = href.replace("/#", "");
-        const el = document.getElementById(id);
-        if (!el) return;
 
-        // Use Lenis scrollTo for butter-smooth nav scrolling (matches page feel)
-        const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement, opts?: Record<string, unknown>) => void } }).lenis;
-        if (lenis) {
-          lenis.scrollTo(el, { offset: -120, duration: 1.4 });
+        if (pathname === "/") {
+          // On homepage: smooth-scroll to the section
+          e.preventDefault();
+          const el = document.getElementById(id);
+          if (!el) return;
+
+          // Use Lenis scrollTo for butter-smooth nav scrolling (matches page feel)
+          const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement, opts?: Record<string, unknown>) => void } }).lenis;
+          if (lenis) {
+            lenis.scrollTo(el, { offset: -120, duration: 1.4 });
+          } else {
+            el.scrollIntoView({ behavior: "smooth" });
+          }
         } else {
-          // Fallback if Lenis isn't ready
-          el.scrollIntoView({ behavior: "smooth" });
+          // On other pages: navigate to homepage with hash
+          // The browser will navigate to / and then scroll to #id
+          e.preventDefault();
+          window.location.href = `/${href.startsWith("/#") ? `#${id}` : ""}`;
         }
       }
     },

@@ -369,8 +369,9 @@ export function OurProcess() {
 
   return (
     <section
+      id="our-process"
       ref={containerRef}
-      className="bg-white py-24 lg:py-32 overflow-hidden text-black font-sans relative"
+      className="bg-white py-24 lg:py-32 overflow-hidden text-black font-sans relative scroll-mt-28"
     >
       <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
 
