@@ -50,7 +50,7 @@ export default function ContactPage() {
       />
       <JsonLd data={buildFAQSchema(CONTACT_FAQS)} />
 
-      <main className="min-h-screen bg-[#FAFAF9]">
+      <main className="min-h-screen bg-white">
         {/* ── Hero Section ── */}
         <section className="pt-32 pb-20 md:pt-40 md:pb-28 bg-white">
           <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
@@ -61,11 +61,10 @@ export default function ContactPage() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-black tracking-tight leading-[1.05] mb-6">
-                Let&apos;s build something{" "}
-                <span className="text-black/40">great together.</span>
+                Let&apos;s build something{" "}great together.
               </h1>
 
-              <p className="text-lg md:text-xl text-black/60 font-light leading-relaxed max-w-xl">
+              <p className="text-lg md:text-xl text-black/70 font-light leading-relaxed max-w-xl">
                 Whether you have a product idea, need a rebuild, or want a
                 dedicated team — we&apos;re here to help you ship faster.
               </p>
@@ -74,11 +73,11 @@ export default function ContactPage() {
         </section>
 
         {/* ── Contact Cards ── */}
-        <section className="py-16 md:py-24">
+        <section className="py-10 md:py-16">
           <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
             <div className="grid md:grid-cols-3 gap-5 lg:gap-6">
               {/* Support Card */}
-              <div className="bg-white rounded-2xl p-8 md:p-10 flex flex-col border border-black/[0.06] hover:border-black/10 transition-colors duration-300 group">
+              <div className="bg-black/5 rounded-2xl p-8 md:p-10 flex flex-col border border-black/[0.06] hover:border-black/10 transition-colors duration-300 group">
                 <div className="w-12 h-12 rounded-xl bg-black/[0.04] flex items-center justify-center mb-8">
                   <MessageCircle
                     className="w-5 h-5 text-black"
@@ -132,7 +131,7 @@ export default function ContactPage() {
               </div>
 
               {/* Email / Media Card */}
-              <div className="bg-white rounded-2xl p-8 md:p-10 flex flex-col border border-black/[0.06] hover:border-black/10 transition-colors duration-300 group">
+              <div className="bg-black/5 rounded-2xl p-8 md:p-10 flex flex-col border border-black/[0.06] hover:border-black/10 transition-colors duration-300 group">
                 <div className="w-12 h-12 rounded-xl bg-black/[0.04] flex items-center justify-center mb-8">
                   <Mail className="w-5 h-5 text-black" strokeWidth={1.5} />
                 </div>
@@ -156,7 +155,7 @@ export default function ContactPage() {
         </section>
 
         {/* ── Trust Strip ── */}
-        <section className="py-12 md:py-16 border-y border-black/[0.06] bg-white">
+        <section className="py-8 md:py-10 border-y border-black/[0.06] border-dashed bg-white">
           <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
               {[
@@ -189,7 +188,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <p className="text-sm text-black/50 font-medium mb-0.5">
+                    <p className="text-sm text-black/70 font-medium mb-0.5">
                       {stat.label}
                     </p>
                     <p className="text-lg font-semibold text-black tracking-tight">
@@ -219,16 +218,16 @@ export default function ContactPage() {
                     <br className="hidden sm:block" /> always ask.
                   </h2>
 
-                  <p className="text-base text-black/55 leading-relaxed mb-8 max-w-sm">
+                  <p className="text-base text-black/70 leading-relaxed mb-8 max-w-sm">
                     Honest answers to the real questions you have before making a
                     decision.
                   </p>
 
                   {/* Office Info */}
-                  <div className="space-y-4 pt-6 border-t border-black/[0.06]">
+                  <div className="space-y-4 pt-6 border-t border-black/[0.09]">
                     <div className="flex items-start gap-3">
                       <MapPin className="w-4 h-4 text-black/40 mt-0.5 flex-shrink-0" strokeWidth={1.5} />
-                      <p className="text-sm text-black/55 leading-relaxed">
+                      <p className="text-sm text-black/70 leading-relaxed">
                         #31 Srusthti Police Colony, Kengeri,
                         <br />
                         Bangalore 560060, India
@@ -238,7 +237,7 @@ export default function ContactPage() {
                       <Mail className="w-4 h-4 text-black/40 flex-shrink-0" strokeWidth={1.5} />
                       <a
                         href="mailto:contact@enlivotechnologies.com"
-                        className="text-sm text-black/55 hover:text-black transition-colors"
+                        className="text-sm text-black/70 hover:text-black transition-colors"
                       >
                         contact@enlivotechnologies.com
                       </a>
