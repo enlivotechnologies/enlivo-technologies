@@ -58,9 +58,9 @@ export default function RefundPolicyPage() {
         ])}
       />
 
-      <main className="min-h-screen bg-[#FAFAF9]">
+      <main className="min-h-screen bg-white">
         {/* ── Hero ── */}
-        <section className="pt-32 pb-12 md:pt-40 md:pb-16 bg-white border-b border-black/[0.06]">
+        <section className="pt-32 md:pt-40 bg-white">
           <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
             <div className="max-w-3xl">
               <div className="text-[11px] md:text-[12px] font-medium text-[#2563EB] flex items-center gap-2 uppercase mb-6">
