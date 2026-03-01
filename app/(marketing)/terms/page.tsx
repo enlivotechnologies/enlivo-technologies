@@ -1,14 +1,21 @@
 /**
  * app/(marketing)/terms/page.tsx
  *
- * PURPOSE: Terms of Service page with premium dark UI design.
- * SEO: Essential legal page for compliance and trust.
+ * PURPOSE: Terms of Service — premium legal page.
+ * WHY: Essential for compliance and trust. Clean, readable design.
+ *
+ * DESIGN:
+ * - Hero with blue accent tag, bold headline, last-updated badge
+ * - Two-column layout: sticky sidebar nav + scrollable content
+ * - Numbered sections with clean typography
+ * - Bottom CTA to contact
  */
 
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { JsonLd, buildBreadcrumbSchema } from "@/lib/schema";
+import { ArrowUpRight, FileText, Mail } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
   title: "Terms of Service | Enlivo Technologies",
@@ -25,9 +32,132 @@ export const metadata: Metadata = buildMetadata({
   ogImage: "/images/og/default.png",
 });
 
-export default function TermsPage() {
-  const lastUpdated = "January 2025";
+const SECTIONS = [
+  {
+    id: "acceptance",
+    title: "Acceptance of Terms",
+    content: (
+      <p>
+        By accessing this website and using our services, you acknowledge that
+        you have read, understood, and agree to be bound by these Terms and our
+        Privacy Policy. If you do not agree with any part of these Terms, you may
+        not access or use our services.
+      </p>
+    ),
+  },
+  {
+    id: "use",
+    title: "Use of Our Services",
+    content: (
+      <>
+        <p>
+          You agree to use our services only for lawful purposes and in
+          accordance with these Terms. You agree not to:
+        </p>
+        <ul>
+          <li>
+            Use our services in any way that violates applicable laws or
+            regulations
+          </li>
+          <li>
+            Attempt to gain unauthorized access to any portion of our website or
+            services
+          </li>
+          <li>
+            Interfere with or disrupt the integrity or performance of our
+            services
+          </li>
+          <li>Transmit any malicious code, viruses, or harmful data</li>
+          <li>
+            Use automated systems to access our services without permission
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: "ip",
+    title: "Intellectual Property Rights",
+    content: (
+      <>
+        <p>
+          All content, features, and functionality of our website and services,
+          including but not limited to text, graphics, logos, and software, are
+          owned by Enlivo Technologies and are protected by international
+          copyright, trademark, and other intellectual property laws.
+        </p>
+        <p>
+          You may not reproduce, distribute, modify, or create derivative works
+          of any content from our website without our express written permission.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "availability",
+    title: "Service Availability",
+    content: (
+      <p>
+        We strive to ensure our services are available and reliable, but we do
+        not guarantee that our website or services will be uninterrupted, secure,
+        or error-free. We reserve the right to modify, suspend, or discontinue
+        any part of our services at any time without prior notice.
+      </p>
+    ),
+  },
+  {
+    id: "liability",
+    title: "Limitation of Liability",
+    content: (
+      <p>
+        To the maximum extent permitted by law, Enlivo Technologies shall not be
+        liable for any indirect, incidental, special, consequential, or punitive
+        damages, or any loss of profits or revenues, whether incurred directly or
+        indirectly, or any loss of data, use, goodwill, or other intangible
+        losses resulting from your use of our services.
+      </p>
+    ),
+  },
+  {
+    id: "indemnification",
+    title: "Indemnification",
+    content: (
+      <p>
+        You agree to defend, indemnify, and hold harmless Enlivo Technologies
+        and its officers, directors, employees, and agents from and against any
+        claims, liabilities, damages, losses, and expenses, including reasonable
+        attorneys&apos; fees, arising out of or in any way connected with your use of
+        our services or violation of these Terms.
+      </p>
+    ),
+  },
+  {
+    id: "governing-law",
+    title: "Governing Law",
+    content: (
+      <p>
+        These Terms shall be governed by and construed in accordance with
+        applicable laws, without regard to its conflict of law provisions. Any
+        disputes arising from these Terms shall be subject to the exclusive
+        jurisdiction of the appropriate courts.
+      </p>
+    ),
+  },
+  {
+    id: "changes",
+    title: "Changes to These Terms",
+    content: (
+      <p>
+        We reserve the right to modify these Terms at any time. We will notify
+        you of any material changes by posting the updated Terms on this page and
+        updating the &ldquo;Last updated&rdquo; date. Your continued use of our services
+        after such modifications constitutes acceptance of the updated Terms.
+      </p>
+    ),
+  },
+];
 
+export default function TermsPage() {
   return (
     <>
       <JsonLd
@@ -37,155 +167,144 @@ export default function TermsPage() {
         ])}
       />
 
-      <main className="min-h-screen bg-white text-black">
-        {/* Hero Header */}
-        <section>
-          <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16 py-12 md:py-16">
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium text-black tracking-tight leading-[1.1]">
+      <main className="min-h-screen bg-[#FAFAF9]">
+        {/* ── Hero ── */}
+        <section className="pt-32 pb-12 md:pt-40 md:pb-16 bg-white border-b border-black/[0.06]">
+          <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
+            <div className="max-w-3xl">
+              <div className="text-[11px] md:text-[12px] font-medium text-[#2563EB] flex items-center gap-2 uppercase mb-6">
+                <div className="w-2 h-2 rounded-full bg-[#2563EB] shrink-0" />
+                Legal
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-black tracking-tight leading-[1.05] mb-5">
                 Terms of Service
               </h1>
-              <p className="text-base md:text-lg text-gray-600 font-light leading-relaxed max-w-2xl">
-                Last updated: {lastUpdated}
-              </p>
+
+              <div className="flex flex-wrap items-center gap-4 text-sm text-black/40">
+                <span className="inline-flex items-center gap-1.5">
+                  <FileText className="w-3.5 h-3.5" strokeWidth={1.5} />
+                  Last updated: January 2025
+                </span>
+                <span className="hidden sm:inline text-black/15">|</span>
+                <span>8 sections</span>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Content */}
-        <section className="py-8 md:py-10">
+        {/* ── Content ── */}
+        <section className="py-16 md:py-24">
           <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="prose prose-lg max-w-none space-y-6">
-              
-              {/* Introduction */}
-              <div className="space-y-3">
-                <p className="text-base md:text-lg text-gray-700 font-light leading-relaxed">
-                  These Terms of Service ("Terms") govern your access to and use of Enlivo Technologies' website and services. By accessing or using our services, you agree to be bound by these Terms.
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 xl:gap-28">
+              {/* Sidebar Nav (sticky) */}
+              <aside className="lg:w-[28%] lg:sticky lg:top-32 lg:self-start h-fit hidden lg:block">
+                <p className="text-xs font-medium text-black/35 uppercase tracking-wider mb-5">
+                  On this page
+                </p>
+                <nav className="space-y-1">
+                  {SECTIONS.map((section, i) => (
+                    <a
+                      key={section.id}
+                      href={`#${section.id}`}
+                      className="flex items-center gap-3 py-2 text-sm text-black/45 hover:text-black transition-colors duration-200 group"
+                    >
+                      <span className="text-[11px] tabular-nums text-black/25 group-hover:text-black/50 transition-colors">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span>{section.title}</span>
+                    </a>
+                  ))}
+                </nav>
+
+                {/* Related links */}
+                <div className="mt-10 pt-8 border-t border-black/[0.06] space-y-3">
+                  <p className="text-xs font-medium text-black/35 uppercase tracking-wider mb-4">
+                    Related
+                  </p>
+                  <Link
+                    href="/privacy"
+                    className="flex items-center gap-2 text-sm text-black/45 hover:text-black transition-colors"
+                  >
+                    Privacy Policy
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100" />
+                  </Link>
+                  <Link
+                    href="/refund-policy"
+                    className="flex items-center gap-2 text-sm text-black/45 hover:text-black transition-colors"
+                  >
+                    Refund Policy
+                  </Link>
+                </div>
+              </aside>
+
+              {/* Main Content */}
+              <div className="lg:w-[72%]">
+                {/* Intro */}
+                <div className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 mb-8">
+                  <p className="text-[15px] md:text-base text-black/55 leading-relaxed">
+                    These Terms of Service (&ldquo;Terms&rdquo;) govern your access to and
+                    use of Enlivo Technologies&apos; website and services. By accessing
+                    or using our services, you agree to be bound by these Terms.
+                  </p>
+                </div>
+
+                {/* Sections */}
+                <div className="space-y-6">
+                  {SECTIONS.map((section, i) => (
+                    <div
+                      key={section.id}
+                      id={section.id}
+                      className="bg-white rounded-2xl border border-black/[0.06] p-8 md:p-10 scroll-mt-28"
+                    >
+                      <div className="flex items-start gap-4 mb-5">
+                        <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/[0.04] flex items-center justify-center text-xs font-medium text-black/40 tabular-nums mt-0.5">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <h2 className="text-xl md:text-2xl font-medium text-black tracking-tight leading-snug">
+                          {section.title}
+                        </h2>
+                      </div>
+                      <div className="legal-content pl-12 text-[15px] text-black/55 leading-relaxed space-y-4 [&_ul]:space-y-2.5 [&_ul]:mt-3 [&_li]:flex [&_li]:items-start [&_li]:gap-3 [&_li]:text-[15px] [&_li]:text-black/55 [&_li]:leading-relaxed [&_li]:before:content-[''] [&_li]:before:w-1.5 [&_li]:before:h-1.5 [&_li]:before:rounded-full [&_li]:before:bg-black/20 [&_li]:before:flex-shrink-0 [&_li]:before:mt-2">
+                        {section.content}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Bottom CTA ── */}
+        <section className="py-16 md:py-20 bg-black">
+          <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-medium text-white tracking-tight mb-2">
+                  Have questions about our terms?
+                </h2>
+                <p className="text-base text-white/45">
+                  We&apos;re happy to clarify anything. Reach out anytime.
                 </p>
               </div>
-
-              {/* Acceptance of Terms */}
-              <div className="space-y-3 pt-6">
-                <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight">
-                  1. Acceptance of Terms
-                </h2>
-                <div className="space-y-3 text-gray-700 font-light leading-relaxed">
-                  <p className="text-base">
-                    By accessing this website and using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy. If you do not agree with any part of these Terms, you may not access or use our services.
-                  </p>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-black rounded-xl font-medium text-[15px] hover:bg-white/90 transition-all duration-200 group"
+                >
+                  Contact Us
+                  <ArrowUpRight className="w-4 h-4 ml-2 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+                <a
+                  href="mailto:contact@enlivotechnologies.com"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white rounded-xl font-medium text-[15px] hover:bg-white/15 border border-white/10 transition-all duration-200"
+                >
+                  <Mail className="w-4 h-4 mr-2" strokeWidth={1.5} />
+                  Email Us
+                </a>
               </div>
-
-              {/* Use of Services */}
-              <div className="space-y-3 pt-6">
-                <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight">
-                  2. Use of Our Services
-                </h2>
-                <div className="space-y-3 text-gray-700 font-light leading-relaxed">
-                  <p className="text-base">
-                    You agree to use our services only for lawful purposes and in accordance with these Terms. You agree not to:
-                  </p>
-                  <ul className="space-y-2 pl-6 list-disc list-outside text-gray-700">
-                    <li>Use our services in any way that violates applicable laws or regulations</li>
-                    <li>Attempt to gain unauthorized access to any portion of our website or services</li>
-                    <li>Interfere with or disrupt the integrity or performance of our services</li>
-                    <li>Transmit any malicious code, viruses, or harmful data</li>
-                    <li>Use automated systems to access our services without permission</li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Intellectual Property */}
-              <div className="space-y-3 pt-6">
-                <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight">
-                  3. Intellectual Property Rights
-                </h2>
-                <div className="space-y-3 text-gray-700 font-light leading-relaxed">
-                  <p className="text-base">
-                    All content, features, and functionality of our website and services, including but not limited to text, graphics, logos, and software, are owned by Enlivo Technologies and are protected by international copyright, trademark, and other intellectual property laws.
-                  </p>
-                  <p className="text-base">
-                    You may not reproduce, distribute, modify, or create derivative works of any content from our website without our express written permission.
-                  </p>
-                </div>
-              </div>
-
-              {/* Service Availability */}
-              <div className="space-y-3 pt-6">
-                <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight">
-                  4. Service Availability
-                </h2>
-                <div className="space-y-3 text-gray-700 font-light leading-relaxed">
-                  <p className="text-base">
-                    We strive to ensure our services are available and reliable, but we do not guarantee that our website or services will be uninterrupted, secure, or error-free. We reserve the right to modify, suspend, or discontinue any part of our services at any time without prior notice.
-                  </p>
-                </div>
-              </div>
-
-              {/* Limitation of Liability */}
-              <div className="space-y-3 pt-6">
-                <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight">
-                  5. Limitation of Liability
-                </h2>
-                <div className="space-y-3 text-gray-700 font-light leading-relaxed">
-                  <p className="text-base">
-                    To the maximum extent permitted by law, Enlivo Technologies shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from your use of our services.
-                  </p>
-                </div>
-              </div>
-
-              {/* Indemnification */}
-              <div className="space-y-3 pt-6">
-                <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight">
-                  6. Indemnification
-                </h2>
-                <div className="space-y-3 text-gray-700 font-light leading-relaxed">
-                  <p className="text-base">
-                    You agree to defend, indemnify, and hold harmless Enlivo Technologies and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorneys' fees, arising out of or in any way connected with your use of our services or violation of these Terms.
-                  </p>
-                </div>
-              </div>
-
-              {/* Governing Law */}
-              <div className="space-y-3 pt-6">
-                <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight">
-                  7. Governing Law
-                </h2>
-                <div className="space-y-3 text-gray-700 font-light leading-relaxed">
-                  <p className="text-base">
-                    These Terms shall be governed by and construed in accordance with applicable laws, without regard to its conflict of law provisions. Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the appropriate courts.
-                  </p>
-                </div>
-              </div>
-
-              {/* Changes to Terms */}
-              <div className="space-y-3 pt-6">
-                <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tight">
-                  8. Changes to These Terms
-                </h2>
-                <div className="space-y-3 text-gray-700 font-light leading-relaxed">
-                  <p className="text-base">
-                    We reserve the right to modify these Terms at any time. We will notify you of any material changes by posting the updated Terms on this page and updating the "Last updated" date. Your continued use of our services after such modifications constitutes acceptance of the updated Terms.
-                  </p>
-                </div>
-              </div>
-
             </div>
-          </div>
-        </section>
-
-        {/* Footer CTA */}
-        <section className="py-12">
-          <div className="max-w-[90rem] mx-auto px-6 sm:px-12 lg:px-16 text-center">
-            <p className="text-base text-gray-600 font-light mb-6">
-              Have questions about our terms?
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 text-black font-medium hover:text-gray-700 transition-colors duration-200 border-b border-black/20 hover:border-black"
-            >
-              Contact Us
-            </Link>
           </div>
         </section>
       </main>
