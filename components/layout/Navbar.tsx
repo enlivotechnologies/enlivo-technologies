@@ -120,21 +120,22 @@ export function Navbar() {
           {/* Subtle noise texture or pattern overlay (optional) */}
           <div className="absolute inset-0 bg-white/[0.03] pointer-events-none" />
 
-          <div className="relative max-w-[90rem] mx-auto px-4 h-10 sm:h-11 flex items-center justify-center text-center">
-             <Link 
-               href="/contact" 
-               className="group flex items-center justify-center gap-3 w-full h-full text-[12px] sm:text-[13px] font-medium text-black transition-colors"
+          <div className="relative max-w-[90rem] mx-auto px-3 sm:px-4 h-10 sm:h-11 flex items-center justify-center text-center">
+             <Link
+               href="/contact"
+               className="group flex items-center justify-center gap-2 sm:gap-3 w-full h-full text-[11px] sm:text-[13px] font-medium text-black transition-colors"
              >
-               <span className="inline-block animate-pulse text-lg leading-none">🎯</span>
+               <span className="hidden sm:inline-block animate-pulse text-lg leading-none">🎯</span>
                <span>
                  <span className="opacity-90">Limited: First 3 clients get</span>{" "}
                  <span className="font-semibold text-black border-b border-black/40 pb-0.5 group-hover:border-black transition-colors">50% off MVP development</span>
                </span>
-               
-               {/* "Claim Your Spot" Button Style */}
-               <span className="flex items-center gap-1 ml-1 bg-white/20 hover:bg-white/30 text-black px-3 py-1 rounded-full text-[11px] sm:text-[12px] font-semibold transition-all duration-300 backdrop-blur-sm border border-black/10 group-hover:border-black/20">
+
+               {/* "Claim Your Spot" Button Style — hidden on small mobile */}
+               <span className="hidden min-[480px]:flex items-center gap-1 ml-1 bg-white/20 hover:bg-white/30 text-black px-3 py-1 rounded-full text-[11px] sm:text-[12px] font-semibold transition-all duration-300 backdrop-blur-sm border border-black/10 group-hover:border-black/20">
                  Claim Your Spot <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-300" />
                </span>
+               <ArrowRight className="w-3 h-3 min-[480px]:hidden flex-shrink-0" />
              </Link>
           </div>
         </div>
