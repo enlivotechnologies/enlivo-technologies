@@ -132,8 +132,8 @@ export function FounderProblem() {
           <div className="max-w-[85rem] mx-auto border-x border-dashed border-black/15">
             <div className="py-5 lg:py-6 px-6 lg:px-8 flex justify-end items-center">
                
-               <div className="flex flex-row items-center gap-3 md:gap-4 whitespace-nowrap">
-                 <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium tracking-tight leading-none">
+               <div className="flex flex-row items-center gap-3 md:gap-4">
+                 <p className="text-base sm:text-xl md:text-2xl lg:text-3xl font-medium tracking-tight leading-snug">
                  The Real Cost: <span className="text-red-600 font-medium">$80k+</span> spent. <span className="text-red-600 font-medium">6 months</span> lost. Back to square one.
                  </p>
                  

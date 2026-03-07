@@ -195,7 +195,7 @@ export function Hero({
             <h1
               ref={headingRef}
               id="hero-heading"
-              className="text-4xl sm:text-5xl lg:text-6xl font-medium text-white tracking-tight leading-[1.15] mb-6 opacity-0 drop-shadow-2xl"
+              className="text-3xl sm:text-5xl lg:text-6xl font-medium text-white tracking-tight leading-[1.15] mb-6 opacity-0 drop-shadow-2xl"
             >
               {heading}
             </h1>
@@ -218,7 +218,7 @@ export function Hero({
                 href="https://cal.com/info-enlivo-yyhgqr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 transition-all duration-300 px-8 py-3.5 rounded-full text-[15px] font-semibold min-w-[180px] shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]"
+                className="group flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 transition-all duration-300 px-8 py-3.5 rounded-full text-[15px] font-semibold w-full sm:w-auto sm:min-w-[180px] shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]"
               >
                 Book Free 30-Min Audit
                 <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
@@ -238,7 +238,7 @@ export function Hero({
                     el.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
-                className="group flex items-center justify-center gap-2 bg-white/[0.03] border border-white/10 text-white hover:bg-white/[0.08] hover:border-white/20 backdrop-blur-sm transition-all duration-300 px-8 py-3.5 rounded-full text-[15px] font-medium min-w-[180px]"
+                className="group flex items-center justify-center gap-2 bg-white/[0.03] border border-white/10 text-white hover:bg-white/[0.08] hover:border-white/20 backdrop-blur-sm transition-all duration-300 px-8 py-3.5 rounded-full text-[15px] font-medium w-full sm:w-auto sm:min-w-[180px]"
               >
                 See How We Work
                 <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
