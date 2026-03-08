@@ -69,13 +69,13 @@ const TEAM_MEMBERS = [
     image:
       "https://res.cloudinary.com/dzjxexhzf/image/upload/v1772264412/abhi-img2_nyj668.png",
   },
-  {
-    type: "image",
-    name: "Neha S Rao",
-    role: "HR Manager",
-    image:
-      "https://res.cloudinary.com/dzjxexhzf/image/upload/v1772011582/ceo_sqqqov.jpg",
-  },
+  // {
+  //   type: "image",
+  //   name: "Neha S Rao",
+  //   role: "HR Manager",
+  //   image:
+  //     "https://res.cloudinary.com/dzjxexhzf/image/upload/v1772011582/ceo_sqqqov.jpg",
+  // },
   {
     type: "image",
     name: "Nishal N Poojary",
@@ -97,13 +97,13 @@ const TEAM_MEMBERS = [
     image:
       "https://res.cloudinary.com/dzjxexhzf/image/upload/v1772125090/vivek_kjtnki.jpg",
   },
-  {
-    type: "image",
-    name: "Anush",
-    role: "", // Kept exactly as you provided
-    image:
-      "https://res.cloudinary.com/dzjxexhzf/image/upload/v1772125659/anush_e2pzvy.jpg",
-  },
+  // {
+  //   type: "image",
+  //   name: "Anush",
+  //   role: "", // Kept exactly as you provided
+  //   image:
+  //     "https://res.cloudinary.com/dzjxexhzf/image/upload/v1772125659/anush_e2pzvy.jpg",
+  // },
 ];
 
 const VALUES = [
@@ -207,7 +207,7 @@ export default function TeamPage() {
                           {member.bio}
                         </p>
                       </div>
-                      <div className="flex items-center gap-5 text-white mt-8">
+                      {/* <div className="flex items-center gap-5 text-white mt-8">
                         {member.socials?.linkedin && (
                           <a
                             href={member.socials.linkedin}
@@ -232,7 +232,7 @@ export default function TeamPage() {
                             <Instagram className="w-5 h-5" />
                           </a>
                         )}
-                      </div>
+                      </div> */}
                     </div>
                   );
                 }
